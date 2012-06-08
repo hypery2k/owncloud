@@ -1,6 +1,6 @@
 <form id="mail" action="#" method="post">
 	<fieldset class="personalblock">
-		<legend><strong>Mail</strong></legend>
+		<legend><strong>RoundCube Mail</strong></legend>
         <p><label for="mail"><?php echo $l->t('Roundcubedir');?>
         <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>">
         </label></p>

@@ -1,9 +1,9 @@
 <?php
 /**
-* ownCloud - mail plugin
+* ownCloud - roundcube mail plugin
 *
-* @author David Jaedke
-* @copyright 2012 David Jaedke david@stuggis.de
+* @author Martin Reinhardt
+* @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
 * 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,24 +20,24 @@
 * 
 */
 
-$l=new OC_L10N('mail');
-OC::$CLASSPATH['OC_Mail_App'] = 'apps/mail/lib/mail.php';
-OC::$CLASSPATH['RoundcubeLogin'] = 'apps/mail/lib/RoundcubeLogin.class.php';
+$l=new OC_L10N('roundcube');
+OC::$CLASSPATH['OC_Mail_App'] = 'apps/roundcube/lib/mail.php';
+OC::$CLASSPATH['RoundcubeLogin'] = 'apps/roundcube/lib/RoundcubeLogin.class.php';
 
-OC_APP::registerAdmin('mail','adminSettings');
-OC_App::registerPersonal('mail','userSettings');
+OC_APP::registerAdmin('roundcube','adminSettings');
+OC_App::registerPersonal('roundcube','userSettings');
 
 OC_App::register( array(
 	'order' => 10,
-	'id' => 'mail',
-	'name' => 'Mail' )
+	'id' => 'roundcube',
+	'name' => 'RoundCube Mail' )
 );
 
 OC_App::addNavigationEntry( array(
-    'id' => 'mail_index',
+    'id' => 'roundcube_index',
     'order' => 10,
-    'href' => OC_Helper::linkTo( 'mail', 'index.php' ),
-    'icon' => OC_Helper::imagePath( 'mail', 'mail.png' ),
+    'href' => OC_Helper::linkTo( 'roundcube', 'index.php' ),
+    'icon' => OC_Helper::imagePath( 'roundcube', 'mail.png' ),
     'name' => $l->t('Mail'))
 );
 ?>

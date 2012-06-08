@@ -5,7 +5,7 @@
 	<overwrite>false</overwrite>
 	<charset>latin1</charset>
 	<table>
-		<name>*dbprefix*mail</name>
+		<name>*dbprefix*roundcube</name>
 		<declaration>
 			<field>
 				<name>id</name>

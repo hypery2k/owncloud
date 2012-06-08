@@ -2,9 +2,9 @@
 require_once(OC::$APPSROOT . '/lib/base.php');
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('bookmarks');
-OCP\App::setActiveNavigationEntry("mail_index");
+OCP\App::setActiveNavigationEntry("roundcube_index");
 
 
-$tmpl = new OCP\TEMPLATE("mail", "mail", "user");
+$tmpl = new OCP\TEMPLATE("roundcube", "roundcube", "user");
 $tmpl-> printpage();
 ?>

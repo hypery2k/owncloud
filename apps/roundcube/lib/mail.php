@@ -1,11 +1,10 @@
 <?php
 
-//include(OC::$APPSROOT   '/mail/RoundcubeLogin.class.php');
 /**
-* ownCloud - mail plugin
+* ownCloud - roundcube mail plugin
 *
-* @author David Jaedke
-* @copyright 2012 David Jaedke david@stuggis.de
+* @author Martin Reinhardt
+* @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
 * 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -21,10 +20,10 @@
 * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 * 
 */
-class OC_Mail_App {	
+class OC_RoundCubeMail_App {	
 	public $mailData = '';
 	public static function existLoginData($meUser) {
-		$stmt = OC_DB::prepare("SELECT id FROM *PREFIX*mail WHERE ocUser = '".$meUser."'");
+		$stmt = OC_DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE ocUser = '".$meUser."'");
 		$result = $stmt->execute();
 		$row = $result->fetchRow();
 		
@@ -32,7 +31,7 @@ class OC_Mail_App {
 	}
 	
 	public static function writeBasicData($meUser) {
-		$stmt = OC_DB::prepare("INSERT INTO *PREFIX*mail (ocUser) VALUES('$meUser')");
+		$stmt = OC_DB::prepare("INSERT INTO *PREFIX*roundcube (ocUser) VALUES('$meUser')");
 		$result = $stmt->execute();
 		self::checkLoginData($meUser, 1);
 	}
@@ -53,8 +52,8 @@ class OC_Mail_App {
 	//own cryptfunction
 	public static function cryptMyEntry($entry) {
 		
-		$before = OC_Appconfig::getValue('mail', 'encryptstring1','');
-		$after = OC_Appconfig::getValue('mail', 'encryptstring2','');
+		$before = OC_Appconfig::getValue('roundcube', 'encryptstring1','');
+		$after = OC_Appconfig::getValue('roundcube', 'encryptstring2','');
 		$string = $before.$entry.$after;
 		
 		$hex='';
@@ -67,8 +66,8 @@ class OC_Mail_App {
 
 	//decrypt password
 	public static function decryptMyEntry($hex) {
-		$before = OC_Appconfig::getValue('mail', 'encryptstring1','');
-		$after = OC_Appconfig::getValue('mail', 'encryptstring2','');
+		$before = OC_Appconfig::getValue('roundcube', 'encryptstring1','');
+		$after = OC_Appconfig::getValue('roundcube', 'encryptstring2','');
 		$string='';
 	    for ($i=0; $i < strlen($hex)-1; $i+=2)
 	    {
