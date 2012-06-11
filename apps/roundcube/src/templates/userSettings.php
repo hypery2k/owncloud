@@ -20,9 +20,9 @@
 * 
 */
 
-$mailuserdata = OC_RoundCubeMail_App::checkLoginData(OC_User::getUser());
-$mailUsername = OC_RoundCubeMail_App::decryptMyEntry($mailuserdata['mailUser']);
-$mailPassword = OC_RoundCubeMail_App::decryptMyEntry($mailuserdata['mailPass']);
+$mailuserdata = OC_RoundCube_App::checkLoginData(OC_User::getUser());
+$mailUsername = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailUser']);
+$mailPassword = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailPass']);
 ?>
 
 <form id="usermail" action="#" method="post">

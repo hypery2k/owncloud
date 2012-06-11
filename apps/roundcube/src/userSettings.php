@@ -1,8 +1,8 @@
 <?php
 if ($_POST) {
-	$myID = OC_RoundCubeMail_App::existLoginData(OC_User::getUser());
-	$mailuser = OC_RoundCubeMail_App::cryptMyEntry($_POST['mailUsername']);
-	$mailpass = OC_RoundCubeMail_App::cryptMyEntry($_POST['mailPassword']);
+	$myID = OC_RoundCube_App::existLoginData(OC_User::getUser());
+	$mailuser = OC_RoundCube_App::cryptMyEntry($_POST['mailUsername']);
+	$mailpass = OC_RoundCube_App::cryptMyEntry($_POST['mailPassword']);
 	$stmt = OC_DB::prepare("UPDATE *PREFIX*roundcube SET mailUser = '$mailuser', mailPass = '$mailpass' WHERE id = $myID");
 	$result = $stmt->execute();
 }

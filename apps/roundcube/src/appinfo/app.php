@@ -21,7 +21,7 @@
 */
 
 $l=new OC_L10N('roundcube');
-OC::$CLASSPATH['OC_Mail_App'] = 'apps/roundcube/lib/mail.php';
+OC::$CLASSPATH['OC_RoundCube_App'] = 'apps/roundcube/lib/mail.php';
 OC::$CLASSPATH['RoundcubeLogin'] = 'apps/roundcube/lib/RoundcubeLogin.class.php';
 
 OC_APP::registerAdmin('roundcube','adminSettings');
@@ -38,6 +38,6 @@ OC_App::addNavigationEntry( array(
     'order' => 10,
     'href' => OC_Helper::linkTo( 'roundcube', 'index.php' ),
     'icon' => OC_Helper::imagePath( 'roundcube', 'mail.png' ),
-    'name' => $l->t('Mail'))
+    'name' => $l->t('Webmail'))
 );
 ?>

@@ -20,7 +20,7 @@
 * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 * 
 */
-class OC_RoundCubeMail_App {	
+class OC_RoundCube_App {	
 	public $mailData = '';
 	public static function existLoginData($meUser) {
 		$stmt = OC_DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE ocUser = '".$meUser."'");
