@@ -129,14 +129,19 @@ class OC_RoundCube_App {
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
 
 		// Create RC login object.
+		$debug=false;
 		$rcl = new RoundcubeLogin($maildir, $debug);
  
 		try {
    			// Try to login
- 			OC_Log::write('roundcube','Trying to logged into roundcube webinterface',OC_Log::DEBUG);
-   			$rcl->login($ownUser, $ownPass);
-	 		OC_Log::write('roundcube','Successfully logged into roundcube ',OC_Log::DEBUG);
-			OC_Log::write('roundcube','Preparing iFrame for roundcube',OC_Log::DEBUG);
+ 			OCP\Util::writeLog('roundcube','Trying to logged into roundcube webinterface as user '.$ownUser,OCP\Util::DEBUG);
+   			if ($rcl->login($ownUser, $ownPass)){
+         		OCP\Util::writeLog('roundcube','Successfully logged into roundcube ',OCP\Util::DEBUG);
+			} else {
+				// If the login fails, display an error message in the loggs
+				OCP\Util::writeLog('roundcube','RoundCube can\'t login to roundcube due to a login error to roundcube',OCP\Util::ERROR);
+			}
+			OCP\Util::writeLog('roundcube','Preparing iFrame for roundcube',OCP\Util::DEBUG);
 			// create iFrame begin
 			echo '<iframe  src="'.$rcl->getRedirectPath().'" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>
 			<script type="text/javascript">
@@ -170,7 +175,7 @@ class OC_RoundCube_App {
 		catch (RoundcubeLoginException $ex) {
 		   echo "ERROR: Technical problem, ".$ex->getMessage();
 		   $rcl->dumpDebugStack(); exit;
-			OC_Log::write('roundcube','RoundCube can\'t login to roundcube due to a login exception to roundcube',OC_Log::ERROR);
+			OCP\Util::writeLog('roundcube','RoundCube can\'t login to roundcube due to a login exception to roundcube',OCP\Util::ERROR);
 		}
 
 	}
