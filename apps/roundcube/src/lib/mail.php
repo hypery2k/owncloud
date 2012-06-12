@@ -135,15 +135,7 @@ class OC_RoundCube_App {
    			// Try to login
  			OC_Log::write('roundcube','Trying to logged into roundcube webinterface',OC_Log::DEBUG);
    			$rcl->login($ownUser, $ownPass);
-
-		 	if ($rcl->isLoggedIn()){
-		 		OC_Log::write('roundcube','Successfully logged into roundcube ',OC_Log::DEBUG);
-			} else {
-		 		// If the login fails, display an error message in the loggs
-				OC_Log::write('roundcube','RoundCube can\'t login to roundcube due to a login error to roundcube',OC_Log::ERROR);
-			}
-  
-
+	 		OC_Log::write('roundcube','Successfully logged into roundcube ',OC_Log::DEBUG);
 			OC_Log::write('roundcube','Preparing iFrame for roundcube',OC_Log::DEBUG);
 			// create iFrame begin
 			echo '<iframe  src="'.$rcl->getRedirectPath().'" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>
