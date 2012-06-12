@@ -1,0 +1,15 @@
+<form id="mail" action="#" method="post">
+	<fieldset class="personalblock">
+		<legend><strong>RoundCube Mail</strong></legend>
+        <p><label for="mail"><?php echo $l->t('Roundcubedir');?>
+        <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>">
+        </label></p>
+        <p><label for="mail"><?php echo $l->t('Encryptstring1');?>
+        <input type="text" id="encryptstring1" name="encryptstring1" value="<?php echo $_['encryptstring1']; ?>">
+        </label></p>
+        <p><label for="mail"><?php echo $l->t('Encryptstring2');?>
+        <input type="text" id="encryptstring2" name="encryptstring2" value="<?php echo $_['encryptstring2']; ?>">
+        </label></p>
+        <input type="submit" value="Save" />
+	</fieldset>
+</form>
