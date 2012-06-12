@@ -361,7 +361,9 @@ class RoundcubeLogin {
                 . $cookies
                 . "Connection: close\r\n\r\n";
         }
-        
+        OCP\Util::writeLog('roundcube','Trying to connect to host '.$host.' on port '.$port,OCP\Util::DEBUG);
+
+
         // Send request    
         $fp = fsockopen($host, $port);
 
@@ -377,11 +379,13 @@ class RoundcubeLogin {
             $line = fgets($fp, 4096);            
 
             // Not found
-            if (preg_match('/^HTTP\/1\.\d\s+404\s+/',$line))
+            if (preg_match('/^HTTP\/1\.\d\s+404\s+/',$line)) {
+				OCP\Util::writeLog('roundcube','Resceived an 404 error during trying to open the url. No Roundcube installation found at '.$path,OCP\Util::DEBUG);
                 throw new RoundcubeLoginException("No Roundcube installation found at '$path'");
-
+			}
             // Got session ID!
             if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i',$line,$match)) {
+				OCP\Util::writeLog('roundcube','Got the following new session id  '.$match[2],OCP\Util::DEBUG);
                 header($line, false);
             
                 $this->addDebug("GOT SESSION ID", "New session ID: '$match[2]'.");
@@ -390,6 +394,7 @@ class RoundcubeLogin {
             
             // Got sessauth
             if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i',$line,$match)) {
+				OCP\Util::writeLog('roundcube','Got the following new session auth '.$match[1],OCP\Util::DEBUG);
                 header($line, false);
             
                 $this->addDebug("GOT SESSION AUTH", "New session auth: '$match[1]'.");
@@ -426,7 +431,7 @@ class RoundcubeLogin {
      * Dump the debug stack
      */
     public function dumpDebugStack() {
-		OCP\Util::writeLog('roundcube',$this->debugStack.' '.$data,OCP\Util::TRACE);
+		OCP\Util::writeLog('roundcube',$this->debugStack.' '.$data,OCP\Util::ERROR);
     }    
 }
 
