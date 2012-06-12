@@ -140,14 +140,6 @@ class RoundcubeLogin {
     private $lastToken;
     
     /**
-     * Debugging can be enabled by setting the second argument
-     * in the constructor to TRUE.
-     *
-     * @var bool
-     */
-    private $debugEnabled;
-    
-    /**
      * Keep debug messages on a stack. To dump it, call
      * the dumpDebugStack()-function.
      *
@@ -163,7 +155,6 @@ class RoundcubeLogin {
      */
     public function __construct($webmailPath, $enableDebug = false) {
         $this->debugStack = array();
-        $this->debugEnabled = $enableDebug;
         
         $this->rcPath = $webmailPath;        
         $this->rcSessionID = false;
@@ -428,20 +419,14 @@ class RoundcubeLogin {
      * @param string Output data
      */
     private function addDebug($action, $data) {
-        if (!$this->debugEnabled)
-            return false;
-        
-        $this->debugStack[] = sprintf(
-            "<b>%s:</b><br /><pre>%s</pre>",
-            $action, htmlspecialchars($data) 
-        );
+        OCP\Util::writeLog('roundcube',$action.': \n '.$data,OCP\Util::DEBUG);
     }
     
     /**
      * Dump the debug stack
      */
     public function dumpDebugStack() {
-        print "<p>".join("\n", $this->debugStack)."</p>";
+		OCP\Util::writeLog('roundcube',$this->debugStack.' '.$data,OCP\Util::TRACE);
     }    
 }
 
