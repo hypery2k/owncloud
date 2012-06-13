@@ -132,13 +132,17 @@ class OC_RoundCube_App {
 		$rcl = new RoundcubeLogin($maildir);
  
 		try {
-   			// Try to login
- 			OCP\Util::writeLog('roundcube','Trying to log into roundcube webinterface under '.$maildir.' as user '.$ownUser,OCP\Util::DEBUG);
-   			if ($rcl->login($ownUser, $ownPass)){
-         		OCP\Util::writeLog('roundcube','Successfully logged into roundcube ',OCP\Util::DEBUG);
+   			if ($rcl->isLoggedIn()){
+				// Try to login
+	 			OCP\Util::writeLog('roundcube','Trying to log into roundcube webinterface under '.$maildir.' as user '.$ownUser,OCP\Util::DEBUG);
+	   			if ($rcl->login($ownUser, $ownPass)){
+	         		OCP\Util::writeLog('roundcube','Successfully logged into roundcube ',OCP\Util::DEBUG);
+				} else {
+					// If the login fails, display an error message in the loggs
+					OCP\Util::writeLog('roundcube','RoundCube can\'t login to roundcube due to a login error to roundcube',OCP\Util::ERROR);
+				}
 			} else {
-				// If the login fails, display an error message in the loggs
-				OCP\Util::writeLog('roundcube','RoundCube can\'t login to roundcube due to a login error to roundcube',OCP\Util::ERROR);
+				OCP\Util::writeLog('roundcube','user is already logged into roundcube webinterface under '.$maildir.' as user '.$ownUser,OCP\Util::DEBUG);
 			}
 			OCP\Util::writeLog('roundcube','Preparing iFrame for roundcube:'.$rcl->getRedirectPath(),OCP\Util::DEBUG);
 			// create iFrame begin
