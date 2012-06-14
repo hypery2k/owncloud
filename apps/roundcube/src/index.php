@@ -6,15 +6,22 @@ if( !OC_User::isLoggedIn()){
 	exit();
 }
 // check if app bookmark is enabled, since we need this app
-if (!OCP\App::isEnabled('bookmarks')){
+if (!OC_App::isEnabled('bookmarks')){
 	OC_Log::write('core','RoundCube can\'t be installed because the Bookmarks App isn\'t enabled',OC_Log::ERROR);
 	header( "Location: ".OC_Helper::linkTo( '', 'index.php' ));
 	exit();
 }
+
+// Load our style
+OC_Util::addStyle('roundcube', 'base');
+// add neede JS
+OC_Util::addScript('','jquery-1.7.2.min');
+OC_Util::addScript('roundcube','modernizr');
+
 // add new navigation entry
-OCP\App::setActiveNavigationEntry("roundcube_index");
+OC_App::setActiveNavigationEntry("roundcube_index");
 
 
-$tmpl = new OCP\TEMPLATE("roundcube", "mail", "user");
+$tmpl = new OC_TEMPLATE("roundcube", "mail", "user");
 $tmpl-> printpage();
 ?>

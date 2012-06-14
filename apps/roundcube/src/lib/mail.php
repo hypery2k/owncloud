@@ -132,18 +132,22 @@ class OC_RoundCube_App {
 		$rcl = new RoundcubeLogin($maildir);
  
 		try {
-			// Try to login
- 			OCP\Util::writeLog('roundcube','Trying to log into roundcube webinterface under '.$maildir.' as user '.$ownUser,OCP\Util::DEBUG);
-   			if ($rcl->login($ownUser, $ownPass)){
-         		OCP\Util::writeLog('roundcube','Successfully logged into roundcube ',OCP\Util::DEBUG);
-			} else {
-				// If the login fails, display an error message in the loggs
-				OCP\Util::writeLog('roundcube','RoundCube can\'t login to roundcube due to a login error to roundcube',OCP\Util::ERROR);
-			}
+				// Try to login
+	 			OCP\Util::writeLog('roundcube','Trying to log into roundcube webinterface under '.$maildir.' as user '.$ownUser,OCP\Util::DEBUG);
+	   			if ($rcl->login($ownUser, $ownPass)){
+	         		OCP\Util::writeLog('roundcube','Successfully logged into roundcube ',OCP\Util::DEBUG);
+				} else {
+					// If the login fails, display an error message in the loggs
+					OCP\Util::writeLog('roundcube','RoundCube can\'t login to roundcube due to a login error to roundcube',OCP\Util::ERROR);
+				}
 			OCP\Util::writeLog('roundcube','Preparing iFrame for roundcube:'.$rcl->getRedirectPath(),OCP\Util::DEBUG);
-			// create iFrame begin
-			echo '<iframe  src="'.$rcl->getRedirectPath().'" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>
-			<script type="text/javascript">
+						// loadign image
+	$loader_image = OC_Helper::imagePath( 'roundcube', 'loader.gif' );
+		// create iFrame begin
+		echo '
+	<img src="'.$loader_image.'" id="loader">
+	<iframe  style="display:none" src="'.$rcl->getRedirectPath().'" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>
+		<script type="text/javascript">
 	
 				var buffer = 20; //scroll bar buffer
 	
@@ -166,6 +170,10 @@ class OC_RoundCube_App {
 	
 					// correct top padding
 					$(\'#roundcubeFrame\').contents().find(\'#mainscreen\').css(\'top\',\'15px\');
+
+					$(\'#loader\').fadeOut(\'slow\');
+					$(\'#roundcubeFrame\').slideDown(\'slow\');
+					
 				});
 	
 			</script>';
