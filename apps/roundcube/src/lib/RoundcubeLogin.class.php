@@ -7,7 +7,8 @@
  *   Version 3 (April 2012)
  *
  * REQUIREMENTS
- *   - A Roundcube installation (tested with 0.7.2 and 0.8rc)
+ *   - A Roundcube installation (tested with 0.7.2)
+ *    (older versions work with 0.2-beta, 0.3.x, 0.4-beta, 0.5, 0.5.1)
  * 
  *   - Set the "check_ip"/"ip_check" in the config/main.inc.php file to FALSE
  *     Why? The server will perform the login, not the client (= two different IP addresses)
@@ -423,14 +424,14 @@ class RoundcubeLogin {
      * @param string Output data
      */
     private function addDebug($action, $data) {
-        OCP\Util::writeLog('roundcube',$action.': \n '.$data,OCP\Util::DEBUG);
+        OCP\Util::writeLog('roundcube','RoundcubeLogin.class.php: '.$action.': \n '.$data,OCP\Util::DEBUG);
     }
     
     /**
      * Dump the debug stack
      */
     public function dumpDebugStack() {
-		OCP\Util::writeLog('roundcube',print_r($this->debugStack).' '.print_r($data),OCP\Util::ERROR);
+		OCP\Util::writeLog('roundcube','RoundcubeLogin.class.php: '.print_r($this->debugStack).' '.print_r($data),OCP\Util::ERROR);
     }    
 }
 
