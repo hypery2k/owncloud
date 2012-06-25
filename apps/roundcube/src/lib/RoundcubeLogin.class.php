@@ -320,7 +320,7 @@ class RoundcubeLogin {
     private function sendRequest($path, $postData = false) {
         $method = (!$postData) ? "GET" : "POST";
         $port = ($_SERVER['HTTPS']) ? 443 : 80;
-        $host = ($port == 443) ? "ssl://localhost" : "localhost";
+        $host = (($port == 443) ? "ssl://" : "").$_SERVER['HTTP_HOST'];
         
         
         // Load cookies and save them in a key/value array    
