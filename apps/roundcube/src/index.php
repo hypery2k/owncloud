@@ -16,6 +16,7 @@ if (!OC_App::isEnabled('bookmarks')){
 OC_Util::addStyle('roundcube', 'base');
 // add neede JS
 OC_Util::addScript('','jquery-1.7.2.min');
+OC_Util::addScript('roundcube','scripts');
 OC_Util::addScript('roundcube','modernizr');
 
 // add new navigation entry
