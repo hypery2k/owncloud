@@ -142,7 +142,15 @@ class OC_RoundCube_App {
 				}
 			OCP\Util::writeLog('roundcube','Preparing iFrame for roundcube:'.$rcl->getRedirectPath(),OCP\Util::DEBUG);
 						// loadign image
-	$loader_image = OC_Helper::imagePath( 'roundcube', 'loader.gif' );
+		$loader_image = OC_Helper::imagePath( 'roundcube', 'loader.gif' );
+		
+		$removeHeaderNav = OC_Appconfig::getValue('roundcube', 'removeHeaderNav','');
+		if(strcmp($removeHeaderNav, '1') == 0) {
+			$disable_header_nav = 'true';	
+		}else {
+			$disable_header_nav = 'false';
+			echo "//".$removeHeaderNav;
+		}
 		// create iFrame begin
 		echo '
 	<img src="'.$loader_image.'" id="loader">
@@ -158,18 +166,38 @@ class OC_RoundCube_App {
 				function resizeIframe() {
 				    var height = document.documentElement.clientHeight;
 				    height -= pageY(document.getElementById(\'roundcubeFrame\'))+ buffer ;
+';
+					echo '
 				    height = (height < 0) ? 0 : height;
 				    document.getElementById(\'roundcubeFrame\').style.height = height + \'px\';
 				}
 	
 				$(\'#roundcubeFrame\').load(function() {
 					resizeIframe();
-	
-					// remove top navigation 
-					var $header = $(\'#roundcubeFrame\').contents().find(\'#header\').remove()
-	
+
+					var mainscreen = $(\'#roundcubeFrame\').contents().find(\'#mainscreen\');
+					// remove header line, includes about line and 
+					var top_line = $(\'#roundcubeFrame\').contents().find(\'#topline\');
 					// correct top padding
-					$(\'#roundcubeFrame\').contents().find(\'#mainscreen\').css(\'top\',\'15px\');
+					var top_margin= mainscreen.css(\'top\').replace("px", "")-top_line.height();
+					top_line.remove();
+
+					// remove logout button	 				
+					$(\'#roundcubeFrame\').contents().find(\'.button-logout\').remove();
+	
+					if('.$disable_header_nav.') {
+						
+						var top_nav = $(\'#roundcubeFrame\').contents().find(\'#topnav\');
+						// check if the above element exits (only in new larry theme, if null use rc 0.7 default theme
+						if(top_nav.height()==null){
+							top_nav = $(\'#roundcubeFrame\').contents().find(\'#taskbar\');
+						} else {
+							top_margin= top_margin-top_nav.height();
+						}
+						top_nav.remove();
+					}
+					// correct top padding
+					$(\'#roundcubeFrame\').contents().find(\'#mainscreen\').css(\'top\',top_margin);
 
 					$(\'#loader\').fadeOut(\'slow\');
 					$(\'#roundcubeFrame\').slideDown(\'slow\');

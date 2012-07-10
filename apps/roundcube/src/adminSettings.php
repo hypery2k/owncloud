@@ -1,5 +1,8 @@
 <?php
-$params = array('maildir','encryptstring1','encryptstring2');
+$params = array('maildir','encryptstring1','encryptstring2','removeHeaderNav');
+
+OC_Util::addscript('roundcube', 'settings');
+
 
 if ($_POST) {
         foreach($params as $param){
