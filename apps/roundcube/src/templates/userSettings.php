@@ -27,7 +27,7 @@ $mailPassword = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailPass']);
 
 <form id="usermail" action="#" method="post">
 	<fieldset class="personalblock">
-		<legend><strong>RoundCube Mailaccount</strong></legend>
+		<legend><strong><?php echo $l->t('RoundCube Mailaccount');?></strong></legend>
         <p>
         	<label for="usermail"><?php echo $l->t('Username');?>
         		<input type="text" id="mailUsername" name="mailUsername" value="<?php echo $mailUsername;?>">

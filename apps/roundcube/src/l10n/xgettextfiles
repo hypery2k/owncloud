@@ -1,0 +1,5 @@
+../appinfo/app.php
+../templates/adminSettings.php
+../templates/mail.php
+../templates/userSettings.php
+../js/scripts.js

@@ -1,7 +1,7 @@
 <form id="mail" action="#" method="post">
 
 	<div id="roundcube" class="personalblock">
-		<legend><strong>RoundCube Mail</strong></legend>
+		<legend><strong><?php echo $l->t('RoundCube Settings');?></strong></legend>
 	
 		<ul>
 		        <li><a href="#roundcube-1"><?php echo $l->t('Basic settings');?></a></li>
