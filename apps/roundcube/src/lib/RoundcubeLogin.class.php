@@ -319,7 +319,7 @@ class RoundcubeLogin {
      */
     private function sendRequest($path, $postData = false) {
         $method = (!$postData) ? "GET" : "POST";
-        $port = ($_SERVER['HTTPS']) ? 443 : 80;
+        $port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO']=='https') ? 443 : 80;
         $host = (($port == 443) ? "ssl://" : "").$_SERVER['HTTP_HOST'];
         
         
