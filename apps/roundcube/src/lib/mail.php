@@ -179,7 +179,10 @@ class OC_RoundCube_App {
 					// remove header line, includes about line and 
 					var top_line = $(\'#roundcubeFrame\').contents().find(\'#topline\');
 					// correct top padding
-					var top_margin= mainscreen.css(\'top\').replace("px", "")-top_line.height();
+					var top_margin= 5;
+					try{
+						top_margin= mainscreen.css(\'top\').replace("px", "")-top_line.height();
+					} catch(e){}
 					top_line.remove();
 
 					// remove logout button	 				
