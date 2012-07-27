@@ -170,6 +170,7 @@ class OC_RoundCube_App {
 					echo '
 				    height = (height < 0) ? 0 : height;
 				    document.getElementById(\'roundcubeFrame\').style.height = height + \'px\';
+					
 				}
 	
 				$(\'#roundcubeFrame\').load(function() {
@@ -181,7 +182,7 @@ class OC_RoundCube_App {
 					// correct top padding
 					var top_margin= 5;
 					try{
-						top_margin= mainscreen.css(\'top\').replace("px", "")-top_line.height();
+						top_margin= parseInt(mainscreen.css(\'top\'),10)-top_line.height();
 					} catch(e){}
 					top_line.remove();
 
