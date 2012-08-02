@@ -57,9 +57,6 @@ class OC_RoundCube_App {
 		self::checkLoginData($meUser, 1);
 	}
 	
-	//check logindaten
-
-
 	/**
 	 * @brief chek the login parameters
 	 * @param user object $meUser
@@ -149,7 +146,6 @@ class OC_RoundCube_App {
 			$disable_header_nav = 'true';	
 		}else {
 			$disable_header_nav = 'false';
-			echo "//".$removeHeaderNav;
 		}
 		// create iFrame begin
 		echo '
