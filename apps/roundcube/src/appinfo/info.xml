@@ -8,6 +8,7 @@
 	<author>Martin Reinhardt</author>
 	<description>Embedd roundcube interface in owncloud:<br/>
 <img title="roundcube app preview " width="50%" height="50%" alt="roundcube" src="http://apps.owncloud.com/CONTENT/content-pre1/151523-1.png" /><br/>
+ The app was tested with OC 4.0.0-4.0.6 and works with RoundCube 0.7.x and 0.8.rc. The following browsers are working: Safari 5/6, Firefox 14, Chrome/Chromium
  Please refer to the <a target="_blank" href="https://github.com/hypery2k/owncloud/wiki">the documentation</a> regarding installing and updating the application. If there are any issues feel free top <a target="_blank" href="https://github.com/hypery2k/owncloud/issues"> an issue on github</a> for this.<br/>
 <a target="_blank" href="http://apps.owncloud.com/content/show.php/roundcube?content=151523">Homepage</a></description>
 	<require>4</require>
