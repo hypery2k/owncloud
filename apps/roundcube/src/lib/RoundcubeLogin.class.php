@@ -106,6 +106,17 @@ class RoundcubeLogin {
      * @var string
      */
     private $rcPath;    
+	
+	/**
+     * DNS name of the rouncube server
+     * 
+     * Can be set via the first argument in the constructor.
+     * If the URL is www.example.com/roundcube/, set it to "www.example.com".
+     *
+     * @var string
+     */
+    private $rcHost;    
+    
     
     /**
      * Roundcube session ID
@@ -151,14 +162,15 @@ class RoundcubeLogin {
      * Create a new RoundcubeLogin class.
      *
      * @param string Relative webserver path to the RC installation, e.g. /roundcube/
-     * @param bool Enable debugging, - shows the full POST and the response
+	 * @param string URL to roundcube server, e.g. example.com
      */
-    public function __construct($webmailPath, $enableDebug = false) {
+    public function __construct($webmailPath, $webmailHost) {
         $this->debugStack = array();
-        
-        $this->rcPath = $webmailPath;        
-        $this->rcSessionID = false;
-        $this->rcSessionAuth = false;
+		// failback to local host 
+        $this->rcHost =  (!$webmailHost) ? $_SERVER['HTTP_HOST'] : $webmailHost;
+        $this->rcPath = $webmailPath;       
+        $this->rcSessionID = true;
+        $this->rcSessionAuth = true;
         $this->rcLoginStatus = 0;        
     }
     
@@ -183,11 +195,13 @@ class RoundcubeLogin {
         // If already logged in, perform a re-login (logout first)
         if ($this->isLoggedIn())
             $this->logout();
-
+		
         // Try login
         $data = (($this->lastToken) ? "_token=".$this->lastToken."&" : "")
               . "_task=login&_action=login&_timezone=1&_dstactive=1&_url=&_user=".urlencode($username)."&_pass=".urlencode($password);
-              
+			  
+        $this->addDebug("sending request to login ","Data".(($this->lastToken) ? "_token=".$this->lastToken."&" : "")
+              . "_task=login&_action=login&_timezone=1&_dstactive=1&_url=&_user=".urlencode($username)."&_pass=******");
         $response = $this->sendRequest($this->rcPath, $data);        
 
         //  Login successful! A redirection to ./?_task=... is a success!                        
@@ -213,7 +227,7 @@ class RoundcubeLogin {
 
         return $this->isLoggedIn();        
     }
-    
+
     /**
      * Returns whether there is an active Roundcube session.
      *
@@ -275,11 +289,17 @@ class RoundcubeLogin {
         $response = $this->sendRequest($this->rcPath);
         
         // Request token (since Roundcube 0.5.1)
-        if (preg_match('/"request_token":"([^"]+)",/mi',$response, $m))        
-            $this->lastToken = $m[1];       
+        if (preg_match('/"request_token":"([^"]+)",/mi',$response, $m)){
+    		$this->lastToken = $m[1];    
+        	$this->addDebug("Got the following token from rc: ".$this->lastToken);
+        }    
+               
             
-        if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) 
-            $this->lastToken = $m[1]; // override previous token (if this one exists!)            
+        if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)){
+        	 $this->lastToken = $m[1]; // override previous token (if this one exists!) 
+        	$this->addDebug("Got the following token from rc: ".$this->lastToken);
+        } 
+                      
         
         // Login form available?
         if (preg_match('/<input.+name="_pass"/mi',$response)) {
@@ -299,8 +319,8 @@ class RoundcubeLogin {
         
         // If no session ID is available now, throw an exception
         if (!$this->rcSessionID) {
-            $this->addDebug("NO SESSION ID", "No session ID received. RC version changed?");            
-            throw new RoundcubeLoginException("No session ID received. Unable to continue due to technical problems.");
+        	$this->addDebug("NO SESSION ID", "No session ID received. RC version changed?");            
+          	throw new RoundcubeLoginException("No session ID received. Unable to continue due to technical problems.");
         }        
     }
         
@@ -313,14 +333,15 @@ class RoundcubeLogin {
      *
      * Ensures that all cookies are sent and parses all response headers
      * for a new Roundcube session ID. If a new SID is found, rcSessionId is set.
-     *
-     * @param string Optional POST data in urlencoded form (param1=value1&...)
+     * @param string path to server
+     * @param string POST data in urlencoded form (param1=value1&...)
      * @return string Returns the complete request response with all headers.
      */
-    private function sendRequest($path, $postData = false) {
+    private function sendRequest($path, $postData, $rc_host) {
         $method = (!$postData) ? "GET" : "POST";
         $port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO']=='https') ? 443 : 80;
-        $host = (($port == 443) ? "ssl://" : "").$_SERVER['HTTP_HOST'];
+
+        $host = (($port == 443) ? "ssl://" : "").$this->rcHost;
         
         
         // Load cookies and save them in a key/value array    
@@ -330,11 +351,17 @@ class RoundcubeLogin {
             $cookies[] = "$name=$value";
             
         // Add roundcube session ID if available
-        if (!$_COOKIE['roundcube_sessid'] && $this->rcSessionID)
-            $cookies[] = "roundcube_sessid={$this->rcSessionID}";
+        if (!$_COOKIE['roundcube_sessid'] && $this->rcSessionID) {
+        	$cookies[] = "roundcube_sessid={$this->rcSessionID}";
+        	$this->addDebug('Got the following session id for roundcube'.$this->rcSessionID);
+        }
+            
 
-        if (!$_COOKIE['roundcube_sessauth'] && $this->rcSessionAuth)
-            $cookies[] = "roundcube_sessauth={$this->rcSessionAuth}";
+        if (!$_COOKIE['roundcube_sessauth'] && $this->rcSessionAuth) {
+        	$cookies[] = "roundcube_sessauth={$this->rcSessionAuth}";
+        	$this->addDebug('Got the following session auth for roundcube'.$this->rcSessionAuth);
+        }
+            
         
         $cookies = ($cookies) ? "Cookie: ".join("; ",$cookies)."\r\n" : "";
 
@@ -342,30 +369,27 @@ class RoundcubeLogin {
         if ($method == "POST") {
             $request = 
                   "POST ".$path." HTTP/1.1\r\n"
-                . "Host: ".$_SERVER['HTTP_HOST']."\r\n"
+                . "Host: ".$this->rcHost."\r\n"
                 . "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
                 . "Content-Type: application/x-www-form-urlencoded\r\n"
                 . "Content-Length: ". strlen($postData) ."\r\n"
                 . $cookies
-                . "Connection: close\r\n\r\n"
-            
+                . "Connection: close\r\n\r\n"            
                 . $postData;
+				$this->addDebug('Trying to connect to host '.$this->rcHost.' with path'.$path.' on port '.$port.' with data '.$postData);
+        } else {
+        	// Make GET to get new session 
+        	$request = 
+        	 "GET ".$path." HTTP/1.1\r\n"
+        	  	. "Host: ".$this->rcHost."\r\n"
+				. "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
+    	  	 	. $cookies
+        	   	. "Connection: close\r\n\r\n";
+				$this->addDebug('Trying to connect to host '.$this->rcHost.' with path'.$path.' on port '.$port.' via GET to get new session');
         }
-        
-        // Make GET
-        else {    
-            $request = 
-                  "GET ".$path." HTTP/1.1\r\n"
-                . "Host: ".$_SERVER['HTTP_HOST']."\r\n"
-                . "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
-                . $cookies
-                . "Connection: close\r\n\r\n";
-        }
-        OCP\Util::writeLog('roundcube','Trying to connect to host '.$host.' on port '.$port,OCP\Util::DEBUG);
-
 
         // Send request    
-        $fp = fsockopen($host, $port);
+        $fp = fsockopen($this->rcHost, $port);
 
         // Request
         $this->addDebug("REQUEST", $request);
@@ -380,24 +404,20 @@ class RoundcubeLogin {
 
             // Not found
             if (preg_match('/^HTTP\/1\.\d\s+404\s+/',$line)) {
-				OCP\Util::writeLog('roundcube','Resceived an 404 error during trying to open the url. No Roundcube installation found at '.$path,OCP\Util::DEBUG);
+				$this->addDebug('Resceived an 404 error during trying to open the url. No Roundcube installation found at '.$path);
                 throw new RoundcubeLoginException("No Roundcube installation found at '$path'");
 			}
             // Got session ID!
             if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i',$line,$match)) {
-				OCP\Util::writeLog('roundcube','Got the following new session id  '.$match[2],OCP\Util::DEBUG);
+				$this->addDebug('GOT SESSION ID', 'Got the following new session id  '.$match[2]);
                 header($line, false);
-            
-                $this->addDebug("GOT SESSION ID", "New session ID: '$match[2]'.");
                 $this->rcSessionID = $match[2];                
             }                    
             
             // Got sessauth
             if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i',$line,$match)) {
-				OCP\Util::writeLog('roundcube','Got the following new session auth '.$match[1],OCP\Util::DEBUG);
+				$this->addDebug('GOT SESSION AUTH', 'Got the following new session auth ');
                 header($line, false);
-            
-                $this->addDebug("GOT SESSION AUTH", "New session auth: '$match[1]'.");
                 $this->rcSessionAuthi = $match[1];                
             }                    
 
