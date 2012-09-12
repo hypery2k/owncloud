@@ -308,13 +308,13 @@ class RoundcubeLogin {
             $this->rcLoginStatus = -1;            
         }
         
-        if (preg_match('/<div.+id="message"/mi',$response)) {
+		else if (preg_match('/<div.+id="message"/mi',$response)) {
             $this->addDebug("LOGGED IN", "Detected that we're logged in.");            
             $this->rcLoginStatus = 1;    
         }
 		
 		
-		if (preg_match('/speaking plain HTTP to an SSL-enabled server port./mi',$response)) {
+		else if (preg_match('/speaking plain HTTP to an SSL-enabled server port./mi',$response)) {
 				$this->addDebug('Received HTTPS error', 'Trying to connect to an HTTPS roundcube installation via HTTP');
 				throw new RoundcubeLoginException("HTTPS error");
 			} 
@@ -347,9 +347,11 @@ class RoundcubeLogin {
     private function sendRequest($path, $postData, $rc_host) {
         $method = (!$postData) ? "GET" : "POST";
         $port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO']=='https') ? 443 : 80;
-
+		$url = "/".$path."/";		
+		$protocol = (($port == 443) ? "HTTPS/1.1" : "HTTP/1.1");
         $host = (($port == 443) ? "ssl://" : "").$this->rcHost;
-        
+	
+        $this->addDebug('Trying to connect via "'.$method.'" on port "'.$port.'" to URL "'.$url.'" on host"'.$host.'"');
         
         // Load cookies and save them in a key/value array    
         $cookies = array();
@@ -375,7 +377,7 @@ class RoundcubeLogin {
         // Create POST request with the given data
         if ($method == "POST") {
             $request = 
-                  "POST ".$path." HTTP/1.1\r\n"
+                  "POST ".$url." ".$protocol."\r\n"
                 . "Host: ".$this->rcHost."\r\n"
                 . "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
                 . "Content-Type: application/x-www-form-urlencoded\r\n"
@@ -387,7 +389,7 @@ class RoundcubeLogin {
         } else {
         	// Make GET to get new session 
         	$request = 
-        	 	  "GET ".$path." HTTP/1.1\r\n"
+        	 	  "GET ".$url." ".$protocol."\r\n"
         	  	. "Host: ".$this->rcHost."\r\n"
 				. "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
     	  	 	. $cookies
@@ -396,7 +398,7 @@ class RoundcubeLogin {
         }
 
         // Send request    
-        $fp = fsockopen($this->rcHost, $port);
+        $fp = fsockopen($host, $port);
 
         // Request
         $this->addDebug("REQUEST", $request);
