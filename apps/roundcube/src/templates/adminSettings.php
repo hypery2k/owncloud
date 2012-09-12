@@ -10,9 +10,14 @@
 	
 		<fieldset id="roundcube-1">
 	 		<p>
-				<label for="mail"><?php echo $l->t('URL to rouncube installation, e.g. https://owncloud.com/roundcube');?>
+				<label for="mail"><?php echo $l->t('Relative URL to roundcube installation, e.g. roundcube');?>
 	 				 <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>"
 						onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"  />
+ 				</label>
+			</p>
+			<p>
+				<label for="mail"><?php echo $l->t('Hostname to roundcube server, e.g. https://owncloud.com');?>
+	 				 <input type="text" id="mailhost" name="mailhost" value="<?php echo $_['mailhost']; ?>" />
  				</label>
 			</p>
 		</fieldset>

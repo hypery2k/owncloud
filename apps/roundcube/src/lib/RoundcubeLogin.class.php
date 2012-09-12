@@ -171,9 +171,10 @@ class RoundcubeLogin {
         $this->rcPath = $webmailPath;       
         $this->rcSessionID = true;
         $this->rcSessionAuth = true;
-        $this->rcLoginStatus = 0;        
+        $this->rcLoginStatus = 0;    
+		$this->addDebug("Creating new RoundCubeLogin instance:","rcHost:".$this->rcHost."rcPath:".$this->rcPath);    
     }
-    
+	    
     /**
      * Login to Roundcube using the IMAP username/password
      *
@@ -307,10 +308,16 @@ class RoundcubeLogin {
             $this->rcLoginStatus = -1;            
         }
         
-        else if (preg_match('/<div.+id="message"/mi',$response)) {
+        if (preg_match('/<div.+id="message"/mi',$response)) {
             $this->addDebug("LOGGED IN", "Detected that we're logged in.");            
             $this->rcLoginStatus = 1;    
         }
+		
+		
+		if (preg_match('/speaking plain HTTP to an SSL-enabled server port./mi',$response)) {
+				$this->addDebug('Received HTTPS error', 'Trying to connect to an HTTPS roundcube installation via HTTP');
+				throw new RoundcubeLoginException("HTTPS error");
+			} 
         
         else {
             $this->addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?");            
@@ -380,7 +387,7 @@ class RoundcubeLogin {
         } else {
         	// Make GET to get new session 
         	$request = 
-        	 "GET ".$path." HTTP/1.1\r\n"
+        	 	  "GET ".$path." HTTP/1.1\r\n"
         	  	. "Host: ".$this->rcHost."\r\n"
 				. "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
     	  	 	. $cookies
@@ -404,7 +411,7 @@ class RoundcubeLogin {
 
             // Not found
             if (preg_match('/^HTTP\/1\.\d\s+404\s+/',$line)) {
-				$this->addDebug('Resceived an 404 error during trying to open the url. No Roundcube installation found at '.$path);
+				$this->addDebug('Received an 404 error during trying to open the url. No Roundcube installation found at '.$path);
                 throw new RoundcubeLoginException("No Roundcube installation found at '$path'");
 			}
             // Got session ID!
@@ -419,7 +426,7 @@ class RoundcubeLogin {
 				$this->addDebug('GOT SESSION AUTH', 'Got the following new session auth ');
                 header($line, false);
                 $this->rcSessionAuthi = $match[1];                
-            }                    
+            } 			               
 
             // Request token (since Roundcube 0.5.1)
             if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) 
@@ -427,7 +434,7 @@ class RoundcubeLogin {
                 
             if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) 
                 $this->lastToken = $m[1]; // override previous token (if this one exists!)
-
+		
             $response .= $line;
         }
             

@@ -35,7 +35,7 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function existLoginData($meUser) {
-		$stmt = OC_DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE \"ocUser\" = '".$meUser."'");
+		$stmt = OC_DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE ocUser = \"".$meUser."\"");
 		$result = $stmt->execute();
 		$row = $result->fetchRow();
 		
@@ -52,7 +52,7 @@ class OC_RoundCube_App {
 	 * It also chekcs the login data
 	 */
 	public static function writeBasicData($meUser) {
-		$stmt = OC_DB::prepare("INSERT INTO *PREFIX*roundcube (\"ocUser\") VALUES('$meUser')");
+		$stmt = OC_DB::prepare("INSERT INTO *PREFIX*roundcube (ocUser) VALUES (\"".$meUser."\")");
 		$result = $stmt->execute();
 		self::checkLoginData($meUser, 1);
 	}
@@ -68,7 +68,7 @@ class OC_RoundCube_App {
 	public static function checkLoginData($meUser, $written=0) {
 		$mailID = self::existLoginData($meUser);
 		if(isset($mailID) && $mailID != '') {
-			$stmt = OC_DB::prepare("SELECT id,\"ocUser\",\"mailUser\",\"mailPass\" FROM *PREFIX*roundcube WHERE id = $mailID");
+			$stmt = OC_DB::prepare("SELECT id,ocUser,mailUser,mailPass FROM *PREFIX*roundcube WHERE id = $mailID");
 			$result = $stmt->execute();
 			$row = $result->fetchRow();
 			
@@ -119,14 +119,15 @@ class OC_RoundCube_App {
 	/**
 	 * @brief showing up roundcube iFrame
 	 * @param path to roundcube installation, Note: The first parameter is the URL-path of the RC inst  NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
+	 * @param roundcube mailapphost
 	 * @param roundcube username $ownUser
 	 * @param roundcube password $ownPass
 	 *
 	 */
-	public static function showMailFrame($maildir, $ownUser, $ownPass) {
+	public static function showMailFrame($maildir,$mailHost, $ownUser, $ownPass) {
 
 		// Create RC login object.
-		$rcl = new RoundcubeLogin($maildir);
+		$rcl = new RoundcubeLogin($maildir,$mailHost);
  
 		try {
 				// Try to login

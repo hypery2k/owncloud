@@ -1,5 +1,5 @@
 <?php
-$params = array('maildir','encryptstring1','encryptstring2','removeHeaderNav');
+$params = array('maildir','mailhost','encryptstring1','encryptstring2','removeHeaderNav');
 
 OC_Util::addscript('roundcube', 'settings');
 

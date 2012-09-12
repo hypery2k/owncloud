@@ -34,7 +34,8 @@ if ($mailuserdata['id'] != '') {
 	if($mailuserdata['ocUser'] == OC_User::getUser()) {
 		if ($mailuserdata['mailUser'] != '' && $mailuserdata['mailPass'] != '') {
 			$maildir = OC_Appconfig::getValue('roundcube', 'maildir','');
-			OC_RoundCube_App::showMailFrame($maildir, $mailUsername, $mailPassword);
+			$mailHost = OC_Appconfig::getValue('roundcube', 'mailhost','');
+			OC_RoundCube_App::showMailFrame($maildir,$mailHost, $mailUsername, $mailPassword);
 		}
 		else echo $ocRoundCubeMailError['noUserdata'];
 	}
