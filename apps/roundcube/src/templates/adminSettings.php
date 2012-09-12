@@ -16,7 +16,7 @@
  				</label>
 			</p>
 			<p>
-				<label for="mail"><?php echo $l->t('Hostname to roundcube server, e.g. https://owncloud.com');?>
+				<label for="mail"><?php echo $l->t('Hostname to roundcube server, e.g. owncloud.com (leave out protocol prefix, like http(s))');?>
 	 				 <input type="text" id="mailhost" name="mailhost" value="<?php echo $_['mailhost']; ?>" />
  				</label>
 			</p>
