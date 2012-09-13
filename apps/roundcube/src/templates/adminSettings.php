@@ -10,19 +10,14 @@
 	
 		<fieldset id="roundcube-1">
 	 		<p>
-				<label for="mail"><?php echo $l->t('Relative URL to roundcube installation, e.g. roundcube');?>
+				<label for="mail"><?php echo $l->t('Relative URL to roundcube installation, e.g. example.com/roundcube');?>
 	 				 <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>"
 						onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"  />
  				</label>
 			</p>
-			<p>
-				<label for="mail"><?php echo $l->t('Hostname to roundcube server, e.g. owncloud.com (leave out protocol prefix, like http(s))');?>
-	 				 <input type="text" id="mailhost" name="mailhost" value="<?php echo $_['mailhost']; ?>" />
- 				</label>
-			</p>
 		</fieldset>
 	 	<fieldset id="roundcube-2">
-			<input type="checkbox" name="removeHeaderNav" id="removeHeaderNav" value="1"<?php if ($_['removeHeaderNav']) echo ' checked'; ?>> 
+			<input type="checkbox" name="removeHeaderNav" id="removeHeaderNav" <?php if ($_['removeHeaderNav']) echo ' checked'; ?>> 
 			<label for="removeHeaderNav"><?php echo $l->t('Remove RoundCube header navigation menu items');?></label> 
 			<br>
 				<p>

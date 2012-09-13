@@ -119,15 +119,14 @@ class OC_RoundCube_App {
 	/**
 	 * @brief showing up roundcube iFrame
 	 * @param path to roundcube installation, Note: The first parameter is the URL-path of the RC inst  NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
-	 * @param roundcube mailapphost
 	 * @param roundcube username $ownUser
 	 * @param roundcube password $ownPass
 	 *
 	 */
-	public static function showMailFrame($maildir,$mailHost, $ownUser, $ownPass) {
+	public static function showMailFrame($maildir,$ownUser, $ownPass) {
 
 		// Create RC login object.
-		$rcl = new RoundcubeLogin($maildir,$mailHost);
+		$rcl = new RoundcubeLogin($maildir);
  
 		try {
 				// Try to login

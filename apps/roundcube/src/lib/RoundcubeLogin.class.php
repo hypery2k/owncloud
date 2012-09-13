@@ -161,13 +161,12 @@ class RoundcubeLogin {
     /**
      * Create a new RoundcubeLogin class.
      *
-     * @param string Relative webserver path to the RC installation, e.g. /roundcube/
-	 * @param string URL to roundcube server, e.g. example.com
+     * @param string Relative webserver path to the RC installation, e.g. example.com/roundcube/
      */
-    public function __construct($webmailPath, $webmailHost) {
+    public function __construct($webmailPath) {
         $this->debugStack = array();
 		// failback to local host 
-        $this->rcHost =  (!$webmailHost) ? $_SERVER['HTTP_HOST'] : $webmailHost;
+        $this->rcHost = $_SERVER['HTTP_HOST'];
         $this->rcPath = $webmailPath;       
         $this->rcSessionID = true;
         $this->rcSessionAuth = true;
@@ -265,8 +264,11 @@ class RoundcubeLogin {
         exit;
     }
 
-	public function getRedirectPath() {
-        return $this->rcPath;
+	public function getRedirectPath() {		
+        $port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO']=='https') ? 443 : 80;
+		$protocol = (($port == 443) ? "https://" : "http://");
+		$path= $protocol.$this->rcHost."/".$this->rcPath;
+        return $path;
     }
     
     /**
