@@ -31,6 +31,12 @@ $('#roundcubeFrame').load(function() {
             // TODO refactor and move theme check
             if(top_nav.height()!=null){
                     top_margin= 10;
+                    //In larry theme with accounts plugin, we have to move the account selection
+                    var acc_select = top_line.find('.username');
+                    if (acc_select) {
+                          mainscreen.find('div#messagetoolbar').attr('id',''); //Quick n dirty for space
+                          acc_select.appendTo(mainscreen.find('div#searchfilter')).css({position: 'absolute', top:'0px', left:'-170px'});
+                    }
             } else {
                     top_margin= parseInt(mainscreen.css('top'),10)-top_line.height();
             }
