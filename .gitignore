@@ -1,0 +1,13 @@
+bin
+target
+tmp
+.DS_Store
+*.swp
+*~
+.history
+.indexes
+.lock
+.log
+.refactorings
+.metadata
+__MACOSX
