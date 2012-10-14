@@ -11,10 +11,22 @@ cd ..
 
 sudo mkdir /var/www/mysql
 sudo mkdir /var/www/mysql/4.0.8
+sudo mkdir /var/www/mysql/4.0.8/apps
+sudo mkdir /var/www/mysql/4.0.8/config
+sudo mkdir /var/www/mysql/4.0.8/data
 sudo mkdir /var/www/mysql/4.5.0
+sudo mkdir /var/www/mysql/4.5.0/apps
+sudo mkdir /var/www/mysql/4.5.0/config
+sudo mkdir /var/www/mysql/4.5.0/data
 sudo mkdir /var/www/sqllite
 sudo mkdir /var/www/sqllite/4.0.8
+sudo mkdir /var/www/sqllite/4.0.8/apps
+sudo mkdir /var/www/sqllite/4.0.8/config
+sudo mkdir /var/www/sqllite/4.0.8/data
 sudo mkdir /var/www/sqllite/4.5.0
+sudo mkdir /var/www/sqllite/4.5.0/apps
+sudo mkdir /var/www/sqllite/4.5.0/config
+sudo mkdir /var/www/sqllite/4.5.0/data
 
 sudo cp -rp travis_ci/owncloud_releases/4.0.8 /var/www/mysql/4.0.8
 sudo cp -rp travis_ci/owncloud_releases/4.0.8 /var/www/sqllite/4.0.8
