@@ -1,1 +1,2 @@
-!/bin/sh
+#!/bin/sh
+echo "Preparing MySQL environment"

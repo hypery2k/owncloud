@@ -8,6 +8,7 @@ cd ..
 
 cd ..
 # SETUP OWNCLOUD
+echo "Preparing owncloud setup"
 
 sudo mkdir /var/www/mysql
 sudo mkdir /var/www/mysql/4.0.8
@@ -44,6 +45,8 @@ sudo chmod -R 777 /var/www/mysql/4.0.8/data
 sudo chmod -R 777 /var/www/mysql/4.5.0/data
 sudo chmod -R 777 /var/www/sqllite/4.0.8/data
 sudo chmod -R 777 /var/www/sqllite/4.5.0/data
+
+echo "Done with general owncloud setup"
 # admin Passw0rd!
 sudo cp  travis_ci/sqllite/4.0.8/config.php /var/www/sqllite/4.0.8/config/
 sudo cp  travis_ci/sqllite/4.0.8/owncloud.db /var/www/sqllite/4.0.8/data/
