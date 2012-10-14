@@ -2,7 +2,7 @@ Some Apps for owncloud
 ========
 Wiki: https://github.com/hypery2k/owncloud/wiki
 
-Current Build Status: ![My image](https://travis-ci.org/hypery2k/owncloud.png)
+Current Build Status: [![Build Status](https://secure.travis-ci.org/hypery2k/owncloud.png)](http://travis-ci.org/hypery2k/owncloud)
 
 
 ## Owncloud
