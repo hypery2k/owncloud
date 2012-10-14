@@ -1,0 +1,276 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Christer Eriksson <post@hc3web.com>, 2012.
+# Daniel Sandman <revoltism@gmail.com>, 2012.
+#   <hakan.thn@gmail.com>, 2011.
+#   <revoltism@gmail.com>, 2011, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2012-06-06 00:12+0200\n"
+"PO-Revision-Date: 2012-06-05 22:14+0000\n"
+"Last-Translator: icewind <icewind1991@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/owncloud/language/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ajax/vcategories/add.php:23 ajax/vcategories/delete.php:23
+msgid "Application name not provided."
+msgstr "Programnamn har inte angetts"
+
+#: ajax/vcategories/add.php:29
+msgid "No category to add?"
+msgstr "Ingen kategori att lägga till?"
+
+#: ajax/vcategories/add.php:36
+msgid "This category already exists: "
+msgstr "Denna kategori finns redan:"
+
+#: js/jquery-ui-1.8.16.custom.min.js:511
+msgid "ui-datepicker-group';if(i[1]>1)switch(G){case 0:y+="
+msgstr ""
+
+#: js/js.js:520
+msgid "January"
+msgstr ""
+
+#: js/js.js:520
+msgid "February"
+msgstr ""
+
+#: js/js.js:520
+msgid "March"
+msgstr ""
+
+#: js/js.js:520
+msgid "April"
+msgstr ""
+
+#: js/js.js:520
+msgid "May"
+msgstr ""
+
+#: js/js.js:520
+msgid "June"
+msgstr ""
+
+#: js/js.js:521
+msgid "July"
+msgstr ""
+
+#: js/js.js:521
+msgid "August"
+msgstr ""
+
+#: js/js.js:521
+msgid "September"
+msgstr ""
+
+#: js/js.js:521
+msgid "October"
+msgstr ""
+
+#: js/js.js:521
+msgid "November"
+msgstr ""
+
+#: js/js.js:521
+msgid "December"
+msgstr ""
+
+#: js/oc-dialogs.js:143 js/oc-dialogs.js:163
+msgid "Cancel"
+msgstr ""
+
+#: js/oc-dialogs.js:159
+msgid "No"
+msgstr ""
+
+#: js/oc-dialogs.js:160
+msgid "Yes"
+msgstr ""
+
+#: js/oc-dialogs.js:177
+msgid "Ok"
+msgstr ""
+
+#: js/oc-vcategories.js:68
+msgid "No categories selected for deletion."
+msgstr ""
+
+#: js/oc-vcategories.js:68
+msgid "Error"
+msgstr ""
+
+#: lostpassword/index.php:26
+msgid "Owncloud password reset"
+msgstr "Owncloud lösenordsåterställning"
+
+#: lostpassword/index.php:27
+msgid "ownCloud password reset"
+msgstr "ownCloud lösenordsåterställning"
+
+#: lostpassword/templates/email.php:1
+msgid "Use the following link to reset your password: {link}"
+msgstr "Använd följande länk för att återställa lösenordet: {link}"
+
+#: lostpassword/templates/lostpassword.php:3
+msgid "You will receive a link to reset your password via Email."
+msgstr "Du får en länk att återställa ditt lösenord via e-post."
+
+#: lostpassword/templates/lostpassword.php:5
+msgid "Requested"
+msgstr "Begärd"
+
+#: lostpassword/templates/lostpassword.php:8
+msgid "Login failed!"
+msgstr "Inloggning misslyckades!"
+
+#: lostpassword/templates/lostpassword.php:11 templates/installation.php:25
+#: templates/login.php:9
+msgid "Username"
+msgstr "Användarnamn"
+
+#: lostpassword/templates/lostpassword.php:15
+msgid "Request reset"
+msgstr "Begär återställning"
+
+#: lostpassword/templates/resetpassword.php:4
+msgid "Your password was reset"
+msgstr "Ditt lösenord har återställts"
+
+#: lostpassword/templates/resetpassword.php:5
+msgid "To login page"
+msgstr "Till logga in sidan"
+
+#: lostpassword/templates/resetpassword.php:8
+msgid "New password"
+msgstr "Nytt lösenord"
+
+#: lostpassword/templates/resetpassword.php:11
+msgid "Reset password"
+msgstr "Återställ lösenordet"
+
+#: strings.php:5
+msgid "Personal"
+msgstr "Personlig"
+
+#: strings.php:6
+msgid "Users"
+msgstr "Användare"
+
+#: strings.php:7
+msgid "Apps"
+msgstr "Program"
+
+#: strings.php:8
+msgid "Admin"
+msgstr "Admin"
+
+#: strings.php:9
+msgid "Help"
+msgstr "Hjälp"
+
+#: templates/403.php:12
+msgid "Access forbidden"
+msgstr "Åtkomst förbjuden"
+
+#: templates/404.php:12
+msgid "Cloud not found"
+msgstr "Hittade inget moln"
+
+#: templates/edit_categories_dialog.php:4
+msgid "Edit categories"
+msgstr "Redigera kategorier"
+
+#: templates/edit_categories_dialog.php:14
+msgid "Add"
+msgstr "Lägg till"
+
+#: templates/installation.php:23
+msgid "Create an <strong>admin account</strong>"
+msgstr "Skapa ett <strong>administratörskonto</strong>"
+
+#: templates/installation.php:29 templates/login.php:13
+msgid "Password"
+msgstr "Lösenord"
+
+#: templates/installation.php:35
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: templates/installation.php:37
+msgid "Data folder"
+msgstr "Datamapp"
+
+#: templates/installation.php:44
+msgid "Configure the database"
+msgstr "Konfigurera databasen"
+
+#: templates/installation.php:49 templates/installation.php:60
+#: templates/installation.php:70
+msgid "will be used"
+msgstr "kommer att användas"
+
+#: templates/installation.php:82
+msgid "Database user"
+msgstr "Databas-användare"
+
+#: templates/installation.php:86
+msgid "Database password"
+msgstr "Lösenord för databasen"
+
+#: templates/installation.php:90
+msgid "Database name"
+msgstr "Databasens namn"
+
+#: templates/installation.php:96
+msgid "Database host"
+msgstr "Databasserver"
+
+#: templates/installation.php:101
+msgid "Finish setup"
+msgstr "Avsluta installation"
+
+#: templates/layout.guest.php:42
+msgid "web services under your control"
+msgstr "webbtjänster under din kontroll"
+
+#: templates/layout.user.php:41
+msgid "Log out"
+msgstr "Logga ut"
+
+#: templates/layout.user.php:53 templates/layout.user.php:54
+msgid "Settings"
+msgstr "Inställningar"
+
+#: templates/login.php:6
+msgid "Lost your password?"
+msgstr "Glömt ditt lösenord?"
+
+#: templates/login.php:17
+msgid "remember"
+msgstr "kom ihåg"
+
+#: templates/login.php:18
+msgid "Log in"
+msgstr "Logga in"
+
+#: templates/logout.php:1
+msgid "You are logged out."
+msgstr "Du är utloggad"
+
+#: templates/part.pagenavi.php:3
+msgid "prev"
+msgstr "föregående"
+
+#: templates/part.pagenavi.php:20
+msgid "next"
+msgstr "nästa"

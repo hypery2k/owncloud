@@ -1,0 +1,203 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Slobodan Terzić <githzerai06@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2012-06-06 00:12+0200\n"
+"PO-Revision-Date: 2012-06-05 22:15+0000\n"
+"Last-Translator: icewind <icewind1991@gmail.com>\n"
+"Language-Team: Serbian (Latin) (http://www.transifex.net/projects/p/owncloud/language/sr@latin/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: ajax/lostpassword.php:14
+msgid "Email saved"
+msgstr ""
+
+#: ajax/lostpassword.php:16
+msgid "Invalid email"
+msgstr ""
+
+#: ajax/openid.php:15
+msgid "OpenID Changed"
+msgstr "OpenID je izmenjen"
+
+#: ajax/openid.php:17 ajax/setlanguage.php:19 ajax/setlanguage.php:22
+msgid "Invalid request"
+msgstr "Neispravan zahtev"
+
+#: ajax/setlanguage.php:17
+msgid "Language changed"
+msgstr "Jezik je izmenjen"
+
+#: js/apps.js:31 js/apps.js:67
+msgid "Disable"
+msgstr ""
+
+#: js/apps.js:31 js/apps.js:54
+msgid "Enable"
+msgstr ""
+
+#: js/personal.js:69
+msgid "Saving..."
+msgstr ""
+
+#: personal.php:40 personal.php:41
+msgid "__language_name__"
+msgstr ""
+
+#: templates/admin.php:13
+msgid "Log"
+msgstr ""
+
+#: templates/admin.php:40
+msgid "More"
+msgstr ""
+
+#: templates/apps.php:8
+msgid "Add your App"
+msgstr ""
+
+#: templates/apps.php:22
+msgid "Select an App"
+msgstr "Izaberite program"
+
+#: templates/apps.php:25
+msgid "See application page at apps.owncloud.com"
+msgstr ""
+
+#: templates/apps.php:26
+msgid "-licensed"
+msgstr "-licenciran"
+
+#: templates/apps.php:26
+msgid "by"
+msgstr "od"
+
+#: templates/help.php:8
+msgid "Documentation"
+msgstr ""
+
+#: templates/help.php:9
+msgid "Managing Big Files"
+msgstr ""
+
+#: templates/help.php:10
+msgid "Ask a question"
+msgstr "Postavite pitanje"
+
+#: templates/help.php:22
+msgid "Problems connecting to help database."
+msgstr "Problem u povezivanju sa bazom pomoći"
+
+#: templates/help.php:23
+msgid "Go there manually."
+msgstr "Otiđite tamo ručno."
+
+#: templates/help.php:31
+msgid "Answer"
+msgstr "Odgovor"
+
+#: templates/personal.php:8
+msgid "You use"
+msgstr "Koristite"
+
+#: templates/personal.php:8
+msgid "of the available"
+msgstr "od dostupnih"
+
+#: templates/personal.php:12
+msgid "Desktop and Mobile Syncing Clients"
+msgstr ""
+
+#: templates/personal.php:13
+msgid "Download"
+msgstr ""
+
+#: templates/personal.php:19
+msgid "Your password got changed"
+msgstr "Vaša lozinka je izmenjena"
+
+#: templates/personal.php:20
+msgid "Unable to change your password"
+msgstr "Ne mogu da izmenim vašu lozinku"
+
+#: templates/personal.php:21
+msgid "Current password"
+msgstr "Trenutna lozinka"
+
+#: templates/personal.php:22
+msgid "New password"
+msgstr "Nova lozinka"
+
+#: templates/personal.php:23
+msgid "show"
+msgstr "prikaži"
+
+#: templates/personal.php:24
+msgid "Change password"
+msgstr "Izmeni lozinku"
+
+#: templates/personal.php:30
+msgid "Email"
+msgstr ""
+
+#: templates/personal.php:31
+msgid "Your email address"
+msgstr ""
+
+#: templates/personal.php:32
+msgid "Fill in an email address to enable password recovery"
+msgstr ""
+
+#: templates/personal.php:38 templates/personal.php:39
+msgid "Language"
+msgstr "Jezik"
+
+#: templates/personal.php:44
+msgid "Help translate"
+msgstr ""
+
+#: templates/personal.php:51
+msgid "use this address to connect to your ownCloud in your file manager"
+msgstr "koristite ovu adresu da bi se povezali na ownCloud putem menadžnjera fajlova"
+
+#: templates/users.php:15 templates/users.php:44
+msgid "Name"
+msgstr "Ime"
+
+#: templates/users.php:16 templates/users.php:45
+msgid "Password"
+msgstr "Lozinka"
+
+#: templates/users.php:17 templates/users.php:46 templates/users.php:60
+msgid "Groups"
+msgstr "Grupe"
+
+#: templates/users.php:22
+msgid "Create"
+msgstr "Napravi"
+
+#: templates/users.php:25
+msgid "Default Quota"
+msgstr ""
+
+#: templates/users.php:35 templates/users.php:74
+msgid "Other"
+msgstr ""
+
+#: templates/users.php:47
+msgid "Quota"
+msgstr ""
+
+#: templates/users.php:80
+msgid "Delete"
+msgstr "Obriši"

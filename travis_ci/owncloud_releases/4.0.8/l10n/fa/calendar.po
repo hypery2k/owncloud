@@ -1,0 +1,690 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Hossein nag <h.sname@yahoo.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2012-06-06 00:12+0200\n"
+"PO-Revision-Date: 2012-06-05 22:14+0000\n"
+"Last-Translator: icewind <icewind1991@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.net/projects/p/owncloud/language/fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: ajax/categories/rescan.php:28
+msgid "No calendars found."
+msgstr "هیچ تقویمی پیدا نشد"
+
+#: ajax/categories/rescan.php:36
+msgid "No events found."
+msgstr "هیچ رویدادی پیدا نشد"
+
+#: ajax/event/edit.form.php:20
+msgid "Wrong calendar"
+msgstr "تقویم اشتباه"
+
+#: ajax/settings/guesstimezone.php:25
+msgid "New Timezone:"
+msgstr "زمان محلی جدید"
+
+#: ajax/settings/settimezone.php:22
+msgid "Timezone changed"
+msgstr "زمان محلی تغییر یافت"
+
+#: ajax/settings/settimezone.php:24
+msgid "Invalid request"
+msgstr "درخواست نامعتبر"
+
+#: appinfo/app.php:19 templates/calendar.php:15
+#: templates/part.eventform.php:33 templates/part.showevent.php:31
+#: templates/settings.php:12
+msgid "Calendar"
+msgstr "تقویم"
+
+#: js/calendar.js:93
+msgid "Deletion failed"
+msgstr ""
+
+#: js/calendar.js:828
+msgid "ddd"
+msgstr ""
+
+#: js/calendar.js:829
+msgid "ddd M/d"
+msgstr ""
+
+#: js/calendar.js:830
+msgid "dddd M/d"
+msgstr ""
+
+#: js/calendar.js:833
+msgid "MMMM yyyy"
+msgstr ""
+
+#: js/calendar.js:835
+msgid "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}"
+msgstr "DDD m[ yyyy]{ '&#8212;'[ DDD] m yyyy}"
+
+#: js/calendar.js:837
+msgid "dddd, MMM d, yyyy"
+msgstr ""
+
+#: lib/app.php:125
+msgid "Birthday"
+msgstr "روزتولد"
+
+#: lib/app.php:126
+msgid "Business"
+msgstr "تجارت"
+
+#: lib/app.php:127
+msgid "Call"
+msgstr "تماس گرفتن"
+
+#: lib/app.php:128
+msgid "Clients"
+msgstr "مشتریان"
+
+#: lib/app.php:129
+msgid "Deliverer"
+msgstr "نجات"
+
+#: lib/app.php:130
+msgid "Holidays"
+msgstr "روزهای تعطیل"
+
+#: lib/app.php:131
+msgid "Ideas"
+msgstr "ایده ها"
+
+#: lib/app.php:132
+msgid "Journey"
+msgstr "سفر"
+
+#: lib/app.php:133
+msgid "Jubilee"
+msgstr "سالگرد"
+
+#: lib/app.php:134
+msgid "Meeting"
+msgstr "ملاقات"
+
+#: lib/app.php:135
+msgid "Other"
+msgstr "دیگر"
+
+#: lib/app.php:136
+msgid "Personal"
+msgstr "شخصی"
+
+#: lib/app.php:137
+msgid "Projects"
+msgstr "پروژه ها"
+
+#: lib/app.php:138
+msgid "Questions"
+msgstr "سوالات"
+
+#: lib/app.php:139
+msgid "Work"
+msgstr "کار"
+
+#: lib/app.php:380
+msgid "unnamed"
+msgstr "نام گذاری نشده"
+
+#: lib/object.php:330
+msgid "Does not repeat"
+msgstr "تکرار نکنید"
+
+#: lib/object.php:331
+msgid "Daily"
+msgstr "روزانه"
+
+#: lib/object.php:332
+msgid "Weekly"
+msgstr "هفتهگی"
+
+#: lib/object.php:333
+msgid "Every Weekday"
+msgstr "هرروز هفته"
+
+#: lib/object.php:334
+msgid "Bi-Weekly"
+msgstr "دوهفته"
+
+#: lib/object.php:335
+msgid "Monthly"
+msgstr "ماهانه"
+
+#: lib/object.php:336
+msgid "Yearly"
+msgstr "سالانه"
+
+#: lib/object.php:343
+msgid "never"
+msgstr "هرگز"
+
+#: lib/object.php:344
+msgid "by occurrences"
+msgstr "به وسیله ظهور"
+
+#: lib/object.php:345
+msgid "by date"
+msgstr "به وسیله تاریخ"
+
+#: lib/object.php:352
+msgid "by monthday"
+msgstr "به وسیله روزهای ماه"
+
+#: lib/object.php:353
+msgid "by weekday"
+msgstr "به وسیله روز های هفته"
+
+#: lib/object.php:360 templates/settings.php:42
+msgid "Monday"
+msgstr "دوشنبه"
+
+#: lib/object.php:361
+msgid "Tuesday"
+msgstr "سه شنبه"
+
+#: lib/object.php:362
+msgid "Wednesday"
+msgstr "چهارشنبه"
+
+#: lib/object.php:363
+msgid "Thursday"
+msgstr "پنجشنبه"
+
+#: lib/object.php:364
+msgid "Friday"
+msgstr "جمعه"
+
+#: lib/object.php:365
+msgid "Saturday"
+msgstr "شنبه"
+
+#: lib/object.php:366 templates/settings.php:43
+msgid "Sunday"
+msgstr "یکشنبه"
+
+#: lib/object.php:373
+msgid "events week of month"
+msgstr "رویداد های  هفته هایی از ماه"
+
+#: lib/object.php:374
+msgid "first"
+msgstr "اولین"
+
+#: lib/object.php:375
+msgid "second"
+msgstr "دومین"
+
+#: lib/object.php:376
+msgid "third"
+msgstr "سومین"
+
+#: lib/object.php:377
+msgid "fourth"
+msgstr "چهارمین"
+
+#: lib/object.php:378
+msgid "fifth"
+msgstr "پنجمین"
+
+#: lib/object.php:379
+msgid "last"
+msgstr "آخرین"
+
+#: lib/object.php:401
+msgid "January"
+msgstr "ژانویه"
+
+#: lib/object.php:402
+msgid "February"
+msgstr "فبریه"
+
+#: lib/object.php:403
+msgid "March"
+msgstr "مارس"
+
+#: lib/object.php:404
+msgid "April"
+msgstr "آوریل"
+
+#: lib/object.php:405
+msgid "May"
+msgstr "می"
+
+#: lib/object.php:406
+msgid "June"
+msgstr "ژوءن"
+
+#: lib/object.php:407
+msgid "July"
+msgstr "جولای"
+
+#: lib/object.php:408
+msgid "August"
+msgstr "آگوست"
+
+#: lib/object.php:409
+msgid "September"
+msgstr "سپتامبر"
+
+#: lib/object.php:410
+msgid "October"
+msgstr "اکتبر"
+
+#: lib/object.php:411
+msgid "November"
+msgstr "نوامبر"
+
+#: lib/object.php:412
+msgid "December"
+msgstr "دسامبر"
+
+#: lib/object.php:418
+msgid "by events date"
+msgstr "به وسیله رویداد های روزانه"
+
+#: lib/object.php:419
+msgid "by yearday(s)"
+msgstr "به وسیله روز های سال(ها)"
+
+#: lib/object.php:420
+msgid "by weeknumber(s)"
+msgstr "به وسیله شماره هفته(ها)"
+
+#: lib/object.php:421
+msgid "by day and month"
+msgstr "به وسیله روز و ماه"
+
+#: lib/search.php:32 lib/search.php:34 lib/search.php:37
+msgid "Date"
+msgstr "تاریخ"
+
+#: lib/search.php:40
+msgid "Cal."
+msgstr "تقویم."
+
+#: templates/calendar.php:11
+msgid "All day"
+msgstr "هرروز"
+
+#: templates/calendar.php:12 templates/part.choosecalendar.php:22
+msgid "New Calendar"
+msgstr "تقویم جدید"
+
+#: templates/calendar.php:13
+msgid "Missing fields"
+msgstr "فیلد های گم شده"
+
+#: templates/calendar.php:14 templates/part.eventform.php:19
+#: templates/part.showevent.php:11
+msgid "Title"
+msgstr "عنوان"
+
+#: templates/calendar.php:16
+msgid "From Date"
+msgstr "از تاریخ"
+
+#: templates/calendar.php:17
+msgid "From Time"
+msgstr "از ساعت"
+
+#: templates/calendar.php:18
+msgid "To Date"
+msgstr "به تاریخ"
+
+#: templates/calendar.php:19
+msgid "To Time"
+msgstr "به ساعت"
+
+#: templates/calendar.php:20
+msgid "The event ends before it starts"
+msgstr "رویداد قبل از شروع شدن تمام شده!"
+
+#: templates/calendar.php:21
+msgid "There was a database fail"
+msgstr "یک پایگاه داده فرو مانده است"
+
+#: templates/calendar.php:40
+msgid "Week"
+msgstr "هفته"
+
+#: templates/calendar.php:41
+msgid "Month"
+msgstr "ماه"
+
+#: templates/calendar.php:42
+msgid "List"
+msgstr "فهرست"
+
+#: templates/calendar.php:48
+msgid "Today"
+msgstr "امروز"
+
+#: templates/calendar.php:49
+msgid "Calendars"
+msgstr "تقویم ها"
+
+#: templates/calendar.php:67
+msgid "There was a fail, while parsing the file."
+msgstr "ناتوان در تجزیه پرونده"
+
+#: templates/part.choosecalendar.php:1
+msgid "Choose active calendars"
+msgstr "تقویم فعال را انتخاب کنید"
+
+#: templates/part.choosecalendar.php:2
+msgid "Your calendars"
+msgstr "تقویم های شما"
+
+#: templates/part.choosecalendar.php:27
+#: templates/part.choosecalendar.rowfields.php:5
+msgid "CalDav Link"
+msgstr "CalDav Link"
+
+#: templates/part.choosecalendar.php:31
+msgid "Shared calendars"
+msgstr "تقویمهای به اشترک گذاری شده"
+
+#: templates/part.choosecalendar.php:48
+msgid "No shared calendars"
+msgstr "هیچ تقویمی به  اشتراک گذارده نشده"
+
+#: templates/part.choosecalendar.rowfields.php:4
+msgid "Share Calendar"
+msgstr "تقویم را به اشتراک بگذارید"
+
+#: templates/part.choosecalendar.rowfields.php:6
+msgid "Download"
+msgstr "بارگیری"
+
+#: templates/part.choosecalendar.rowfields.php:7
+msgid "Edit"
+msgstr "ویرایش"
+
+#: templates/part.choosecalendar.rowfields.php:8
+#: templates/part.editevent.php:9
+msgid "Delete"
+msgstr "پاک کردن"
+
+#: templates/part.choosecalendar.rowfields.shared.php:4
+msgid "shared with you by"
+msgstr "به اشتراک گذارده شده به وسیله"
+
+#: templates/part.editcalendar.php:9
+msgid "New calendar"
+msgstr "تقویم جدید"
+
+#: templates/part.editcalendar.php:9
+msgid "Edit calendar"
+msgstr "ویرایش تقویم"
+
+#: templates/part.editcalendar.php:12
+msgid "Displayname"
+msgstr "نام برای نمایش"
+
+#: templates/part.editcalendar.php:23
+msgid "Active"
+msgstr "فعال"
+
+#: templates/part.editcalendar.php:29
+msgid "Calendar color"
+msgstr "رنگ تقویم"
+
+#: templates/part.editcalendar.php:42
+msgid "Save"
+msgstr "ذخیره سازی"
+
+#: templates/part.editcalendar.php:42 templates/part.editevent.php:8
+#: templates/part.newevent.php:6
+msgid "Submit"
+msgstr "ارسال"
+
+#: templates/part.editcalendar.php:43
+msgid "Cancel"
+msgstr "انصراف"
+
+#: templates/part.editevent.php:1
+msgid "Edit an event"
+msgstr "ویرایش رویداد"
+
+#: templates/part.editevent.php:10
+msgid "Export"
+msgstr "خروجی گرفتن"
+
+#: templates/part.eventform.php:8 templates/part.showevent.php:3
+msgid "Eventinfo"
+msgstr "اطلاعات رویداد"
+
+#: templates/part.eventform.php:9 templates/part.showevent.php:4
+msgid "Repeating"
+msgstr "در حال تکرار کردن"
+
+#: templates/part.eventform.php:10 templates/part.showevent.php:5
+msgid "Alarm"
+msgstr "هشدار"
+
+#: templates/part.eventform.php:11 templates/part.showevent.php:6
+msgid "Attendees"
+msgstr "شرکت کنندگان"
+
+#: templates/part.eventform.php:13
+msgid "Share"
+msgstr "به اشتراک گذاردن"
+
+#: templates/part.eventform.php:21
+msgid "Title of the Event"
+msgstr "عنوان رویداد"
+
+#: templates/part.eventform.php:27 templates/part.showevent.php:19
+msgid "Category"
+msgstr "نوع"
+
+#: templates/part.eventform.php:29
+msgid "Separate categories with commas"
+msgstr "گروه ها را به وسیله درنگ نما از هم جدا کنید"
+
+#: templates/part.eventform.php:30
+msgid "Edit categories"
+msgstr "ویرایش گروه"
+
+#: templates/part.eventform.php:56 templates/part.showevent.php:55
+msgid "All Day Event"
+msgstr "رویداد های روزانه"
+
+#: templates/part.eventform.php:60 templates/part.showevent.php:59
+msgid "From"
+msgstr "از"
+
+#: templates/part.eventform.php:68 templates/part.showevent.php:67
+msgid "To"
+msgstr "به"
+
+#: templates/part.eventform.php:76 templates/part.showevent.php:75
+msgid "Advanced options"
+msgstr "تنظیمات حرفه ای"
+
+#: templates/part.eventform.php:81 templates/part.showevent.php:80
+msgid "Location"
+msgstr "منطقه"
+
+#: templates/part.eventform.php:83
+msgid "Location of the Event"
+msgstr "منطقه رویداد"
+
+#: templates/part.eventform.php:89 templates/part.showevent.php:88
+msgid "Description"
+msgstr "توضیحات"
+
+#: templates/part.eventform.php:91
+msgid "Description of the Event"
+msgstr "توضیحات درباره رویداد"
+
+#: templates/part.eventform.php:100 templates/part.showevent.php:98
+msgid "Repeat"
+msgstr "تکرار"
+
+#: templates/part.eventform.php:107 templates/part.showevent.php:105
+msgid "Advanced"
+msgstr "پیشرفته"
+
+#: templates/part.eventform.php:151 templates/part.showevent.php:149
+msgid "Select weekdays"
+msgstr "انتخاب روز های هفته "
+
+#: templates/part.eventform.php:164 templates/part.eventform.php:177
+#: templates/part.showevent.php:162 templates/part.showevent.php:175
+msgid "Select days"
+msgstr "انتخاب روز ها"
+
+#: templates/part.eventform.php:169 templates/part.showevent.php:167
+msgid "and the events day of year."
+msgstr "و رویداد های روز از سال"
+
+#: templates/part.eventform.php:182 templates/part.showevent.php:180
+msgid "and the events day of month."
+msgstr "و رویداد های روز از ماه"
+
+#: templates/part.eventform.php:190 templates/part.showevent.php:188
+msgid "Select months"
+msgstr "انتخاب ماه ها"
+
+#: templates/part.eventform.php:203 templates/part.showevent.php:201
+msgid "Select weeks"
+msgstr "انتخاب هفته ها"
+
+#: templates/part.eventform.php:208 templates/part.showevent.php:206
+msgid "and the events week of year."
+msgstr "و رویداد هفته ها از سال"
+
+#: templates/part.eventform.php:214 templates/part.showevent.php:212
+msgid "Interval"
+msgstr "فاصله"
+
+#: templates/part.eventform.php:220 templates/part.showevent.php:218
+msgid "End"
+msgstr "پایان"
+
+#: templates/part.eventform.php:233 templates/part.showevent.php:231
+msgid "occurrences"
+msgstr "ظهور"
+
+#: templates/part.import.php:1
+msgid "Import a calendar file"
+msgstr "یک پرونده حاوی تقویم وارد کنید"
+
+#: templates/part.import.php:6
+msgid "Please choose the calendar"
+msgstr "لطفا تقویم را انتخاب کنید"
+
+#: templates/part.import.php:10
+msgid "create a new calendar"
+msgstr "یک تقویم جدید ایجاد کنید"
+
+#: templates/part.import.php:15
+msgid "Name of new calendar"
+msgstr "نام تقویم جدید"
+
+#: templates/part.import.php:17
+msgid "Import"
+msgstr "ورودی دادن"
+
+#: templates/part.import.php:20
+msgid "Importing calendar"
+msgstr "درحال افزودن تقویم"
+
+#: templates/part.import.php:23
+msgid "Calendar imported successfully"
+msgstr "افزودن تقویم موفقیت آمیز بود"
+
+#: templates/part.import.php:24
+msgid "Close Dialog"
+msgstr "بستن دیالوگ"
+
+#: templates/part.newevent.php:1
+msgid "Create a new event"
+msgstr "یک رویداد ایجاد کنید"
+
+#: templates/part.showevent.php:1
+msgid "View an event"
+msgstr "دیدن یک رویداد"
+
+#: templates/part.showevent.php:23
+msgid "No categories selected"
+msgstr "هیچ گروهی انتخاب نشده"
+
+#: templates/part.showevent.php:25
+msgid "Select category"
+msgstr "انتخاب گروه"
+
+#: templates/part.showevent.php:37
+msgid "of"
+msgstr "از"
+
+#: templates/part.showevent.php:62 templates/part.showevent.php:70
+msgid "at"
+msgstr "در"
+
+#: templates/settings.php:14
+msgid "Timezone"
+msgstr "زمان محلی"
+
+#: templates/settings.php:31
+msgid "Check always for changes of the timezone"
+msgstr "همیشه بررسی کنید برای تغییر زمان محلی"
+
+#: templates/settings.php:33
+msgid "Timeformat"
+msgstr "نوع زمان"
+
+#: templates/settings.php:35
+msgid "24h"
+msgstr "24 ساعت"
+
+#: templates/settings.php:36
+msgid "12h"
+msgstr "12 ساعت"
+
+#: templates/settings.php:40
+msgid "First day of the week"
+msgstr "یکمین روز هفته"
+
+#: templates/settings.php:49
+msgid "Calendar CalDAV syncing address:"
+msgstr "Calendar CalDAV syncing address :"
+
+#: templates/share.dropdown.php:20
+msgid "Users"
+msgstr "کاربرها"
+
+#: templates/share.dropdown.php:21
+msgid "select users"
+msgstr "انتخاب شناسه ها"
+
+#: templates/share.dropdown.php:36 templates/share.dropdown.php:62
+msgid "Editable"
+msgstr "قابل ویرایش"
+
+#: templates/share.dropdown.php:48
+msgid "Groups"
+msgstr "گروه ها"
+
+#: templates/share.dropdown.php:49
+msgid "select groups"
+msgstr "انتخاب گروه ها"
+
+#: templates/share.dropdown.php:75
+msgid "make public"
+msgstr "عمومی سازی"

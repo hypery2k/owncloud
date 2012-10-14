@@ -1,4 +1,17 @@
 language: php
 php:
-  - "5.4"
-  - "5.3"
+  - 5.4
+  - 5.3
+
+# optionally specify a list of environments, for example to test different RDBMS
+env:
+  - DB=mysql
+  - DB=sqllite
+
+before_script:
+  - ./bin/ci/prepare.sh
+script: 
+  - sh -c "if [ '$DB' = 'mysql' ]; then ./bin/ci/prepare_mysql.sh
+  - sh -c "if [ '$DB' = 'sqllite' ]; then ./bin/ci/prepare_sqllite.sh 
+#  - phpunit --configuration phpunit_$DB.xml --coverage-text
+#  - ./bin/sausage/vendor/bin/phpunit --path=./apps/roundcube/tests/integration/Selenium.php
