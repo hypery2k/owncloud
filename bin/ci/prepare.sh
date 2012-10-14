@@ -9,12 +9,12 @@ cd ..
 cd ..
 # SETUP OWNCLOUD
 
-mkdir /var/www/mysql
-mkdir /var/www/mysql/4.0.8
-mkdir /var/www/mysql/4.5.0
-mkdir /var/www/sqllite
-mkdir /var/www/sqllite/4.0.8
-mkdir /var/www/sqllite/4.5.0
+sudo mkdir /var/www/mysql
+sudo mkdir /var/www/mysql/4.0.8
+sudo mkdir /var/www/mysql/4.5.0
+sudo mkdir /var/www/sqllite
+sudo mkdir /var/www/sqllite/4.0.8
+sudo mkdir /var/www/sqllite/4.5.0
 
 sudo cp -rp travis_ci/owncloud_releases/4.0.8 /var/www/mysql/4.0.8
 sudo cp -rp travis_ci/owncloud_releases/4.0.8 /var/www/sqllite/4.0.8
