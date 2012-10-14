@@ -410,7 +410,7 @@ class RoundcubeLogin {
 			if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $line, $match)) {
 				$this -> addDebug('GOT SESSION AUTH', 'Got the following new session auth ');
 				header($line, false);
-				$this -> rcSessionAuthi = $match[1];
+				$this -> rcSessionAuth = $match[1];
 			}
 
 			// Request token (since Roundcube 0.5.1)
