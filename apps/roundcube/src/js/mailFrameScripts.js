@@ -62,10 +62,10 @@ $('#roundcubeFrame').load(function() {
 		// correct top padding
 		$('#roundcubeFrame').contents().find('#mainscreen').css('top','50px');
 	}
-	// remove email adresse
-	$('.username').remove()
 	// slide in roundcube nice
 	$('#loader').fadeOut('slow');
 	$('#roundcubeFrame').slideDown('slow');
+	// remove email adresse
+	$('#roundcubeFrame').contents().find('.username').remove();
 	
 });
