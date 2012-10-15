@@ -24,27 +24,15 @@ $l = new OC_L10N('roundcube');
 OC::$CLASSPATH['OC_RoundCube_App'] = 'apps/roundcube/lib/mail.php';
 OC::$CLASSPATH['RoundcubeLogin'] = 'apps/roundcube/lib/RoundcubeLogin.class.php';
 
-OC_APP::registerAdmin('roundcube', 'adminSettings');
-OC_App::registerPersonal('roundcube', 'userSettings');
+OCP\App::registerAdmin('roundcube', 'adminSettings');
+OCP\App::registerPersonal('roundcube', 'userSettings');
 
-// needed for owncloud version <= 4.5
-try {
-	OC_App::register(
-		array(
-			'order' => 10, 
-			'id' => 'roundcube', 
-			'name' => 'RoundCube Mail'
-		)
-	);
-} catch (Exception $e) {
-}
-
-OC_App::addNavigationEntry(
+OCP\App::addNavigationEntry(
 	array(
 		'id' => 'roundcube_index', 
 		'order' => 10, 
-		'href' => OC_Helper::linkTo('roundcube', 'index.php'), 
-		'icon' => OC_Helper::imagePath('roundcube', 'mail.png'), 
+		'href' => OCP\Util::linkTo('roundcube', 'index.php'), 
+		'icon' => OCP\Util::imagePath('roundcube', 'mail.png'), 
 		'name' => $l -> t('Webmail')
 	)
 );

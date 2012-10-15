@@ -1,28 +1,53 @@
 <?php
-require_once(OC::$APPSROOT . '/lib/base.php');
+
+/**
+* ownCloud - roundcube mail plugin
+*
+* @author Martin Reinhardt and David Jaedke
+* @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
+* 
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+* License as published by the Free Software Foundation; either 
+* version 3 of the License, or any later version.
+* 
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+*  
+* You should have received a copy of the GNU Lesser General Public 
+* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+* 
+*/
+
 // Check if we are a user
-if( !OC_User::isLoggedIn()){
-	header( "Location: ".OC_Helper::linkTo( '', 'index.php' ));
+OCP\User::checkLoggedIn();
+OCP\App::checkAppEnabled('roundcube');
+
+// Check if we are a user
+if( !OCP\User::isLoggedIn()){
+	header( "Location: " . OCP\Util::linkTo( '', 'index.php' ));
 	exit();
 }
 // check if app bookmark is enabled, since we need this app
-if (!OC_App::isEnabled('bookmarks')){
-	OC_Log::write('core','RoundCube can\'t be installed because the Bookmarks App isn\'t enabled',OC_Log::ERROR);
-	header( "Location: ".OC_Helper::linkTo( '', 'index.php' ));
+if (!OCP\App::isEnabled('bookmarks')){
+//	\OCP\Util::writeLog('core','RoundCube can\'t be installed because the Bookmarks App isn\'t enabled',\OCP\Util::ERROR);
+	header( "Location: " . OCP\Util::linkTo( '', 'index.php' ));
 	exit();
 }
 
 // Load our style
-OC_Util::addStyle('roundcube', 'base');
+OCP\Util::addStyle('roundcube', 'base');
 // add neede JS
-OC_Util::addScript('','jquery-1.7.2.min');
-OC_Util::addScript('roundcube','scripts');
-OC_Util::addScript('roundcube','modernizr');
+OCP\Util::addScript('','jquery-1.7.2.min');
+OCP\Util::addScript('roundcube','scripts');
+OCP\Util::addScript('roundcube','modernizr');
 
 // add new navigation entry
-OC_App::setActiveNavigationEntry("roundcube_index");
+OCP\App::setActiveNavigationEntry("roundcube_index");
 
 
-$tmpl = new OC_TEMPLATE("roundcube", "mail", "user");
+$tmpl = new OCP\Template("roundcube", "mail", "user");
 $tmpl-> printpage();
 ?>

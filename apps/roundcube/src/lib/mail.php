@@ -3,7 +3,7 @@
 /**
 * ownCloud - roundcube mail plugin
 *
-\* @author Martin Reinhardt and David Jaedke
+* @author Martin Reinhardt and David Jaedke
 * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
 * 
 * This library is free software; you can redistribute it and/or
@@ -35,7 +35,7 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function existLoginData($meUser) {
-		$stmt = OC_DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE ocUser = \"".$meUser."\"");
+		$stmt = OCP\DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE ocUser = \"".$meUser."\"");
 		$result = $stmt->execute();
 		$row = $result->fetchRow();
 		
@@ -52,7 +52,7 @@ class OC_RoundCube_App {
 	 * It also chekcs the login data
 	 */
 	public static function writeBasicData($meUser) {
-		$stmt = OC_DB::prepare("INSERT INTO *PREFIX*roundcube (ocUser) VALUES (\"".$meUser."\")");
+		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (ocUser) VALUES (\"".$meUser."\")");
 		$result = $stmt->execute();
 		self::checkLoginData($meUser, 1);
 	}
@@ -68,7 +68,7 @@ class OC_RoundCube_App {
 	public static function checkLoginData($meUser, $written=0) {
 		$mailID = self::existLoginData($meUser);
 		if(isset($mailID) && $mailID != '') {
-			$stmt = OC_DB::prepare("SELECT id,ocUser,mailUser,mailPass FROM *PREFIX*roundcube WHERE id = $mailID");
+			$stmt = OCP\DB::prepare("SELECT id,ocUser,mailUser,mailPass FROM *PREFIX*roundcube WHERE id = $mailID");
 			$result = $stmt->execute();
 			$row = $result->fetchRow();
 			
@@ -85,8 +85,8 @@ class OC_RoundCube_App {
 	 */
 	public static function cryptMyEntry($entry) {
 		
-		$before = OC_Appconfig::getValue('roundcube', 'encryptstring1','');
-		$after = OC_Appconfig::getValue('roundcube', 'encryptstring2','');
+		$before = OCP\Config::getAppValue('roundcube', 'encryptstring1','');
+		$after = OCP\Config::getAppValue('roundcube', 'encryptstring2','');
 		$string = $before.$entry.$after;
 		
 		$hex='';
@@ -104,8 +104,8 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function decryptMyEntry($hex) {
-		$before = OC_Appconfig::getValue('roundcube', 'encryptstring1','');
-		$after = OC_Appconfig::getValue('roundcube', 'encryptstring2','');
+		$before = OCP\Config::getAppValue('roundcube', 'encryptstring1','');
+		$after = OCP\Config::getAppValue('roundcube', 'encryptstring2','');
 		$string='';
 	    for ($i=0; $i < strlen($hex)-1; $i+=2)
 	    {
@@ -139,9 +139,9 @@ class OC_RoundCube_App {
 				}
 			OCP\Util::writeLog('roundcube','Preparing iFrame for roundcube:'.$rcl->getRedirectPath(),OCP\Util::DEBUG);
 						// loadign image
-		$loader_image = OC_Helper::imagePath( 'roundcube', 'loader.gif' );
+		$loader_image = OCP\Util::imagePath( 'roundcube', 'loader.gif' );
 		
-		$removeHeaderNav = OC_Appconfig::getValue('roundcube', 'removeHeaderNav','');
+		$removeHeaderNav = OCP\Config::getAppValue('roundcube', 'removeHeaderNav','');
 		if(strcmp($removeHeaderNav, '1') == 0) {
 			$disable_header_nav = 'true';	
 		}else {

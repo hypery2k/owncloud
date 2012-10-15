@@ -2,7 +2,7 @@
 /**
 * ownCloud - roundcube mail plugin
 *
-\* @author Martin Reinhardt and David Jaedke
+* @author Martin Reinhardt and David Jaedke
 * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
 * 
 * This library is free software; you can redistribute it and/or
@@ -26,14 +26,14 @@ $ocRoundCubeMailError['wrongUser'] = 'Ups we have a problem with your login. Ple
 $ocRoundCubeMailError['noID'] = 'Ups we have a problem with your login. Please try again.';
 
 
-$mailuserdata = OC_RoundCube_App::checkLoginData(OC_User::getUser());
+$mailuserdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 $mailUsername = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailUser']);
 $mailPassword = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailPass']);
 
 if ($mailuserdata['id'] != '') {
-	if($mailuserdata['ocUser'] == OC_User::getUser()) {
+	if($mailuserdata['ocUser'] == OCP\User::getUser()) {
 		if ($mailuserdata['mailUser'] != '' && $mailuserdata['mailPass'] != '') {
-			$maildir = OC_Appconfig::getValue('roundcube', 'maildir','');
+			$maildir = OCP\Config::getAppValue('roundcube', 'maildir','');
 			OC_RoundCube_App::showMailFrame($maildir,$mailUsername, $mailPassword);
 		}
 		else echo $ocRoundCubeMailError['noUserdata'];

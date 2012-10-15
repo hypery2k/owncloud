@@ -1,7 +1,8 @@
 <?php
 
 /**
- *
+ * Roundcube plugin for owncloud
+ * 
  * @author Martin Reinhardt and David Jaedke and Philipp Heckel
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
