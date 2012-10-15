@@ -301,8 +301,7 @@ class RoundcubeLogin {
 			$this -> addDebug("Got the following token from rc: " . $this -> lastToken);
 		}
 
-		if (preg_match('/
-<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
+		if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
 			$this -> lastToken = $m[1];
 			// override previous token (if this one exists!)
 			$this -> addDebug("Got the following token from rc: " . $this -> lastToken);
@@ -431,14 +430,14 @@ class RoundcubeLogin {
 		$this -> addDebug("RESPONSE", $response);
 		return $response;
 	}
-
+	
 	/**
 	 * Print a debug message if debugging is enabled.
 	 *
 	 * @param string Short action message
 	 * @param string Output data
 	 */
-	private function addDebug($action, $data) {
+	private function addDebug($action, $data = '') {
 		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::DEBUG);
 	}
 

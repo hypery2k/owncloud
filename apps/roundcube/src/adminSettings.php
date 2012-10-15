@@ -29,13 +29,13 @@ if ($_POST) {
 	foreach ($params as $param) {
 		if (isset($_POST[$param])) {
 			if ($param === 'removeHeaderNav') {
-				OCP\Appconfig::setValue('roundcube', 'removeHeaderNav', true);
+				OCP\Config::setAppValue('roundcube', 'removeHeaderNav', true);
 			} else {
-				OCP\Appconfig::setValue('roundcube', $param, $_POST[$param]);
+				OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
 			}
 		} else {
 			if ($param === 'removeHeaderNav') {
-				OCP\Appconfig::setValue('roundcube', 'removeHeaderNav', false);
+				OCP\Config::setAppValue('roundcube', 'removeHeaderNav', false);
 			}
 		}
 	}

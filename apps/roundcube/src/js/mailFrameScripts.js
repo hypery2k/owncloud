@@ -46,9 +46,10 @@ $('#roundcubeFrame').load(function() {
     // remove logout button
     $('#roundcubeFrame').contents().find('.button-logout').remove();
     
-    if($('#disable_header_nav').val()) {
+    // check if the header menu from roundcube was disabled
+    if($('#disable_header_nav').val() === 'true') {
 
-            var top_nav = $('#roundcubeFrame').contents().find('#topnav');
+            var top_nav = $('#roundcubeFrame').contents().find('#header');
             // check if the above element exits (only in new larry theme, if null use rc 0.7 default theme
             if(top_nav.height()==null){
                     top_nav = $('#roundcubeFrame').contents().find('#taskbar');
@@ -56,10 +57,14 @@ $('#roundcubeFrame').load(function() {
                     //top_in= top_margin-top_nav.height();
             }
             top_nav.remove();
-    }
-	// correct top padding
-	$('#roundcubeFrame').contents().find('#mainscreen').css('top',top_margin);
-
+		$('#roundcubeFrame').contents().find('#mainscreen').css('top',top_margin);
+    } else {
+		// correct top padding
+		$('#roundcubeFrame').contents().find('#mainscreen').css('top','50px');
+	}
+	// remove email adresse
+	$('.username').remove()
+	// slide in roundcube nice
 	$('#loader').fadeOut('slow');
 	$('#roundcubeFrame').slideDown('slow');
 	
