@@ -42,6 +42,10 @@ $('#roundcubeFrame').load(function() {
             }
     } catch (e) {}
     top_line.remove();
+    
+    // fix topbar, issue https://github.com/hypery2k/owncloud/issues/54
+    $('#roundcubeFrame').contents().find('.toolbar').css('z-index','100');
+    $('#roundcubeFrame').contents().find('.toolbar').css('position','absolute');
 
     // remove logout button
     $('#roundcubeFrame').contents().find('.button-logout').remove();
