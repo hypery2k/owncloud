@@ -286,10 +286,10 @@ class RoundcubeLogin {
 			return;
 
 		// Get current session ID cookie
-		if ($_COOKIE['roundcube_sessid'])
+		if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid'])
 			$this -> rcSessionID = $_COOKIE['roundcube_sessid'];
 
-		if ($_COOKIE['roundcube_sessauth'])
+		if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth'])
 			$this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
 
 		// Send request and maybe receive new session ID
