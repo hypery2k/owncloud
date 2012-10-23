@@ -269,7 +269,7 @@ class RoundcubeLogin {
 	}
 
 	public function getRedirectPath() {
-		$port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
+		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$protocol = (($port == 443) ? "https://" : "http://");
 		$path = $protocol . $this -> rcHost . "/" . $this -> rcPath;
 		return $path;
@@ -344,7 +344,7 @@ class RoundcubeLogin {
 	 */
 	private function sendRequest($path, $postData, $rc_host) {
 		$method = (!$postData) ? "GET" : "POST";
-		$port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
+		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$url = "/" . $path . "/";
 		$protocol = (($port == 443) ? "HTTPS/1.1" : "HTTP/1.1");
 		$host = (($port == 443) ? "ssl://" : "") . $this -> rcHost;
