@@ -269,7 +269,7 @@ class RoundcubeLogin {
 	}
 
 	public function getRedirectPath() {
-		$port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
+		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$protocol = (($port == 443) ? "https://" : "http://");
 		$path = $protocol . $this -> rcHost . "/" . $this -> rcPath;
 		return $path;
@@ -286,10 +286,10 @@ class RoundcubeLogin {
 			return;
 
 		// Get current session ID cookie
-		if ($_COOKIE['roundcube_sessid'])
+		if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid'])
 			$this -> rcSessionID = $_COOKIE['roundcube_sessid'];
 
-		if ($_COOKIE['roundcube_sessauth'])
+		if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth'])
 			$this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
 
 		// Send request and maybe receive new session ID
@@ -342,9 +342,9 @@ class RoundcubeLogin {
 	 * @param string POST data in urlencoded form (param1=value1&...)
 	 * @return string Returns the complete request response with all headers.
 	 */
-	private function sendRequest($path, $postData, $rc_host) {
+	private function sendRequest($path, $postData) {
 		$method = (!$postData) ? "GET" : "POST";
-		$port = ($_SERVER['HTTPS'] || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
+		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$url = "/" . $path . "/";
 		$protocol = (($port == 443) ? "HTTPS/1.1" : "HTTP/1.1");
 		$host = (($port == 443) ? "ssl://" : "") . $this -> rcHost;
@@ -358,12 +358,12 @@ class RoundcubeLogin {
 			$cookies[] = "$name=$value";
 
 		// Add roundcube session ID if available
-		if (!$_COOKIE['roundcube_sessid'] && $this -> rcSessionID) {
+		if ((!isset($_COOKIE['roundcube_sessid']) || !$_COOKIE['roundcube_sessid']) && $this -> rcSessionID) {
 			$cookies[] = "roundcube_sessid={$this->rcSessionID}";
 			$this -> addDebug('Got the following session id for roundcube' . $this -> rcSessionID);
 		}
 
-		if (!$_COOKIE['roundcube_sessauth'] && $this -> rcSessionAuth) {
+		if ((!isset($_COOKIE['roundcube_sessauth']) || !$_COOKIE['roundcube_sessauth']) && $this -> rcSessionAuth) {
 			$cookies[] = "roundcube_sessauth={$this->
 	rcSessionAuth}";
 			$this -> addDebug('Got the following session auth for roundcube' . $this -> rcSessionAuth);
