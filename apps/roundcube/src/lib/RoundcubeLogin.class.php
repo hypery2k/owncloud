@@ -217,10 +217,16 @@ class RoundcubeLogin {
 
 		// Login failure detected! If the login failed, RC sends the cookie "sessauth=-del-"
 		else if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $response)) {
-			header($line, false);
-
-			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
-			$this -> rcLoginStatus = -1;
+			
+			// let's try one more login, see issue #57, https://github.com/hypery2k/owncloud/issues/57  
+			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; Trying login again.");
+			if(!$this->login($username, $password)){
+				
+				header($line, false);
+	
+				$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
+				$this -> rcLoginStatus = -1;
+			}
 		}
 
 		// Unkown, neither failure nor success.
