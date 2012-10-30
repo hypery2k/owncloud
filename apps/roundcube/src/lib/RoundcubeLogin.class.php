@@ -231,7 +231,7 @@ class RoundcubeLogin {
 			$this -> rcLoginCount ++;
 						
 			// restrict login try to 5
-			if(!$this->login($username, $password) || $this -> rcLoginCount > 5){
+			if(!$this->login($username, $password) && $this -> rcLoginCount > 5){
 				
 				header($line, false);
 	
