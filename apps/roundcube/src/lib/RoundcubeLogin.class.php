@@ -148,6 +148,14 @@ class RoundcubeLogin {
 	 * @var int
 	 */
 	private $rcLoginStatus;
+	
+	/**
+	 * Save the number of logins
+	 *
+	 * @var int
+	 */
+	private $rcLoginCount;
+	
 
 	/**
 	 * Roundcube 0.5.1 adds a request token for 'security'. This variable
@@ -220,7 +228,10 @@ class RoundcubeLogin {
 			
 			// let's try one more login, see issue #57, https://github.com/hypery2k/owncloud/issues/57  
 			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; Trying login again.");
-			if(!$this->login($username, $password)){
+			$this -> rcLoginCount ++;
+						
+			// restrict login try to 5
+			if(!$this->login($username, $password) || $this -> rcLoginCount > 5){
 				
 				header($line, false);
 	
