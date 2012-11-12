@@ -131,6 +131,10 @@ class OC_RoundCube_App {
 		try {
 				// Try to login
 	 			OCP\Util::writeLog('roundcube','Trying to log into roundcube webinterface under '.$maildir.' as user '.$ownUser,OCP\Util::DEBUG);
+	   			if ($rcl-> isLoggedIn()){
+                                        $rcl -> logout();
+                                        $rcl = new RoundcubeLogin($maildir);
+                                }
 	   			if ($rcl->login($ownUser, $ownPass)){
 	         		OCP\Util::writeLog('roundcube','Successfully logged into roundcube ',OCP\Util::DEBUG);
 				} else {
