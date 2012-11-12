@@ -207,10 +207,6 @@ class RoundcubeLogin {
 	public function login($username, $password) {
 		$this -> updateLoginStatus();
 
-		// If already logged in, perform a re-login (logout first)
-		if ($this -> isLoggedIn())
-			$this -> logout();
-
 		// Try login
 		$data = (($this -> lastToken) ? "_token=" . $this -> lastToken . "&" : "") . "_task=login&_action=login&_timezone=1&_dstactive=1&_url=&_user=" . urlencode($username) . "&_pass=" . urlencode($password);
 
