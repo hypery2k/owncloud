@@ -20,9 +20,9 @@
 * 
 */
 
-$mailuserdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
-$mailUsername = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailUser']);
-$mailPassword = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailPass']);
+$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+$mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 ?>
 
 <form id="usermail" action="#" method="post">
@@ -30,10 +30,10 @@ $mailPassword = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailPass']);
 		<legend><strong><?php echo $l->t('RoundCube Mailaccount');?></strong></legend>
         <p>
         	<label for="usermail"><?php echo $l->t('Username');?>
-        		<input type="text" id="mailUsername" name="mailUsername" value="<?php echo $mailUsername;?>">
+        		<input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username;?>">
         	</label>
         	<label for="usermail"><?php echo $l->t('Password');?>
-        		<input type="password" id="mailPassword" name="mailPassword" value="<?php echo $mailPassword;?>">
+        		<input type="password" id="mail_passwordword" name="mail_passwordword" value="<?php echo $mail_passwordword;?>">
         	</label></p>
         <input type="submit" value="Save" />
 	</fieldset>

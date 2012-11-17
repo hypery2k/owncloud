@@ -26,15 +26,15 @@ $ocRoundCubeMailError['wrongUser'] = 'Ups we have a problem with your login. Ple
 $ocRoundCubeMailError['noID'] = 'Ups we have a problem with your login. Please try again.';
 
 
-$mailuserdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
-$mailUsername = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailUser']);
-$mailPassword = OC_RoundCube_App::decryptMyEntry($mailuserdata['mailPass']);
+$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+$mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 
-if ($mailuserdata['id'] != '') {
-	if($mailuserdata['ocUser'] == OCP\User::getUser()) {
-		if ($mailuserdata['mailUser'] != '' && $mailuserdata['mailPass'] != '') {
+if ($mail_userdata['id'] != '') {
+	if($mail_userdata['oc_user'] == OCP\User::getUser()) {
+		if ($mail_userdata['mail_user'] != '' && $mail_userdata['mail_password'] != '') {
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir','');
-			OC_RoundCube_App::showMailFrame($maildir,$mailUsername, $mailPassword);
+			OC_RoundCube_App::showMailFrame($maildir,$mail_username, $mail_passwordword);
 		}
 		else echo $ocRoundCubeMailError['noUserdata'];
 	}

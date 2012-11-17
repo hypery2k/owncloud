@@ -16,21 +16,21 @@
 				<length>5</length>
 			</field>
 			<field>
-				<name>ocUser</name>
+				<name>oc_user</name>
 				<type>text</type>
 				<default></default>
 				<notnull>true</notnull>
 				<length>4096</length>
 			</field>
 			<field>
-				<name>mailUser</name>
+				<name>mail_user</name>
 				<type>text</type>
 				<default></default>
 				<notnull>true</notnull>
 				<length>4096</length>
 			</field>
 			<field>
-				<name>mailPass</name>
+				<name>mail_password</name>
 				<type>text</type>
 				<default></default>
 				<notnull>true</notnull>
