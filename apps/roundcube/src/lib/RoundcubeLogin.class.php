@@ -306,7 +306,7 @@ class RoundcubeLogin {
 			$this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
 
 		// Send request and maybe receive new session ID
-		$response = $this -> sendRequest($this -> rcPath);
+		$response = $this -> sendRequest($this -> rcPath, false); // Fix 2 parameter call
 
 		// Request token (since Roundcube 0.5.1)
 		if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
