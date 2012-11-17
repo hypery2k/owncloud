@@ -359,7 +359,8 @@ class RoundcubeLogin {
 		$method = (!$postData) ? "GET" : "POST";
 		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$url = "/" . $path . "/";
-		$protocol = (($port == 443) ? "HTTPS/1.1" : "HTTP/1.1");
+		// fix for issue #60, see https://github.com/hypery2k/owncloud/issues/60
+		$protocol =  "HTTP/1.1";
 		$host = (($port == 443) ? "ssl://" : "") . $this -> rcHost;
 
 		$this -> addDebug('Trying to connect via "' . $method . '" on port "' . $port . '" to URL "' . $url . '" on host"' . $host . '"');
