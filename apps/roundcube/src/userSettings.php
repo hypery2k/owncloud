@@ -29,6 +29,7 @@ if ($_POST) {
 }
 
 // fill template
+$params = array();
 $tmpl = new OCP\Template( 'roundcube', 'userSettings');
 foreach($params as $param){
                 $value = OCP\Config::getAppValue('roundcube', $param,'');
