@@ -30,5 +30,4 @@ INSTALL:
 2. type your roundcubedir in the administrator-settings
 3. optional type encryptionstrings (your mailuser and password will be crypted)
 4. type your mail-username and mail-password in your personal settings
-5. Aktivate your autologonplugin in Roundcube (you can find it in my zip file (rouncubeplugin)
-6. Enjoy it or send me your bug to https://github.com/hypery2k/owncloud
+5. Enjoy it or send me your bug to https://github.com/hypery2k/owncloud
