@@ -8,7 +8,7 @@ function resizeIframe() {
     var height = document.documentElement.clientHeight;
     height -= pageY(document.getElementById('roundcubeFrame'))+ buffer ;
     height = (height < 0) ? 0 : height;
-    document.getElementById('roundcubeFrame').style.height = height + 'px';
+    document.getElementById('roundcubeFrame').style.height = '100%';
 	// fix scrollbar issue
 	$('#content').css('overflow','hidden');
 	$('#content').css('height','+ height+');
