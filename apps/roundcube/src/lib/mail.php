@@ -35,10 +35,9 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function existLoginData($meUser) {
-		$stmt = OCP\DB::prepare("SELECT id FROM *PREFIX*roundcube WHERE oc_user = \"".$meUser."\"");
-		$result = $stmt->execute();
-		$row = $result->fetchRow();
-		
+		$stmt=OC_DB::prepare('SELECT id FROM *PREFIX*roundcube WHERE oc_user=?');
+		$result=$stmt->execute(array($meUser));
+		$row = $result->fetchRow();		
 		return $row['id'];
 	}
 	
