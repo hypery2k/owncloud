@@ -28,11 +28,13 @@ REQUIRE:
 INSTALL:
 1. unpack the roundcube app package in the apps directory of your OwnCloud instance
 2. In the Settings>apps
-   enable 'Roundcube Mail' plugin
-3. In the Settings>Admin
+   enable 'Bookmarks' plugin
+3. In the Settings>apps
+   enable 'RoundCube Mail' plugin
+4. In the Settings>Admin
    a. type your roundcubedir (relative, to roundcube, as seen by the browser)
    b. optional type encryptionstrings (your mailuser and password will be crypted)
-4. In the Settings>Personal
+5. In the Settings>Personal
    type your mail-username and mail-password 
-5. Use it by selecting Webmail
-6. Enjoy it or send me your bug to https://github.com/hypery2k/owncloud
+6. Use it by selecting Webmail
+7. Enjoy it or send me your bug to https://github.com/hypery2k/owncloud
