@@ -32,7 +32,7 @@ if( !OCP\User::isLoggedIn()){
 }
 // check if app bookmark is enabled, since we need this app
 if (!OCP\App::isEnabled('bookmarks')){
-//	\OCP\Util::writeLog('core','RoundCube can\'t be installed because the Bookmarks App isn\'t enabled',\OCP\Util::ERROR);
+	OCP\Util::writeLog('roundcube', 'RoundCube can not be installed because the Bookmarks App is not enabled', OCP\Util::ERROR);
 	header( "Location: " . OCP\Util::linkTo( '', 'index.php' ));
 	exit();
 }
