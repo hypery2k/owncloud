@@ -331,7 +331,7 @@ class RoundcubeLogin {
 			$this -> addDebug('Received HTTPS error', 'Trying to connect to an HTTPS roundcube installation via HTTP');
 			throw new RoundcubeLoginException("HTTPS error");
 		} else {
-			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?");
+			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?. Ensure that you have set \”\$rcmail_config['ip_check'] = false;\” to false in roundcube.");
 			throw new RoundcubeLoginException("Unable to determine the login status. Unable to continue due to technical problems.");
 		}
 
