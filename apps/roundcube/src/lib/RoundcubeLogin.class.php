@@ -2,7 +2,7 @@
 
 /**
  * Roundcube plugin for owncloud
- * 
+ *
  * @author Martin Reinhardt and David Jaedke and Philipp Heckel
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
@@ -96,7 +96,9 @@
  *       }
  *
  *
- *  ?>
+ *
+
+ ?>
  *
  * TROUBLESHOOTING
  *   - Make sure to remove all spaces before "<?php" and after "?>"
@@ -148,14 +150,13 @@ class RoundcubeLogin {
 	 * @var int
 	 */
 	private $rcLoginStatus;
-	
+
 	/**
 	 * Save the number of logins
 	 *
 	 * @var int
 	 */
 	private $rcLoginCount;
-	
 
 	/**
 	 * Roundcube 0.5.1 adds a request token for 'security'. This variable
@@ -221,16 +222,16 @@ class RoundcubeLogin {
 
 		// Login failure detected! If the login failed, RC sends the cookie "sessauth=-del-"
 		else if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $response)) {
-			
-			// let's try one more login, see issue #57, https://github.com/hypery2k/owncloud/issues/57  
+
+			// let's try one more login, see issue #57, https://github.com/hypery2k/owncloud/issues/57
 			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; Trying login again.");
-			$this -> rcLoginCount ++;
-						
+			$this -> rcLoginCount++;
+
 			// restrict login try to 5
-			if(!$this->login($username, $password) && $this -> rcLoginCount > 5){
-				
+			if (!$this -> login($username, $password) && $this -> rcLoginCount > 5) {
+
 				header($line, false);
-	
+
 				$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
 				$this -> rcLoginStatus = -1;
 			}
@@ -254,10 +255,9 @@ class RoundcubeLogin {
 	 */
 	public function isLoggedIn() {
 		$this -> updateLoginStatus();
-
-		if (!$this -> rcLoginStatus)
+		if (!$this -> rcLoginStatus) {
 			throw new RoundcubeLoginException("Unable to determine login-status due to technical problems.");
-
+		}
 		return ($this -> rcLoginStatus > 0) ? true : false;
 	}
 
@@ -282,6 +282,10 @@ class RoundcubeLogin {
 	}
 
 	public function getRedirectPath() {
+		# Prevent index error because "There is no guarantee that every web
+		# server will provide any of these; servers may omit some, or provide
+		# others not listed here."
+		# (http://www.php.net/manual/en/reserved.variables.server.php)
 		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$protocol = (($port == 443) ? "https://" : "http://");
 		$path = $protocol . $this -> rcHost . "/" . $this -> rcPath;
@@ -295,18 +299,19 @@ class RoundcubeLogin {
 	 * sending a request to the main page and parsing the result for the login form.
 	 */
 	private function updateLoginStatus($forceUpdate = false) {
-		if ($this -> rcSessionID && $this -> rcLoginStatus && !$forceUpdate)
+		if ($this -> rcSessionID && $this -> rcLoginStatus && !$forceUpdate) {
 			return;
-
+		}
 		// Get current session ID cookie
-		if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid'])
+		if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid']) {
 			$this -> rcSessionID = $_COOKIE['roundcube_sessid'];
-
-		if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth'])
+		}
+		if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth']) {
 			$this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
-
+		}
 		// Send request and maybe receive new session ID
-		$response = $this -> sendRequest($this -> rcPath, false); // Fix 2 parameter call
+		$response = $this -> sendRequest($this -> rcPath, false);
+		// Fix 2 parameter call
 
 		// Request token (since Roundcube 0.5.1)
 		if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
@@ -314,7 +319,8 @@ class RoundcubeLogin {
 			$this -> addDebug("Got the following token from rc: " . $this -> lastToken);
 		}
 
-		if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
+		if (preg_match('/
+<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
 			$this -> lastToken = $m[1];
 			// override previous token (if this one exists!)
 			$this -> addDebug("Got the following token from rc: " . $this -> lastToken);
@@ -360,7 +366,7 @@ class RoundcubeLogin {
 		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$url = "/" . $path . "/";
 		// fix for issue #60, see https://github.com/hypery2k/owncloud/issues/60
-		$protocol =  "HTTP/1.1";
+		$protocol = "HTTP/1.1";
 		$host = (($port == 443) ? "ssl://" : "") . $this -> rcHost;
 
 		$this -> addDebug('Trying to connect via "' . $method . '" on port "' . $port . '" to URL "' . $url . '" on host"' . $host . '"');
@@ -368,9 +374,9 @@ class RoundcubeLogin {
 		// Load cookies and save them in a key/value array
 		$cookies = array();
 
-		foreach ($_COOKIE as $name => $value)
+		foreach ($_COOKIE as $name => $value) {
 			$cookies[] = "$name=$value";
-
+		}
 		// Add roundcube session ID if available
 		if ((!isset($_COOKIE['roundcube_sessid']) || !$_COOKIE['roundcube_sessid']) && $this -> rcSessionID) {
 			$cookies[] = "roundcube_sessid={$this->rcSessionID}";
@@ -431,8 +437,7 @@ class RoundcubeLogin {
 			if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
 				$this -> lastToken = $m[1];
 
-			if (preg_match('/
-	<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
+			if (preg_match('/	<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
 				$this -> lastToken = $m[1];
 			// override previous token (if this one exists!)
 
@@ -444,7 +449,7 @@ class RoundcubeLogin {
 		$this -> addDebug("RESPONSE", $response);
 		return $response;
 	}
-	
+
 	/**
 	 * Print a debug message if debugging is enabled.
 	 *
