@@ -412,6 +412,7 @@ class RoundcubeLogin {
 		$response = "";
 
 		while (!feof($fp)) {
+			$line = "";
 			$line = fgets($fp, 4096);
 
 			// Not found
