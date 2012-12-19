@@ -228,7 +228,7 @@ class RoundcubeLogin {
 			$this -> rcLoginCount++;
 
 			// restrict login try to 5
-			if (!$this -> login($username, $password) && $this -> rcLoginCount > 5) {
+			if ($this -> rcLoginCount > 5 && !$this -> login($username, $password)) {
 
 				header($line, false);
 
@@ -437,7 +437,8 @@ class RoundcubeLogin {
 			if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
 				$this -> lastToken = $m[1];
 
-			if (preg_match('/	<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
+			if (preg_match('/
+	<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
 				$this -> lastToken = $m[1];
 			// override previous token (if this one exists!)
 
