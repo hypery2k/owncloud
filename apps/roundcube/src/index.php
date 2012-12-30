@@ -30,12 +30,6 @@ if( !OCP\User::isLoggedIn()){
 	header( "Location: " . OCP\Util::linkTo( '', 'index.php' ));
 	exit();
 }
-// check if app bookmark is enabled, since we need this app
-if (!OCP\App::isEnabled('bookmarks')){
-	OCP\Util::writeLog('roundcube', 'RoundCube can not be installed because the Bookmarks App is not enabled', OCP\Util::ERROR);
-	header( "Location: " . OCP\Util::linkTo( '', 'index.php' ));
-	exit();
-}
 
 // Load our style
 OCP\Util::addStyle('roundcube', 'base');

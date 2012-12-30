@@ -21,8 +21,6 @@
  */
 
 $l = new OC_L10N('roundcube');
-// check if bookmark app is enabled
-OCP\App::checkAppEnabled('bookmarks');
 OC::$CLASSPATH['OC_RoundCube_App'] = 'apps/roundcube/lib/mail.php';
 OC::$CLASSPATH['RoundcubeLogin'] = 'apps/roundcube/lib/RoundcubeLogin.class.php';
 
