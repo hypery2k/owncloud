@@ -51,7 +51,7 @@ class OC_RoundCube_App {
 	 * It also chekcs the login data
 	 */
 	public static function writeBasicData($meUser) {
-		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (\"".$meUser."\")");
+		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
 		$result = $stmt->execute();
 		self::checkLoginData($meUser, 1);
 	}
