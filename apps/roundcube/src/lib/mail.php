@@ -52,7 +52,7 @@ class OC_RoundCube_App {
 	 */
 	public static function writeBasicData($meUser) {
 		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
-		$result = $stmt->execute();
+		$result = $stmt->execute($meUser);
 		self::checkLoginData($meUser, 1);
 	}
 	
