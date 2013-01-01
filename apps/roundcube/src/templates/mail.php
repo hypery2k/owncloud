@@ -23,7 +23,7 @@
 // the *yourkey* must the same string as in autologin.php to replace this after revert and decode
 $ocRoundCubeMailError['noUserdata'] = 'Please edit your maildata in your personal settings.';
 $ocRoundCubeMailError['wrongUser'] = 'Ups we have a problem with your login. Please try again.';
-$ocRoundCubeMailError['noID'] = 'Ups we have a problem with your login. Please try again.';
+$ocRoundCubeMailError['noID'] = 'Ups we have a problem with your ID. Please try again.';
 
 
 $mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
