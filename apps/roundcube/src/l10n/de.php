@@ -9,5 +9,8 @@
 "Name" => "Name",
 "Share" => "Teilen",
 "Download" => "Herunterladen",
-"Delete" => "Löschen"
-);
+"Delete" => "Löschen",
+"You don't have any email account configured yet." => "Bitte richten Sie zunächst ein Emailkonto ein.",
+"You don't have any email account in ot configured correctly yet. Please check you username and password." => "Bitte richten Sie zunächst ihr Emailkonto korrekt ein. Überprüfen sie Nutzer und Passwort.",
+"Logged in as " => "Angemeldet als "
+); 

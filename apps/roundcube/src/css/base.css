@@ -1,10 +1,20 @@
-/* This only works with JavaScript, 
-   if it's not present, don't show loader */
-.no-js #loader { display: none;  }
-.js #loader {    position: absolute;
-   top: 50%;
-   left: 50%;
-   width: 128px;
-   height: 14px;
-   margin-top: -7px; /* Half the height */
-   margin-left: -64px; /* Half the width */}
+iframe {
+	position: relative;
+	top: 37px;
+	width: 100%;
+}
+
+/* This only works with JavaScript,
+ if it's not present, don't show loader */
+.no-js #loader {
+	display: none;
+}
+.js #loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 128px;
+	height: 14px;
+	margin-top: -7px; /* Half the height */
+	margin-left: -64px; /* Half the width */
+}
