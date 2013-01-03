@@ -35,6 +35,7 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function existLoginData($meUser) {
+		OCP\Util::writeLog('roundcube','Checking if login data exists for '.$meUser,OCP\Util::DEBUG);
 		$stmt=OC_DB::prepare('SELECT id FROM *PREFIX*roundcube WHERE oc_user=?');
 		$result=$stmt->execute(array($meUser));
 		$row = $result->fetchRow();		
@@ -51,8 +52,9 @@ class OC_RoundCube_App {
 	 * It also chekcs the login data
 	 */
 	public static function writeBasicData($meUser) {
+		OCP\Util::writeLog('roundcube','CWriting basic data for '.$meUser,OCP\Util::DEBUG);
 		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
-		$result = $stmt->execute($meUser);
+		$result = $stmt->execute(array($meUser));
 		self::checkLoginData($meUser, 1);
 	}
 	
@@ -65,10 +67,11 @@ class OC_RoundCube_App {
 	 * This function tries to load the configured login data for roundcube and return it.
 	 */
 	public static function checkLoginData($meUser, $written=0) {
+		OCP\Util::writeLog('roundcube','Checking login data for '.$meUser,OCP\Util::DEBUG);
 		$mailID = self::existLoginData($meUser);
 		if(isset($mailID) && $mailID != '') {
 			$stmt = OCP\DB::prepare("SELECT id,oc_user,mail_user,mail_password FROM *PREFIX*roundcube WHERE id = ?");
-			$result = $stmt->execute($mailID);
+			$result = $stmt->execute(array($mailID));
 			$row = $result->fetchRow();
 			
 			return $row;
@@ -123,7 +126,7 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function showMailFrame($maildir,$ownUser, $ownPass) {
-
+		
 		// Create RC login object.
 		$rcl = new RoundcubeLogin($maildir);
  
