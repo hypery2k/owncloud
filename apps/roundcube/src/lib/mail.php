@@ -67,8 +67,8 @@ class OC_RoundCube_App {
 	public static function checkLoginData($meUser, $written=0) {
 		$mailID = self::existLoginData($meUser);
 		if(isset($mailID) && $mailID != '') {
-			$stmt = OCP\DB::prepare("SELECT id,oc_user,mail_user,mail_password FROM *PREFIX*roundcube WHERE id = $mailID");
-			$result = $stmt->execute();
+			$stmt = OCP\DB::prepare("SELECT id,oc_user,mail_user,mail_password FROM *PREFIX*roundcube WHERE id = ?");
+			$result = $stmt->execute($mailID);
 			$row = $result->fetchRow();
 			
 			return $row;
