@@ -24,8 +24,8 @@ if ($_POST) {
 	$myID = OC_RoundCube_App::existLoginData(OCP\User::getUser());
 	$mail_user = OC_RoundCube_App::cryptMyEntry($_POST['mail_username']);
 	$mail_password = OC_RoundCube_App::cryptMyEntry($_POST['mail_passwordword']);
-	$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password =  WHERE id = ?");
-	$result = $stmt->execute($mail_user, $mail_password, $myID);
+	$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
+	$result = $stmt->execute(array($mail_user, $mail_password, $myID));
 }
 
 // fill template
