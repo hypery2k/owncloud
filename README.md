@@ -12,13 +12,31 @@ In this repo you'll find apps and enhancements for owncloud.
 Embedd roundcube interface in owncloud
 
 #### Requirements:
-* OwnCloud 4+ (tested with 4.0.0 -4.0.7)
-* Bookmarks App enabled
+* OwnCloud 4.5+  (tested with 4.5.0 - 4.5.5)
 * Mailserver with IMAP-Support
 * Roundcube Webmailclient (tested with roundcubemail-0.8)
-Installation instructions are available under 
 
 #### Changelog
+
+##### v1.1.10
+* fixed db and saving issues
+
+##### v1.1.9
+* fixed db issues
+* improved error messaages
+* added top navigation row
+
+##### v1.1.8
+* improved db support
+* removed dependency to bookmarks app
+
+##### v1.1.7
+* improved logging
+* minor bug fixing
+
+##### v1.1.6
+* OC 4.5 compatibility
+* minor bug fixing
 
 ##### v1.1.5
 * fixed login issues on OC 4.0.x/4.5.x
