@@ -18,6 +18,9 @@ Embedd roundcube interface in owncloud
 
 #### Changelog
 
+##### v1.1.11
+* fixed windows resize error
+
 ##### v1.1.10
 * fixed db and saving issues
 
