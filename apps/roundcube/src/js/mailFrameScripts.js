@@ -1,25 +1,12 @@
-var buffer = 20; //scroll bar buffer
-	
-function pageY(elem) {
-    return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
-}
-	
-function resizeIframe() {
-    var height = document.documentElement.clientHeight;
-    height -= pageY(document.getElementById('roundcubeFrame'))+ buffer ;
-    height = (height < 0) ? 0 : height;
-    document.getElementById('roundcubeFrame').style.height = '100%';
-	// fix scrollbar issue
-	$('#content').css('overflow','hidden');
-	$('#content').css('height','+ height+');
-	width=$('#content').css('width');
-	$('#content').css('width','+ width +');
-	
-}
+$(document).ready(function() {
+        $(window).resize(function () {
+                fillWindow($('#roundcube_container'));
+        });
+        $(window).resize();
+        $('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
+});
 
 $('#roundcubeFrame').load(function() {
-	resizeIframe();
-
 	var mainscreen = $('#roundcubeFrame').contents().find('#mainscreen');
     // remove header line, includes about line and
     var top_line = $('#roundcubeFrame').contents().find('#topline');
