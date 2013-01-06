@@ -36,9 +36,11 @@ if ($mail_userdata['id'] != '') {
 			?>
 			<div class='controls' id="controls"><div style="position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;"><?php echo $l -> t("Logged in as ") . $mail_username . "."; ?></div></div>
 			<div id='notification'></div>
-				<?php
+			<div id='roundcube_container'>
+			<?php
 				OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_passwordword);
 			?>
+			</div>
 			<?php
 		} else {
 			echo $ocRoundCubeMailError['noUserdata'];
