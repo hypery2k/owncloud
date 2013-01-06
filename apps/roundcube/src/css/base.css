@@ -1,9 +1,10 @@
-iframe {
-	position: relative;
-	top: 37px;
-	width: 100%;
+#roundcube_container {
+	position: fixed;
+	top: 6.5em;
 }
-
+#roundcubeFrame{
+	height: 100%;
+}
 /* This only works with JavaScript,
  if it's not present, don't show loader */
 .no-js #loader {
