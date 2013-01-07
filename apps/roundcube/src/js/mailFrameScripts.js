@@ -1,44 +1,13 @@
-<<<<<<< HEAD
 $(document).ready(function() {
-        $(window).resize(function () {
-                fillWindow($('#roundcube_container'));
-        });
-        $(window).resize();
-        $('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
+	$(window).resize(function() {
+		if (rc.logdebug) {
+			console.log("Starting roundcube container resize ...");
+		}
+		fillWindow($('#roundcube_container'));
+	});
+	$(window).resize();
+	$('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
 });
-=======
-var buffer = 20;
-//scroll bar buffer
-var top_nav_bar_height = 37;
-
-function pageY(elem) {
-	return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
-}
-
-function resizeIframe() {
-	if (rc.logdebug) {
-		console.log("Starting iFrame resize ...");
-	}
-	var height = document.documentElement.clientHeight;
-	height -= pageY(document.getElementById('roundcubeFrame')) + buffer;
-	height = (height < 0) ? 0 : height;
-	height -= top_nav_bar_height;
-	if (rc.logdebug) {
-		console.log("Resizing height to " + height);
-	}
-	document.getElementById('roundcubeFrame').style.height = height + 'px';
-	// fix scrollbar issue
-	$('#content').css('overflow', 'hidden');
-	$('#content').css('height', '+ height+');
-	width = $('#content').css('width');
-	$('#content').css('width', '+ width +');
-	if (rc.logdebug) {
-		console.log("Resized iFrame to width of " + width + " and height of " + heigth);
-	}
-
-}
->>>>>>> Fixing layout issues
-
 
 $('#roundcubeFrame').load(function() {
 	var mainscreen = $('#roundcubeFrame').contents().find('#mainscreen');

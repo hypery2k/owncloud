@@ -1,4 +1,4 @@
-// hlr javascript namespace
+// roundcube javascript namespace
 var rc = document.rc || {};
 rc.logdebug = false; // always as false committed, otherwise errors in internet explorer
 // dirty fix for JS errors
