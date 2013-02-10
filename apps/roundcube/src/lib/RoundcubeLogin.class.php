@@ -337,7 +337,7 @@ class RoundcubeLogin {
 			$this -> addDebug('Received HTTPS error', 'Trying to connect to an HTTPS roundcube installation via HTTP');
 			throw new RoundcubeLoginException("HTTPS error");
 		} else {
-			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?. Ensure that you have set \”\$rcmail_config['ip_check'] = false;\” to false in roundcube.");
+			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?. Ensure that you have set \â€\$rcmail_config['ip_check'] = false;\â€ to false in roundcube.");
 			throw new RoundcubeLoginException("Unable to determine the login status. Unable to continue due to technical problems.");
 		}
 
@@ -403,6 +403,10 @@ class RoundcubeLogin {
 
 		// Send request
 		$fp = fsockopen($host, $port);
+if(!$fp){
+			$this -> addDebug("Network connection failed on fsockopen. Please check you alias for roundcube", "The network connection returned $errno - $errstr");
+			throw new RoundcubeNetworkException("Unable to determine network-status due to technical problems.");
+} else {
 
 		// Request
 		$this -> addDebug("REQUEST", $request);
@@ -449,7 +453,9 @@ class RoundcubeLogin {
 		fclose($fp);
 
 		$this -> addDebug("RESPONSE", $response);
+}
 		return $response;
+
 	}
 
 	/**
@@ -467,14 +473,19 @@ class RoundcubeLogin {
 	 */
 	public function dumpDebugStack() {
 		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . print_r($this -> debugStack) . ' ' . print_r($data), OCP\Util::ERROR);
-	}
+		}
 
-}
-
-/**
+		}
+	/**
  * This Roundcube login exception will be thrown if the two
  * login attempts fail.
  */
 class RoundcubeLoginException extends Exception {
+}
+
+/**
+ * This Roundcube network exception will be thrown if an network error occurred.
+ */
+class RoundcubeNetworkException extends Exception {
 }
 		?>
