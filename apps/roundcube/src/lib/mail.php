@@ -156,7 +156,7 @@ class OC_RoundCube_App {
 			}
 			// create iFrame begin
 			echo '<img src="' . $loader_image . '" id="loader">';
-			echo '<iframe  style="display:none" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
+			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
 			echo '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
 			echo '<script type="text/javascript" src="apps/roundcube/js/mailFrameScripts.js"></script>';
 
