@@ -182,7 +182,7 @@ class RoundcubeLogin {
 	public function __construct($webmailPath) {
 		$this -> debugStack = array();
 		// failback to local host
-		$this -> rcHost = $_SERVER['HTTP_HOST'];
+		$this -> rcHost = OC_Request::serverHost();
 		$this -> rcPath = $webmailPath;
 		$this -> rcSessionID = true;
 		$this -> rcSessionAuth = true;
