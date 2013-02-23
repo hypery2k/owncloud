@@ -288,7 +288,7 @@ class RoundcubeLogin {
 		# (http://www.php.net/manual/en/reserved.variables.server.php)
 		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$protocol = (($port == 443) ? "https://" : "http://");
-		$path = $protocol . $this -> rcHost . "/" . $this -> rcPath;
+		$path = $protocol . rtrim($this -> rcHost, "/") . "/" . ltrim($this -> rcPath, "/");
 		return $path;
 	}
 
