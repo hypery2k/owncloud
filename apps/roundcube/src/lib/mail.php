@@ -145,7 +145,7 @@ class OC_RoundCube_App {
 				OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
 			}
 			OCP\Util::writeLog('roundcube', 'Preparing iFrame for roundcube:' . $rcl -> getRedirectPath(), OCP\Util::DEBUG);
-			// loadign image
+			// loader image
 			$loader_image = OCP\Util::imagePath('roundcube', 'loader.gif');
 
 			$removeHeaderNav = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', '');
@@ -159,9 +159,14 @@ class OC_RoundCube_App {
 			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
 			echo '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
 			if (OC_Config::getValue('overwritewebroot', '') <> '') {
-				echo '<script type="text/javascript" src="' . OC_Config::getValue('overwritewebroot', '') . '/apps/roundcube/js/mailFrameScripts.js"></script>';
+				echo '<script type="text/javascript" src="' . OC_Config::getValue('overwritewebroot', '') . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
 			} else {
-				echo '<script type="text/javascript" src="' . dirname(OC_Request::scriptName()) . '/apps/roundcube/js/mailFrameScripts.js"></script>';
+				// enable SSL proxy support on OC 5
+				if(method_exists(OC_Request,'scriptName')){
+					echo '<script type="text/javascript" src="' . dirname(OC_Request::scriptName()) . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
+				} else {
+					echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
+				}
 			}
 
 			// create iFrame end

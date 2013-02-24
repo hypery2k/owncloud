@@ -21,8 +21,8 @@
  */
 
 $l = new OC_L10N('roundcube');
-OC::$CLASSPATH['OC_RoundCube_App'] = 'apps/roundcube/lib/mail.php';
-OC::$CLASSPATH['RoundcubeLogin'] = 'apps/roundcube/lib/RoundcubeLogin.class.php';
+OC::$CLASSPATH['OC_RoundCube_App'] = 'roundcube/lib/mail.php';
+OC::$CLASSPATH['RoundcubeLogin']   = 'roundcube/lib/RoundcubeLogin.class.php';
 
 OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
