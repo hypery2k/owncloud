@@ -148,12 +148,8 @@ class OC_RoundCube_App {
 			// loader image
 			$loader_image = OCP\Util::imagePath('roundcube', 'loader.gif');
 
-			$removeHeaderNav = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', '');
-			if (strcmp($removeHeaderNav, '1') == 0) {
-				$disable_header_nav = 'true';
-			} else {
-				$disable_header_nav = 'false';
-			}
+			$disable_header_nav  = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', 'false');
+
 			// create iFrame begin
 			echo '<img src="' . $loader_image . '" id="loader">';
 			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';

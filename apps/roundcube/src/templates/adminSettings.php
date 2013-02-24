@@ -18,7 +18,7 @@
 		</fieldset>
 	 	<fieldset id="roundcube-2">
 			<input type="checkbox" name="removeControlNav" id="removeControlNav" <?php if ($_['removeControlNav']) echo ' checked'; ?>> 
-			<label for="removeControlNav"><?php echo $l->t('Remove RoundCube controll navigation menu items');?></label> 
+			<label for="removeControlNav"><?php echo $l->t('Remove RoundCube control navigation menu items');?></label> 
 			<input type="checkbox" name="removeHeaderNav" id="removeHeaderNav" <?php if ($_['removeHeaderNav']) echo ' checked'; ?>> 
 			<label for="removeHeaderNav"><?php echo $l->t('Remove RoundCube header navigation menu items');?></label> 
 			<br>
