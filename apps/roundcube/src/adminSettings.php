@@ -41,7 +41,7 @@ if ($_POST) {
 				OCP\Config::setAppValue('roundcube', 'removeHeaderNav', false);
 			}
 			if ($param === 'removeControlNav') {
-				OCP\Config::setAppValue('roundcube', 'removeControlNav', true);
+				OCP\Config::setAppValue('roundcube', 'removeControlNav', false);
 			}
 		}
 	}
