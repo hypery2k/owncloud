@@ -47,7 +47,7 @@ $('#roundcubeFrame').load(function() {
 	$('#roundcubeFrame').contents().find('.button-logout').remove();
 
 	// check if the header menu from roundcube was disabled
-	if ($('#disable_header_nav').val() === 'true') {
+	if ($('#disable_header_nav').val() === 'on') {
 
 		var top_nav = $('#roundcubeFrame').contents().find('#header');
 		// check if the above element exits (only in new larry theme, if null use rc 0.7 default theme

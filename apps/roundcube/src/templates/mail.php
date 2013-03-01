@@ -29,13 +29,13 @@ $mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
 $mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 
-$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
+$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
 if ($mail_userdata['id'] != '') {
 	if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
 		if ($mail_userdata['mail_user'] != '' && $mail_userdata['mail_password'] != '') {
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-			if($disable_control_nav){
+			if(!$disable_control_nav){
 			?>
 			<div class='controls' id="controls"><div style="position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;"><?php echo $l -> t("Logged in as ") . $mail_username . "."; ?></div></div>
 			<?php }?>
