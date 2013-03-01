@@ -154,17 +154,7 @@ class OC_RoundCube_App {
 			echo '<img src="' . $loader_image . '" id="loader">';
 			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
 			echo '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
-			if (OC_Config::getValue('overwritewebroot', '') <> '') {
-				echo '<script type="text/javascript" src="' . OC_Config::getValue('overwritewebroot', '') . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
-			} else {
-				// enable SSL proxy support on OC 5
-				if(method_exists(OC_Request,'scriptName')){
-					echo '<script type="text/javascript" src="' . dirname(OC_Request::scriptName()) . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
-				} else {
-					echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
-				}
-			}
-
+			echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
 			// create iFrame end
 		} catch (RoundcubeNetworkException $ex_net) {
 			echo "ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage();
