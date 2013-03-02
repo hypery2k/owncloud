@@ -28,13 +28,20 @@ $('#roundcubeFrame').load(function() {
 			//In larry theme with accounts plugin, we have to move the account selection
 			var acc_select = top_line.find('.username');
 			if (acc_select) {
-				mainscreen.find('div#messagetoolbar').attr('id', '');
+				mainscreen.find('div#messagetoolbar').attr('id', 'ocrcMessagetoolbar');
 				//Quick n dirty for space
 				acc_select.appendTo(mainscreen.find('div#searchfilter')).css({
 					position : 'absolute',
 					top : '0px',
 					left : '-170px'
 				});
+				var messagetoolbar = mainscreen.find('div#ocrcMessagetoolbar');
+				messagetoolbar.css('left', '0');
+				messagetoolbar.css('right', '0');
+				var toolbarselect = messagetoolbar.find('.toolbarselect');
+				toolbarselect.css('position', 'absolute');
+				toolbarselect.css('bottom', '6px');
+				toolbarselect.css('right', '3px');
 			}
 		} else {
 			top_margin = parseInt(mainscreen.css('top'), 10) - top_line.height();
