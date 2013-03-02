@@ -21,6 +21,12 @@
  *
  */
 
+// ensure that only admin user access this page
+OCP\User::checkAdminUser();
+
+// CSRF checks
+OCP\JSON::callCheck();
+
 $params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav');
 
 OCP\Util::addscript('roundcube', 'settings');

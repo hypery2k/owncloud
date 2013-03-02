@@ -20,6 +20,10 @@
 * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 * 
 */
+
+// CSRF checks
+OCP\JSON::callCheck();
+
 if ($_POST) {
 	$myID = OC_RoundCube_App::existLoginData(OCP\User::getUser());
 	$mail_user = OC_RoundCube_App::cryptMyEntry($_POST['mail_username']);
