@@ -5,6 +5,10 @@ $(document).ready(function() {
 		}
 		fillWindow($('#roundcube_container'));
 	});
+	// check if the control menu from roundcube was disabled
+	if ($('#disable_control_nav').val() === '1') {
+		$('#roundcube_container').css('top', '3.5em');
+	}
 	$(window).resize();
 	$('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
 });

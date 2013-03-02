@@ -149,11 +149,13 @@ class OC_RoundCube_App {
 			$loader_image = OCP\Util::imagePath('roundcube', 'loader.gif');
 
 			$disable_header_nav  = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', 'false');
+			$disable_control_nav  = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
 			// create iFrame begin
 			echo '<img src="' . $loader_image . '" id="loader">';
 			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
 			echo '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
+			echo '<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>';
 			echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
 			// create iFrame end
 		} catch (RoundcubeNetworkException $ex_net) {
