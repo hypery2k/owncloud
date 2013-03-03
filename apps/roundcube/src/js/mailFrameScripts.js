@@ -37,7 +37,9 @@ $('#roundcubeFrame').load(function() {
 				});
 				var messagetoolbar = mainscreen.find('div#ocrcMessagetoolbar');
 				messagetoolbar.css('left', '0');
-				messagetoolbar.css('right', '0');
+				messagetoolbar.css('right', '390px');
+        //Extend messagetoolbar, if fullwidth is specified
+        mainscreen.find('.fullwidth').css('right', '0px');
 				var toolbarselect = messagetoolbar.find('.toolbarselect');
 				toolbarselect.css('position', 'absolute');
 				toolbarselect.css('bottom', '6px');
