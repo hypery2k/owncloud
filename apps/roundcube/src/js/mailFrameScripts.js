@@ -29,17 +29,26 @@ $('#roundcubeFrame').load(function() {
 			var acc_select = top_line.find('.username');
 			if (acc_select) {
 				mainscreen.find('div#messagetoolbar').attr('id', 'ocrcMessagetoolbar');
+				var searchfilter = mainscreen.find('div#searchfilter');
 				//Quick n dirty for space
-				acc_select.appendTo(mainscreen.find('div#searchfilter')).css({
+				acc_select.appendTo(searchfilter);
+				searchfilter.css({
 					position : 'absolute',
 					top : '0px',
-					left : '-170px'
+					width : '160px',
+					right: '256px',
+          top : '7px'
 				});
+				searchfilter.find('select#rcmlistfilter').css('width', '158px');
+				searchfilter.find('a.menuselector').css('width', '158px');
+				searchfilter.find('span.handle').css('width', '120px');
 				var messagetoolbar = mainscreen.find('div#ocrcMessagetoolbar');
-				messagetoolbar.css('left', '0');
-				messagetoolbar.css('right', '390px');
-        //Extend messagetoolbar, if fullwidth is specified
-        mainscreen.find('.fullwidth').css('right', '0px');
+				messagetoolbar.css({
+					left : '0',
+					right : '390px'
+				});
+				//Extend messagetoolbar, if fullwidth is specified
+				mainscreen.find('.fullwidth').css('right', '0px');
 				var toolbarselect = messagetoolbar.find('.toolbarselect');
 				toolbarselect.css('position', 'absolute');
 				toolbarselect.css('bottom', '6px');
