@@ -18,6 +18,14 @@ Embedd roundcube interface in owncloud
 
 #### Changelog
 
+##### v1.1.12
+* fixed security issues
+* SSL Proxy issues
+* problems with OC 5
+* fixed layout issues
+* more meaningfull log debug
+* minor code refactoring
+
 ##### v1.1.11
 * fixed windows resize error
 
