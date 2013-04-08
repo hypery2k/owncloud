@@ -27,13 +27,13 @@ $ocRoundCubeMailError['noID'] = 'Ups we have a problem with your ID. Please try 
 
 $mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
-$mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 
 $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
 if ($mail_userdata['id'] != '') {
 	if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
-		if ($mail_userdata['mail_user'] != '' && $mail_userdata['mail_password'] != '') {
+		if ($mail_username != '' && $mail_password != '') {
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 			if ($maildir != '') {
 				if (!$disable_control_nav) {
@@ -41,7 +41,7 @@ if ($mail_userdata['id'] != '') {
 				} else {
 					echo "<div id='notification'></div>";
 					echo "<div id='roundcube_container'>";
-					OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_passwordword);
+					OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
 					echo "</div>";
 				}
 			} else {
