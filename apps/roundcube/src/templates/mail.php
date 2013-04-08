@@ -38,12 +38,12 @@ if ($mail_userdata['id'] != '') {
 			if ($maildir != '') {
 				if (!$disable_control_nav) {
 					echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
-				} else {
-					echo "<div id='notification'></div>";
-					echo "<div id='roundcube_container'>";
-					OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
-					echo "</div>";
 				}
+				echo "<div id='notification'></div>";
+				echo "<div id='roundcube_container'>";
+				OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
+				echo "</div>";
+
 			} else {
 				echo $ocRoundCubeMailError['noUserdata'];
 				echo $this -> inc("part.no-settings");
