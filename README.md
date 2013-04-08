@@ -6,6 +6,8 @@ Current Build Status: [![Build Status](https://secure.travis-ci.org/hypery2k/own
 
 In this repo you'll find apps and enhancements for owncloud.
 
+<a href='http://www.pledgie.com/campaigns/19762'><img alt='Click here to lend your support to: Owncloud Apps and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/19762.png?skin_name=chrome' border='0' /></a>
+
 ## Currently released:
 ========
 ### Roundcube
