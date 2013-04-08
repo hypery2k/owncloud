@@ -35,17 +35,19 @@ if ($mail_userdata['id'] != '') {
 	if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
 		if ($mail_userdata['mail_user'] != '' && $mail_userdata['mail_password'] != '') {
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-			if(!$disable_control_nav){
-			?>
-			<div class='controls' id="controls"><div style="position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;"><?php echo $l -> t("Logged in as ") . $mail_username . "."; ?></div></div>
-			<?php }?>
-			<div id='notification'></div>
-			<div id='roundcube_container'>
-			<?php
-				OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_passwordword);
-			?>
-			</div>
-			<?php
+			if ($maildir != '') {
+				if (!$disable_control_nav) {
+					echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
+				} else {
+					echo "<div id='notification'></div>";
+					echo "<div id='roundcube_container'>";
+					OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_passwordword);
+					echo "</div>";
+				}
+			} else {
+				echo $ocRoundCubeMailError['noUserdata'];
+				echo $this -> inc("part.no-settings");
+			}
 		} else {
 			echo $ocRoundCubeMailError['noUserdata'];
 			echo $this -> inc("part.error.no-settings");
