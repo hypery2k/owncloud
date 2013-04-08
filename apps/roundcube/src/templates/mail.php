@@ -48,14 +48,14 @@ if ($mail_userdata['id'] != '') {
 			<?php
 		} else {
 			echo $ocRoundCubeMailError['noUserdata'];
-			echo $this -> inc("part.no-settings");
+			echo $this -> inc("part.error.no-settings");
 		}
 	} else {
 		echo $ocRoundCubeMailError['wrongUser'];
-		echo $this -> inc("part.wrong-auth");
+		echo $this -> inc("part.error.wrong-auth");
 	}
 } else {
 	echo $ocRoundCubeMailError['noID'];
-	echo $this -> inc("part.no-settings");
+	echo $this -> inc("part.error.no-settings");
 }
 ?>
