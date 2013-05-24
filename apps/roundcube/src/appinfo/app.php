@@ -23,6 +23,13 @@
 $l = new OC_L10N('roundcube');
 OC::$CLASSPATH['OC_RoundCube_App'] = 'roundcube/lib/mail.php';
 OC::$CLASSPATH['RoundcubeLogin']   = 'roundcube/lib/RoundcubeLogin.class.php';
+OC::$CLASSPATH['OC_RC_AutoSave'] = 'roundcube/lib/autosave.php';
+
+$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
+
+if ($enable_auto_login) {
+	OCP\Util::connectHook('OC_User', 'post_login','OC_RC_AutoSave','autoSave');
+}
 
 OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
