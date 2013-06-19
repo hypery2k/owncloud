@@ -76,7 +76,8 @@ $('#roundcubeFrame').load(function() {
 		if (top_nav.height() == null) {
 			top_nav = $('#roundcubeFrame').contents().find('#taskbar');
 		} else {
-			//top_in= top_margin-top_nav.height();
+			$('#messagetoolbar').css('top', '0px');
+			$('#messagetoolbar').css('border', '0');
 		}
 		top_nav.remove();
 		$('#roundcubeFrame').contents().find('#mainscreen').css('top', top_margin);
