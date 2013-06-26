@@ -10,7 +10,7 @@ $(document).ready(function() {
 		$('#roundcube_container').css('top', '3.5em');
 	}
 	$(window).resize();
-	$('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
+	//$('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
 });
 
 $('#roundcubeFrame').load(function() {
@@ -36,8 +36,8 @@ $('#roundcubeFrame').load(function() {
 					position : 'absolute',
 					top : '0px',
 					width : '160px',
-					right: '256px',
-          top : '7px'
+					right : '256px',
+					top : '7px'
 				});
 				searchfilter.find('select#rcmlistfilter').css('width', '158px');
 				searchfilter.find('a.menuselector').css('width', '158px');
@@ -73,17 +73,24 @@ $('#roundcubeFrame').load(function() {
 
 		var top_nav = $('#roundcubeFrame').contents().find('#header');
 		// check if the above element exits (only in new larry theme, if null use rc 0.7 default theme
-		if (top_nav.height() == null) {
+		if (top_nav.val() === undefined) {
 			top_nav = $('#roundcubeFrame').contents().find('#taskbar');
 		} else {
-			$('#messagetoolbar').css('top', '0px');
-			$('#messagetoolbar').css('border', '0');
+			// new theme settings goes here
 		}
 		top_nav.remove();
 		$('#roundcubeFrame').contents().find('#mainscreen').css('top', top_margin);
 	} else {
-		// correct top padding
-		$('#roundcubeFrame').contents().find('#mainscreen').css('top', '50px');
+		if (top_nav.val() === undefined) {
+			top_nav = $('#roundcubeFrame').contents().find('#taskbar');
+			$('#roundcubeFrame').contents().find('#messagetoolbar').css('top', '0px');
+			$('#roundcubeFrame').contents().find('#messagetoolbar').css('border', '0');
+			$('#roundcubeFrame').contents().find('#mainscreen').css('top', '70px');
+		} else {
+			// new theme settings goes here
+			// correct top padding
+			$('#roundcubeFrame').contents().find('#mainscreen').css('top', '50px');
+		}
 	}
 	// slide in roundcube nice
 	$('#loader').fadeOut('slow');
