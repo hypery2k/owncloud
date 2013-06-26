@@ -33,6 +33,8 @@ sudo cp -rp travis_ci/owncloud_releases/4.0.8 /var/www/mysql/4.0.8
 sudo cp -rp travis_ci/owncloud_releases/4.0.8 /var/www/sqllite/4.0.8
 sudo cp -rp travis_ci/owncloud_releases/4.5.0 /var/www/mysql/4.5.0
 sudo cp -rp travis_ci/owncloud_releases/4.5.0 /var/www/sqllite/4.5.0
+sudo cp -rp travis_ci/roundcube_releases/0.7.3 /var/www/roundcubemail-0.7.3
+sudo cp -rp travis_ci/roundcube_releases/0.8.2 /var/www/roundcubemail-0.8.2
 sudo chmod -R 777 /var/www/mysql/4.0.8/apps
 sudo chmod -R 777 /var/www/mysql/4.5.0/apps
 sudo chmod -R 777 /var/www/sqllite/4.0.8/apps
@@ -45,6 +47,8 @@ sudo chmod -R 777 /var/www/mysql/4.0.8/data
 sudo chmod -R 777 /var/www/mysql/4.5.0/data
 sudo chmod -R 777 /var/www/sqllite/4.0.8/data
 sudo chmod -R 777 /var/www/sqllite/4.5.0/data
+sudo chmod -R 777 /var/www/roundcubemail-0.7.3
+sudo chmod -R 777 /var/www/roundcubemail-0.8.2
 
 echo "Done with general owncloud setup"
 # admin Passw0rd!
