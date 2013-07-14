@@ -1,25 +1,10 @@
 <?php
 
 /**
- * Roundcube plugin for owncloud
+ * Use a PHP script to perform a login to the Roundcube mail system.
  *
  * @author Martin Reinhardt and David Jaedke and Philipp Heckel
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library.  If not, see
- * <http://www.gnu.org/licenses/>
- * Use a PHP script to perform a login to the Roundcube mail system.
  *
  * SCRIPT VERSION
  *   Version 3 (April 2012)
@@ -96,7 +81,6 @@
  *       }
  *
  *
- *
 
  ?>
  *
@@ -104,6 +88,17 @@
  *   - Make sure to remove all spaces before "<?php" and after "?>"
  *   - Enable the debug mode (set the second constructor parameter to TRUE)
  *   - Ask me if you have any problems :-)
+ *
+ * AUTHOR/LICENSE/VERSION
+ *   - Written by Philipp Heckel; Find a corresponding blog-post at
+ *     http://blog.philippheckel.com/2008/05/16/roundcube-login-via-php-script/
+ *
+ *   - Updated April 2012, tested with Ubuntu/Firefox 3
+ *     No license. Feel free to use it :-)
+ *
+ *   - The updated script has been tested with Roundcube 0.7.2.
+ *     Older versions of the script work with Roundcube 0.2, 0.3, 0.4-beta
+ *     and 0.5.1 (see blog post above)
  *
  */
 class RoundcubeLogin {
@@ -167,6 +162,14 @@ class RoundcubeLogin {
 	private $lastToken;
 
 	/**
+	 * Debugging can be enabled by setting the second argument
+	 * in the constructor to TRUE.
+	 *
+	 * @var bool
+	 */
+	private $debugEnabled;
+
+	/**
 	 * Keep debug messages on a stack. To dump it, call
 	 * the dumpDebugStack()-function.
 	 *
@@ -177,12 +180,15 @@ class RoundcubeLogin {
 	/**
 	 * Create a new RoundcubeLogin class.
 	 *
-	 * @param string Relative webserver path to the RC installation, e.g. example.com/roundcube/
+	 * @param string Relative webserver path to the RC installation, e.g. /roundcube/
+	 * @param bool Enable debugging, - shows the full POST and the response
 	 */
-	public function __construct($webmailPath) {
+	public function __construct($webmailPath, $enableDebug = false) {
 		$this -> debugStack = array();
 		// failback to local host
 		$this -> rcHost = OC_Request::serverHost();
+		$this -> debugEnabled = $enableDebug;
+
 		$this -> rcPath = $webmailPath;
 		$this -> rcSessionID = true;
 		$this -> rcSessionAuth = true;
@@ -208,10 +214,13 @@ class RoundcubeLogin {
 	public function login($username, $password) {
 		$this -> updateLoginStatus();
 
+		// If already logged in, perform a re-login (logout first)
+		if ($this -> isLoggedIn())
+			$this -> logout();
+
 		// Try login
 		$data = (($this -> lastToken) ? "_token=" . $this -> lastToken . "&" : "") . "_task=login&_action=login&_timezone=1&_dstactive=1&_url=&_user=" . urlencode($username) . "&_pass=" . urlencode($password);
 
-		$this -> addDebug("sending request to login ", "Data" . (($this -> lastToken) ? "_token=" . $this -> lastToken . "&" : "") . "_task=login&_action=login&_timezone=1&_dstactive=1&_url=&_user=" . urlencode($username) . "&_pass=******");
 		$response = $this -> sendRequest($this -> rcPath, $data);
 
 		//  Login successful! A redirection to ./?_task=... is a success!
@@ -222,19 +231,10 @@ class RoundcubeLogin {
 
 		// Login failure detected! If the login failed, RC sends the cookie "sessauth=-del-"
 		else if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $response)) {
+			header($line, false);
 
-			// let's try one more login, see issue #57, https://github.com/hypery2k/owncloud/issues/57
-			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; Trying login again.");
-			$this -> rcLoginCount++;
-
-			// restrict login try to 5
-			if ($this -> rcLoginCount > 5 && !$this -> login($username, $password)) {
-
-				header($line, false);
-
-				$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
-				$this -> rcLoginStatus = -1;
-			}
+			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
+			$this -> rcLoginStatus = -1;
 		}
 
 		// Unkown, neither failure nor success.
@@ -255,9 +255,10 @@ class RoundcubeLogin {
 	 */
 	public function isLoggedIn() {
 		$this -> updateLoginStatus();
-		if (!$this -> rcLoginStatus) {
+
+		if (!$this -> rcLoginStatus)
 			throw new RoundcubeLoginException("Unable to determine login-status due to technical problems.");
-		}
+
 		return ($this -> rcLoginStatus > 0) ? true : false;
 	}
 
@@ -299,32 +300,27 @@ class RoundcubeLogin {
 	 * sending a request to the main page and parsing the result for the login form.
 	 */
 	private function updateLoginStatus($forceUpdate = false) {
-		if ($this -> rcSessionID && $this -> rcLoginStatus && !$forceUpdate) {
+		if ($this -> rcSessionID && $this -> rcLoginStatus && !$forceUpdate)
 			return;
-		}
+
 		// Get current session ID cookie
-		if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid']) {
+		if ($_COOKIE['roundcube_sessid'])
 			$this -> rcSessionID = $_COOKIE['roundcube_sessid'];
-		}
-		if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth']) {
+
+		if ($_COOKIE['roundcube_sessauth'])
 			$this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
-		}
+
 		// Send request and maybe receive new session ID
-		$response = $this -> sendRequest($this -> rcPath, false);
-		// Fix 2 parameter call
+		$response = $this -> sendRequest($this -> rcPath);
 
 		// Request token (since Roundcube 0.5.1)
-		if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
+		if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
 			$this -> lastToken = $m[1];
-			$this -> addDebug("Got the following token from rc: " . $this -> lastToken);
-		}
 
 		if (preg_match('/
-<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
+<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
 			$this -> lastToken = $m[1];
-			// override previous token (if this one exists!)
-			$this -> addDebug("Got the following token from rc: " . $this -> lastToken);
-		}
+		// override previous token (if this one exists!)
 
 		// Login form available?
 		if (preg_match('/<input.+name="_pass"/mi', $response)) {
@@ -333,11 +329,8 @@ class RoundcubeLogin {
 		} else if (preg_match('/<div.+id="message"/mi', $response)) {
 			$this -> addDebug("LOGGED IN", "Detected that we're logged in.");
 			$this -> rcLoginStatus = 1;
-		} else if (preg_match('/speaking plain HTTP to an SSL-enabled server port./mi', $response)) {
-			$this -> addDebug('Received HTTPS error', 'Trying to connect to an HTTPS roundcube installation via HTTP');
-			throw new RoundcubeLoginException("HTTPS error");
 		} else {
-			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?. Ensure that you have set rcmail_config['ip_check'] = false; to false in roundcube.");
+			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?");
 			throw new RoundcubeLoginException("Unable to determine the login status. Unable to continue due to technical problems.");
 		}
 
@@ -357,11 +350,11 @@ class RoundcubeLogin {
 	 *
 	 * Ensures that all cookies are sent and parses all response headers
 	 * for a new Roundcube session ID. If a new SID is found, rcSessionId is set.
-	 * @param string path to server
-	 * @param string POST data in urlencoded form (param1=value1&...)
+	 *
+	 * @param string Optional POST data in urlencoded form (param1=value1&...)
 	 * @return string Returns the complete request response with all headers.
 	 */
-	private function sendRequest($path, $postData) {
+	private function sendRequest($path, $postData = false) {
 		$method = (!$postData) ? "GET" : "POST";
 		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
 		$url = "/" . $path . "/";
@@ -374,88 +367,83 @@ class RoundcubeLogin {
 		// Load cookies and save them in a key/value array
 		$cookies = array();
 
-		foreach ($_COOKIE as $name => $value) {
+		foreach ($_COOKIE as $name => $value)
 			$cookies[] = "$name=$value";
-		}
-		// Add roundcube session ID if available
-		if ((!isset($_COOKIE['roundcube_sessid']) || !$_COOKIE['roundcube_sessid']) && $this -> rcSessionID) {
-			$cookies[] = "roundcube_sessid={$this->rcSessionID}";
-			$this -> addDebug('Got the following session id for roundcube' . $this -> rcSessionID);
-		}
 
-		if ((!isset($_COOKIE['roundcube_sessauth']) || !$_COOKIE['roundcube_sessauth']) && $this -> rcSessionAuth) {
+		// Add roundcube session ID if available
+		if (!$_COOKIE['roundcube_sessid'] && $this -> rcSessionID)
+			$cookies[] = "roundcube_sessid={$this->rcSessionID}";
+
+		if (!$_COOKIE['roundcube_sessauth'] && $this -> rcSessionAuth)
 			$cookies[] = "roundcube_sessauth={$this->
 	rcSessionAuth}";
-			$this -> addDebug('Got the following session auth for roundcube' . $this -> rcSessionAuth);
-		}
 
 		$cookies = ($cookies) ? "Cookie: " . join("; ", $cookies) . "\r\n" : "";
 
 		// Create POST request with the given data
 		if ($method == "POST") {
-			$request = "POST " . $url . " " . $protocol . "\r\n" . "Host: " . $this -> rcHost . "\r\n" . "User-Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Content-Type: application/x-www-form-urlencoded\r\n" . "Content-Length: " . strlen($postData) . "\r\n" . $cookies . "Connection: close\r\n\r\n" . $postData;
-			$this -> addDebug('Trying to connect to host ' . $this -> rcHost . ' with path' . $path . ' on port ' . $port . ' with data ' . $postData);
-		} else {
-			// Make GET to get new session
-			$request = "GET " . $url . " " . $protocol . "\r\n" . "Host: " . $this -> rcHost . "\r\n" . "User-Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . $cookies . "Connection: close\r\n\r\n";
-			$this -> addDebug('Trying to connect to host ' . $this -> rcHost . ' with path' . $path . ' on port ' . $port . ' via GET to get new session');
+			$request = "POST " . $path . " HTTP/1.1\r\n" . "Host: " . $_SERVER['HTTP_HOST'] . "\r\n" . "User-Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Content-Type: application/x-www-form-urlencoded\r\n" . "Content-Length: " . strlen($postData) . "\r\n" . $cookies . "Connection: close\r\n\r\n" . $postData;
+		}
+
+		// Make GET
+		else {
+			$request = "GET " . $path . " HTTP/1.1\r\n" . "Host: " . $_SERVER['HTTP_HOST'] . "\r\n" . "User-Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . $cookies . "Connection: close\r\n\r\n";
 		}
 
 		// Send request
 		$fp = fsockopen($host, $port);
-if(!$fp){
+		if (!$fp) {
 			$this -> addDebug("Network connection failed on fsockopen. Please check you alias for roundcube", "The network connection returned $errno - $errstr");
 			throw new RoundcubeNetworkException("Unable to determine network-status due to technical problems.");
-} else {
+		} else {
 
-		// Request
-		$this -> addDebug("REQUEST", $request);
-		fputs($fp, $request);
+			// Request
+			$this -> addDebug("REQUEST", $request);
+			fputs($fp, $request);
 
-		// Read response and set received cookies
-		$response = "";
+			// Read response and set received cookies
+			$response = "";
 
-		while (!feof($fp)) {
-			$line = "";
-			$line = fgets($fp, 4096);
+			while (!feof($fp)) {
+				$line = fgets($fp, 4096);
 
-			// Not found
-			if (preg_match('/^HTTP\/1\.\d\s+404\s+/', $line)) {
-				$this -> addDebug('Received an 404 error during trying to open the url. No Roundcube installation found at ' . $path);
-				throw new RoundcubeLoginException("No Roundcube installation found at '$path'");
-			}
-			// Got session ID!
-			if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $line, $match)) {
-				$this -> addDebug('GOT SESSION ID', 'Got the following new session id  ' . $match[2]);
-				header($line, false);
-				$this -> rcSessionID = $match[2];
-			}
+				// Not found
+				if (preg_match('/^HTTP\/1\.\d\s+404\s+/', $line))
+					throw new RoundcubeLoginException("No Roundcube installation found at '$path'");
 
-			// Got sessauth
-			if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $line, $match)) {
-				$this -> addDebug('GOT SESSION AUTH', 'Got the following new session auth ');
-				header($line, false);
-				$this -> rcSessionAuth = $match[1];
-			}
+				// Got session ID!
+				if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $line, $match)) {
+					header($line, false);
 
-			// Request token (since Roundcube 0.5.1)
-			if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
-				$this -> lastToken = $m[1];
+					$this -> addDebug("GOT SESSION ID", "New session ID: '$match[2]'.");
+					$this -> rcSessionID = $match[2];
+				}
 
-			if (preg_match('/
+				// Got sessauth
+				if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $line, $match)) {
+					header($line, false);
+
+					$this -> addDebug("GOT SESSION AUTH", "New session auth: '$match[1]'.");
+					$this -> rcSessionAuthi = $match[1];
+				}
+
+				// Request token (since Roundcube 0.5.1)
+				if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
+					$this -> lastToken = $m[1];
+
+				if (preg_match('/
 	<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
-				$this -> lastToken = $m[1];
-			// override previous token (if this one exists!)
+					$this -> lastToken = $m[1];
+				// override previous token (if this one exists!)
 
-			$response .= $line;
+				$response .= $line;
+			}
+
+			fclose($fp);
+
+			$this -> addDebug("RESPONSE", $response);
 		}
-
-		fclose($fp);
-
-		$this -> addDebug("RESPONSE", $response);
-}
 		return $response;
-
 	}
 
 	/**
@@ -464,7 +452,7 @@ if(!$fp){
 	 * @param string Short action message
 	 * @param string Output data
 	 */
-	private function addDebug($action, $data = '') {
+	private function addDebug($action, $data) {
 		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::DEBUG);
 	}
 
@@ -473,10 +461,11 @@ if(!$fp){
 	 */
 	public function dumpDebugStack() {
 		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . print_r($this -> debugStack) . ' ' . print_r($data), OCP\Util::ERROR);
-		}
+	}
 
-		}
-	/**
+}
+
+/**
  * This Roundcube login exception will be thrown if the two
  * login attempts fail.
  */
