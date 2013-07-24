@@ -27,7 +27,7 @@ class OC_RoundCube_DB_Util {
  * @param string $table Table to search for.
  * @return bool TRUE if table exists, FALSE if no table found.
  */
-static public function tableExists($table) {
+static public function table_exists($table) {
 
     // Try a select statement against the table
     // Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
