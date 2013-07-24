@@ -22,6 +22,7 @@
 
 $l = new OC_L10N('roundcube');
 OC::$CLASSPATH['OC_RoundCube_App'] = 'roundcube/lib/mail.php';
+OC::$CLASSPATH['OC_RoundCube_App'] = 'roundcube/lib/db.util.php';
 OC::$CLASSPATH['RoundcubeLogin']   = 'roundcube/lib/RoundcubeLogin.class.php';
 OC::$CLASSPATH['OC_RC_AutoSave'] = 'roundcube/lib/autosave.php';
 
