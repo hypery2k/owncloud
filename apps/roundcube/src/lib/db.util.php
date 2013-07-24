@@ -1,10 +1,13 @@
+<?
+class OC_RoundCube_DB_Util {
+
 /**
  * Check if a table exists in the current database.
  *
  * @param string $table Table to search for.
  * @return bool TRUE if table exists, FALSE if no table found.
  */
-function tableExists($table) {
+static public function tableExists($table) {
 
     // Try a select statement against the table
     // Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
@@ -23,4 +26,7 @@ function tableExists($table) {
 
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
     return $result !== FALSE;
+
 }
+}
+?>
