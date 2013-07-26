@@ -36,7 +36,7 @@ if ($mail_userdata['id'] != '') {
 		if ($mail_username != '' && $mail_password != '') {
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 			if ($maildir != '') {
-                                if (OC_RoundCube_DB_Util::table_exists('roundcube'){
+                                if (OC_RoundCube_DB_Util::table_exists('roundcube')){
 				if (!$disable_control_nav) {
 					echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
 				}
