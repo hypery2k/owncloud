@@ -15,7 +15,6 @@ before_install:
  - sudo apt-get install libapache2-mod-php5
  - sudo /etc/init.d/apache2 restart
  - sudo apt-get install dovecot-common dovecot-imapd dovecot-pop3d
- - /etc/init.d/dovecot start
 
 before_script:
   - ./bin/ci/prepare.sh
