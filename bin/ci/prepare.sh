@@ -57,13 +57,13 @@ sudo cp  travis_ci/sqllite/4.0.8/owncloud.db /var/www/sqllite/4.0.8/data/
 
 # setup dovecot
 #Create temporary file with new line in place
-sudo sed -e 's/mail_location =/mail_location = mbox:~/mail:INBOX=/var/spool/mail/%u # (for mbox)/g' /etc/dovecot/dovecot.conf > /tmp/dovecot.conf
+sudo sed -e 's/mail_location.*=.*/mail_location = mbox:~\/mail:INBOX=\/var\/spool\/mail\/%u # (for mbox)/g' /etc/dovecot/dovecot.conf > /tmp/dovecot.conf
 #Copy the new file over the original file
 sudo mv -f /tmp/dovecot.conf /etc/dovecot/dovecot.conf
 # start dovecot after config
 sudo service dovecot start
 
 # setup IMAP testuser, with password imap
-sudo useradd -u 601 -g users -d /home/imap1 -s /bin/bash -c IMAP 1 Testuser -p imap -m
-sudo useradd -u 602 -g users -d /home/imap2 -s /bin/bash -c IMAP 2 Testuser -p imap -m
+sudo useradd imap1 -g users -d /home/imap1 -s /bin/bash -p imap -m
+sudo useradd imap2 -g users -d /home/imap2 -s /bin/bash -p imap -m
 
