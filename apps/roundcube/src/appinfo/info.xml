@@ -2,7 +2,8 @@
 <info>
 	<id>roundcube</id>
 	<name>RoundCube Mail</name>
-	<description>Integrates existing roundcube into ownCloud, check the install instructions: https://github.com/hypery2k/owncloud/wiki/Installation</description>
+	<description>Integrates existing roundcube into OwnCloud, check the <a target="_blank
+" href="https://github.com/hypery2k/owncloud/wiki/Installation">install instructions</a>.</description>
 	<version>1.1.16</version>
 	<licence>AGPL</licence>
 	<author>Martin Reinhardt</author>
