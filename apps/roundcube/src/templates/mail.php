@@ -26,18 +26,19 @@ $ocRoundCubeMailError['wrongUser'] = 'Ups we have a problem with your login. Ple
 $ocRoundCubeMailError['dbError'] = 'Ups we have a problem with your DB. Please configure the db manual';
 $ocRoundCubeMailError['noID'] = 'Ups we have a problem with your ID. Please try again.';
 
-$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
-$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
-$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 $table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
-
-$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
 if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
 	echo $ocRoundCubeMailError['dbError'];
 	echo $this -> inc("part.error.db");
 } else {
+	$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+	$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+	$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+
+	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
+
 	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::DEBUG);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
