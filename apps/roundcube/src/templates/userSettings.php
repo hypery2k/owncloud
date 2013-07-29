@@ -21,11 +21,7 @@
  */
 
 $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
-
-foreach($mail_userdata_entries as $mail_userdata) {
-
 ?>
-
 <form id="usermail" action="#" method="post">
 		<!-- Prevent CSRF attacks-->
 	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
@@ -33,6 +29,7 @@ foreach($mail_userdata_entries as $mail_userdata) {
 	<legend><strong><?php echo $l -> t('RoundCube Mailaccount'); ?></strong></legend>
     <p>
 <?php
+foreach($mail_userdata_entries as $mail_userdata) {
 $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
 $mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 // TODO use template and add button for adding entries
