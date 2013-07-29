@@ -36,10 +36,9 @@ class OC_RoundCube_App {
 	 */
 	public static function existLoginData($meUser) {
 		OCP\Util::writeLog('roundcube', 'Checking if login data exists for ' . $meUser, OCP\Util::DEBUG);
-		$stmt = OC_DB::prepare('SELECT id,mail_user,mail_password FROM *PREFIX*roundcube WHERE oc_user=?');
+		$stmt = OC_DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
 		$result = $stmt -> execute(array($meUser));
-		$list = $result -> fetchAll();
-		return $list;
+		return $result -> fetchAll();
 	}
 
 	/**
@@ -52,7 +51,7 @@ class OC_RoundCube_App {
 	 * It also chekcs the login data
 	 */
 	public static function writeBasicData($meUser) {
-		OCP\Util::writeLog('roundcube', 'CWriting basic data for ' . $meUser, OCP\Util::DEBUG);
+		OCP\Util::writeLog('roundcube', 'Writing basic data for ' . $meUser, OCP\Util::DEBUG);
 		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
 		$result = $stmt -> execute(array($meUser));
 		self::checkLoginData($meUser, 1);
@@ -70,11 +69,9 @@ class OC_RoundCube_App {
 		OCP\Util::writeLog('roundcube', 'Checking login data for ' . $meUser, OCP\Util::DEBUG);
 		$mailID = self::existLoginData($meUser);
 		if (isset($mailID) && $mailID != '') {
-			$stmt = OCP\DB::prepare("SELECT id,oc_user,mail_user,mail_password FROM *PREFIX*roundcube WHERE id = ?");
-			$result = $stmt -> execute(array($mailID));
-			$row = $result -> fetchRow();
-
-			return $row;
+			$stmt = OCP\DB::prepare("SELECT * FROM *PREFIX*roundcube WHERE id = ?");
+			$result = $stmt -> execute(array($meUser));
+			return $result -> fetchAll();
 		} elseif ($written == 0) {
 			self::writeBasicData($meUser);
 		}
