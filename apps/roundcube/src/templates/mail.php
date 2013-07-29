@@ -30,18 +30,20 @@ $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
 $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 $table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
 
-
 $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
 if (!$table_exists) {
+	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
 	echo $ocRoundCubeMailError['dbError'];
 	echo $this -> inc("part.error.db");
 } else {
+	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::DEBUG);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
 			if ($mail_username != '' && $mail_password != '') {
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
+					OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
 					if (!$disable_control_nav) {
 						echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
 					}
