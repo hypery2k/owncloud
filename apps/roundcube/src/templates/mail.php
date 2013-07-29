@@ -31,10 +31,10 @@ $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'
 
 $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
-if (!OC_RoundCube_DB_Util::table_exists('roundcube')) {echo $ocRoundCubeMailError['dbError'];
+if (!OC_RoundCube_DB_Util::table_exists('roundcube')) {
+	echo $ocRoundCubeMailError['dbError'];
 	echo $this -> inc("part.error.db");
 } else {
-
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
 			if ($mail_username != '' && $mail_password != '') {
