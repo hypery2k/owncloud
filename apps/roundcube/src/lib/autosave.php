@@ -1,6 +1,7 @@
 <?php
 class OC_RC_AutoSave {
-	static public function autoSave($params) {
+	
+	public static function autoSave($params) {
 		$myID = OC_RoundCube_App::existLoginData(OCP\User::getUser());
 		$mail_user = OC_RoundCube_App::cryptMyEntry($params['uid']);
 		$mail_password = OC_RoundCube_App::cryptMyEntry($params['password']);

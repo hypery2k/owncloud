@@ -75,8 +75,9 @@ class OC_RoundCube_App {
 			$row = $result -> fetchRow();
 
 			return $row;
-		} elseif ($written == 0)
+		} elseif ($written == 0) {
 			self::writeBasicData($meUser);
+		}
 	}
 
 	/**
@@ -148,26 +149,26 @@ class OC_RoundCube_App {
 			// loader image
 			$loader_image = OCP\Util::imagePath('roundcube', 'loader.gif');
 
-			$disable_header_nav  = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', 'false');
-			$disable_control_nav  = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
+			$disable_header_nav = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', 'false');
+			$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
 			// create iFrame begin
 			echo '<img src="' . $loader_image . '" id="loader">';
 			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
 			echo '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
 			echo '<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>';
-			echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube').'/js/mailFrameScripts.js"></script>';
+			echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube') . '/js/mailFrameScripts.js"></script>';
 			// create iFrame end
 		} catch (RoundcubeNetworkException $ex_net) {
 			echo "ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage();
+			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
 			exit ;
-			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
 		} catch (RoundcubeLoginException $ex_login) {
 			echo "ERROR: Technical problem, " . $ex_login -> getMessage();
+			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
 			exit ;
-			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
 		}
 
 	}

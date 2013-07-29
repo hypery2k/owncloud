@@ -21,10 +21,10 @@
  */
 
 $l = new OC_L10N('roundcube');
-OC::$CLASSPATH['OC_RoundCube_App'] = 'roundcube/lib/mail.php';
-OC::$CLASSPATH['OC_RoundCube_DB_Util'] = 'roundcube/lib/dbUtil.php';
-OC::$CLASSPATH['RoundcubeLogin']   = 'roundcube/lib/RoundcubeLogin.class.php';
-OC::$CLASSPATH['OC_RC_AutoSave'] = 'roundcube/lib/autosave.php';
+OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube').'/lib/mail.php';
+OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube').'/lib/dbUtil.php';
+OC::$CLASSPATH['OC_RoundCube_Login']   = OC_App::getAppPath('roundcube').'/lib/RoundcubeLogin.class.php';
+OC::$CLASSPATH['OC_RC_AutoSave'] = OC_App::getAppPath('roundcube').'/lib/autosave.php';
 
 $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
