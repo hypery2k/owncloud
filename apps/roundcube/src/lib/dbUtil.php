@@ -32,7 +32,6 @@ class OC_RoundCube_DB_Util {
 		// Try a select statement against the table
 		// Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
 		try {
-
 			$sql = "SELECT 1 FROM *PREFIX*$table LIMIT 1";
 			$args = array(1);
 
@@ -44,10 +43,9 @@ class OC_RoundCube_DB_Util {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exists.', OCP\Util::DEBUG);
 			return false;
 		}
-
 		// Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
 		OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Result of check for if table ' . $table . ' exists: ' . $result, OCP\Util::DEBUG);
-		return $result != true;
+		return $result != false;
 
 	}
 
