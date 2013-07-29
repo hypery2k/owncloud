@@ -28,10 +28,12 @@ $ocRoundCubeMailError['noID'] = 'Ups we have a problem with your ID. Please try 
 $mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
 $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+$table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
+
 
 $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
-if (!OC_RoundCube_DB_Util::table_exists('roundcube')) {
+if (!$table_exists) {
 	echo $ocRoundCubeMailError['dbError'];
 	echo $this -> inc("part.error.db");
 } else {
