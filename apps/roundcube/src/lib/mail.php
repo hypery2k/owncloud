@@ -54,11 +54,12 @@ class OC_RoundCube_App {
 	 */
 	public static function checkLoginData($meUser, $written = 0) {
 		OCP\Util::writeLog('roundcube', 'Checking login data for ' . $meUser, OCP\Util::DEBUG);
-		if ($written != 0) {
-			$stmt = OCP\DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
-			$result = $stmt -> execute(array($meUser));
-			return $result -> fetchAll();
-		} else {
+		$stmt = OCP\DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
+		$result = $stmt -> execute(array($meUser));
+		$mailEntries = $result -> fetchAll();
+		if (isset($mailEntries) && $mailEntries != '') {
+			return $mailEntries;
+		} elseif ($written == 0) {
 			self::writeBasicData($meUser);
 		}
 	}
