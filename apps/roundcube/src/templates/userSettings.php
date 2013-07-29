@@ -35,18 +35,19 @@ foreach($mail_userdata_entries as $mail_userdata) {
 <?php
 $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
 $mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
-// TODO use template
+// TODO use template and add button for adding entries
 ?>	
-	<label for="usermail"><?php echo $l -> t('Username'); ?>
-		<input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username; ?>">
-	</label>
-	<label for="usermail"><?php echo $l -> t('Password'); ?>
-		<input type="password" id="mail_passwordword" name="mail_passwordword" value="<?php echo $mail_passwordword; ?>">
-	</label></p>
-    <input type="submit" value="Save" />
+		<label for="usermail"><?php echo $l -> t('Username'); ?>
+			<input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username; ?>">
+		</label>
+		<label for="usermail"><?php echo $l -> t('Password'); ?>
+			<input type="password" id="mail_passwordword" name="mail_passwordword" value="<?php echo $mail_passwordword; ?>">
+		</label>
 
 <?php
 }
 ?>	
+	</p>
+    <input type="submit" value="Save" />
 </fieldset>
 </form>
