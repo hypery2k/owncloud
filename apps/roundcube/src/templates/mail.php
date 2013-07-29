@@ -31,38 +31,38 @@ $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'
 
 $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
-if ($mail_userdata['id'] != '') {
-	if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
-		if ($mail_username != '' && $mail_password != '') {
-			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-			if ($maildir != '') {
-                                if (OC_RoundCube_DB_Util::table_exists('roundcube')){
-				if (!$disable_control_nav) {
-					echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
-				}
-				echo "<div id='notification'></div>";
-				echo "<div id='roundcube_container'>";
-				OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
-				echo "</div>";
-                                } else {
-echo $ocRoundCubeMailError['dbError'];
-				echo $this -> inc("part.error.db");
-}
+if (!OC_RoundCube_DB_Util::table_exists('roundcube')) {echo $ocRoundCubeMailError['dbError'];
+	echo $this -> inc("part.error.db");
+} else {
 
+	if ($mail_userdata['id'] != '') {
+		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
+			if ($mail_username != '' && $mail_password != '') {
+				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
+				if ($maildir != '') {
+					if (!$disable_control_nav) {
+						echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
+					}
+					echo "<div id='notification'></div>";
+					echo "<div id='roundcube_container'>";
+					OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
+					echo "</div>";
+
+				} else {
+					echo $ocRoundCubeMailError['noUserdata'];
+					echo $this -> inc("part.no-settings");
+				}
 			} else {
 				echo $ocRoundCubeMailError['noUserdata'];
-				echo $this -> inc("part.no-settings");
+				echo $this -> inc("part.error.no-settings");
 			}
 		} else {
-			echo $ocRoundCubeMailError['noUserdata'];
-			echo $this -> inc("part.error.no-settings");
+			echo $ocRoundCubeMailError['wrongUser'];
+			echo $this -> inc("part.error.wrong-auth");
 		}
 	} else {
-		echo $ocRoundCubeMailError['wrongUser'];
-		echo $this -> inc("part.error.wrong-auth");
+		echo $ocRoundCubeMailError['noID'];
+		echo $this -> inc("part.error.no-settings");
 	}
-} else {
-	echo $ocRoundCubeMailError['noID'];
-	echo $this -> inc("part.error.no-settings");
 }
 ?>
