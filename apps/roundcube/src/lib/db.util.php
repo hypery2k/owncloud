@@ -1,6 +1,6 @@
-<?
+<?php
 /**
- * ownCloud - roundcube mail plugin
+ * ownCloud - roundcube db helper methods
  *
  * @author Martin Reinhardt
  * @copyright 2013 Martin Reinhardt contact@martinreinhardt-online.de
