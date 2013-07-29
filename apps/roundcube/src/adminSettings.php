@@ -29,7 +29,7 @@ if ($_POST) {
 	OCP\JSON::callCheck();
 }
 
-$params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav');
+$params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav', 'autoLogin');
 
 OCP\Util::addscript('roundcube', 'settings');
 
@@ -41,6 +41,9 @@ if ($_POST) {
 			}
 			if ($param === 'removeControlNav') {
 				OCP\Config::setAppValue('roundcube', 'removeControlNav', true);
+			}
+			if ($param === 'autoLogin') {
+				OCP\Config::setAppValue('roundcube', 'autoLogin', true);
 			} else {
 				OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
 			}
@@ -50,6 +53,9 @@ if ($_POST) {
 			}
 			if ($param === 'removeControlNav') {
 				OCP\Config::setAppValue('roundcube', 'removeControlNav', false);
+			}
+			if ($param === 'autoLogin') {
+				OCP\Config::setAppValue('roundcube', 'autoLogin', false);
 			}
 		}
 	}
