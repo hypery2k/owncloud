@@ -29,19 +29,6 @@ class OC_RoundCube_App {
 	public $mailData = '';
 
 	/**
-	 * @brief check if login for the user exiss
-	 * @param user object $meUser
-	 * @returns a list of entries (id,mail_user,mail_password)
-	 *
-	 */
-	public static function existLoginData($meUser) {
-		OCP\Util::writeLog('roundcube', 'Checking if login data exists for ' . $meUser, OCP\Util::DEBUG);
-		$stmt = OC_DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
-		$result = $stmt -> execute(array($meUser));
-		return $result -> fetchAll();
-	}
-
-	/**
 	 * @brief write basic information for the user in the app configu
 	 * @param user object $meUser
 	 * @returns true/false
@@ -67,12 +54,11 @@ class OC_RoundCube_App {
 	 */
 	public static function checkLoginData($meUser, $written = 0) {
 		OCP\Util::writeLog('roundcube', 'Checking login data for ' . $meUser, OCP\Util::DEBUG);
-		$mailID = self::existLoginData($meUser);
-		if (isset($mailID) && $mailID != '') {
-			$stmt = OCP\DB::prepare("SELECT * FROM *PREFIX*roundcube WHERE id = ?");
+		if ($written != 0) {
+			$stmt = OCP\DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
 			$result = $stmt -> execute(array($meUser));
 			return $result -> fetchAll();
-		} elseif ($written == 0) {
+		} else {
 			self::writeBasicData($meUser);
 		}
 	}
