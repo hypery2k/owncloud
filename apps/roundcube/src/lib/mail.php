@@ -130,14 +130,14 @@ class OC_RoundCube_App {
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
 
 		// Create RC login object.
-		$rcl = new RoundcubeLogin($maildir);
+		$rcl = new OC_RoundCube_Login($maildir);
 
 		try {
 			// Try to login
 			OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
 			if ($rcl -> isLoggedIn()) {
 				$rcl -> logout();
-				$rcl = new RoundcubeLogin($maildir);
+				$rcl = new OC_RoundCube_Login($maildir);
 			}
 			if ($rcl -> login($ownUser, $ownPass)) {
 				OCP\Util::writeLog('roundcube', 'Successfully logged into roundcube ', OCP\Util::DEBUG);
@@ -164,7 +164,7 @@ class OC_RoundCube_App {
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
 			exit ;
-		} catch (RoundcubeLoginException $ex_login) {
+		} catch (OC_RoundCube_LoginException $ex_login) {
 			echo "ERROR: Technical problem, " . $ex_login -> getMessage();
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();

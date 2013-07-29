@@ -101,7 +101,7 @@
  *     and 0.5.1 (see blog post above)
  *
  */
-class RoundcubeLogin {
+class OC_RoundCube_Login {
 	/**
 	 * Relative path to the Roundcube base directory on the server.
 	 *
