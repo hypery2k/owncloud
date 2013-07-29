@@ -20,24 +20,33 @@
  *
  */
 
-$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
-$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
-$mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+
+foreach($mail_userdata_entries as $mail_userdata) {
+
 ?>
 
 <form id="usermail" action="#" method="post">
 		<!-- Prevent CSRF attacks-->
 	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
-	
 	<fieldset class="personalblock">
-		<legend><strong><?php echo $l -> t('RoundCube Mailaccount'); ?></strong></legend>
-        <p>
-        	<label for="usermail"><?php echo $l -> t('Username'); ?>
-        		<input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username; ?>">
-        	</label>
-        	<label for="usermail"><?php echo $l -> t('Password'); ?>
-        		<input type="password" id="mail_passwordword" name="mail_passwordword" value="<?php echo $mail_passwordword; ?>">
-        	</label></p>
-        <input type="submit" value="Save" />
-	</fieldset>
+	<legend><strong><?php echo $l -> t('RoundCube Mailaccount'); ?></strong></legend>
+    <p>
+<?php
+$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+$mail_passwordword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+// TODO use template
+?>	
+	<label for="usermail"><?php echo $l -> t('Username'); ?>
+		<input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username; ?>">
+	</label>
+	<label for="usermail"><?php echo $l -> t('Password'); ?>
+		<input type="password" id="mail_passwordword" name="mail_passwordword" value="<?php echo $mail_passwordword; ?>">
+	</label></p>
+    <input type="submit" value="Save" />
+
+<?php
+}
+?>	
+</fieldset>
 </form>

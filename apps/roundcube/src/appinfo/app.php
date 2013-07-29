@@ -2,7 +2,7 @@
 /**
  * ownCloud - roundcube mail plugin
  *
- \* @author Martin Reinhardt and David Jaedke
+ * @author Martin Reinhardt and David Jaedke
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * This library is free software; you can redistribute it and/or

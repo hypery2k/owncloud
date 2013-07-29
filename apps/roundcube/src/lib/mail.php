@@ -31,15 +31,15 @@ class OC_RoundCube_App {
 	/**
 	 * @brief check if login for the user exiss
 	 * @param user object $meUser
-	 * @returns the user id
+	 * @returns a list of entries (id,mail_user,mail_password)
 	 *
 	 */
 	public static function existLoginData($meUser) {
 		OCP\Util::writeLog('roundcube', 'Checking if login data exists for ' . $meUser, OCP\Util::DEBUG);
-		$stmt = OC_DB::prepare('SELECT id FROM *PREFIX*roundcube WHERE oc_user=?');
+		$stmt = OC_DB::prepare('SELECT id,mail_user,mail_password FROM *PREFIX*roundcube WHERE oc_user=?');
 		$result = $stmt -> execute(array($meUser));
-		$row = $result -> fetchRow();
-		return $row['id'];
+		$list = $result -> fetchAll();
+		return $list;
 	}
 
 	/**
