@@ -28,7 +28,9 @@ if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
 	echo $this -> inc("part.error.db");
 } else {
-	$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+	// TODO create dropdown list
+	$mail_userdata = $mail_userdata_entries[0];
 	$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
 	$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 
