@@ -21,16 +21,11 @@
  */
 // set the passwort in session to fill the hidden login form with revertet and base64 encoded pass
 // the *yourkey* must the same string as in autologin.php to replace this after revert and decode
-$ocRoundCubeMailError['noUserdata'] = 'Please edit your maildata in your personal settings.';
-$ocRoundCubeMailError['wrongUser'] = 'Ups we have a problem with your login. Please try again.';
-$ocRoundCubeMailError['dbError'] = 'Ups we have a problem with your DB. Please configure the db manual';
-$ocRoundCubeMailError['noID'] = 'Ups we have a problem with your ID. Please try again.';
 
 $table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
 
 if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
-	echo $ocRoundCubeMailError['dbError'];
 	echo $this -> inc("part.error.db");
 } else {
 	$mail_userdata = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
@@ -55,19 +50,15 @@ if (!$table_exists) {
 					echo "</div>";
 
 				} else {
-					echo $ocRoundCubeMailError['noUserdata'];
 					echo $this -> inc("part.no-settings");
 				}
 			} else {
-				echo $ocRoundCubeMailError['noUserdata'];
 				echo $this -> inc("part.error.no-settings");
 			}
 		} else {
-			echo $ocRoundCubeMailError['wrongUser'];
 			echo $this -> inc("part.error.wrong-auth");
 		}
 	} else {
-		echo $ocRoundCubeMailError['noID'];
 		echo $this -> inc("part.error.no-settings");
 	}
 }

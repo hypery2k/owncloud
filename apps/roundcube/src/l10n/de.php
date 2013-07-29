@@ -14,5 +14,7 @@
 "You don't have any email account configured yet." => "Bitte richten Sie zunächst ein Emailkonto ein.",
 "You don't have any email account in ot configured correctly yet. Please check you username and password." => "Bitte richten Sie zunächst ihr Emailkonto korrekt ein. Überprüfen sie Nutzer und Passwort.",
 "Logged in as " => "Angemeldet als ",
-"Enable autologin for users, which reuse the login data from OC for RoundCube." => "Autologin für Nutzer aktivieren, um die Nutzerdaten von OC für Roundcube wieder zu nutzen."
+"Enable autologin for users, which reuse the login data from OC for RoundCube." => "Autologin für Nutzer aktivieren, um die Nutzerdaten von OC für Roundcube wieder zu nutzen.",
+"Database error" => "Datenbankfehler.",
+"Please follow the wiki page to setup the database manually:" => "Bitte folgen sie den Hinweisen im Wiki zur manuellen Datenbankkonfiguration."
 ); 
