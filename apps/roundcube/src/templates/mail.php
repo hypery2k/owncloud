@@ -24,9 +24,10 @@
 
 $table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
 
+$html_output = "";
 if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
-	echo $this -> inc("part.error.db");
+	$html_output = $html_output . $this -> inc("part.error.db");
 } else {
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	// TODO create dropdown list
@@ -43,25 +44,29 @@ if (!$table_exists) {
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
 					OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
+
+					$html_output = "";
 					if (!$disable_control_nav) {
-						echo "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
+						$html_output = $html_output . "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
 					}
-					echo "<div id='notification'></div>";
-					echo "<div id='roundcube_container'>";
-					OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
-					echo "</div>";
+					$html_output = $html_output . "<div id='notification'></div>";
+					$html_output = $html_output . "<div id='roundcube_container'>";
+					$html_output = $html_output . OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
+					$html_output = $html_output . "</div>";
 
 				} else {
-					echo $this -> inc("part.no-settings");
+					$html_output = $html_output . $this -> inc("part.no-settings");
 				}
 			} else {
-				echo $this -> inc("part.error.no-settings");
+				$html_output = $html_output . $this -> inc("part.error.no-settings");
 			}
 		} else {
-			echo $this -> inc("part.error.wrong-auth");
+			$html_output = $html_output . $this -> inc("part.error.wrong-auth");
 		}
 	} else {
-		echo $this -> inc("part.error.no-settings");
+		$html_output = $html_output . $this -> inc("part.error.no-settings");
 	}
 }
+// output formatted HTML
+echo OCP\Util::sanitizeHTML($html_output);
 ?>
