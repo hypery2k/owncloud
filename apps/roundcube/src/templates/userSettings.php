@@ -20,6 +20,12 @@
  *
  */
 
+$table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
+
+if (!$table_exists) {
+	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
+	echo $this -> inc("part.error.db");
+} else {	
 $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 ?>
 <form id="usermail" action="#" method="post">
@@ -48,3 +54,6 @@ $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'
     <input type="submit" value="Save" />
 </fieldset>
 </form>
+<?php
+}
+?>
