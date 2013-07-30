@@ -41,7 +41,7 @@ class OC_RoundCube_App {
 		OCP\Util::writeLog('roundcube', 'Writing basic data for ' . $meUser, OCP\Util::DEBUG);
 		$stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
 		$result = $stmt -> execute(array($meUser));
-		self::checkLoginData($meUser, 1);
+		return self::checkLoginData($meUser, 1);
 	}
 
 	/**
