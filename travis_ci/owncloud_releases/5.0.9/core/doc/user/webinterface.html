@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The ownCloud Web Interface &mdash; ownCloud User Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual v5.0 documentation" href="index.html" />
+    <link rel="next" title="Files &amp; Synchronization" href="files/index.html" />
+    <link rel="prev" title="User Documentation" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">The ownCloud Web Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mediaplayer.html">Native Media Player Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">User Account Migration</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="the-owncloud-web-interface">
+<h1>The ownCloud Web Interface<a class="headerlink" href="#the-owncloud-web-interface" title="Permalink to this headline">¶</a></h1>
+<p>You can connect to ownCloud with your web browser by pointing
+it to the address that you have received from your service
+provider. In case you are administering the server yourself,
+have a look at ownCloud Administrators Manual.</p>
+<p>When you enter the URL, you will receive a page that is similar
+to the one depicted below:</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/oc_connect.png"><img alt="_images/oc_connect.png" src="_images/oc_connect.png" /></a>
+<p class="caption">The ownCloud login screen</p>
+</div>
+<p>Login with the user name and password with you have received from
+your service provider. If you have set up the server yourself,
+log in with the user name which you have created during the
+setup process. You can add further users through the settings,
+or by hooking up a user backend, such as LDAP.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>After clicking the <em class="guilabel">Log in</em> button, you will be redirected
+to ownCloud&#8217;s main web interface:</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/oc_ui.png"><img alt="_images/oc_ui.png" src="_images/oc_ui.png" /></a>
+<p class="caption">The ownCloud main interface with the essential elements numbered</p>
+</div>
+<p>The web interface comprises of the following items:</p>
+<ol class="arabic simple">
+<li><strong>Navigation bar</strong>: Allows navigation between different parts of ownCloud,
+provided by apps. Not all apps depicted in this screen shot are installed
+and enabled by default.</li>
+<li><strong>Application view</strong>: This is where apps show their content. By default, this
+will show the files and directory (file view) of your user on the ownCloud
+installation.</li>
+<li><strong>Upload/Create button</strong>: This allows you to create new files or upload
+existing ones from your device. Note that you can also drop files from
+Explorer or Finder onto the ownCloud file view and they will get uploaded to
+ownCloud.</li>
+<li><strong>Search/Logout</strong>: Search allows you to look for files and
+directories. Currently, ownCloud does not provide a full text search, but
+this may change in future releases.</li>
+<li><strong>Settings</strong>: This button provides access to the settings menu, where you can
+change your personal settings, such as the interface language or your
+password. You can also retrieve the WebDAV URL (see next chapter) and show
+your quota. Administrators will also get access to user management
+(<em class="guilabel">Users</em>), the apps settings (<em class="guilabel">Apps</em>) and administrative
+settings (<em class="guilabel">Admin</em>) including access to ownCloud&#8217;s log.</li>
+</ol>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

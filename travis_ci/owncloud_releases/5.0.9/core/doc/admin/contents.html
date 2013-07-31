@@ -1,0 +1,301 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ownCloud documentation contents &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="index.html" />
+    <link rel="next" title="Admin Documentation" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="#">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="#">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Admin Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="owncloud-documentation-contents">
+<span id="contents"></span><h1>ownCloud documentation contents<a class="headerlink" href="#owncloud-documentation-contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_appliance.html">Appliances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_appliance.html#software-appliances">Software Appliances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_appliance.html#owncloud-on-hardware-appliances">ownCloud on Hardware Appliances</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_linux.html">Linux Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#archlinux">Archlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#opensuse">openSUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#fedora">Fedora</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#centos-5-6">CentOS 5 &amp; 6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#gentoo">Gentoo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#pclinuxos">PCLinuxOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_linux.html#ubuntu-debian">Ubuntu / Debian</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_macos.html">Mac OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_windows.html">Windows 7 and Windows Server 2008</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_windows.html#activate-iis-with-cgi-support">Activate IIS with CGI Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_windows.html#installing-php">Installing PHP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_windows.html#installing-mysql">Installing MySQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_windows.html#installing-owncloud">Installing ownCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_windows.html#configuring-owncloud-php-and-iis-for-large-file-uploads">Configuring ownCloud, PHP and IIS for Large File Uploads</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_ucs.html">Univention Corporate Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_ucs.html#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_source.html">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_source.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_source.html#extract-owncloud-and-copy-to-your-webserver">Extract ownCloud and Copy to Your Webserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_source.html#set-the-directory-permissions">Set the Directory Permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_source.html#enable-htaccess-and-mod-rewrite-if-running-apache">Enable .htaccess and mod_rewrite if Running Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_source.html#follow-the-install-wizard">Follow the Install Wizard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_source.html#test-your-installation">Test your Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation_others.html">Other Web Servers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_others.html#nginx-configuration">Nginx Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_others.html#lighttpd-configuration">Lighttpd Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_others.html#yaws-configuration">Yaws Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_others.html#hiawatha-configuration">Hiawatha Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation/installation_others.html#pagekite-configuration">PageKite Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_3rdparty.html">3rd-Party Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_3rdparty.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_apps.html">Apps Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_apps.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_automation.html">Automatic Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_automation.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_database.html">Database Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_database.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_database.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_database.html#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_knowledgebase.html">Knowledge Base Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_knowledgebase.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_logging.html">Logging Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_logging.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_mail.html">Mail Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_mail.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_mail.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_mail.html#send-a-test-email">Send a Test Email</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_mail.html#trouble-shooting">Trouble shooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_reverseproxy.html">Reverse Proxy Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_reverseproxy.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_reverseproxy.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/configuration_encryption.html">Use Server-Side Encryption</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_encryption.html#enable-file-recovery-feature">Enable File Recovery Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_encryption.html#recover-user-files">Recover User Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/configuration_encryption.html#ldap-and-other-external-user-back-ends">LDAP and other external user back-ends</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/custom_mount_config.html">Custom Mount Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/custom_mount_config.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/custom_mount_config.html#backends">Backends</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/custom_user_backend.html">Custom User Backend Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/custom_user_backend.html#imap">IMAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/custom_user_backend.html#smb">SMB</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/auth_ldap.html">User Authentication with LDAP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#basic-settings">Basic Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#advanced-settings">Advanced Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#expert-settings-owncloud-5-0-7">Expert Settings (&gt;= ownCloud 5.0.7)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#testing-the-configuration">Testing the configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#troubleshooting-tips-and-tricks">Troubleshooting, Tips and Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#ssl-certificate-verification-ldaps-tls">SSL Certificate Verification (LDAPS, TLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#microsoft-active-directory">Microsoft Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#duplicating-server-configurations">Duplicating Server Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#owncloud-ldap-internals">ownCloud LDAP Internals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#user-and-group-mapping">User and Group Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#caching">Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/auth_ldap.html#handling-with-backup-server">Handling with Backup Server</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/xsendfile.html">Serving static files via web server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/xsendfile.html#apache2-x-sendfile">Apache2 (X-Sendfile)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/xsendfile.html#lighttpd-x-sendfile2">LigHTTPd (X-Sendfile2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/xsendfile.html#nginx-x-accel-redirect">Nginx (X-Accel-Redirect)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/xsendfile.html#how-to-check-if-it-s-working">How to check if it&#8217;s working?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/background_jobs.html">Background Jobs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/background_jobs.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/background_jobs.html#cron-jobs">Cron-Jobs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance/index.html">Maintenance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="maintenance/migrating.html">Migrating ownCloud Installations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance/update.html">Updating ownCloud</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="maintenance/update.html#update">Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maintenance/update.html#upgrade">Upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance/backup.html">Backing Up ownCloud</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="maintenance/backup.html#backup-folders">Backup Folders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maintenance/backup.html#backup-database">Backup Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="issues/index.html">Issues</a></li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+</ul>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

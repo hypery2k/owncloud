@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Apps Configuration &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Automatic Configuration" href="configuration_automation.html" />
+    <link rel="prev" title="3rd-Party Configuration" href="configuration_3rdparty.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">3rd-Party Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Apps Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Knowledge Base Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Logging Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Mail Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Use Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">User Authentication with LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="apps-configuration">
+<h1>Apps Configuration<a class="headerlink" href="#apps-configuration" title="Permalink to this headline">¶</a></h1>
+<p>After you have installed ownCloud you might realize that it would be nice to
+provide an additional function on top of the core functionality in your ownCloud installation.</p>
+<p>The first step should be to check out the <a class="reference external" href="http://apps.owncloud.com/">ownCloud apps store</a>. There you will find a lot of ready-to-use apps provided by the ownCloud community.</p>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>Parameters are set in the <tt class="file docutils literal"><span class="pre">config/config.php</span></tt> inside the <strong>$CONFIG</strong> array.</p>
+<div class="section" id="use-custom-app-directories">
+<h3>Use custom app directories<a class="headerlink" href="#use-custom-app-directories" title="Permalink to this headline">¶</a></h3>
+<p>Use the <strong>apps_paths</strong> array to set the apps folders which should be scanned
+for available apps and/or where user specific apps should be installed.The key
+<strong>path</strong> defines the absolute file system path to the app folder. The key
+<strong>url</strong> defines the http web path to that folder, starting at the ownCloud
+web root. The key <strong>writable</strong> indicates if a user can install apps in that
+folder.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to make sure that the default <strong>/apps/</strong> folder only contains apps shipped with ownCloud, you should follow the example and set-up a <strong>/apps2/</strong> folder which will be used to store all apps downloaded by users</p>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+  <span class="s2">&quot;apps_paths&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span> <span class="p">(</span>
+      <span class="m">0</span> <span class="o">=&gt;</span> <span class="k">array</span> <span class="p">(</span>
+              <span class="s2">&quot;path&quot;</span>     <span class="o">=&gt;</span> <span class="nx">OC</span><span class="o">::</span><span class="nv">$SERVERROOT</span><span class="o">.</span><span class="s2">&quot;/apps&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;url&quot;</span>      <span class="o">=&gt;</span> <span class="s2">&quot;/apps&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;writable&quot;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+      <span class="p">),</span>
+      <span class="m">1</span> <span class="o">=&gt;</span> <span class="k">array</span> <span class="p">(</span>
+              <span class="s2">&quot;path&quot;</span>     <span class="o">=&gt;</span> <span class="nx">OC</span><span class="o">::</span><span class="nv">$SERVERROOT</span><span class="o">.</span><span class="s2">&quot;/apps2&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;url&quot;</span>      <span class="o">=&gt;</span> <span class="s2">&quot;/apps2&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;writable&quot;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+      <span class="p">),</span>
+  <span class="p">),</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-your-own-appstore">
+<h3>Use your own appstore<a class="headerlink" href="#use-your-own-appstore" title="Permalink to this headline">¶</a></h3>
+<p>If you want to allow the installation of apps from the apps store you have to
+set <strong>appstoreenabled</strong> parameter, but this can only be done if at least one
+of the configured apps directories is writeable.</p>
+<p>The <strong>appstoreurl</strong> is used to set the http path to the ownCloud apps store. The appstore server has to use <abbr title="Open Collaboration Services">OCS</abbr>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+  <span class="s2">&quot;appstoreenabled&quot;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+  <span class="s2">&quot;appstoreurl&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;http://api.apps.owncloud.com/v1&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="guard-against-malicious-3rdparty-code">
+<h3>Guard against malicious 3rdparty code<a class="headerlink" href="#guard-against-malicious-3rdparty-code" title="Permalink to this headline">¶</a></h3>
+<p>Finally you can enable checks for malicious code fragments of 3rd-party apps
+by setting the <strong>appcodechecker</strong> parameter.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+  <span class="s2">&quot;appcodechecker&quot;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

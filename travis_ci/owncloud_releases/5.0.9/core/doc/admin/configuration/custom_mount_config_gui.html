@@ -1,0 +1,192 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Custom Mount Configuration Web-GUI &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="custom-mount-configuration-web-gui">
+<h1>Custom Mount Configuration Web-GUI<a class="headerlink" href="#custom-mount-configuration-web-gui" title="Permalink to this headline">¶</a></h1>
+<p>Since ownCloud 5.0 it is possible to mount external storage providers into
+ownCloud&#8217;s virtual file system. To add an external storage backend to your
+ownCloud head to <em>Settings</em> -&gt; <em>Admin</em> or <em>Personal</em>. As administrator you
+can mount external storage for any group or user. Users are also allowed
+to mount external storage for themselves if this setting has been enabled
+by the administrator.</p>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-1.png" src="../_images/custom_mount_config_gui-1.png" />
+</div>
+<p>At first the mount point has to be entered, this is the directory in ownCloud&#8217;s
+virtual file system, that the storage will be mounted to. Then the storage
+backend has to be selected from the list of supported backends. As of writing
+ownCloud currently supports the following storage backends:</p>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-2.png" src="../_images/custom_mount_config_gui-2.png" />
+</div>
+<ul class="simple">
+<li>Local file system (mount local storage that is outside ownCloud&#8217;s data
+directory)</li>
+<li>FTP (or FTPS)</li>
+<li>SFTP</li>
+<li>SMB</li>
+<li>WebDAV</li>
+<li><a class="reference external" href="http://aws.amazon.com/de/s3/">Amazon S3</a></li>
+<li><a class="reference external" href="https://www.dropbox.com/">Dropbox</a></li>
+<li><a class="reference external" href="https://drive.google.com/start">Google Drive</a></li>
+<li><a class="reference external" href="http://openstack.org/projects/storage/">OpenStack Swift</a></li>
+</ul>
+<p>Please keep in mind, that users are not allowed to mount local file storage for
+security purposes.</p>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-3.png" src="../_images/custom_mount_config_gui-3.png" />
+</div>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-4.png" src="../_images/custom_mount_config_gui-4.png" />
+</div>
+<p>Once a backend has been selected, more configuration fields will appear. The
+displayed configuration fields may vary depending on the selected storage backend.
+For example, the FTP storage backend needs the following configuration details
+to be entered:</p>
+<ul class="simple">
+<li><strong>host</strong>: the hostname of the ftp server</li>
+<li><strong>user</strong>: the username used to login to the ftp server</li>
+<li><strong>password</strong>: the password to login to the ftp server</li>
+<li><strong>secure</strong>: whether to use ftps:// (FTP over TLS) to connect to the ftp
+server instead of ftp:// (optional, defaults to false)</li>
+<li><strong>root</strong>: the name of the folder inside the ftp server to mount (optional,
+defaults to ‘/’)</li>
+</ul>
+<p>If <em>Dropbox</em> or <em>Google Drive</em> are chosen as storage backend an OAuth dialog will
+be shown to automatically generate and fetch the required token information.</p>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

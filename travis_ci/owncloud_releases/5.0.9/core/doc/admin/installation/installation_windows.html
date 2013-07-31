@@ -1,0 +1,356 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Windows 7 and Windows Server 2008 &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title="Univention Corporate Server" href="installation_ucs.html" />
+    <link rel="prev" title="Mac OS X" href="installation_macos.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_appliance.html">Appliances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_linux.html">Linux Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_macos.html">Mac OS X</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Windows 7 and Windows Server 2008</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activate-iis-with-cgi-support">Activate IIS with CGI Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-php">Installing PHP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-mysql">Installing MySQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-owncloud">Installing ownCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-owncloud-php-and-iis-for-large-file-uploads">Configuring ownCloud, PHP and IIS for Large File Uploads</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation_ucs.html">Univention Corporate Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_source.html">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_others.html">Other Web Servers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="windows-7-and-windows-server-2008">
+<h1>Windows 7 and Windows Server 2008<a class="headerlink" href="#windows-7-and-windows-server-2008" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You must move the data directory outside of your public root (See advanced install settings)</p>
+</div>
+<p>This section describes how to install ownCloud on Windows with <abbr title="Internet Information Services">IIS</abbr>.</p>
+<p>It assumes that you have a vanilla, non-IIS enabled Windows
+machine – Windows 7 or Server 2008. After enabling IIS, the steps are
+essentially identical for Windows 7 and Windows Server 2008.</p>
+<p>For installing ownCloud physical access or a remote desktop connection is required. You should leverage MySQL as the backend database for ownCloud. If you do not want to use MySQL, it is possible to use Postgres or SQLite instead. Microsoft SQL Server is not yet support.</p>
+<p>Enabling SSL is not yet covered by this section.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you make your desktop machine or server available outside of your LAN, you must maintain it. Monitor the logs, manage the access, apply patches to avoid compromising the system at large.</p>
+</div>
+<p>There are 4 primary steps to the installation, and then a 5th step
+required for configuring everything to allow files larger than the
+default 2MB.</p>
+<ol class="arabic simple">
+<li>Install IIS with CGI support – enable IIS on your Windows machine.</li>
+<li>Install PHP – Grab, download and install PHP.</li>
+<li>Install MySQL – Setup the MySQL server manager and enable ownCloud to create
+an instance.</li>
+<li>Install ownCloud – The whole reason we are here!</li>
+<li>Configure upload sizes and timeouts to enable large file uploads – So that you can upload larger files.</li>
+</ol>
+<div class="section" id="activate-iis-with-cgi-support">
+<h2>Activate IIS with CGI Support<a class="headerlink" href="#activate-iis-with-cgi-support" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="windows-7">
+<h3>Windows 7<a class="headerlink" href="#windows-7" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Go to <em class="guilabel">Start &#8211;&gt; Control Panel &#8211;&gt; Programs</em>.</li>
+<li>Under Programs and Features, there is link titled <em class="guilabel">Turn Windows Features on
+and Off</em>. Click on it.</li>
+<li>There is a box labeled Internet Information Services, expand it.</li>
+<li>Expand World Wide Web Services and all the folders underneath.</li>
+<li>Select the folders as illustrated in the picture below to get your IIS
+server up and running.</li>
+</ol>
+<div class="align-center figure align-center">
+<img alt="Windows features required for ownCloud on Windows 7" src="../_images/win7features.jpg" style="width: 250px;" />
+<p class="caption">Windows Features required for ownCloud on Windows 7</p>
+</div>
+<p>You do not need an FTP server running, so you should tune
+that feature off for your server. You definitely need the IIS Management
+Console, as that is the easiest way to start, stop, restart you server,
+as well as where you change certificate options and manage items like
+file upload size. You must check the CGI box under Application
+Development Features, because CGI is how you enable PHP on IIS.</p>
+<p>You have to turn off WebDAV publishing or the Windows WebDAV
+conflicts with the ownCloud WebDAV interface. This might already be
+turned off for you, just make sure it stays that way. The common HTTP
+features are the features you would expect from a web server.
+With the selections on this page, IIS will now serve up a web page for you.</p>
+<p>Restart IIS by going to the IIS manager (<em class="guilabel">Start &#8211;&gt; IIS Manager</em>).</p>
+<p>Select your website, and on the far right side is a section titled
+<em class="guilabel">Manage Server</em>. Make sure that the service is started, or click
+<em class="guilabel">Start</em> to start the services selected. Once this is complete, you
+should be able to go to a web browser and navigate to <a class="reference external" href="http://localhost">http://localhost</a>.</p>
+<p>This should open the standard IIS 7 splash page, which is just a static image
+that says your web server is running. Assuming you were able to get the
+splash page, it is safe to say your web server is now up and running.</p>
+</div>
+<div class="section" id="windows-server-2008">
+<h3>Windows Server 2008<a class="headerlink" href="#windows-server-2008" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Go to <em class="guilabel">Start &#8211;&gt; Control Panel &#8211;&gt; Programs</em>.</li>
+<li>Under Programs and Features, there is link titled
+<em class="guilabel">Turn Windows Features on and Off</em>. Click on it.</li>
+<li>This will bring up the Server Manager.</li>
+<li>In the server manager, Click on Roles, and then click Add Roles.</li>
+<li>Use the <em class="guilabel">Add Roles Wizard</em> to add the web server role.</li>
+</ol>
+<div class="align-center figure align-center">
+<img alt="server roles required for owncloud" src="../_images/winserverroles.jpg" style="width: 300px;" />
+<p class="caption">Server roles required for ownCloud</p>
+</div>
+<ol class="arabic simple" start="6">
+<li>Make sure that, at a minimum, the same boxes are checked in this wizard that are checked in the Windows 7 Section. For example, make sure that the CGI box is checked under Application Development Features, and that WebDAV Publishing is turned off. With Remote Desktop Sharing turned on, the detailed role service list looks like the figure “Role Services”.</li>
+<li>Restart IIS by going to the IIS manager (<em class="guilabel">Start &#8211;&gt; IIS Manager</em>).</li>
+<li>Select your website, and on the far right side is a section titled Manage server. Make sure that the service is started, or click “Start” to start the services selected.</li>
+<li>Once this is complete, you should be able to go to a web browser and type &#8220;localhost&#8221;. This should open the standard IIS 7 splash page, which is just a static image that says your web server is running.Assuming you were able to get the splash page, it is safe to say your web server is now up and running. The next part of this “how to” installs PHP on the server.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="installing-php">
+<h2>Installing PHP<a class="headerlink" href="#installing-php" title="Permalink to this headline">¶</a></h2>
+<p>This part is also straightforward, but it is necessary to remind you that this
+is for IIS only.</p>
+<ol class="arabic simple">
+<li>Go to the following link and grab the <a class="reference external" href="http://windows.php.net/download/">PHP installer</a> for version &#8220;VC9 Non Thread Safe&#8221; 32 or 64 bit based on your system.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using Apache, make sure you grab VC6 instead, lower on the page.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li>Once through that login, select the location that is closest to you geographically.</li>
+<li>Run that install wizard once it is downloaded. Read the license agreement, agree, select an install directory.</li>
+<li>Then select IIS FastCGI as the install server.</li>
+<li>Take the default selections for the items to install, and click next. Then click  install.</li>
+<li>And, after a few minutes, PHP will be installed. On to MySQL.</li>
+</ol>
+</div>
+<div class="section" id="installing-mysql">
+<h2>Installing MySQL<a class="headerlink" href="#installing-mysql" title="Permalink to this headline">¶</a></h2>
+<p>This part installs MySQL on your Windows machine.</p>
+<ol class="arabic simple">
+<li>Point your browser to <a class="reference external" href="http://dev.mysql.com/downloads/">http://dev.mysql.com/downloads/</a> and download the latest community edition for your OS – the 32 or 64 bit version. Please download the <strong>MSI Installer</strong> as it will make life easier.</li>
+<li>Once downloaded, install MySQL (5.5 at the time of writing). Select the Typical installation.</li>
+<li>When that finishes, check the box to launch the MySQL Instance Configuration Wizard and click Finish.</li>
+<li>Select a standard configuration, as this will be the only version of MySQL on this machine.</li>
+<li>Select to install as a windows service, and Check the Launch the MySQL Server Automatically button.</li>
+<li>Select the modify security settings box on the next page, and enter a    password you will remember. You will need this password when you configure ownCloud.</li>
+<li>Uncheck <strong>enable</strong> root access from remote machines” for security reasons.</li>
+<li>Click execute, and wait while the instance is created and launched.</li>
+<li>Click Finish when this is all complete.</li>
+</ol>
+<p>Take particular note of your MySQL password, as the user name <strong>root</strong>
+and the password you select will be necessary alter on in the ownCloud
+installation. As an aside, this link is an excellent resource for questions on
+how to configure your MySQL instance, and also to configure PHP to work with
+MySQL. This, however, is not strictly necessary as much of this is handled when
+you download ownCloud.</p>
+<p>More information in this topic can be found in a <a class="reference external" href="http://learn.iis.net/page.aspx/353/install-and-configure-mysql-for-php-applications-on-iis-7-and-above/">tutorial on the IIS web site</a>.</p>
+</div>
+<div class="section" id="installing-owncloud">
+<h2>Installing ownCloud<a class="headerlink" href="#installing-owncloud" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Download the latest version of ownCloud from <a class="reference external" href="http://owncloud.org/download">http://owncloud.org/download</a>.</li>
+<li>It will arrive as a tar.bz2 file, and I recommend something like jZip for a free utility to unzip it.</li>
+<li>Once you have the ownCloud directory unzipped and saved locally, copy it into your wwwroot directory (probably <strong>C:\inetpub\wwwroot</strong>).</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You cannot install directly into the directory <strong>wwwroot</strong> from jzip, as only the administrator can unzip into the <strong>wwwroot</strong> directory. If you save it in a different folder, and then move the files into <strong>wwwroot</strong> in windows explorer, it works. This will install ownCloud locally in your root web directory. You can use a subdirectory called owncloud, or whatever you want – the www root, or something else.</p>
+</div>
+<ol class="arabic simple" start="4">
+<li>It is now time to give write access to the ownCloud directory to the ownCloud server: Navigate your windows explorer over to  <strong>inetpub/wwwroot/owncloud</strong> (or your installation directory if you selected something different).</li>
+<li>Right click and select properties. Click on the security tab, and click the button “to change permissions, click edit”.</li>
+<li>Select the “users” user from the list, and check the box “write”.</li>
+<li>Apply these settings and close out.</li>
+<li>Now open your browser and go to <a class="reference external" href="http://localhost/owncloud">http://localhost/owncloud</a> (or localhost if it is installed in the root www directory). This should bring up the ownCloud configuration page.</li>
+<li>At this page, you enter your desired ownCloud user name and password for the administrator, and expand the little arrow.</li>
+<li>Select MySQL as the database, and enter your MySQL database user name, password and desired instance name – use the user name and password you setup for MySQL earlier in step 3, and pick any name for the database instance.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The owncloud admin password and the MySQL password CANNOT be the same in any way.</p>
+</div>
+<ol class="arabic simple" start="11">
+<li>Click next, and ownCloud should have you logged in as the admin user, and you can get started exploring ownCloud, creating other users and more!</li>
+</ol>
+</div>
+<div class="section" id="configuring-owncloud-php-and-iis-for-large-file-uploads">
+<h2>Configuring ownCloud, PHP and IIS for Large File Uploads<a class="headerlink" href="#configuring-owncloud-php-and-iis-for-large-file-uploads" title="Permalink to this headline">¶</a></h2>
+<p>Before going too nuts on ownCloud, it is important to do a couple of
+configuration changes to make this a useful service for you. You will probably
+want to increase the <strong>max upload size</strong>, for example. The default upload is
+set to <strong>2MB</strong>, which is too small for even most MP3 files.</p>
+<p>To do that, simply go into your <strong>PHP.ini</strong> file, which can be found in your
+<strong>C:\Program Files (x86)\PHP</strong> folder. In here, you will find a <strong>PHP.ini</strong>
+file. Open this in a text editor, and look for a few key attributes to
+change:</p>
+<ul class="simple">
+<li><strong>upload_max_filesize</strong> – change this to something good, like 1G, and you
+will get to upload much larger files.</li>
+<li><strong>post_max_size</strong> – also change this size, and make it larger than the max
+upload size you chose, like 1G.</li>
+</ul>
+<p>There are other changes you can make, such as the timeout duration for
+uploads, but for now you should be all set in the <strong>PHP.ini</strong> file.</p>
+<p>Now you have to go back to IIS manager and make one last change to enable file
+uploads on the web server larger than 30MB.</p>
+<ol class="arabic">
+<li><p class="first">Go to the start menu, and type <strong>iis manager</strong>.</p>
+</li>
+<li><p class="first">Open IIS Manager Select the website you want enable to accept large file
+uploads.</p>
+</li>
+<li><p class="first">In the main window in the middle double click on the icon <strong>Request
+filtering</strong>.</p>
+</li>
+<li><p class="first">Once the window is opened you will see a bunch of tabs across the top of the
+far right,</p>
+<p>Select <em class="guilabel">Edit Feature Settings</em> and modify the <em class="guilabel">Maximum
+allowed content length (bytes)</em></p>
+</li>
+<li><p class="first">In here, you can change this to up to 4.1 GB.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This entry is in BYTES, not KB.</p>
+</div>
+<p>You should now have ownCloud configured and ready for use.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

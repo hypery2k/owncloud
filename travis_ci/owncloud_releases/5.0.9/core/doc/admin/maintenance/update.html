@@ -1,0 +1,216 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Updating ownCloud &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+    <link rel="up" title="Maintenance" href="index.html" />
+    <link rel="next" title="Backing Up ownCloud" href="backup.html" />
+    <link rel="prev" title="Migrating ownCloud Installations" href="migrating.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Maintenance</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="migrating.html">Migrating ownCloud Installations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Updating ownCloud</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#update">Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrade">Upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backing Up ownCloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="updating-owncloud">
+<h1>Updating ownCloud<a class="headerlink" href="#updating-owncloud" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="update">
+<h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>Updating means updating ownCloud to the latest <em>point release</em>, e.g. ownCloud 4.0.6 → 4.0.7. To update an ownCloud installation manually, follow those steps:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have installed ownCloud from a repository, your package management should take care of it.</p>
+</div>
+<ol class="arabic simple">
+<li>Make a backup.</li>
+<li>Unpack the release tarball in the owncloud directory, i.e. copy all new files into the ownCloud installation.</li>
+<li>Make sure that the file permissions are correct.</li>
+<li>After the next page request the update procedures will run.</li>
+</ol>
+<p>Assuming your ownCloud installation is at <strong>./owncloud/</strong> and you want to update to the latest version, you could do the following:</p>
+<p>Use rsync in archive mode (this leaves file owner, permissions, and time stamps untouched) to recursively copy all content from <strong>./owncloud/</strong> to a backup directory which contains the current date:</p>
+<div class="highlight-python"><pre>rsync -a owncloud/ owncloud_bkp`date +"%Y%m%d"`/</pre>
+</div>
+<p>Download the latest version to the working directory:</p>
+<div class="highlight-python"><pre>wget http://download.owncloud.org/community/owncloud-latest.tar.bz2</pre>
+</div>
+<p>Extract content of archive to <strong>./owncloud_latest/</strong>:</p>
+<div class="highlight-python"><pre>mkdir owncloud_latest; tar -C owncloud_latest -xjf owncloud-latest.tar.bz2</pre>
+</div>
+<p>Use rsync to recursivly copy extracted files (new) to ownCloud installation (old) using modification times of the new files, but preserving owner and permissions of the old files:</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You should not use this [&#8211;inplace] option to update files that are being accessed by others <em>(from rysnc man page)</em></p>
+</div>
+<div class="highlight-python"><pre>rsync --inplace -rtv owncloud_latest/owncloud/ owncloud/</pre>
+</div>
+<p>Clean up:</p>
+<div class="highlight-python"><pre>rm -rf owncloud-latest.tar.bz2 owncloud_latest/</pre>
+</div>
+</div>
+<div class="section" id="upgrade">
+<h2>Upgrade<a class="headerlink" href="#upgrade" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The update to 5.0 is currently discouraged for users of the encryption app. A rewrite of the encryption will be released in a few weeks. If you have already upgraded to 5.0 you will not be able to decrypt your files. The solution to this is to downgrade to the old version again. <strong>Also make a backup before you downgrade!</strong></p>
+</div>
+<p>Upgrade is to bring an ownCloud instance to a new <em>major release</em>, e.g.
+ownCloud 4.0.7 → 4.5.0. Always do backups anyway.</p>
+<p>To upgrade ownCloud, follow those steps:</p>
+<ol class="arabic simple">
+<li>Make sure that you ran the latest point release of the major ownCloud
+version, e.g. 4.0.7 in the 4.0 series. If not, update to that version first
+(see above).</li>
+<li><strong>Make a backup of the ownCloud folder and the database</strong></li>
+<li>Deactivate all third party applications.</li>
+<li>Delete everything from your ownCloud installation directory, except data and
+config.</li>
+<li>Unpack the release tarball in the owncloud directory (or copy the
+files thereto).</li>
+<li>Make sure that the file permissions are correct.</li>
+<li>With the next page request the update procedures will run.</li>
+<li>If you had 3rd party applications, check if they provide versions compatible
+with the new release.</li>
+</ol>
+<p>If so, install and enable them, update procedures will run if needed.  9. If
+you installed ownCloud from a repository, your package management should take
+care of it. Probably you will need to look for compatible third party
+applications yourself. Always do backups anyway.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

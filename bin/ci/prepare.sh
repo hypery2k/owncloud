@@ -13,7 +13,7 @@ echo "Preparing owncloud setup"
 VER_OC45="4.5.13"
 VER_OC5="5.0.9"
 
-DIR_OC_MYSQL="/var/www/mysql/
+DIR_OC_MYSQL="/var/www/mysql/"
 DIR_OC_MYSQL_45=$DIR_OC_MYSQL$VER_OC45"/"
 DIR_OC_MYSQL_5=$DIR_OC_MYSQL$VER_OC5"/"
 DIR_OC_SQLLITE="/var/www/sqllite/"
@@ -62,8 +62,8 @@ sudo cp -r $DIR_OC_DEV"owncloud/apps/roundcube/src" $DIR_OC_SQLLITE_5"apps/round
 sudo ls -lisah $DIR_OC_MYSQL_45"apps/roundcube/*"
 
 echo "Setting up Directory rights"
-sudo chmod -R 777 $DIR_OC_MYSQL_45"
-sudo chmod -R 777 $DIR_OC_MYSQL_5"
+sudo chmod -R 777 $DIR_OC_MYSQL_45
+sudo chmod -R 777 $DIR_OC_MYSQL_5
 sudo chmod -R 777 $DIR_OC_SQLLITE_45
 sudo chmod -R 777 $DIR_OC_SQLLITE_5
 sudo chmod -R 777 /var/www/roundcubemail-0.7.3

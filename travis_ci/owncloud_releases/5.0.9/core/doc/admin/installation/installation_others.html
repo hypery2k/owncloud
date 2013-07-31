@@ -1,0 +1,320 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Other Web Servers &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title="Configuration" href="../configuration/index.html" />
+    <link rel="prev" title="Manual Installation" href="installation_source.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_appliance.html">Appliances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_linux.html">Linux Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_macos.html">Mac OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_windows.html">Windows 7 and Windows Server 2008</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_ucs.html">Univention Corporate Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_source.html">Manual Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Other Web Servers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nginx-configuration">Nginx Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lighttpd-configuration">Lighttpd Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yaws-configuration">Yaws Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hiawatha-configuration">Hiawatha Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pagekite-configuration">PageKite Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="other-web-servers">
+<h1>Other Web Servers<a class="headerlink" href="#other-web-servers" title="Permalink to this headline">¶</a></h1>
+<p>The most popular server choice for ownCloud is Apache, which is why
+it is also the combinations tested best. However, it is also possible
+to run ownCloud on other web servers. This section does not cover
+Microsoft Internet Information Services (IIS), it is covered
+in the <a class="reference internal" href="installation_windows.html"><em>Windows 7 and Windows Server 2008</em></a> section.</p>
+<div class="section" id="nginx-configuration">
+<h2>Nginx Configuration<a class="headerlink" href="#nginx-configuration" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>You need to insert the following code into
+<strong>your nginx config file.</strong></li>
+<li>Adjust <strong>server_name</strong>, <strong>root</strong>, <strong>ssl_certificate</strong> and <strong>ssl_certificate_key</strong> to suit your needs.</li>
+<li>Make sure your SSL certificates are readable by the server (see <a class="reference external" href="http://wiki.nginx.org/HttpSslModule">http://wiki.nginx.org/HttpSslModule</a>).</li>
+</ul>
+<div class="highlight-python"><pre>server {
+        listen 80;
+        server_name cloud.example.com;
+        return 301 https://$server_name$request_uri;  # enforce https
+}
+
+server {
+        listen 443 ssl;
+        server_name cloud.example.com;
+
+        ssl_certificate /etc/ssl/nginx/cloud.example.com.crt;
+        ssl_certificate_key /etc/ssl/nginx/cloud.example.com.key;
+
+        # Path to the root of your installation
+        root /var/www/;
+
+        client_max_body_size 10G; # set max upload size
+        fastcgi_buffers 64 4K;
+
+        rewrite ^/caldav(.*)$ /remote.php/caldav$1 redirect;
+        rewrite ^/carddav(.*)$ /remote.php/carddav$1 redirect;
+        rewrite ^/webdav(.*)$ /remote.php/webdav$1 redirect;
+
+        index index.php;
+        error_page 403 = /core/templates/403.php;
+        error_page 404 = /core/templates/404.php;
+
+        location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+        }
+
+        location ~ ^/(data|config|\.ht|db_structure\.xml|README) {
+                deny all;
+        }
+
+        location / {
+                # The following 2 rules are only needed with webfinger
+                rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+                rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json last;
+
+                rewrite ^/.well-known/carddav /remote.php/carddav/ redirect;
+                rewrite ^/.well-known/caldav /remote.php/caldav/ redirect;
+
+                rewrite ^(/core/doc/[^\/]+/)$ $1/index.html;
+
+                try_files $uri $uri/ index.php;
+        }
+
+        location ~ ^(.+?\.php)(/.*)?$ {
+                try_files $1 = 404;
+
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$1;
+                fastcgi_param PATH_INFO $2;
+                fastcgi_param HTTPS on;
+                fastcgi_pass 127.0.0.1:9000;
+                # Or use unix-socket with 'fastcgi_pass unix:/var/run/php5-fpm.sock;'
+        }
+
+        # Optional: set long EXPIRES header on static assets
+        location ~* ^.+\.(jpg|jpeg|gif|bmp|ico|png|css|js|swf)$ {
+                expires 30d;
+                # Optional: Don't log access to assets
+                access_log off;
+        }
+
+}</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use Owncloud without SSL/TLS support, but we strongly encourage you not to do that:</p>
+</div>
+<ul class="simple">
+<li>Remove the server block containing the redirect</li>
+<li>Change <strong>listen 443 ssl</strong> to <strong>listen 80;</strong></li>
+<li>Remove <strong>ssl_certificate</strong> and <strong>ssl_certificate_key</strong>.</li>
+<li>Remove <strong>fastcgi_params HTTPS on;</strong></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to effectively increase maximum upload size you will also
+have to modify your <strong>php-fpm configuration</strong> (<strong>usually at
+/etc/php5/fpm/php.ini</strong>) and increase <strong>upload_max_filesize</strong> and
+<strong>post_max_size</strong> values. You’ll need to restart php5-fpm and nginx
+services in order these changes to be applied.</p>
+</div>
+</div>
+<div class="section" id="lighttpd-configuration">
+<h2>Lighttpd Configuration<a class="headerlink" href="#lighttpd-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This assumes that you are familiar with installing PHP application on
+lighttpd.</p>
+<p>It is important to note that the <strong>.htaccess</strong> files used by ownCloud to protect the <strong>data</strong> folder are ignored by lighttpd, so you have to secure it by yourself, otherwise your <strong>owncloud.db</strong> database and user data are publicly readable even if directory listing is off. You need to add two snippets to your lighttpd configuration file:</p>
+<p>Disable access to data folder:</p>
+<div class="highlight-python"><pre>$HTTP["url"] =^ "^/owncloud/data/" {
+     url.access-deny = ("")
+   }</pre>
+</div>
+<p>Disable directory listing:</p>
+<div class="highlight-python"><pre>$HTTP["url"] =^ "^/owncloud($|/)" {
+     dir-listing.activate = "disable"
+   }</pre>
+</div>
+</div>
+<div class="section" id="yaws-configuration">
+<h2>Yaws Configuration<a class="headerlink" href="#yaws-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This should be in your <strong>yaws_server.conf</strong>. In the configuration file, the
+<strong>dir_listings = false</strong> is important and also the redirect from <strong>/data</strong>
+to somewhere else, because files will be saved in this directory and it
+should not be accessible from the outside. A configuration file would look
+like this</p>
+<div class="highlight-xml"><pre>&lt;server owncloud.myserver.com/&gt;
+        port = 80
+        listen = 0.0.0.0
+        docroot = /var/www/owncloud/src
+        allowed_scripts = php
+        php_handler = &lt;cgi, /usr/local/bin/php-cgi&gt;
+        errormod_404 = yaws_404_to_index_php
+        access_log = false
+        dir_listings = false
+        &lt;redirect&gt;
+                /data == /
+        &lt;/redirect&gt;
+&lt;/server&gt;</pre>
+</div>
+<p>The apache <strong>.htaccess</strong> file that comes with ownCloud is configured to
+redirect requests to nonexistent pages. To emulate that behaviour, you
+need a custom error handler for yaws. See this <a class="reference external" href="https://gist.github.com/2200407">github gist for further
+instructions</a> on how to create and compile that error handler.</p>
+</div>
+<div class="section" id="hiawatha-configuration">
+<h2>Hiawatha Configuration<a class="headerlink" href="#hiawatha-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Add <strong>WebDAVapp = yes</strong> to the ownCloud virtual host. Users accessing
+WebDAV from MacOS will also need to add <strong>AllowDotFiles = yes</strong>.</p>
+<p>Disable access to data folder:</p>
+<div class="highlight-python"><pre>UrlToolkit {
+    ToolkitID = denyData
+    Match ^/data DenyAccess
+}</pre>
+</div>
+</div>
+<div class="section" id="pagekite-configuration">
+<h2>PageKite Configuration<a class="headerlink" href="#pagekite-configuration" title="Permalink to this headline">¶</a></h2>
+<p>You can use this <a class="reference external" href="https://pagekite.net/wiki/Howto/GNULinux/OwnCloud/">PageKite how to</a> to make your local ownCloud accessible from the
+internet using PageKite.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

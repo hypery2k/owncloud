@@ -1,0 +1,272 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Linux Distributions &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title="Mac OS X" href="installation_macos.html" />
+    <link rel="prev" title="Appliances" href="installation_appliance.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_appliance.html">Appliances</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Linux Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#archlinux">Archlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensuse">openSUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fedora">Fedora</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#centos-5-6">CentOS 5 &amp; 6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gentoo">Gentoo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pclinuxos">PCLinuxOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-debian">Ubuntu / Debian</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation_macos.html">Mac OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_windows.html">Windows 7 and Windows Server 2008</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_ucs.html">Univention Corporate Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_source.html">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_others.html">Other Web Servers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="linux-distributions">
+<h1>Linux Distributions<a class="headerlink" href="#linux-distributions" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the installation process for different
+distributions. If there are pre-made packages from ownCloud,
+you are encouraged to prefer those over the vendor-provided
+ones, since they usually are more up-to-date.</p>
+<div class="section" id="archlinux">
+<h2>Archlinux<a class="headerlink" href="#archlinux" title="Permalink to this headline">¶</a></h2>
+<p>There are two AUR packages for ownCloud:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://aur.archlinux.org/packages.php?ID=47585">stable version</a></li>
+<li><a class="reference external" href="http://aur.archlinux.org/packages.php?ID=38767">development version</a></li>
+</ul>
+</div>
+<div class="section" id="opensuse">
+<h2>openSUSE<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ready-to-use SLES and openSUSE RPM packages are available in the openSUSE Build Service <a class="reference external" href="http://software.opensuse.org/search?q=owncloud&amp;baseproject=ALL&amp;lang=de">ownCloud repository</a>.</p>
+</div>
+<ol class="arabic simple">
+<li>Copy ownCloud to Apache&#8217;s server directory : <strong>/srv/www/htdocs</strong></li>
+<li>Give the web server the necessary permissions:</li>
+</ol>
+<div class="highlight-python"><pre>sudo chown -R wwwrun owncloud</pre>
+</div>
+<ol class="arabic simple" start="3">
+<li>Open the folder in a browser and complete the setup wizard</li>
+</ol>
+<p>If have followed the steps above and want to try it out, run this
+command in a terminal to start Apache if it’s not already running:</p>
+<div class="highlight-python"><pre>sudo /etc/init.d/apache2 start</pre>
+</div>
+<p>Go to <a class="reference external" href="http://servername/owncloud">http://servername/owncloud</a> and walk through the setup.</p>
+</div>
+<div class="section" id="fedora">
+<h2>Fedora<a class="headerlink" href="#fedora" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ready-to-use RPM packages are available in the openSUSE Build Service <a class="reference external" href="http://software.opensuse.org/search?q=owncloud&amp;baseproject=ALL&amp;lang=de">ownCloud repository</a>.</p>
+</div>
+<p>Make sure <a class="reference external" href="https://fedoraproject.org/wiki/SELinux_FAQ#How_do_I_enable_or_disable_SELinux_.3F">SELinux is disabled</a> or else the installation process will fail with the following message:</p>
+<div class="highlight-python"><pre>Config file (config/config.php) is not writable for the webserver</pre>
+</div>
+<p>Configure Apache:</p>
+<ol class="arabic simple">
+<li>If you already have a website running from Document Root but would still like to install OwnCloud you can use a Name-based virtual host entry and subdomain.</li>
+<li>Edit your DNS record following this example: <strong>point owncloud.foo.com &gt; ip.ip.ip.ip</strong></li>
+</ol>
+</div>
+<div class="section" id="centos-5-6">
+<h2>CentOS 5 &amp; 6<a class="headerlink" href="#centos-5-6" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ready-to-use CentOS RPM packages are available
+in the openSUSE Build Service <a class="reference external" href="http://software.opensuse.org/search?q=owncloud&amp;baseproject=ALL&amp;lang=de">ownCloud repository</a>.</p>
+</div>
+<ol class="arabic simple">
+<li>Create a new file in <strong>/etc/httpd/conf/</strong> and call it <strong>owncloud.conf</strong>.</li>
+<li>You can use the following as an example:</li>
+</ol>
+<div class="highlight-xml"><pre>&lt;IfModule mod_alias.c&gt;
+Alias /owncloud /var/www/owncloud/
+&lt;/IfModule&gt;
+&lt;Directory /var/www/owncloud/&gt;
+   Options None
+   Order allow,deny
+   allow from all
+&lt;/Directory&gt;
+&lt;VirtualHost *:80&gt;
+    ServerAdmin foo@foofarm.com
+    DocumentRoot /var/www/html/owncloud
+    ServerName owncloud.foo.com
+    ErrorLog logs/owncloud.foo.info-error_log
+    CustomLog logs/owncloud.foo.info-access_log common
+
+&lt;/VirtualHost&gt;</pre>
+</div>
+<ol class="arabic simple" start="3">
+<li>Now edit your httpd.conf file which is usually located in <tt class="file docutils literal"><span class="pre">/etc/httpd/conf/httpd.conf</span></tt></li>
+<li>Add the following to the bottom</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">httpd</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">owncloud</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>Restart apache and now when you point your browser to <a class="reference external" href="http://owncloud.foo.com">http://owncloud.foo.com</a> it should properly load without affecting <a class="reference external" href="http://foo.com">http://foo.com</a></li>
+</ol>
+</div>
+<div class="section" id="gentoo">
+<h2>Gentoo<a class="headerlink" href="#gentoo" title="Permalink to this headline">¶</a></h2>
+<p>Set up a standard web server (see instructions above). Then change permissions:</p>
+<div class="highlight-python"><pre>chown -R apache:apache owncloud</pre>
+</div>
+<p>Allow .htaccess, modify <tt class="file docutils literal"><span class="pre">/etc/apache2/vhosts.d/00_default_vhost.conf</span></tt> and
+make sure it contains the following section</p>
+<div class="highlight-xml"><pre>&lt;Directory /var/www/localhost/htdocs/owncloud&gt;
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order allow,deny
+    allow from all
+&lt;/Directory&gt;</pre>
+</div>
+</div>
+<div class="section" id="pclinuxos">
+<h2>PCLinuxOS<a class="headerlink" href="#pclinuxos" title="Permalink to this headline">¶</a></h2>
+<p>Follow the Tutorial <a class="reference external" href="http://pclinuxoshelp.com/index.php/Owncloud,_installation_and_setup">ownCloud, installation and setup</a> on the PCLinuxOS web site.</p>
+</div>
+<div class="section" id="ubuntu-debian">
+<h2>Ubuntu / Debian<a class="headerlink" href="#ubuntu-debian" title="Permalink to this headline">¶</a></h2>
+<p>Go to the <a class="reference external" href="http://software.opensuse.org/download.html?project=isv:ownCloud:community&amp;package=owncloud">linux package sources</a> page and execute the steps as described there for your distribution.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

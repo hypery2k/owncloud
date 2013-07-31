@@ -1,0 +1,200 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using the Bookmarks App &mdash; ownCloud User Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual v5.0 documentation" href="index.html" />
+    <link rel="next" title="Native Media Player Support" href="mediaplayer.html" />
+    <link rel="prev" title="Synchronizing with KDE SC" href="pim/sync_kde.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Using the Bookmarks App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-main-interface">The main interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-a-bookmark">Add a bookmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit-delete-a-bookmark">Edit/delete a bookmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search">Search</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-bookmarklet">The bookmarklet</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mediaplayer.html">Native Media Player Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">User Account Migration</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="using-the-bookmarks-app">
+<h1>Using the Bookmarks App<a class="headerlink" href="#using-the-bookmarks-app" title="Permalink to this headline">¶</a></h1>
+<p>If you want to add a bookmark to the Bookmarks application,
+you can either use the main interface or the bookmarklet.</p>
+<div class="section" id="the-main-interface">
+<h2>The main interface<a class="headerlink" href="#the-main-interface" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="add-a-bookmark">
+<h3>Add a bookmark<a class="headerlink" href="#add-a-bookmark" title="Permalink to this headline">¶</a></h3>
+<p>The main ownCloud interface contains 3 fields at the top where
+you can enter the website address (or URL), the title of your bookmark and
+a set of tags separated from each other by a space.</p>
+<div class="figure">
+<img alt="_images/bookmark_addurl.jpg" src="_images/bookmark_addurl.jpg" />
+</div>
+<p>In this example, we have added the page : <a class="reference external" href="http://wikipedia.org">http://wikipedia.org</a> with the title &#8220;Wikipedia&#8221;
+and some tags describing what wikipedia is (for an easier search later on).</p>
+</div>
+<div class="section" id="edit-delete-a-bookmark">
+<h3>Edit/delete a bookmark<a class="headerlink" href="#edit-delete-a-bookmark" title="Permalink to this headline">¶</a></h3>
+<p>You also have the possibility to edit or delete your bookmark.
+For that, just hover on the bookmark and click on the little pencil if you wish to edit the bookmark
+or on the cross if you want to the delete it.</p>
+<p>The bookmark will then be filled into the 3 fields at the top of the screen.
+Modify your bookmark to your need then hit the save button to persist the change.</p>
+</div>
+<div class="section" id="search">
+<h3>Search<a class="headerlink" href="#search" title="Permalink to this headline">¶</a></h3>
+<p>If you click on a tag, ownCloud will only display the bookmarks that
+are described with this tag.</p>
+<p>You can also use the search bar of owncloud in the top right of your screen.</p>
+<p>Simply click on the &#8220;Bookmarks&#8221; menu in the sidebar to come back to
+the default view.</p>
+</div>
+</div>
+<div class="section" id="the-bookmarklet">
+<h2>The bookmarklet<a class="headerlink" href="#the-bookmarklet" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<img alt="_images/bookmark_setting.jpg" src="_images/bookmark_setting.jpg" />
+</div>
+<p>The creator of this app understand that people won&#8217;t come,
+open the ownCloud page to add the bookmark when the see a cool site.
+This is why they have made this cool &#8220;bookmarklet&#8221;.</p>
+<p>A bookmarklet is small button that you can drag and drop in your bookmarks.
+The next time you see a cool new site, press on this special bookmark,
+it will add the site to your ownCloud bookmarks.</p>
+<p>To find this bookmark go to your personnal preference and search for
+the &#8220;Bookmarklet&#8221; item.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

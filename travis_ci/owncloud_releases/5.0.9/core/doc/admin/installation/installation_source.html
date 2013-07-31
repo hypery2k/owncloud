@@ -1,0 +1,268 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Manual Installation &mdash; ownCloud Administrators Manual v5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual v5.0 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title="Other Web Servers" href="installation_others.html" />
+    <link rel="prev" title="Univention Corporate Server" href="installation_ucs.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_appliance.html">Appliances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_linux.html">Linux Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_macos.html">Mac OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_windows.html">Windows 7 and Windows Server 2008</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_ucs.html">Univention Corporate Server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extract-owncloud-and-copy-to-your-webserver">Extract ownCloud and Copy to Your Webserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-the-directory-permissions">Set the Directory Permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-htaccess-and-mod-rewrite-if-running-apache">Enable .htaccess and mod_rewrite if Running Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#follow-the-install-wizard">Follow the Install Wizard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-your-installation">Test your Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation_others.html">Other Web Servers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="manual-installation">
+<h1>Manual Installation<a class="headerlink" href="#manual-installation" title="Permalink to this headline">¶</a></h1>
+<p>If you do not want to use packages, here is how you setup ownCloud on from scratch
+using a classic <abbr title="Linux, Apache, MySQL, PHP">LAMP</abbr> setup:</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>To run ownCloud, your webserver must have the following installed:</p>
+<ul class="simple">
+<li>php5 (&gt;= 5.3)</li>
+<li>php5-gd</li>
+<li>php-xml-parser</li>
+</ul>
+<p>And as <em>optional</em> dependencies:</p>
+<ul class="simple">
+<li>php5-intl</li>
+<li>php5-sqlite (&gt;= 3)</li>
+<li>php5-mysql</li>
+<li>php5-pgsql (or php-pgsql depending on your distro)</li>
+<li>smbclient</li>
+<li>php5-curl</li>
+<li>curl</li>
+<li>libcurl3</li>
+</ul>
+<p>You have to install at least one of php5-sqlite, php5-pgsql or php5-mysql, depending
+on which of the three database systems (SQLite, PostgreSQL or MySQL) you want to use
+and activate its PDO module in the <strong>php.ini</strong>.</p>
+<p>smbclient is only used if you want to mount SMB shares to your ownCloud.
+The curl packages are needed for some apps (e.g. http user authentication)</p>
+<p>Commands for Ubuntu and Debian (run as root):</p>
+<div class="highlight-python"><pre>apt-get install apache2 php5 php5-gd php-xml-parser php5-intl
+apt-get install php5-sqlite php5-mysql php5-pgsql smbclient curl libcurl3 php5-curl</pre>
+</div>
+<p>If you are running Ubuntu 10.04 LTS you will need to update your PHP from
+this <a class="reference external" href="https://launchpad.net/~ondrej/+archive/php5">PHP PPA</a>:</p>
+<div class="highlight-python"><pre>sudo add-apt-repository ppa:ondrej/php5
+sudo apt-get update
+sudo apt-get install php5</pre>
+</div>
+<div class="admonition-todo admonition " id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Document other distributions.</p>
+</div>
+<p>You don’t need any WebDAV support of your webserver (i.e. apache’s mod_webdav)
+to access your ownCloud data via WebDAV, ownCloud has a WebDAV server built in.
+In fact, you should make sure that any built-in WebDAV module of your webserver
+is disabled (at least for the ownCloud directory), as it can interfere with
+ownCloud&#8217;s built-in WebDAV support.</p>
+</div>
+<div class="section" id="extract-owncloud-and-copy-to-your-webserver">
+<h2>Extract ownCloud and Copy to Your Webserver<a class="headerlink" href="#extract-owncloud-and-copy-to-your-webserver" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>tar -xjf path/to/downloaded/owncloud-x.x.x.tar.bz2
+cp -r owncloud /path/to/your/webserver</pre>
+</div>
+</div>
+<div class="section" id="set-the-directory-permissions">
+<h2>Set the Directory Permissions<a class="headerlink" href="#set-the-directory-permissions" title="Permalink to this headline">¶</a></h2>
+<p>The owner of your webserver must own the apps/, data/ and config/ directories
+in your ownCloud install. You can do this by running the following command for
+the apps, data and config directories.</p>
+<p>For debian based distros like Ubuntu, Debian or Linux Mint and Gentoo use:</p>
+<div class="highlight-python"><pre>chown -R www-data:www-data /path/to/your/owncloud/install/data</pre>
+</div>
+<p>For ArchLinux use:</p>
+<div class="highlight-python"><pre>chown -R http:http /path/to/your/owncloud/install/data</pre>
+</div>
+<p>Fedora users should use:</p>
+<div class="highlight-python"><pre>chown -R apache:apache /path/to/your/owncloud/install/data</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <strong>data/</strong> directory will only be created after setup has run (see below) and is not present by default in the tarballs.</p>
+</div>
+</div>
+<div class="section" id="enable-htaccess-and-mod-rewrite-if-running-apache">
+<h2>Enable .htaccess and mod_rewrite if Running Apache<a class="headerlink" href="#enable-htaccess-and-mod-rewrite-if-running-apache" title="Permalink to this headline">¶</a></h2>
+<p>If you are running the apache webserver, it is recommended that you enable
+<strong>.htaccess</strong> files as ownCloud uses them to enhance security and allows you to
+use webfinger. To enable .htaccess files you need to ensure that
+<strong>AllowOverride</strong> is set to <strong>All</strong> in the <strong>Directory /var/www/</strong> section of
+your virtual host file. This is usually in <tt class="file docutils literal"><span class="pre">/etc/apache2/sites-enabled/000-default</span></tt>.  If your distro supports <strong>a2enmod</strong> run the following commands:</p>
+<div class="highlight-python"><pre>a2enmod rewrite</pre>
+</div>
+<p>In distros that do not come with a2enmod the <tt class="file docutils literal"><span class="pre">/etc/httpd/httpd.conf</span></tt> needs to be changed to enable <strong>mod_rewrite</strong></p>
+<p>Then restart apache. For Ubuntu systems (or distros using updstart) use:</p>
+<div class="highlight-python"><pre>service apache2 restart</pre>
+</div>
+<p>For systemd systems (fedora, ArchLinux, Fedora, OpenSuse) use:</p>
+<div class="highlight-python"><pre>systemctl restart httpd.service</pre>
+</div>
+<p>In order for the maximum upload size to be configurable, the .htaccess file in the ownCloud folder needs to be made writable by the server.</p>
+</div>
+<div class="section" id="follow-the-install-wizard">
+<h2>Follow the Install Wizard<a class="headerlink" href="#follow-the-install-wizard" title="Permalink to this headline">¶</a></h2>
+<p>Open your web browser and navigate to your ownCloud instance. If you are
+installing ownCloud on the same machine as you will access the install wizard
+from, the url will be: <a class="reference external" href="http://localhost/">http://localhost/</a> (or <a class="reference external" href="http://localhost/owncloud">http://localhost/owncloud</a>).</p>
+<p>For basic installs we recommend SQLite as it is easy to setup (ownCloud will do it for you). For larger installs you should use MySQL or PostgreSQL. Click on the Advanced options to show the configuration options. You may enter admin
+credentials and let ownCloud create its own database user, or enter a preconfigured user.  If you are not using apache as the webserver, please set the data directory to a location outside of the document root. See the advanced
+install settings.</p>
+</div>
+<div class="section" id="test-your-installation">
+<h2>Test your Installation<a class="headerlink" href="#test-your-installation" title="Permalink to this headline">¶</a></h2>
+<p>Login and start using ownCloud. Check your web servers errror log. If it shows
+error, you might have missed a dependency or hit a bug with your particular
+configuration.</p>
+<p>If you plan on using the Webfinger app and
+your ownCloud installation is not in the webroot then you’ll have to manually
+link <tt class="file docutils literal"><span class="pre">/var/www/.well-known</span></tt> to <tt class="file docutils literal"><span class="pre">/path/to/your/owncloud/.well-known</span></tt>.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>
