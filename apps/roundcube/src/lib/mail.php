@@ -115,6 +115,8 @@ class OC_RoundCube_App {
 	 */
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
 
+		$html = '';
+
 		// Create RC login object.
 		$rcl = new OC_RoundCube_Login($maildir);
 
@@ -139,19 +141,19 @@ class OC_RoundCube_App {
 			$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
 			// create iFrame begin
-			echo '<img src="' . $loader_image . '" id="loader">';
-			echo '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
-			echo '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
-			echo '<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>';
-			echo '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube') . '/js/mailFrameScripts.js"></script>';
+			$html = $html . '<img src="' . $loader_image . '" id="loader">';
+			$html = $html . '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
+			$html = $html . '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
+			$html = $html . '<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>';
+			$html = $html . '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube') . '/js/mailFrameScripts.js"></script>';
 			// create iFrame end
 		} catch (RoundcubeNetworkException $ex_net) {
-			echo "ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage();
+			$html = $html . "ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage();
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
 			exit ;
 		} catch (OC_RoundCube_LoginException $ex_login) {
-			echo "ERROR: Technical problem, " . $ex_login -> getMessage();
+			$html = $html . "ERROR: Technical problem, " . $ex_login -> getMessage();
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
 			exit ;
