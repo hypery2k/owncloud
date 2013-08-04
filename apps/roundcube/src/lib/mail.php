@@ -57,7 +57,7 @@ class OC_RoundCube_App {
 		$stmt = OCP\DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
 		$result = $stmt -> execute(array($meUser));
 		$mailEntries = $result -> fetchAll();
-		if (empty($mailEntries)) {
+		if (empty($mailEntries) && count($mailEntries) > 0) {
 			OCP\Util::writeLog('roundcube', 'Found login data for ' . $meUser, OCP\Util::DEBUG);
 			return $mailEntries;
 		} elseif ($written == 0) {
