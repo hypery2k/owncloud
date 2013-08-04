@@ -362,7 +362,7 @@ class OC_RoundCube_Login {
 		$protocol = "HTTP/1.1";
 		$host = (($port == 443) ? "ssl://" : "") . $this -> rcHost;
 
-		$this -> addDebug('Trying to connect via "' . $method . '" on port "' . $port . '" to URL "' . $url . '" on host"' . $host . '"');
+		$this -> addDebug('sendRequest', 'Trying to connect via "' . $method . '" on port "' . $port . '" to URL "' . $url . '" on host"' . $host . '"');
 
 		// Load cookies and save them in a key/value array
 		$cookies = array();
@@ -393,12 +393,12 @@ class OC_RoundCube_Login {
 		// Send request
 		$fp = fsockopen($host, $port);
 		if (!$fp) {
-			$this -> addDebug("Network connection failed on fsockopen. Please check you alias for roundcube", "The network connection returned $errno - $errstr");
+			$this -> addDebug("sendRequest", "Network connection failed on fsockopen. Please check you alias for roundcube. The network connection returned $errno - $errstr");
 			throw new RoundcubeNetworkException("Unable to determine network-status due to technical problems.");
 		} else {
 
 			// Request
-			$this -> addDebug("REQUEST", $request);
+			$this -> addDebug("sendRequest", "request was " . $request);
 			fputs($fp, $request);
 
 			// Read response and set received cookies
@@ -415,7 +415,7 @@ class OC_RoundCube_Login {
 				if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $line, $match)) {
 					header($line, false);
 
-					$this -> addDebug("GOT SESSION ID", "New session ID: '$match[2]'.");
+					$this -> addDebug("sendRequest", "Got the following session ID " . $match[2]);
 					$this -> rcSessionID = $match[2];
 				}
 
@@ -423,7 +423,7 @@ class OC_RoundCube_Login {
 				if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $line, $match)) {
 					header($line, false);
 
-					$this -> addDebug("GOT SESSION AUTH", "New session auth: '$match[1]'.");
+					$this -> addDebug("sendRequest", "New session auth: '$match[1]'.");
 					$this -> rcSessionAuthi = $match[1];
 				}
 
@@ -441,7 +441,7 @@ class OC_RoundCube_Login {
 
 			fclose($fp);
 
-			$this -> addDebug("RESPONSE", $response);
+			$this -> addDebug("sendRequest", "Response was" . $response);
 		}
 		return $response;
 	}
