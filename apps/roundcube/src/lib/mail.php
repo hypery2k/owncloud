@@ -159,6 +159,8 @@ class OC_RoundCube_App {
 			exit ;
 		}
 
+		return $html;
+
 	}
 
 }
