@@ -44,7 +44,7 @@ $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'
 			<input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username; ?>">
 		</label>
 		<label for="usermail"><?php echo $l -> t('Password'); ?>
-			<input type="password" id="$mail_password" name="$mail_password" value="<?php echo $mail_password; ?>">
+			<input type="password" id="mail_password" name="mail_password" value="<?php echo $mail_password; ?>">
 		</label>
 
 <?php
