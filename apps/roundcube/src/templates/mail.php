@@ -46,10 +46,16 @@ if (!$table_exists) {
 					OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
 
 					if (!$disable_control_nav) {
-						$html_output = $html_output . "<div class='controls' id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
+						$html_output = $html_output . "<div class=\"controls\" id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
 					}
-					$html_output = $html_output . "<div id='notification'></div>";
-					$html_output = $html_output . "<div id='roundcube_container'>";
+					$html_output = $html_output . "<div id=\"notification\"></div>";
+					$html_output = $html_output . "<div id=\"roundcube_container\">";
+					if (!$disable_control_nav) {
+						$html_output = $html_output . "<div id=\"roundcube_container\" style=\"top: 6.5em;\">";
+					} else {
+						$html_output = $html_output . "<div id=\"roundcube_container\">";						
+					}					
+	
 					$html_output = $html_output . OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
 					$html_output = $html_output . "</div>";
 
