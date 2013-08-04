@@ -58,8 +58,10 @@ class OC_RoundCube_App {
 		$result = $stmt -> execute(array($meUser));
 		$mailEntries = $result -> fetchAll();
 		if (empty($mailEntries)) {
+			OCP\Util::writeLog('roundcube', 'Found login data for ' . $meUser, OCP\Util::DEBUG);
 			return $mailEntries;
 		} elseif ($written == 0) {
+			OCP\Util::writeLog('roundcube', 'Did not found login data for ' . $meUser, OCP\Util::DEBUG);
 			return self::writeBasicData($meUser);
 		}
 	}
