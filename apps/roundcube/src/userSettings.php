@@ -27,7 +27,10 @@ if ($_POST) {
 }
 
 if ($_POST) {
-	$myID = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+	// TODO multiple user support
+	$mail_userdata = $mail_userdata_entries[0];
+	$myID = $mail_userdata['id'];
 	$mail_user = OC_RoundCube_App::cryptMyEntry($_POST['mail_username']);
 	$mail_password = OC_RoundCube_App::cryptMyEntry($_POST['mail_password']);
 	$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
