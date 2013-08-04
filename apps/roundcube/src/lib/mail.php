@@ -60,7 +60,7 @@ class OC_RoundCube_App {
 		if (isset($mailEntries) && $mailEntries != '') {
 			return $mailEntries;
 		} elseif ($written == 0) {
-			self::writeBasicData($meUser);
+			return self::writeBasicData($meUser);
 		}
 	}
 
