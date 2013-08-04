@@ -57,7 +57,7 @@ class OC_RoundCube_App {
 		$stmt = OCP\DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
 		$result = $stmt -> execute(array($meUser));
 		$mailEntries = $result -> fetchAll();
-		if (isset($mailEntries) && $mailEntries != '') {
+		if (empty($mailEntries)) {
 			return $mailEntries;
 		} elseif ($written == 0) {
 			return self::writeBasicData($meUser);
