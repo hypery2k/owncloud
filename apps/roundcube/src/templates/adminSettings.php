@@ -28,12 +28,12 @@
 			if ($_['removeHeaderNav'])
 				echo ' checked';
  			?>> 
- 			<label for="autoLogin"><?php echo $l -> t('Enable autologin for users, which reuse the login data from OC for RoundCube.'); ?></label> 
+ 			<label for="removeHeaderNav"><?php echo $l -> t('Remove RoundCube header navigation menu items'); ?></label> 
 			<input type="checkbox" name="autoLogin" id="autoLogin" <?php
 			if ($_['autoLogin'])
 				echo ' checked';
  			?>> 
-			<label for="removeHeaderNav"><?php echo $l -> t('Remove RoundCube header navigation menu items'); ?></label> 
+			<label for="autoLogin"><?php echo $l -> t('Enable autologin for users, which reuse the login data from OC for RoundCube.'); ?></label> 
 			<br>
 				<p>
 				<label for="mail"><?php echo $l -> t('Encryptstring1'); ?>
