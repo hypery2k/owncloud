@@ -56,6 +56,9 @@ $('#roundcubeFrame').load(function() {
 			}
 		} else {
 			top_margin = parseInt(mainscreen.css('top'), 10) - top_line.height();
+			// fix layout button issue on roundcube 0.7
+			$('#messagetoolbar').css('padding','20px 6px 5px 0px');
+			$('#messagetoolbar').css('z-index','100');
 		}
 	} catch (e) {
 	}
