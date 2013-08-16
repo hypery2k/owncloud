@@ -19,6 +19,8 @@ $('#roundcubeFrame').load(function() {
 	var top_line = $('#roundcubeFrame').contents().find('#topline');
 	// correct top padding
 	var top_margin = 10;
+	
+	var rc_version ='';
 	try {
 		var top_nav = $('#roundcubeFrame').contents().find('#topnav');
 		// check if the above element exits (only in new larry theme, if null use rc 0.7 default theme
@@ -55,10 +57,11 @@ $('#roundcubeFrame').load(function() {
 				toolbarselect.css('right', '3px');
 			}
 		} else {
+			rc_version="0-7";
 			top_margin = parseInt(mainscreen.css('top'), 10) - top_line.height();
 			// fix layout button issue on roundcube 0.7
-			$('#messagetoolbar').css('padding','20px 6px 5px 0px');
-			$('#messagetoolbar').css('z-index','100');
+			$('#roundcubeFrame').contents().find('#messagetoolbar').css('padding','20px 6px 5px 0px');
+			$('#roundcubeFrame').contents().find('#messagetoolbar').css('z-index','100');
 		}
 	} catch (e) {
 	}
