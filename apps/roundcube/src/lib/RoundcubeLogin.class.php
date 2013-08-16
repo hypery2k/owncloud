@@ -288,7 +288,8 @@ class OC_RoundCube_Login {
 		# others not listed here."
 		# (http://www.php.net/manual/en/reserved.variables.server.php)
 		$port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
-		$protocol = (($port == 443) ? "https://" : "http://");
+		# Use a relative protocol in case we/roundcube are behind an SSL proxy (see http://tools.ietf.org/html/rfc3986#section-4.2).
+		$protocol = '//';
 		$path = $protocol . rtrim($this -> rcHost, "/") . "/" . ltrim($this -> rcPath, "/");
 		return $path;
 	}
