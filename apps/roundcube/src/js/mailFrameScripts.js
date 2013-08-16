@@ -63,6 +63,13 @@ $('#roundcubeFrame').load(function() {
 			$('#roundcubeFrame').contents().find('#messagetoolbar').css('padding','20px 6px 5px 0px');
 			$('#roundcubeFrame').contents().find('#messagetoolbar').css('z-index','100');
 		}
+		var minimize_toggle = $('#roundcubeFrame').contents().find('.minmodetoggle');
+		if (minimize_toggle.height() != null){
+			rc_version="0-9";
+			$('#roundcubeFrame').contents().find('body').removeAttr('class');
+			$('#roundcubeFrame').contents().find('.minmodetoggle').remove();
+		}
+		
 	} catch (e) {
 	}
 	top_line.remove();
