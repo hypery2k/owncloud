@@ -59,7 +59,7 @@ if (!$table_exists) {
 					$html_output = $html_output . "</div>";
 
 				} else {
-					$html_output = $html_output . $this -> inc("part.no-settings");
+					$html_output = $html_output . $this -> inc("part.error.no-settings");
 				}
 			} else {
 				$html_output = $html_output . $this -> inc("part.error.no-settings");
