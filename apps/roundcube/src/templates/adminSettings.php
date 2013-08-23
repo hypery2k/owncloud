@@ -12,7 +12,7 @@
 	
 		<fieldset id="roundcube-1">
 	 		<p>
-				<label for="mail"><?php echo $l -> t('Relative URL to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains do not work, just relative URLs to the same domain owncloud is running'); ?>
+				<label for="mail"><?php echo $l -> t('Absolute path to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, just absolute paths to the same domain owncloud is running.'); ?>
 	 				 <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>"
 						onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"  />
  				</label>
@@ -51,3 +51,5 @@
 	</div>
 
 </form>
+Commit summary: Extended description: (optional)
+SomeDeepBlue sirjohn@rocketmail.com
