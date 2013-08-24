@@ -20,9 +20,9 @@ Or via PayPal:
 Embedd roundcube interface in owncloud
 
 #### Requirements:
-* OwnCloud 4.5+  (tested with 4.5.0 - 4.5.5)
+* OwnCloud 4.5+  (tested with 4.5.0 - 5.0.9)
 * Mailserver with IMAP-Support
-* Roundcube Webmailclient (tested with roundcubemail-0.8)
+* Roundcube Webmailclient (tested with roundcubemail-0.7,0.8 and 0.9)
 
 
 ##Planned
