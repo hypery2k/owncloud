@@ -22,7 +22,9 @@
 class OC_RC_AutoSave {
 
 	public static function autoSave($params) {
-		$myID = OC_RoundCube_App::existLoginData(OCP\User::getUser());
+		$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+		// TODO add multi-user support
+		$myID = $mail_userdata_entries[0];
 		$mail_user = OC_RoundCube_App::cryptMyEntry($params['uid']);
 		$mail_password = OC_RoundCube_App::cryptMyEntry($params['password']);
 		$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
