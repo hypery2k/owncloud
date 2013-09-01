@@ -231,7 +231,7 @@ class OC_RoundCube_Login {
 
 		// Login failure detected! If the login failed, RC sends the cookie "sessauth=-del-"
 		else if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $response)) {
-			header($line, false);
+			//header($line, false);
 
 			$this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
 			$this -> rcLoginStatus = -1;
