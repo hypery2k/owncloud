@@ -21,27 +21,26 @@
  */
 
 $l = new OC_L10N('roundcube');
-OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube').'/lib/mail.php';
-OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube').'/lib/dbUtil.php';
-OC::$CLASSPATH['OC_RoundCube_Login']   = OC_App::getAppPath('roundcube').'/lib/RoundcubeLogin.class.php';
-OC::$CLASSPATH['OC_RC_AutoSave'] = OC_App::getAppPath('roundcube').'/lib/autosave.php';
-
+OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube') . '/lib/mail.php';
+OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/dbUtil.php';
+OC::$CLASSPATH['OC_RoundCube_Login'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeLogin.class.php';
+OC::$CLASSPATH['OC_RC_AutoSave'] = OC_App::getAppPath('roundcube') . '/lib/autosave.php';
+OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . 'RoundcubeAuthHelper.class.php';
 $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 if ($enable_auto_login) {
-	OCP\Util::connectHook('OC_User', 'post_login','OC_RC_AutoSave','autoSave');
+	OCP\Util::connectHook('OC_User', 'post_login', 'OC_RC_AutoSave', 'autoSave');
+	OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
 }
 
 OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
 
-OCP\App::addNavigationEntry(
-	array(
+OCP\App::addNavigationEntry(array(
 		'id' => 'roundcube_index', 
 		'order' => 10, 
 		'href' => OCP\Util::linkTo('roundcube', 'index.php'), 
 		'icon' => OCP\Util::imagePath('roundcube', 'mail.png'), 
-		'name' => $l -> t('Webmail')
-	)
+		'name' => $l -> t('Webmail'))
 );
 ?>
