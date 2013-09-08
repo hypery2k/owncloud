@@ -21,16 +21,15 @@
  */
 
 $l = new OC_L10N('roundcube');
-OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube') . '/lib/mail.php';
-OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/dbUtil.php';
+OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeApp.class.php';
+OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/RoundCubeDBUtil.class.php';
 OC::$CLASSPATH['OC_RoundCube_Login'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeLogin.class.php';
-OC::$CLASSPATH['OC_RC_AutoSave'] = OC_App::getAppPath('roundcube') . '/lib/autosave.php';
 OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeAuthHelper.class.php';
 
 $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 if ($enable_auto_login) {
-	OCP\Util::connectHook('OC_User', 'post_login', 'OC_RC_AutoSave', 'autoSave');
+	OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'autoSave');
 	OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
 }
 

@@ -21,6 +21,16 @@
  */
 class OC_RoundCube_AuthHelper {
 
+	public static function autoSave($params) {
+		$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+		// TODO add multi-user support
+		$myID = $mail_userdata_entries[0];
+		$mail_user = OC_RoundCube_App::cryptMyEntry($params['uid']);
+		$mail_password = OC_RoundCube_App::cryptMyEntry($params['password']);
+		$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
+		$result = $stmt -> execute(array($mail_user, $mail_password, $myID));
+	}
+
 	public static function logout($params) {
 		$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 		OC_RoundCube_App::logout($maildir, OCP\User::getUser());
