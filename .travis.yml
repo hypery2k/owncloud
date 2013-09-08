@@ -5,10 +5,10 @@ php:
 
 # optionally specify a list of environments, for example to test different RDBMS
 env:
-  - DB=mysql
-  - DB=sqllite
-  - OC=5.0
-  - OC=4.5
+  - DB=mysql OC=5.0
+  - DB=sqllite OC=5.0
+  - DB=mysql OC=4.5
+  - DB=sqllite OC=4.5
 
 before_install:
  - sudo apt-get update -qq
