@@ -7,8 +7,8 @@ php:
 env:
   - DB=mysql
   - DB=sqllite
-  - OC=5.0.9
-  - OC=4.5.13
+  - OC=5.0
+  - OC=4.5
 
 before_install:
  - sudo apt-get update -qq
