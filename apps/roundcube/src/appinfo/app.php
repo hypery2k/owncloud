@@ -25,7 +25,7 @@ OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube') . '/lib/mai
 OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/dbUtil.php';
 OC::$CLASSPATH['OC_RoundCube_Login'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeLogin.class.php';
 OC::$CLASSPATH['OC_RC_AutoSave'] = OC_App::getAppPath('roundcube') . '/lib/autosave.php';
-OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . 'RoundcubeAuthHelper.class.php';
+OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeAuthHelper.class.php';
 $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 if ($enable_auto_login) {
