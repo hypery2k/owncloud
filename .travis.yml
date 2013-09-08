@@ -7,6 +7,8 @@ php:
 env:
   - DB=mysql
   - DB=sqllite
+  - OC=5.0.9
+  - OC=4.5.13
 
 before_install:
  - sudo apt-get update -qq
@@ -22,5 +24,5 @@ before_script:
 script: 
   - sh -c "if [ '$DB' = 'mysql' ]; then ./bin/ci/prepare_mysql.sh; fi"
   - sh -c "if [ '$DB' = 'sqllite' ]; then ./bin/ci/prepare_sqllite.sh; fi"
-#  - phpunit --configuration phpunit_$DB.xml --coverage-text
+#  - phpunit --configuration phpunit_$DB_oc$OC.xml --coverage-text
 #  - ./bin/sausage/vendor/bin/phpunit --path=./apps/roundcube/tests/integration/Selenium.php
