@@ -6,7 +6,9 @@
 "Absolute path to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, just absolute paths to the same domain owncloud is running." => "Absoluter Pfad zu der bestehenden Roundcube Installation, z.B. bei https://owncloud.com/roundcube wäre das /roundcube/. Es funktionieren nur absolute Pfadangaben, die sich auf diesselbe Domain beziehen wie die, auf der Owncloud läuft.",
 "Roundcube version" => "Roundcube Version",
 "Remove RoundCube control navigation menu items" => "Navigationsleiste ausblenden",
-"Remove RoundCube header navigation menu items" => "RoundCube Navigationselemente ausblenden",
+"Removes the buttons for different sections (mail, adressbook, settings) within the RoundCube mail application" => "Entferne Buttons für die verschiedenen Bereiche (Mail,Adressbuch,Einstellungen) innerhalb der RoundCube Anwendung",
+"Remove RoundCube control navigation menu items with currently logged in user information" => "RoundCube Navigationselemente mit aktuellen Nutzerinformationen ausblenden",
+"Remove information bar on top of page" => "Entfernen der Informationsleiste im oberen Seitenbereich",
 "Name" => "Name",
 "Share" => "Teilen",
 "Download" => "Herunterladen",
@@ -15,6 +17,7 @@
 "You don't have any email account in ot configured correctly yet. Please check you username and password." => "Bitte richten Sie zunächst ihr Emailkonto korrekt ein. Überprüfen sie Nutzer und Passwort.",
 "Logged in as " => "Angemeldet als ",
 "Enable autologin for users, which reuse the login data from OC for RoundCube." => "Autologin für Nutzer aktivieren, um die Nutzerdaten von OC für Roundcube wieder zu nutzen.",
+"Enable autologin for users" => "Autologin für Nutzer aktivieren",
 "Database error" => "Datenbankfehler.",
 "Please follow the wiki page to setup the database manually:" => "Bitte folgen sie den Hinweisen im Wiki zur manuellen Datenbankkonfiguration."
 ); 
