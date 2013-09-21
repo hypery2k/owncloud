@@ -36,17 +36,12 @@ $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 if ($enable_auto_login) {
 	OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'autoSave');
-	OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
 }
+
+OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
 
 OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
 
-OCP\App::addNavigationEntry(array(
-		'id' => 'roundcube_index', 
-		'order' => 10, 
-		'href' => OCP\Util::linkTo('roundcube', 'index.php'), 
-		'icon' => OCP\Util::imagePath('roundcube', 'mail.png'), 
-		'name' => $l -> t('Webmail'))
-);
+OCP\App::addNavigationEntry(array('id' => 'roundcube_index', 'order' => 10, 'href' => OCP\Util::linkTo('roundcube', 'index.php'), 'icon' => OCP\Util::imagePath('roundcube', 'mail.png'), 'name' => $l -> t('Webmail')));
 ?>

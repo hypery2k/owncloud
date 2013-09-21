@@ -22,6 +22,7 @@
 class OC_RoundCube_AuthHelper {
 
 	public static function autoSave($params) {
+		OCP\Util::writeLog('roundcube', 'Preparing autologin of user to roundcube', OCP\Util::INFO);
 		$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 		// TODO add multi-user support
 		$myID = $mail_userdata_entries[0];
@@ -29,11 +30,14 @@ class OC_RoundCube_AuthHelper {
 		$mail_password = OC_RoundCube_App::cryptMyEntry($params['password']);
 		$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
 		$result = $stmt -> execute(array($mail_user, $mail_password, $myID));
+		OCP\Util::writeLog('roundcube', 'Autologin of user to roundcube done', OCP\Util::INFO);
 	}
 
 	public static function logout($params) {
+		OCP\Util::writeLog('roundcube', 'Preparing logout of user from roundcube', OCP\Util::INFO);
 		$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 		OC_RoundCube_App::logout($maildir, OCP\User::getUser());
+		OCP\Util::writeLog('roundcube', 'Logout of user from roundcube done', OCP\Util::INFO);
 	}
 
 }

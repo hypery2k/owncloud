@@ -26,7 +26,7 @@ $table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
 
 $html_output = "";
 if (!$table_exists) {
-	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);
+	OCP\Util::writeLog('roundcube', 'DB table entries not created ...', OCP\Util::INFO);
 	$html_output = $html_output . $this -> inc("part.error.db");
 } else {
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
@@ -37,7 +37,7 @@ if (!$table_exists) {
 
 	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
-	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::DEBUG);
+	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::INFO);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
 			if ($mail_username != '' && $mail_password != '') {
@@ -45,9 +45,9 @@ if (!$table_exists) {
 				if ($maildir != '') {
 
 					$mailAppReturn = OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
-					
+
 					if ($mailAppReturn -> isErrorOccurred()) {
-						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::DEBUG);
+						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::INFO);
 						switch ($mailAppReturn -> getErrorCode()) {
 							case OC_Mail_Object::ERROR_CODE_NETWORK :
 								$html_output = $this -> inc("part.error.error-settings");
@@ -60,14 +60,14 @@ if (!$table_exists) {
 							case OC_Mail_Object::ERROR_CODE_RC_NOT_FOUND :
 								$html_output = $this -> inc("part.error.error-settings");
 								$html_output = $html_output . $mailAppReturn -> getErrorDetails();
-								break;								
+								break;
 							default :
 								$html_output = $this -> inc("part.error.error-settings");
 								$html_output = $html_output . $mailAppReturn -> getErrorDetails();
 								break;
 						}
 					} else {
-						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
+						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::INFO);
 
 						if (!$disable_control_nav) {
 							$html_output = $html_output . "<div class=\"controls\" id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
