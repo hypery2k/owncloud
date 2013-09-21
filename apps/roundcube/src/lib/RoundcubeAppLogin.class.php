@@ -3,7 +3,7 @@
 /**
  * ownCloud - roundcube mail plugin
  *
- * @author Martin Reinhardt 
+ * @author Martin Reinhardt
  * @copyright 2013 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * This library is free software; you can redistribute it and/or
@@ -21,19 +21,90 @@
  *
  */
 
-class OC_RoundCube_App_Login  {
+class OC_RoundCube_App_Return {
 
 	public static $ERROC_CODE_NETWORK = '2';
 
 	public static $ERROC_CODE_LOGIN = '1';
 
-	public $errorOccurred;
+	private $errorOccurred;
 
-	public $errorCode;
+	private $errorCode;
 
-	public $errorDetails;
+	private $errorDetails;
 
-	public $htmlOutput;
+	private $htmlOutput;
+
+	public function __construct() {
+		$errorOccurred = false;
+		$errorDetails = '';
+		$htmlOutput = '';
+	}
+
+	/**
+	 * append to the html output
+	 * @param the html to append $html
+	 */
+	public function appendHtmlOutput($html) {
+		$htmlOutput = $htmlOutput . $html;
+	}
+
+	/**
+	 * return html output
+	 */
+	public function getHtmlOutput() {
+		return $htmlOutput;
+	}
+
+	/**
+	 * set the html output
+	 * @param the html out put to set $html
+	 */
+	public function setHtmlOutput($html) {
+		$htmlOutput = $html;
+	}
+
+	/**
+	 * return the error code
+	 */
+	public function getErrorCode() {
+		return $errorCode;
+	}
+
+	/**
+	 * @param error code to set $errorCode
+	 */
+	public function setErrorCode($errorCode) {
+		$errorCode = $errorCode;
+	}
+
+	/**
+	 * return the error details
+	 */
+	public function getErrorDetails() {
+		return $errorDetails;
+	}
+
+	/**
+	 * @param error details to set $errorDtls
+	 */
+	public function setErrorDetails($errorDtls) {
+		$errorDetails = $errorDtls;
+	}
+
+	/**
+	 * return true if an error occurred, otherwise false
+	 */
+	public function isErrorOccurred() {
+		return $errorOccurred;
+	}
+
+	/**
+	 * @param error code to set $error
+	 */
+	public function setErrorOccurred($error) {
+		$errorOccurred = $error;
+	}
 
 }
 ?>
