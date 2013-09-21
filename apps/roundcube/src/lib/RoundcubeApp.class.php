@@ -21,22 +21,6 @@
  *
  */
 
-class OC_RoundCub_App_Login  {
-	
-	public static $ERROC_CODE_NETWORK = '2';
-	
-	public static $ERROC_CODE_LOGIN = '1';
-	
-	public $errorOccurred;
-	
-	public $errorCode;
-	
-	public $errorDetails;
-	
-	public $htmlOutput;
-
-}
-
 /**
  * This class manages the roundcube app. It enables the db integration and
  * connects to the roundcube installation via the roundcube API
@@ -142,7 +126,7 @@ class OC_RoundCube_App {
 	 */
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
 		
-		$returnObject = new OC_RoundCub_App_Login;
+		$returnObject = new OC_RoundCube_App_Login;
 
 		$returnObject -> $htmlOutput = '';
 		$returnObject -> $htmlOutput  = '';

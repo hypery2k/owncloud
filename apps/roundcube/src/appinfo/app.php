@@ -21,6 +21,7 @@
  */
 
 $l = new OC_L10N('roundcube');
+OC::$CLASSPATH['OC_RoundCube_App_Login'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeAppLogin.class.php';
 OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeApp.class.php';
 OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/RoundCubeDBUtil.class.php';
 OC::$CLASSPATH['OC_RoundCube_Login'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeLogin.class.php';
