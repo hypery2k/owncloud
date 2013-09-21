@@ -21,6 +21,22 @@
  *
  */
 
+class OC_RoundCub_App_Login  {
+	
+	public static $ERROC_CODE_NETWORK = '2';
+	
+	public static $ERROC_CODE_LOGIN = '1';
+	
+	public $errorOccurred;
+	
+	public $errorCode;
+	
+	public $errorDetails;
+	
+	public $htmlOutput;
+
+}
+
 /**
  * This class manages the roundcube app. It enables the db integration and
  * connects to the roundcube installation via the roundcube API
@@ -125,8 +141,11 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
+		
+		$returnObject = new OC_RoundCub_App_Login;
 
-		$html = '';
+		$returnObject -> $htmlOutput = '';
+		$returnObject -> $htmlOutput  = '';
 
 		// Create RC login object.
 		$rcl = new OC_RoundCube_Login($maildir);
@@ -152,25 +171,28 @@ class OC_RoundCube_App {
 			$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
 			// create iFrame begin
-			$html = $html . '<img src="' . $loader_image . '" id="loader">';
-			$html = $html . '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
-			$html = $html . '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
-			$html = $html . '<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>';
-			$html = $html . '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube') . '/js/mailFrameScripts.js"></script>';
+			$returnObject -> $htmlOutput = $returnObject -> $htmlOutput  . '<img src="' . $loader_image . '" id="loader">';
+			$returnObject -> $htmlOutput = $returnObject -> $htmlOutput . '<iframe  style="display:none;overflow:auto" src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame" name="roundcube" width="100%" width="100%"> </iframe>';
+			$returnObject -> $htmlOutput = $returnObject -> $htmlOutput . '<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>';
+			$returnObject -> $htmlOutput = $returnObject -> $htmlOutput . '<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>';
+			$returnObject -> $htmlOutput = $returnObject -> $htmlOutput . '<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube') . '/js/mailFrameScripts.js"></script>';
+			$returnObject -> $errorOccurred = false;
 			// create iFrame end
 		} catch (RoundcubeNetworkException $ex_net) {
-			$html = $html . "ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage();
+			$returnObject -> $errorOccurred = true;
+			$returnObject -> $errorcode = OC_RoundCub_App_Login::ERROC_CODE_NETWORK;
+			$returnObject -> $errorDetails = $returnObject -> $errorDetails . "ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage();
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
-			exit ;
 		} catch (OC_RoundCube_LoginException $ex_login) {
-			$html = $html . "ERROR: Technical problem, " . $ex_login -> getMessage();
+			$returnObject -> $errorOccurred = true;
+			$returnObject -> $errorcode = OC_RoundCub_App_Login::ERROC_CODE_LOGIN;
+			$returnObject -> $errorDetails = $returnObject -> $errorDetails . "ERROR: Technical problem, " . $ex_login -> getMessage();
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
 			$rcl -> dumpDebugStack();
-			exit ;
 		}
 
-		return $html;
+		return $returnObject;
 
 	}
 

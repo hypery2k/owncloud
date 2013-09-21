@@ -43,20 +43,41 @@ if (!$table_exists) {
 			if ($mail_username != '' && $mail_password != '') {
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
-					OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
 
-					if (!$disable_control_nav) {
-						$html_output = $html_output . "<div class=\"controls\" id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
-					}
-					$html_output = $html_output . "<div id=\"notification\"></div>";
-					if (!$disable_control_nav) {
-						$html_output = $html_output . "<div id=\"roundcube_container\" style=\"top: 6.5em;\">";
+					$mailAppReturn = OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
+					if (!$mailAppReturn -> errorOccurred) {
+						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
+
+						if (!$disable_control_nav) {
+							$html_output = $html_output . "<div class=\"controls\" id=\"controls\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
+						}
+						$html_output = $html_output . "<div id=\"notification\"></div>";
+						if (!$disable_control_nav) {
+							$html_output = $html_output . "<div id=\"roundcube_container\" style=\"top: 6.5em;\">";
+						} else {
+							$html_output = $html_output . "<div id=\"roundcube_container\">";
+						}
+
+						$html_output = $html_output . $mailAppReturn -> $htmlOutput;
+
+						$html_output = $html_output . "</div>";
 					} else {
-						$html_output = $html_output . "<div id=\"roundcube_container\">";
-					}
+						switch ($mailAppReturn -> errorcode) {
+							case OC_RoundCub_App_Login::ERROC_CODE_NETWORK :
+								$html_output = $mailAppReturn -> $htmlOutput . $this -> inc("part.error.error-settings.php");
+								$html_output = $mailAppReturn -> $htmlOutput . $mailAppReturn -> $errorDetails;
+								break;
+							case OC_RoundCub_App_Login::ERROC_CODE_LOGIN :
+								$html_output = $mailAppReturn -> $htmlOutput . $this -> inc("part.error.wrong-auth");
+								$html_output = $mailAppReturn -> $htmlOutput . $mailAppReturn -> $errorDetails;
+								break;
+							default :
+								$html_output = $mailAppReturn -> $htmlOutput . $this -> inc("part.error.error-settings.php");
+								$html_output = $mailAppReturn -> $htmlOutput . $mailAppReturn -> $errorDetails;
+								break;
+						}
 
-					$html_output = $html_output . OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
-					$html_output = $html_output . "</div>";
+					}
 
 				} else {
 					$html_output = $html_output . $this -> inc("part.error.no-settings");
