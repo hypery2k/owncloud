@@ -410,9 +410,9 @@ class OC_RoundCube_Login {
 				$line = fgets($fp, 4096);
 
 				// Not found
-				if (preg_match('/^HTTP\/1\.\d\s+404\s+/', $line))
-					throw new OC_Mail_RC_InstallNotFoundException("No Roundcube installation found at '$path'");
-
+				if (preg_match('/^HTTP\/1\.\d\s+404\s+/', $line)) {
+					throw new OC_Mail_RC_InstallNotFoundException("No Roundcube installation found at '$path'. Maybe you forgotten to add a ending '/'?");
+				}
 				// Got session ID!
 				if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $line, $match)) {
 					header($line, false);
@@ -466,5 +466,4 @@ class OC_RoundCube_Login {
 	}
 
 }
-
-?>
+		?>
