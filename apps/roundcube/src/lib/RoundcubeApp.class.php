@@ -126,7 +126,7 @@ class OC_RoundCube_App {
 	 */
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
 
-		$returnObject = new OC_RoundCube_App_Return();
+		$returnObject = new OC_Mail_Object();
 
 		// Create RC login object.
 		$rcl = new OC_RoundCube_Login($maildir);
@@ -159,20 +159,30 @@ class OC_RoundCube_App {
 			$returnObject -> appendHtmlOutput('<script type="text/javascript" src="' . OC_App::getAppWebPath('roundcube') . '/js/mailFrameScripts.js"></script>');
 			$returnObject -> setErrorOccurred(false);
 			// create iFrame end
-		} catch (RoundcubeNetworkException $ex_net) {
+		} catch (OC_Mail_NetworkingException $ex_net) {
 			$returnObject -> setErrorOccurred(true);
-			$returnObject -> setErrorCode(OC_RoundCub_App_Login::ERROC_CODE_NETWORK);
+			$returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_NETWORK);
 			$returnObject -> setHtmlOutput('');
 			$returnObject -> setErrorDetails("ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net -> getMessage());
 			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
-			$rcl -> dumpDebugStack();
-		} catch (OC_RoundCube_LoginException $ex_login) {
+		} catch (OC_Mail_LoginException $ex_login) {
 			$returnObject -> setErrorOccurred(true);
-			$returnObject -> setErrorCode(OC_RoundCub_App_Login::ERROC_CODE_LOGIN);
+			$returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_LOGIN);
 			$returnObject -> setHtmlOutput('');
 			$returnObject -> setErrorDetails("ERROR: Technical problem, " . $ex_login -> getMessage());
-			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
-			$rcl -> dumpDebugStack();
+			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);	
+		} catch (OC_Mail_RC_InstallNotFoundException $ex_login) {
+			$returnObject -> setErrorOccurred(true);
+			$returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_RC_NOT_FOUND);
+			$returnObject -> setHtmlOutput('');
+			$returnObject -> setErrorDetails("ERROR: Technical problem, " . $ex_login -> getMessage());
+			OCP\Util::writeLog('roundcube', 'RoundCube can\'t be found on the given path.', OCP\Util::ERROR);			
+		}catch (Exception $ex_login) {
+			$returnObject -> setErrorOccurred(true);
+			$returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_GENERAL);
+			$returnObject -> setHtmlOutput('');
+			$returnObject -> setErrorDetails("ERROR: Technical problem, " . $ex_login -> getMessage());
+			OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a unkown exception to roundcube', OCP\Util::ERROR);
 		}
 
 		return $returnObject;

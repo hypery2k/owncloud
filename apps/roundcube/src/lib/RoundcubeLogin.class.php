@@ -35,20 +35,20 @@
  *               To prevent this behaviour, use the isLoggedIn()-function.
  *
  *         Returns: TRUE if the login suceeds, FALSE if the user/pass-combination is wrong
- *         Throws:  May throw a RoundcubeLoginException if Roundcube sends an unexpected answer
+ *         Throws:  May throw a OC_Mail_LoginException if Roundcube sends an unexpected answer
  *                  (that might happen if a new Roundcube version behaves different).
  *
  *   - isLoggedIn()
  *         Checks whether the client/browser is logged in and has a valid Roundcube session.
  *
  *         Returns: TRUE if the user is logged in, FALSE otherwise.
- *         Throws:  May also throw a RoundcubeLoginException (see above).
+ *         Throws:  May also throw a OC_Mail_LoginException (see above).
  *
  *   - logout()
  *         Performs a logout on the current Roundcube session.
  *
  *         Returns: TRUE if the logout was a success, FALSE otherwise.
- *         Throws:  May also throw a RoundcubeLoginException (see above).
+ *         Throws:  May also throw a OC_Mail_LoginException (see above).
  *
  *   - redirect()
  *         Simply redirects to Roundcube.
@@ -75,7 +75,7 @@
  *           // If the login fails, display an error message
  *           die("ERROR: Login failed due to a wrong user/pass combination.");
  *       }
- *       catch (RoundcubeLoginException $ex) {
+ *       catch (OC_Mail_LoginException $ex) {
  *           echo "ERROR: Technical problem, ".$ex->getMessage();
  *           $rcl->dumpDebugStack(); exit;
  *       }
@@ -209,7 +209,8 @@ class OC_RoundCube_Login {
 	 * @param string IMAP username
 	 * @param string IMAP password (plain text)
 	 * @return boolean Returns TRUE if the login was successful, FALSE otherwise
-	 * @throws RoundcubeLoginException
+	 * @throws MailNetworkingxception
+	 * @throws OC_Mail_LoginException
 	 */
 	public function login($username, $password) {
 		$this -> updateLoginStatus();
@@ -241,7 +242,7 @@ class OC_RoundCube_Login {
 		// This maybe the case if no session ID was sent
 		else {
 			$this -> addDebug("LOGIN STATUS UNKNOWN", "Neither failure nor success. This maybe the case if no session ID was sent");
-			throw new RoundcubeLoginException("Unable to determine login-status due to technical problems.");
+			throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
 		}
 
 		return $this -> isLoggedIn();
@@ -251,13 +252,13 @@ class OC_RoundCube_Login {
 	 * Returns whether there is an active Roundcube session.
 	 *
 	 * @return bool Return TRUE if a user is logged in, FALSE otherwise
-	 * @throws RoundcubeLoginException
+	 * @throws OC_Mail_LoginException
 	 */
 	public function isLoggedIn() {
 		$this -> updateLoginStatus();
 
 		if (!$this -> rcLoginStatus)
-			throw new RoundcubeLoginException("Unable to determine login-status due to technical problems.");
+			throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
 
 		return ($this -> rcLoginStatus > 0) ? true : false;
 	}
@@ -332,13 +333,13 @@ class OC_RoundCube_Login {
 			$this -> rcLoginStatus = 1;
 		} else {
 			$this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?");
-			throw new RoundcubeLoginException("Unable to determine the login status. Unable to continue due to technical problems.");
+			throw new OC_Mail_LoginException("Unable to determine the login status. Unable to continue due to technical problems.");
 		}
 
 		// If no session ID is available now, throw an exception
 		if (!$this -> rcSessionID) {
 			$this -> addDebug("NO SESSION ID", "No session ID received. RC version changed?");
-			throw new RoundcubeLoginException("No session ID received. Unable to continue due to technical problems.");
+			throw new OC_Mail_LoginException("No session ID received. Unable to continue due to technical problems.");
 		}
 	}
 
@@ -395,7 +396,7 @@ class OC_RoundCube_Login {
 		$fp = fsockopen($host, $port);
 		if (!$fp) {
 			$this -> addDebug("sendRequest", "Network connection failed on fsockopen. Please check you alias for roundcube. The network connection returned $errno - $errstr");
-			throw new RoundcubeNetworkException("Unable to determine network-status due to technical problems.");
+			throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 		} else {
 
 			// Request
@@ -410,7 +411,7 @@ class OC_RoundCube_Login {
 
 				// Not found
 				if (preg_match('/^HTTP\/1\.\d\s+404\s+/', $line))
-					throw new RoundcubeLoginException("No Roundcube installation found at '$path'");
+					throw new OC_Mail_RC_InstallNotFoundException("No Roundcube installation found at '$path'");
 
 				// Got session ID!
 				if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $line, $match)) {
@@ -461,21 +462,9 @@ class OC_RoundCube_Login {
 	 * Dump the debug stack
 	 */
 	public function dumpDebugStack() {
-		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . print_r($this -> debugStack) . ' ' . print_r($data), OCP\Util::ERROR);
+		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . print_r($this -> debugStack) . ' ', OCP\Util::ERROR);
 	}
 
 }
 
-/**
- * This Roundcube login exception will be thrown if the two
- * login attempts fail.
- */
-class RoundcubeLoginException extends Exception {
-}
-
-/**
- * This Roundcube network exception will be thrown if an network error occurred.
- */
-class RoundcubeNetworkException extends Exception {
-}
-		?>
+?>

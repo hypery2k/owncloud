@@ -49,17 +49,21 @@ if (!$table_exists) {
 					if ($mailAppReturn -> isErrorOccurred()) {
 						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::DEBUG);
 						switch ($mailAppReturn -> getErrorCode()) {
-							case OC_RoundCub_App_Login::ERROC_CODE_NETWORK :
-								$html_output = $this -> inc("part.error.error-settings.php");
-								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
+							case OC_Mail_Object::ERROR_CODE_NETWORK :
+								$html_output = $this -> inc("part.error.error-settings");
+								$html_output = $html_output . $mailAppReturn -> getErrorDetails();
 								break;
-							case OC_RoundCub_App_Login::ERROC_CODE_LOGIN :
+							case OC_Mail_Object::ERROR_CODE_LOGIN :
 								$html_output = $this -> inc("part.error.wrong-auth");
-								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
+								$html_output = $html_output . $mailAppReturn -> getErrorDetails();
 								break;
+							case OC_Mail_Object::ERROR_CODE_RC_NOT_FOUND :
+								$html_output = $this -> inc("part.error.error-settings");
+								$html_output = $html_output . $mailAppReturn -> getErrorDetails();
+								break;								
 							default :
-								$html_output = $this -> inc("part.error.error-settings.php");
-								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
+								$html_output = $this -> inc("part.error.error-settings");
+								$html_output = $html_output . $mailAppReturn -> getErrorDetails();
 								break;
 						}
 					} else {

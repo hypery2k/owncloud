@@ -21,11 +21,15 @@
  *
  */
 
-class OC_RoundCube_App_Return {
+class OC_Mail_Object {
 
-	public static $ERROC_CODE_NETWORK = '2';
+	const ERROR_CODE_GENERAL = '0';
 
-	public static $ERROC_CODE_LOGIN = '1';
+	const ERROR_CODE_LOGIN = '1';
+
+	const ERROR_CODE_NETWORK = '2';
+
+	const ERROR_CODE_RC_NOT_FOUND= '3';
 
 	private $errorOccurred;
 
@@ -36,9 +40,9 @@ class OC_RoundCube_App_Return {
 	private $htmlOutput;
 
 	public function __construct() {
-		$errorOccurred = false;
-		$errorDetails = '';
-		$htmlOutput = '';
+		$this -> errorOccurred = false;
+		$this -> errorDetails = '';
+		$this -> htmlOutput = '';
 	}
 
 	/**
@@ -46,14 +50,14 @@ class OC_RoundCube_App_Return {
 	 * @param the html to append $html
 	 */
 	public function appendHtmlOutput($html) {
-		$this -> $htmlOutput = $this -> $htmlOutput . $html;
+		$this -> htmlOutput = $this -> htmlOutput . $html;
 	}
 
 	/**
 	 * return html output
 	 */
 	public function getHtmlOutput() {
-		return $this -> $htmlOutput;
+		return $this -> htmlOutput;
 	}
 
 	/**
@@ -61,49 +65,49 @@ class OC_RoundCube_App_Return {
 	 * @param the html out put to set $html
 	 */
 	public function setHtmlOutput($html) {
-		$this -> $htmlOutput = $html;
+		$this -> htmlOutput = $html;
 	}
 
 	/**
 	 * return the error code
 	 */
 	public function getErrorCode() {
-		return $this -> $errorCode;
+		return $this -> errorCode;
 	}
 
 	/**
 	 * @param error code to set $errorCode
 	 */
 	public function setErrorCode($errorCode) {
-		$this -> $errorCode = $errorCode;
+		$this -> errorCode = $errorCode;
 	}
 
 	/**
 	 * return the error details
 	 */
 	public function getErrorDetails() {
-		return $this -> $errorDetails;
+		return $this -> errorDetails;
 	}
 
 	/**
 	 * @param error details to set $errorDtls
 	 */
 	public function setErrorDetails($errorDtls) {
-		$this -> $errorDetails = $errorDtls;
+		$this -> errorDetails = $errorDtls;
 	}
 
 	/**
 	 * return true if an error occurred, otherwise false
 	 */
 	public function isErrorOccurred() {
-		return $this -> $errorOccurred;
+		return $this -> errorOccurred;
 	}
 
 	/**
 	 * @param error code to set $error
 	 */
 	public function setErrorOccurred($error) {
-		$this -> $errorOccurred = $error;
+		$this -> errorOccurred = $error;
 	}
 
 }
