@@ -126,7 +126,7 @@ class OC_RoundCube_App {
 	 */
 	public static function showMailFrame($maildir, $ownUser, $ownPass) {
 		
-		$returnObject = new OC_RoundCube_App_Login;
+		$returnObject = new OC_RoundCube_App_Login();
 
 		$returnObject -> $htmlOutput = '';
 		$returnObject -> $htmlOutput  = '';
