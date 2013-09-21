@@ -46,14 +46,14 @@ class OC_RoundCube_App_Return {
 	 * @param the html to append $html
 	 */
 	public function appendHtmlOutput($html) {
-		$htmlOutput = $htmlOutput . $html;
+		$this -> $htmlOutput = $this -> $htmlOutput . $html;
 	}
 
 	/**
 	 * return html output
 	 */
 	public function getHtmlOutput() {
-		return $htmlOutput;
+		return $this -> $htmlOutput;
 	}
 
 	/**
@@ -61,49 +61,49 @@ class OC_RoundCube_App_Return {
 	 * @param the html out put to set $html
 	 */
 	public function setHtmlOutput($html) {
-		$htmlOutput = $html;
+		$this -> $htmlOutput = $html;
 	}
 
 	/**
 	 * return the error code
 	 */
 	public function getErrorCode() {
-		return $errorCode;
+		return $this -> $errorCode;
 	}
 
 	/**
 	 * @param error code to set $errorCode
 	 */
 	public function setErrorCode($errorCode) {
-		$errorCode = $errorCode;
+		$this -> $errorCode = $errorCode;
 	}
 
 	/**
 	 * return the error details
 	 */
 	public function getErrorDetails() {
-		return $errorDetails;
+		return $this -> $errorDetails;
 	}
 
 	/**
 	 * @param error details to set $errorDtls
 	 */
 	public function setErrorDetails($errorDtls) {
-		$errorDetails = $errorDtls;
+		$this -> $errorDetails = $errorDtls;
 	}
 
 	/**
 	 * return true if an error occurred, otherwise false
 	 */
 	public function isErrorOccurred() {
-		return $errorOccurred;
+		return $this -> $errorOccurred;
 	}
 
 	/**
 	 * @param error code to set $error
 	 */
 	public function setErrorOccurred($error) {
-		$errorOccurred = $error;
+		$this -> $errorOccurred = $error;
 	}
 
 }

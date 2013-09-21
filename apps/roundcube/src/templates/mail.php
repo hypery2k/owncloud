@@ -45,7 +45,24 @@ if (!$table_exists) {
 				if ($maildir != '') {
 
 					$mailAppReturn = OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
-					if (!$mailAppReturn -> isErrorOccurred()) {
+					
+					if ($mailAppReturn -> isErrorOccurred()) {
+						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::DEBUG);
+						switch ($mailAppReturn -> getErrorCode()) {
+							case OC_RoundCub_App_Login::ERROC_CODE_NETWORK :
+								$html_output = $this -> inc("part.error.error-settings.php");
+								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
+								break;
+							case OC_RoundCub_App_Login::ERROC_CODE_LOGIN :
+								$html_output = $this -> inc("part.error.wrong-auth");
+								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
+								break;
+							default :
+								$html_output = $this -> inc("part.error.error-settings.php");
+								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
+								break;
+						}
+					} else {
 						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::DEBUG);
 
 						if (!$disable_control_nav) {
@@ -61,21 +78,6 @@ if (!$table_exists) {
 						$html_output = $html_output . $mailAppReturn -> getHtmlOutput();
 
 						$html_output = $html_output . "</div>";
-					} else {
-						switch ($mailAppReturn -> getErrorCode()) {
-							case OC_RoundCub_App_Login::ERROC_CODE_NETWORK :
-								$html_output = $this -> inc("part.error.error-settings.php");
-								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
-								break;
-							case OC_RoundCub_App_Login::ERROC_CODE_LOGIN :
-								$html_output = $this -> inc("part.error.wrong-auth");
-								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
-								break;
-							default :
-								$html_output = $this -> inc("part.error.error-settings.php");
-								$html_output = $mailAppReturn -> getHtmlOutput . $mailAppReturn -> getErrorDetails();
-								break;
-						}
 
 					}
 
