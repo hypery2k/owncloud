@@ -28,7 +28,7 @@ OC::$CLASSPATH['OC_Mail_RC_InstallNotFoundException'] = OC_App::getAppPath('roun
 OC::$CLASSPATH['OC_Mail_Object'] = OC_App::getAppPath('roundcube') . '/lib/MailObject.class.php';
 
 OC::$CLASSPATH['OC_RoundCube_App'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeApp.class.php';
-OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/RoundCubeDBUtil.class.php';
+OC::$CLASSPATH['OC_RoundCube_DB_Util'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeDBUtil.class.php';
 OC::$CLASSPATH['OC_RoundCube_Login'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeLogin.class.php';
 OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . '/lib/RoundcubeAuthHelper.class.php';
 
