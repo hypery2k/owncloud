@@ -1,3 +1,7 @@
+// declare namespace
+
+var rc = document.rc || {};
+
 $(document).ready(function() {
 	$(window).resize(function() {
 		if (rc.logdebug) {
@@ -10,13 +14,19 @@ $(document).ready(function() {
 		$('#roundcube_container').css('top', '3.5em');
 	}
 	$(window).resize();
-	//$('#roundcube_container').scroll(updateOnBottom).empty().width($('#content').width());
+	// slide in roundcube nice
+	$('#loader').fadeOut('slow');
+	$('#roundcubeFrame').show('slow', function() {
+		rc.beautify();
+	});
+
 });
 
 /**
  * init js function during frame load
  */
-$('#roundcubeFrame').load(function() {
+rc.beautify = function() {
+
 	var mainscreen = $('#roundcubeFrame').contents().find('#mainscreen');
 	// remove header line, includes about line and
 	var top_line = $('#roundcubeFrame').contents().find('#topline');
@@ -127,10 +137,8 @@ $('#roundcubeFrame').load(function() {
 			$('#roundcubeFrame').contents().find('#mainscreen').css('top', '50px');
 		}
 	}
-	// slide in roundcube nice
-	$('#loader').fadeOut('slow');
-	$('#roundcubeFrame').slideDown('slow');
+
 	// remove email adresse
 	$('#roundcubeFrame').contents().find('.username').remove();
 
-});
+};
