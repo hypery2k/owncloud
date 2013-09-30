@@ -42,7 +42,7 @@ class OC_RoundCube_DB_Util {
       return false;
     }
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
-    OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Result of check for if table ' . $table . ' exists: ' . $result, OCP\Util::DEBUG);
+    OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' ' . $result != false ? 'exists.' : 'does not exits.', OCP\Util::DEBUG);
     return $result != false;
 
   }
