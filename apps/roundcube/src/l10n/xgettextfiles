@@ -2,4 +2,8 @@
 ../templates/adminSettings.php
 ../templates/mail.php
 ../templates/userSettings.php
+../templates/part.error.db.php
+../templates/part.error.error-settings.php
+../templates/part.error.no-settings.php
+../templates/part.error.wrong-auth.php
 ../js/scripts.js

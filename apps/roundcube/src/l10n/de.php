@@ -14,7 +14,7 @@
 "Download" => "Herunterladen",
 "Delete" => "Löschen",
 "You don't have any email account configured yet." => "Bitte richten Sie zunächst ein Emailkonto ein.",
-"You don't have any email account in ot configured correctly yet. Please check you username and password." => "Bitte richten Sie zunächst ihr Emailkonto korrekt ein. Überprüfen sie Nutzer und Passwort.",
+"You don't have any email account configured correctly yet. Please check you username and password." => "Bitte richten Sie zunächst ihr Emailkonto korrekt ein. Überprüfen sie Nutzer und Passwort.",
 "You have errors in your settings" => "Es bestehen Konfigurationsfehler",
 "You can manage your admin settings here:" => "Bitte korrigieren sie die Administrationseinstellungen",
 "Logged in as " => "Angemeldet als ",
