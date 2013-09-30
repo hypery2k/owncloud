@@ -33,10 +33,8 @@ class OC_RoundCube_DB_Util {
 		// Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
 		try {
 			$sql = "SELECT 1 FROM *PREFIX*$table LIMIT 1";
-			$args = array(1);
-
 			$query = \OCP\DB::prepare($sql);
-			$result = $query -> execute($args);
+			$result = $query -> execute();
 
 		} catch (Exception $e) {
 			// We got an exception == table not found
