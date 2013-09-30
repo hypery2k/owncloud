@@ -44,10 +44,11 @@ class OC_RoundCube_DB_Util {
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
     if ($result instanceof PDOStatementWrapper) {
       OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' exists.', OCP\Util::DEBUG);
+      return true;
     } else {
       OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exits.', OCP\Util::DEBUG);
+      return false;
     }
-    return $result != false;
 
   }
 
