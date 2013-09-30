@@ -26,7 +26,7 @@ OCP\User::checkAdminUser();
 
 // CSRF checks
 if ($_POST) {
-	OCP\JSON::callCheck();
+  OCP\JSON::callCheck();
 }
 
 $params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav', 'autoLogin');
@@ -34,38 +34,38 @@ $params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav'
 OCP\Util::addscript('roundcube', 'settings');
 
 if ($_POST) {
-	foreach ($params as $param) {
-		if (isset($_POST[$param])) {
-			if ($param === 'removeHeaderNav') {
-				OCP\Config::setAppValue('roundcube', 'removeHeaderNav', true);
-			}
-			if ($param === 'removeControlNav') {
-				OCP\Config::setAppValue('roundcube', 'removeControlNav', true);
-			}
-			if ($param === 'autoLogin') {
-				OCP\Config::setAppValue('roundcube', 'autoLogin', true);
-			} else {
-				OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
-			}
-		} else {
-			if ($param === 'removeHeaderNav') {
-				OCP\Config::setAppValue('roundcube', 'removeHeaderNav', false);
-			}
-			if ($param === 'removeControlNav') {
-				OCP\Config::setAppValue('roundcube', 'removeControlNav', false);
-			}
-			if ($param === 'autoLogin') {
-				OCP\Config::setAppValue('roundcube', 'autoLogin', false);
-			}
-		}
-	}
+  foreach ($params as $param) {
+    if (isset($_POST[$param])) {
+      if ($param === 'removeHeaderNav') {
+        OCP\Config::setAppValue('roundcube', 'removeHeaderNav', true);
+      }
+      if ($param === 'removeControlNav') {
+        OCP\Config::setAppValue('roundcube', 'removeControlNav', true);
+      }
+      if ($param === 'autoLogin') {
+        OCP\Config::setAppValue('roundcube', 'autoLogin', true);
+      } else {
+        OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
+      }
+    } else {
+      if ($param === 'removeHeaderNav') {
+        OCP\Config::setAppValue('roundcube', 'removeHeaderNav', false);
+      }
+      if ($param === 'removeControlNav') {
+        OCP\Config::setAppValue('roundcube', 'removeControlNav', false);
+      }
+      if ($param === 'autoLogin') {
+        OCP\Config::setAppValue('roundcube', 'autoLogin', false);
+      }
+    }
+  }
 }
 
 // fill template
 $tmpl = new OCP\Template('roundcube', 'adminSettings');
 foreach ($params as $param) {
-	$value = OCP\Config::getAppValue('roundcube', $param, '');
-	$tmpl -> assign($param, $value);
+  $value = OCP\Config::getAppValue('roundcube', $param, '');
+  $tmpl -> assign($param, $value);
 }
 return $tmpl -> fetchPage();
 ?>

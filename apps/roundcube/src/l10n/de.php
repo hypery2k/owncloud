@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+/*@formatter:off*/
 "RoundCube Mailaccount" => "RoundCube Emailkonto",
 "RoundCube Settings" => "RoundCube Webmail Einstellungen",
 "Basic settings" => "Grundeinstellungen",
@@ -22,4 +23,5 @@
 "Enable autologin for users" => "Autologin für Nutzer aktivieren",
 "Database error" => "Datenbankfehler.",
 "Please follow the wiki page to setup the database manually:" => "Bitte folgen sie den Hinweisen im Wiki zur manuellen Datenbankkonfiguration."
-); 
+/*@formatter:on*/
+);

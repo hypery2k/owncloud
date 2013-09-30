@@ -21,12 +21,10 @@
  *
  */
 
- 
- /**
+/**
  * This Mail login exception will be thrown if the two
  * login attempts fail.
  */
-class OC_Mail_RC_InstallNotFoundException extends Exception {}
-
-
+class OC_Mail_RC_InstallNotFoundException extends Exception {
+}
 ?>

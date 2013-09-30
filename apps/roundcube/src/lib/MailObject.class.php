@@ -23,92 +23,92 @@
 
 class OC_Mail_Object {
 
-	const ERROR_CODE_GENERAL = '0';
+  const ERROR_CODE_GENERAL = '0';
 
-	const ERROR_CODE_LOGIN = '1';
+  const ERROR_CODE_LOGIN = '1';
 
-	const ERROR_CODE_NETWORK = '2';
+  const ERROR_CODE_NETWORK = '2';
 
-	const ERROR_CODE_RC_NOT_FOUND= '3';
+  const ERROR_CODE_RC_NOT_FOUND = '3';
 
-	private $errorOccurred;
+  private $errorOccurred;
 
-	private $errorCode;
+  private $errorCode;
 
-	private $errorDetails;
+  private $errorDetails;
 
-	private $htmlOutput;
+  private $htmlOutput;
 
-	public function __construct() {
-		$this -> errorOccurred = false;
-		$this -> errorDetails = '';
-		$this -> htmlOutput = '';
-	}
+  public function __construct() {
+    $this -> errorOccurred = false;
+    $this -> errorDetails = '';
+    $this -> htmlOutput = '';
+  }
 
-	/**
-	 * append to the html output
-	 * @param the html to append $html
-	 */
-	public function appendHtmlOutput($html) {
-		$this -> htmlOutput = $this -> htmlOutput . $html;
-	}
+  /**
+   * append to the html output
+   * @param the html to append $html
+   */
+  public function appendHtmlOutput($html) {
+    $this -> htmlOutput = $this -> htmlOutput . $html;
+  }
 
-	/**
-	 * return html output
-	 */
-	public function getHtmlOutput() {
-		return $this -> htmlOutput;
-	}
+  /**
+   * return html output
+   */
+  public function getHtmlOutput() {
+    return $this -> htmlOutput;
+  }
 
-	/**
-	 * set the html output
-	 * @param the html out put to set $html
-	 */
-	public function setHtmlOutput($html) {
-		$this -> htmlOutput = $html;
-	}
+  /**
+   * set the html output
+   * @param the html out put to set $html
+   */
+  public function setHtmlOutput($html) {
+    $this -> htmlOutput = $html;
+  }
 
-	/**
-	 * return the error code
-	 */
-	public function getErrorCode() {
-		return $this -> errorCode;
-	}
+  /**
+   * return the error code
+   */
+  public function getErrorCode() {
+    return $this -> errorCode;
+  }
 
-	/**
-	 * @param error code to set $errorCode
-	 */
-	public function setErrorCode($errorCode) {
-		$this -> errorCode = $errorCode;
-	}
+  /**
+   * @param error code to set $errorCode
+   */
+  public function setErrorCode($errorCode) {
+    $this -> errorCode = $errorCode;
+  }
 
-	/**
-	 * return the error details
-	 */
-	public function getErrorDetails() {
-		return $this -> errorDetails;
-	}
+  /**
+   * return the error details
+   */
+  public function getErrorDetails() {
+    return $this -> errorDetails;
+  }
 
-	/**
-	 * @param error details to set $errorDtls
-	 */
-	public function setErrorDetails($errorDtls) {
-		$this -> errorDetails = $errorDtls;
-	}
+  /**
+   * @param error details to set $errorDtls
+   */
+  public function setErrorDetails($errorDtls) {
+    $this -> errorDetails = $errorDtls;
+  }
 
-	/**
-	 * return true if an error occurred, otherwise false
-	 */
-	public function isErrorOccurred() {
-		return $this -> errorOccurred;
-	}
+  /**
+   * return true if an error occurred, otherwise false
+   */
+  public function isErrorOccurred() {
+    return $this -> errorOccurred;
+  }
 
-	/**
-	 * @param error code to set $error
-	 */
-	public function setErrorOccurred($error) {
-		$this -> errorOccurred = $error;
-	}
+  /**
+   * @param error code to set $error
+   */
+  public function setErrorOccurred($error) {
+    $this -> errorOccurred = $error;
+  }
 
 }
 ?>

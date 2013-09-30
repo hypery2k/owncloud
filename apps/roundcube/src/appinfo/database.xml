@@ -36,8 +36,7 @@
 				<notnull>true</notnull>
 				<length>4096</length>
 			</field>
-			
+
 		</declaration>
 	</table>
 </database>
-			

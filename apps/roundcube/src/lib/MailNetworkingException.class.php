@@ -20,10 +20,10 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
- /**
+
+/**
  * This Mail network exception will be thrown if an network error occurred.
  */
- class OC_Mail_NetworkingException extends Exception {}
-
+class OC_Mail_NetworkingException extends Exception {
+}
 ?>

@@ -35,7 +35,7 @@ OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . '/
 $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 if ($enable_auto_login) {
-	OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'autoSave');
+  OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'autoSave');
 }
 
 OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
