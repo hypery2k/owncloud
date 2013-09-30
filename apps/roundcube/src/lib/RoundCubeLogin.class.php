@@ -404,7 +404,7 @@ class OC_RoundCube_Login {
     // Send request
     $fp = fsockopen($host, $port);
     if (!$fp) {
-      $this -> addDebug("sendRequest", "Network connection failed on fsockopen. Please check you alias for roundcube. The network connection returned $errno - $errstr");
+      $this -> addDebug("sendRequest", "Network connection failed on fsockopen. Please check your path for roundcube.");
       throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
     } else {
 
