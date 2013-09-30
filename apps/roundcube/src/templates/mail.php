@@ -37,6 +37,8 @@ if (!$table_exists) {
 
   $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 
+  $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+
   OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::INFO);
   if ($mail_userdata['id'] != '') {
     if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
@@ -44,7 +46,7 @@ if (!$table_exists) {
         $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
         if ($maildir != '') {
 
-          $mailAppReturn = OC_RoundCube_App::showMailFrame($maildir, $mail_username, $mail_password);
+          $mailAppReturn = OC_RoundCube_App::showMailFrame($rc_host, $maildir, $mail_username, $mail_password);
 
           if ($mailAppReturn -> isErrorOccurred()) {
             OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::INFO);

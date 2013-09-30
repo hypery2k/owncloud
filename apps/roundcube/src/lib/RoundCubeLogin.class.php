@@ -185,17 +185,15 @@ class OC_RoundCube_Login {
 
   /**
    * Create a new RoundcubeLogin class.
-   *
+   * @param string servr host
    * @param string Relative webserver path to the RC installation, e.g.
    * /roundcube/
    * @param bool Enable debugging, - shows the full POST and the response
    */
-  public function __construct($webmailPath, $enableDebug = false) {
+  public function __construct($webmailPath, $webmailPath, $enableDebug = false) {
     $this -> debugStack = array();
-    // failback to local host
-    $this -> rcHost = OC_Request::serverHost();
+    $this -> rcHost = $webmailHost;
     $this -> debugEnabled = $enableDebug;
-
     $this -> rcPath = $webmailPath;
     $this -> rcSessionID = true;
     $this -> rcSessionAuth = true;
