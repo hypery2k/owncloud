@@ -47,7 +47,7 @@ class OC_RoundCube_AuthHelper {
 			OCP\Util::writeLog('roundcube', 'Logout of user from roundcube done', OCP\Util::INFO);
 		} catch (Exception $e) {
 			// We got an exception == table not found
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' .  'Logout/Session cleaning causing errors.'.$, OCP\Util::DEBUG);
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' .  'Logout/Session cleaning causing errors.'.$e, OCP\Util::DEBUG);
 			return false;
 		}
 	}
