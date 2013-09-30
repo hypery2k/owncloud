@@ -42,7 +42,11 @@ class OC_RoundCube_DB_Util {
       return false;
     }
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
-    OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' ' . $result != false ? 'exists.' : 'does not exits.', OCP\Util::DEBUG);
+    if ($result instanceof PDOStatementWrapper) {
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' exists.', OCP\Util::DEBUG);
+    } else {
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exits.', OCP\Util::DEBUG);
+    }
     return $result != false;
 
   }
