@@ -46,7 +46,7 @@ if ($_POST) {
         OCP\Config::setAppValue('roundcube', 'autoLogin', true);
       } else {
         if ($param === 'rcHost') {
-          if (strlen($str > 3)) {
+          if (strlen($_POST[$param]) > 3) {
             OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
           }
         } else {
