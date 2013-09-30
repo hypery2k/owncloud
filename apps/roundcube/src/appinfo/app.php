@@ -21,7 +21,7 @@
  */
 
 $l = new OC_L10N('roundcube');
-OC::$CLASSPATH['OC_Mail_NetworkingException'] = OC_App::getAppPath('roundcube') . '/lib/MailNetworkException.class.php';
+OC::$CLASSPATH['OC_Mail_NetworkingException'] = OC_App::getAppPath('roundcube') . '/lib/MailNetworkingException.class.php';
 OC::$CLASSPATH['OC_Mail_LoginException'] = OC_App::getAppPath('roundcube') . '/lib/MailLoginException.class.php';
 OC::$CLASSPATH['OC_Mail_RC_InstallNotFoundException'] = OC_App::getAppPath('roundcube') . '/lib/MailRoundCubeNotFoundException.class.php';
 

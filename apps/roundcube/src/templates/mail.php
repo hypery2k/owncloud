@@ -22,6 +22,10 @@
 // set the passwort in session to fill the hidden login form with revertet and base64 encoded pass
 // the *yourkey* must the same string as in autologin.php to replace this after revert and decode
 
+
+OCP\JSON::checkLoggedIn();
+OCP\JSON::checkAppEnabled('roundcube');
+
 $table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
 
 $html_output = "";

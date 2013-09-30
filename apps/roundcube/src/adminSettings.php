@@ -45,7 +45,13 @@ if ($_POST) {
       if ($param === 'autoLogin') {
         OCP\Config::setAppValue('roundcube', 'autoLogin', true);
       } else {
-        OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
+        if ($param === 'rcHost') {
+          if (strlen($str > 3)) {
+            OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
+          }
+        } else {
+          OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
+        }
       }
     } else {
       if ($param === 'removeHeaderNav') {
