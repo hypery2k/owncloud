@@ -29,7 +29,7 @@ if ($_POST) {
   OCP\JSON::callCheck();
 }
 
-$params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav', 'autoLogin');
+$params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'rcHost');
 
 OCP\Util::addscript('roundcube', 'settings');
 
@@ -67,5 +67,6 @@ foreach ($params as $param) {
   $value = OCP\Config::getAppValue('roundcube', $param, '');
   $tmpl -> assign($param, $value);
 }
+
 return $tmpl -> fetchPage();
 ?>

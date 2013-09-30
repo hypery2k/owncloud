@@ -190,7 +190,7 @@ class OC_RoundCube_Login {
    * /roundcube/
    * @param bool Enable debugging, - shows the full POST and the response
    */
-  public function __construct($webmailPath, $webmailPath, $enableDebug = false) {
+  public function __construct($webmailHost, $webmailPath, $enableDebug = false) {
     $this -> debugStack = array();
     $this -> rcHost = $webmailHost;
     $this -> debugEnabled = $enableDebug;
@@ -383,12 +383,15 @@ class OC_RoundCube_Login {
 
     // Add roundcube session ID if available
     if (!$_COOKIE['roundcube_sessid'] && $this -> rcSessionID) {
+      // @formatter:off
       $cookies[] = "roundcube_sessid={$this->rcSessionID}";
+      // @formatter:on
     }
     if (!$_COOKIE['roundcube_sessauth'] && $this -> rcSessionAuth) {
-      $cookies[] = "roundcube_sessauth={$this->
-	rcSessionAuth}";
-    }
+      // @formatter:off
+      $cookies[] = "roundcube_sessauth={$this->rcSessionAuth}";
+      // @formatter:on
+    }     
     $cookies = ($cookies) ? "Cookie: " . join("; ", $cookies) . "\r\n" : "";
 
     // Create POST request with the given data
