@@ -2,30 +2,34 @@
 
 var rc = document.rc || {};
 
-$(document).ready(function() {
+/**
+ * init js function during frame load
+ */
+$('#roundcubeFrame').ready(function() {
 	$(window).resize(function() {
 		if (rc.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
 		fillWindow($('#roundcube_container'));
+		rc.iframe_loaded();
 	});
 	// check if the control menu from roundcube was disabled
 	if ($('#disable_control_nav').val() === '1') {
 		$('#roundcube_container').css('top', '3.5em');
 	}
-	$(window).resize();
-	// slide in roundcube nice
-	$('#loader').fadeOut('slow');
-	$('#roundcubeFrame').show('slow', function() {
-		rc.beautify();
-	});
 
+	// slide in roundcube nice with timeout to let iframe load
+	$("#loader").fadeOut(2500, function(sender) {
+		$(window).resize();
+		$('#roundcubeFrame').show();
+		rc.iframe_loaded();
+	});
 });
 
 /**
- * init js function during frame load
+ * callback js function during after iframe loaded completly
  */
-rc.beautify = function() {
+rc.iframe_loaded = function() {
 
 	var mainscreen = $('#roundcubeFrame').contents().find('#mainscreen');
 	// remove header line, includes about line and

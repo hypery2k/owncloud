@@ -82,11 +82,9 @@ if (!$table_exists) {
             if (!$disable_control_nav) {
               $html_output = $html_output . "<div id=\"roundcube_container\" style=\"top: 6.5em;\">";
             } else {
-              $html_output = $html_output . "<div id=\"roundcube_container\">";
+              $html_output = $html_output . "<div id=\"roundcube_container\" >";
             }
-
             $html_output = $html_output . $mailAppReturn -> getHtmlOutput();
-
             $html_output = $html_output . "</div>";
 
           }
