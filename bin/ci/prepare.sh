@@ -5,40 +5,41 @@ cd bin
 mkdir sausage && cd sausage
 curl -s https://raw.github.com/jlipps/sausage-bun/master/givememysausage.php | SAUCE_USERNAME=mreinhardt SAUCE_ACCESS_KEY=28125823-d5a7-4ffe-a29b-f2976cb8d473 php
 cd ..
-
 cd ..
+
 # SETUP OWNCLOUD
 echo "Preparing owncloud setup"
 
-VER_OC45="4.5.13"
-VER_OC5="5.0.9"
+VER_OC45=4.5.13
+VER_OC5=5.0.9
 
-DIR_OC_MYSQL="/var/www/mysql/"
-DIR_OC_MYSQL_45=$DIR_OC_MYSQL$VER_OC45"/"
-DIR_OC_MYSQL_5=$DIR_OC_MYSQL$VER_OC5"/"
-DIR_OC_SQLLITE="/var/www/sqllite/"
-DIR_OC_SQLLITE_45=$DIR_OC_SQLLITE$VER_OC45"/"
-DIR_OC_SQLLITE_5=$DIR_OC_SQLLITE$VER_OC5"/"
-DIR_OC_DEV=/tmp/owncloud_dev/
+DIR_OC_MYSQL=/var/www/mysql
+DIR_OC_MYSQL_45=$DIR_OC_MYSQL/$VER_OC45
+DIR_OC_MYSQL_5=$DIR_OC_MYSQL/$VER_OC5
+DIR_OC_SQLLITE=/var/www/sqllite
+DIR_OC_SQLLITE_45=$DIR_OC_SQLLITE/$VER_OC45
+DIR_OC_SQLLITE_5=$DIR_OC_SQLLITE/$VER_OC5
+DIR_OC_DEV=/tmp/owncloud_dev
 
+sudo mkdir $DIR_OC_DEV
 sudo mkdir $DIR_OC_MYSQL
 sudo mkdir $DIR_OC_MYSQL_45
-sudo mkdir $DIR_OC_MYSQL_45"apps"
-sudo mkdir $DIR_OC_MYSQL_45"apps/roundcube"
-sudo mkdir $DIR_OC_MYSQL_45"data"
+sudo mkdir $DIR_OC_MYSQL_45/apps
+sudo mkdir $DIR_OC_MYSQL_45/apps/roundcube
+sudo mkdir $DIR_OC_MYSQL_45/data
 sudo mkdir $DIR_OC_MYSQL_5
-sudo mkdir $DIR_OC_MYSQL_5"apps"
-sudo mkdir $DIR_OC_MYSQL_5"apps/roundcube"
-sudo mkdir $DIR_OC_MYSQL_5"data"
+sudo mkdir $DIR_OC_MYSQL_5/apps
+sudo mkdir $DIR_OC_MYSQL_5/apps/roundcube
+sudo mkdir $DIR_OC_MYSQL_5/data
 sudo mkdir $DIR_OC_SQLLITE
 sudo mkdir $DIR_OC_SQLLITE_45
-sudo mkdir $DIR_OC_SQLLITE_45"apps"
-sudo mkdir $DIR_OC_SQLLITE_45"apps/roundcube"
-sudo mkdir $DIR_OC_SQLLITE_45"data"
+sudo mkdir $DIR_OC_SQLLITE_45/apps
+sudo mkdir $DIR_OC_SQLLITE_45/apps/roundcube
+sudo mkdir $DIR_OC_SQLLITE_45/data
 sudo mkdir $DIR_OC_SQLLITE_5
-sudo mkdir $DIR_OC_SQLLITE_5"apps"
-sudo mkdir $DIR_OC_SQLLITE_5"apps/roundcube"
-sudo mkdir $DIR_OC_SQLLITE_5"data"
+sudo mkdir $DIR_OC_SQLLITE_5/apps
+sudo mkdir $DIR_OC_SQLLITE_5/apps/roundcube
+sudo mkdir $DIR_OC_SQLLITE_5/data
 
 sudo cp -rp travis_ci/owncloud_releases/$VER_OC45 $DIR_OC_MYSQL_45
 sudo cp -rp travis_ci/owncloud_releases/$VER_OC45 $DIR_OC_SQLLITE_45
@@ -52,14 +53,14 @@ sudo cp -rp travis_ci/roundcube_releases/0.8.2 /var/www/roundcubemail-0.8.2
 sudo cd $DIR_OC_DEV
 sudo git clone https://github.com/hypery2k/owncloud.git
 echo "copy current app folder"
-sudo cp -r $DIR_OC_DEV"owncloud/apps/roundcube/src" $DIR_OC_MYSQL_45"apps/roundcube"
-sudo ls -lisah $DIR_OC_MYSQL_45"apps/roundcube/*"
-sudo cp -r $DIR_OC_DEV"owncloud/apps/roundcube/src" $DIR_OC_MYSQL_5"apps/roundcube"
-sudo ls -lisah $DIR_OC_MYSQL_45"apps/roundcube/*"
-sudo cp -r $DIR_OC_DEV"owncloud/apps/roundcube/src" $DIR_OC_SQLLITE_45"apps/roundcube"
-sudo ls -lisah $DIR_OC_MYSQL_45"apps/roundcube/*"
-sudo cp -r $DIR_OC_DEV"owncloud/apps/roundcube/src" $DIR_OC_SQLLITE_5"apps/roundcube"
-sudo ls -lisah $DIR_OC_MYSQL_45"apps/roundcube/*"
+sudo cp -r $DIR_OC_DEV/owncloud/apps/roundcube/src $DIR_OC_MYSQL_45/apps/roundcube
+sudo ls -lisah $DIR_OC_MYSQL_45/apps/roundcube/*
+sudo cp -r $DIR_OC_DEV/owncloud/apps/roundcube/src $DIR_OC_MYSQL_5/apps/roundcube
+sudo ls -lisah $DIR_OC_MYSQL_45/apps/roundcube/*
+sudo cp -r $DIR_OC_DEV/owncloud/apps/roundcube/src $DIR_OC_SQLLITE_45/apps/roundcube
+sudo ls -lisah $DIR_OC_MYSQL_45/apps/roundcube/*
+sudo cp -r $DIR_OC_DEV/owncloud/apps/roundcube/src $DIR_OC_SQLLITE_5/apps/roundcube
+sudo ls -lisah $DIR_OC_MYSQL_45/apps/roundcube/*
 
 echo "Setting up Directory rights"
 sudo chmod -R 777 $DIR_OC_MYSQL_45
