@@ -10,7 +10,7 @@
 	display: none;
 }
 .js #loader {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	width: 128px;

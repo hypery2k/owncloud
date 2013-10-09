@@ -35,7 +35,8 @@ if (!OCP\User::isLoggedIn()) {
 OCP\Util::addStyle('roundcube', 'base');
 // add neede JS
 OCP\Util::addScript('', 'jquery-1.7.2.min');
-OCP\Util::addScript('roundcube', 'scripts');
+OCP\Util::addScript('roundcube', 'jquery.plugins');
+OCP\Util::addScript('roundcube', 'mail');
 OCP\Util::addScript('roundcube', 'modernizr');
 
 // add new navigation entry
