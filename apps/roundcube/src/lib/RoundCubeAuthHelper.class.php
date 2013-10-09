@@ -43,7 +43,9 @@ class OC_RoundCube_AuthHelper {
     try {
       OCP\Util::writeLog('roundcube', 'Preparing logout of user from roundcube', OCP\Util::INFO);
       $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-      OC_RoundCube_App::logout($maildir, OCP\User::getUser());
+      $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
+      $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+      OC_RoundCube_App::logout($rc_host, $maildir, OCP\User::getUser());
       OCP\Util::writeLog('roundcube', 'Logout of user from roundcube done', OCP\Util::INFO);
     } catch (Exception $e) {
       // We got an exception == table not found

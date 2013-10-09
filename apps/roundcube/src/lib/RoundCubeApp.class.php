@@ -111,8 +111,8 @@ class OC_RoundCube_App {
    * NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
    * @param roundcube usernam $user
    */
-  public static function logout($maildir, $user) {
-    $rcl = new OC_RoundCube_Login($maildir);
+  public static function logout($rcHost, $maildir, $user) {
+    $rcl = new OC_RoundCube_Login($rcHost, $maildir);
     $rcl -> logout();
   }
 
@@ -138,7 +138,7 @@ class OC_RoundCube_App {
       OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
       if ($rcl -> isLoggedIn()) {
         $rcl -> logout();
-        $rcl = new OC_RoundCube_Login($maildir);
+        $rcl = new OC_RoundCube_Login($rcHost, $maildir);
       }
       if ($rcl -> login($ownUser, $ownPass)) {
         OCP\Util::writeLog('roundcube', 'Successfully logged into roundcube ', OCP\Util::DEBUG);
