@@ -32,7 +32,7 @@ class OC_RoundCube_DB_Util {
     // Try a select statement against the table
     // Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
     try {
-      $sql = "SELECT 1 FROM *PREFIX*$table LIMIT 1";
+      $sql = "SELECT * FROM *PREFIX*$table LIMIT 1";
       $query = \OCP\DB::prepare($sql);
       $result = $query -> execute();
 
