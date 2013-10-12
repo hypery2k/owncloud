@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <info>
-	<id>storage_charts</id>
+	<id>storage-charts</id>
 	<name>Storage Charts</name>
 	<description>Display storage charts, using HighCharts non-commercial free library (www.highcharts.com)</description>
 	<version>2.3</version>

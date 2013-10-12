@@ -22,12 +22,12 @@
 */
 
 OCP\User::checkLoggedIn();
-OCP\App::checkAppEnabled('storage_charts');
+OCP\App::checkAppEnabled('storage-charts');
 
-$tmpl = new OCP\Template('storage_charts', 'settings.tpl');
+$tmpl = new OCP\Template('storage-charts', 'settings.tpl');
 
-if(isset($_POST['storage_charts_disp']) && count($_POST['storage_charts_disp']) <= 3){
-	$c = $_POST['storage_charts_disp'];
+if(isset($_POST['storage-charts_disp']) && count($_POST['storage-charts_disp']) <= 3){
+	$c = $_POST['storage-charts_disp'];
 	$c_disp = Array('cpie_rfsus'=>0,'clines_usse'=>0,'chisto_us'=>0);
 	foreach(array_keys($c_disp) as $chart){
 		if(in_array($chart, $c)){
