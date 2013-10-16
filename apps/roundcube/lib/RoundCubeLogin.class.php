@@ -327,8 +327,7 @@ class OC_RoundCube_Login {
     if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
       $this -> lastToken = $m[1];
 
-    if (preg_match('/
-<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
+    if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
       $this -> lastToken = $m[1];
     // override previous token (if this one exists!)
 
