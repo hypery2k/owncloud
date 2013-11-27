@@ -152,4 +152,20 @@ rc.iframe_loaded = function() {
 	// remove email adresse
 	$('#roundcubeFrame').contents().find('.username').remove();
 
+        // RC only checks for visibility of the preview
+        // window. However, as with start with display:none for the
+        // entire frame, the prevew window is indeed not visible at
+        // the start when RC initializes itself.
+        var mailPrev = $('#roundcubeFrame').contents().find('#mailpreviewframe');
+        if (mailPrev.length && mailPrev.css('display') != 'none') {
+                $('#roundcubeFrame')[0].contentWindow.rcmail.set_env('contentframe','messagecontframe');
+        }
+
 };
+
+/*
+ * Local Variables: ***
+ * js-indent-level: 8 ***
+ * End: ***
+ */
+
