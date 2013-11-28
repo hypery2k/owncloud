@@ -36,8 +36,15 @@ if (!$table_exists) {
   $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
   // TODO create dropdown list
   $mail_userdata = $mail_userdata_entries[0];
-  $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
-  $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+  //
+  // Nope. Already logged in at the start. Then starting to support
+  // multiple accounts, a re-login with other credentials than the
+  // default ID could be provided.
+  //
+  //$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+  //$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+  $mail_username = $mail_userdata['mail_user'];
+  $mail_password = $mail_userdata['mail_password'];
 
   $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 

@@ -1,6 +1,7 @@
 <form id="mail" action="#" method="post">
 	<!-- Prevent CSRF attacks-->
 	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
+   	<input type="hidden" name="appname" value="roundcube">
 
 	<div id="roundcube" class="personalblock">
 		<legend><strong><?php echo $l -> t('RoundCube Settings'); ?></strong></legend>
@@ -41,17 +42,6 @@
 		  </label>
       <input type="text" id="rcHost" name="rcHost" value="<?php echo $_['rcHost']; ?>">
       <br>			
-			<br>
-        <p>
-  				<label for="encryptstring1"><?php echo $l -> t('Encryptstring1'); ?>
-  		 			<input type="text" id="encryptstring1" name="encryptstring1" value="<?php echo $_['encryptstring1']; ?>">
-  		 		</label>	
-        </p>
-        <p>
-  				<label for="encryptstring2"><?php echo $l -> t('Encryptstring2'); ?>
-  			 		<input type="text" id="encryptstring2" name="encryptstring2" value="<?php echo $_['encryptstring2']; ?>">
-  			 	</label>
-        </p>		
 		</fieldset>
 		<input type="submit" value="Save" />
 	</div>

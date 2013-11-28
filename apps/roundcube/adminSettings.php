@@ -33,7 +33,7 @@ $params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav'
 
 OCP\Util::addscript('roundcube', 'settings');
 
-if ($_POST) {
+if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
   foreach ($params as $param) {
     if (isset($_POST[$param])) {
       if ($param === 'removeHeaderNav') {

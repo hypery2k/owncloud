@@ -36,6 +36,8 @@ $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'login');
 OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
+OCP\Util::connectHook('OC_User', 'post_setPassword', 'OC_RoundCube_AuthHelper', 'changePasswordListener');
+
 // probably no longer needed, now that we use routes ...
 OCP\BackgroundJob::AddRegularTask('OC_RoundCube_AuthHelper', 'refresh');
 
