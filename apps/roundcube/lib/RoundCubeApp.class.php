@@ -116,6 +116,25 @@ class OC_RoundCube_App {
     $rcl -> logout();
   }
 
+  public static function login($rcHost, $maildir, $ownUser, $ownPass)
+  {
+    // Create RC login object.
+    $rcl = new OC_RoundCube_Login($rcHost, $maildir);
+
+    // Try to login
+    OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
+    if ($rcl -> isLoggedIn()) {
+      $rcl -> logout();
+      $rcl = new OC_RoundCube_Login($rcHost, $maildir);
+    }
+    if ($rcl -> login($ownUser, $ownPass)) {
+      OCP\Util::writeLog('roundcube', 'Successfully logged into roundcube ', OCP\Util::DEBUG);
+    } else {
+      // If the login fails, display an error message in the loggs
+      OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
+    }
+  }
+
   /**
    *
    * @brief showing up roundcube iFrame
@@ -134,17 +153,9 @@ class OC_RoundCube_App {
     $rcl = new OC_RoundCube_Login($rcHost, $maildir);
 
     try {
-      // Try to login
-      OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
       if ($rcl -> isLoggedIn()) {
-        $rcl -> logout();
-        $rcl = new OC_RoundCube_Login($rcHost, $maildir);
-      }
-      if ($rcl -> login($ownUser, $ownPass)) {
-        OCP\Util::writeLog('roundcube', 'Successfully logged into roundcube ', OCP\Util::DEBUG);
-      } else {
         // If the login fails, display an error message in the loggs
-        OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
+        OCP\Util::writeLog('roundcube', 'RoundCube: not logged in.', OCP\Util::ERROR);
       }
       OCP\Util::writeLog('roundcube', 'Preparing iFrame for roundcube:' . $rcl -> getRedirectPath(), OCP\Util::DEBUG);
       // loader image

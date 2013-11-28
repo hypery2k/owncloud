@@ -39,14 +39,39 @@ class OC_RoundCube_AuthHelper {
     }
   }
 
+  public static function login($params)
+  {
+    try {
+      $username = $params['uid'];
+      $password = $params['password'];
+
+      OCP\Util::writeLog('roundcube', 'Preparing login of user "'.$username.'" into roundcube', OCP\Util::INFO);
+      $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
+      $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+
+      $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
+      // TODO create dropdown list
+      $mail_userdata = $mail_userdata_entries[0];
+      $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+      $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+
+      OC_RoundCube_App::login($rc_host, $maildir, $mail_username, $mail_password);
+    } catch (Exception $e) {
+      // We got an exception == table not found
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error.' . $e,
+                         OCP\Util::DEBUG);
+      return false;
+    }
+  }
+  
+
   public static function logout($params) {
     try {
-      OCP\Util::writeLog('roundcube', 'Preparing logout of user from roundcube', OCP\Util::INFO);
-      $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
+      OCP\Util::writeLog('roundcube', 'LOGOUT HOOK: Preparing logout of user from roundcube.', OCP\Util::INFO);
       $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
       $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
       OC_RoundCube_App::logout($rc_host, $maildir, OCP\User::getUser());
-      OCP\Util::writeLog('roundcube', 'Logout of user from roundcube done', OCP\Util::INFO);
+      OCP\Util::writeLog('roundcube', 'LOGOUT HOOK: Logout of user from roundcube done', OCP\Util::INFO);
     } catch (Exception $e) {
       // We got an exception == table not found
       OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Logout/Session cleaning causing errors.' . $e, OCP\Util::DEBUG);
