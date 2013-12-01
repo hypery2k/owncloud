@@ -21,23 +21,28 @@
  *
  */
 
+// Check if we are a user
+OCP\User::checkLoggedIn();
+OCP\App::checkAppEnabled('roundcube');
+
+// Check if we are a user
+if (!OCP\User::isLoggedIn()) {
+  header("Location: " . OCP\Util::linkTo('', 'index.php'));
+  exit();
+}
+
+OCP\Util::addScript('roundcube', 'userSettings');
+
 // CSRF checks
 if ($_POST) {
   OCP\JSON::callCheck();
 }
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
-  $ocuser = OCP\User::getUser();
-  $mail_userdata_entries = OC_RoundCube_App::checkLoginData($ocuser);
-  // TODO multiple user support
-  $mail_userdata = $mail_userdata_entries[0];
-  $myID = $mail_userdata['id'];
-  $pubKey =  OC_RoundCube_App::getPublicKey($ocuser);
-  $mail_user = OC_RoundCube_App::cryptMyEntry($_POST['mail_username'], $pubKey);
-  $mail_password = OC_RoundCube_App::cryptMyEntry($_POST['mail_password'], $pubKey);
+  $ocUser = OCP\User::getUser();
 
-  $stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
-  $result = $stmt -> execute(array($mail_user, $mail_password, $myID));
+  $result = OC_RoundCube_App::cryptEmailIdentity(
+    $ocUser, $_POST['mail_username'], $_POST['mail_password']);
 
   if ($result) {
     // update login credentials

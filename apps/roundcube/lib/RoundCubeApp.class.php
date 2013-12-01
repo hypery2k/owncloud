@@ -163,6 +163,42 @@ class OC_RoundCube_App {
     return $data;
   }
 
+  /**Use the pulic key of the respective user to encrypt the given
+   * email identity and store it in the data-base.
+   *
+   * @param[in] $ocUuser The OwnCloud user id
+   *
+   * @param[in] $emailUser The IMAP account Id
+   *
+   * @param[in] $emailPassword The IMAP credentials.
+   *
+   */
+  public static function cryptEmailIdentity($ocUser, $emailUser, $emailPassword)
+  {
+    $mail_userdata_entries = OC_RoundCube_App::checkLoginData($ocUser);
+    if ($mail_userdata_entries === false) {
+      return false;
+    }
+    $mail_userdata = $mail_userdata_entries[0];
+    $myID = $mail_userdata['id'];
+
+    $pubKey = self::getPublicKey($ocUser);
+    if ($pubKey === false) {
+      return false;
+    }
+    $emailUser = OC_RoundCube_App::cryptMyEntry($emailUser, $pubKey);
+    $emailPassword = OC_RoundCube_App::cryptMyEntry($emailPassword, $pubKey)
+;
+    if ($emailUser === false || $emailPassword === false) {
+      return false;
+    }
+
+    $stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
+    $result = $stmt -> execute(array($emailUser, $emailPassword, $myID));
+
+    return $result;
+  }
+
   /**
    * Logs the current user out from roundcube
    *
