@@ -31,26 +31,8 @@ if (!OCP\User::isLoggedIn()) {
   exit();
 }
 
+OCP\Util::addStyle('roundcube', 'userSettings');
 OCP\Util::addScript('roundcube', 'userSettings');
-
-// CSRF checks
-if ($_POST) {
-  OCP\JSON::callCheck();
-}
-
-if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
-  $ocUser = OCP\User::getUser();
-
-  $result = OC_RoundCube_App::cryptEmailIdentity(
-    $ocUser, $_POST['mail_username'], $_POST['mail_password']);
-
-  if ($result) {
-    // update login credentials
-    $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-    $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
-    OC_RoundCube_App::login($rc_host, $maildir, $_POST['mail_username'], $_POST['mail_password']);
-  }
-}
 
 // fill template
 $params = array();

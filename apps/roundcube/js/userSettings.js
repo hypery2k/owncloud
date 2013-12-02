@@ -1,8 +1,9 @@
 $(document).ready(function() {
 
   // 'show password' checkbox
-  var element = $('#usermail #mail_password');
-  var tmp = element.val();
+  var element     = $('#usermail #mail_password');
+  var tmp         = element.val();
+  var placeholder = element.attr('placeholder');
   element.showPassword();
   element.val(tmp);
 

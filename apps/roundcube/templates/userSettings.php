@@ -33,7 +33,7 @@ $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
   <input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
   <input type="hidden" name="appname" value="roundcube">
   <fieldset class="personalblock">
-  <legend><strong><?php echo $l -> t('RoundCube Mailaccount'); ?></strong></legend>
+  <legend><strong><?php echo $l->t('RoundCube Mailaccount'); ?></strong></legend>
     <p>
 <?php
 $privKey = OC_RoundCube_App::getPrivateKey(false, false);
@@ -42,29 +42,27 @@ foreach($mail_userdata_entries as $mail_userdata) {
         $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 // TODO use template and add button for adding entries
 ?>  
-    <label for="usermail"><?php echo $l -> t('Username'); ?>
-      <input type="text" id="mail_username" name="mail_username" value="<?php echo $mail_username; ?>"/>
-    </label>
-    <label for="usermail"><?php echo $l -> t('Password'); ?>
-      <input type="password"
+    <input type="text"
+        id="mail_username"
+          name="mail_username"
+          value="<?php echo $mail_username; ?>"
+          placeholder="<?php echo $l->t('Email Login Name');?>"
+          />
+    <input type="password"
              id="mail_password"
              name="mail_password"
              placeholder="<?php echo $l->t('Email Password');?>"
              data-typetoggle="#mail_password_show"/>
-    </label>
-    <label for="mail_password_show">
-      <input type="checkbox" id="mail_password_show" name="show" />
-      <?php echo $l->t('show');?>
-    </label>
+    <input type="checkbox" id="mail_password_show" name="show" />
+    <label for="mail_password_show"><?php echo $l->t('show');?></label>
 <?php
 }
 ?>  
-  </p>
     <input type="button"
            value="<?php echo $l->t('Change Email Identity'); ?>"
            name="usermail_update"
            id="usermail_update"/>
-    <span class="statusmessage" id="usermail_update_message"></span>
+    <div class="statusmessage" id="usermail_update_message"></div>
 </fieldset>
 </form>
 <?php
