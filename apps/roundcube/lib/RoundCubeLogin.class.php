@@ -510,7 +510,9 @@ class OC_RoundCube_Login {
    * @param string Output data
    */
   private function addDebug($action, $data) {
-    OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::DEBUG);
+    if ($this->debugEnabled) {
+      OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::DEBUG);
+    }
   }
 
   /**

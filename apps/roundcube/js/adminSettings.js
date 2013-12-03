@@ -18,7 +18,7 @@ $(document).ready(function() {
                $('#adminmail_update_message').show();
              } else {
                $('#adminmail_update_message').html(data.data.message);
-                 $('#adminmail_update_message').show();
+               $('#adminmail_update_message').show();
              }
            },'json');
     return false;
