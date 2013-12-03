@@ -24,50 +24,12 @@
 // ensure that only admin user access this page
 OCP\User::checkAdminUser();
 
-// CSRF checks
-if ($_POST) {
-  OCP\JSON::callCheck();
-}
-
-$params = array('maildir', 'encryptstring1', 'encryptstring2', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'rcHost');
-
-OCP\Util::addscript('roundcube', 'settings');
-
-if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
-  foreach ($params as $param) {
-    if (isset($_POST[$param])) {
-      if ($param === 'removeHeaderNav') {
-        OCP\Config::setAppValue('roundcube', 'removeHeaderNav', true);
-      }
-      if ($param === 'removeControlNav') {
-        OCP\Config::setAppValue('roundcube', 'removeControlNav', true);
-      }
-      if ($param === 'autoLogin') {
-        OCP\Config::setAppValue('roundcube', 'autoLogin', true);
-      } else {
-        if ($param === 'rcHost') {
-          if (strlen($_POST[$param]) > 3) {
-            OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
-          }
-        } else {
-          OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
-        }
-      }
-    } else {
-      if ($param === 'removeHeaderNav') {
-        OCP\Config::setAppValue('roundcube', 'removeHeaderNav', false);
-      }
-      if ($param === 'removeControlNav') {
-        OCP\Config::setAppValue('roundcube', 'removeControlNav', false);
-      }
-      if ($param === 'autoLogin') {
-        OCP\Config::setAppValue('roundcube', 'autoLogin', false);
-      }
-    }
-  }
-}
+//OCP\Util::addStyle('roundcube', 'adminSettings');
+OCP\Util::addScript('roundcube', 'adminSettings');
 
 // fill template
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noDebug', 'rcHost');
+
 $tmpl = new OCP\Template('roundcube', 'adminSettings');
 foreach ($params as $param) {
   $value = OCP\Config::getAppValue('roundcube', $param, '');

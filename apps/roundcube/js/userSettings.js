@@ -12,6 +12,8 @@ $(document).ready(function() {
   // error-prone.
 
   $("#usermail_update").click(function() {
+    event.preventDefault();
+
     var self = $(this);
     var password = $('#usermail #mail_password').val();
     var user     = $('#usermail #mail_username').val();
