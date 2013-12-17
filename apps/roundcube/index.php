@@ -33,8 +33,19 @@ if (!OCP\User::isLoggedIn()) {
 
 // Load our style
 OCP\Util::addStyle('roundcube', 'base');
-// add neede JS
-OCP\Util::addScript('', 'jquery-1.7.2.min');
+
+// workaround to detect OC version
+// OC 5
+if (6 > @reset(OCP\Util::getVersion())) {
+  OCP\Util::writeLog('roundcube', 'Running on OwnCloud 5', OCP\Util::DEBUG);
+  // add neede JS
+  OCP\Util::addScript('', 'jquery-1.7.2.min');
+  // OC 6
+} else {
+  OCP\Util::writeLog('roundcube', 'Running on OwnCloud 6', OCP\Util::DEBUG);
+  // add neede JS
+  OCP\Util::addScript('', 'jquery-1.10.0.min');
+}
 OCP\Util::addScript('roundcube', 'jquery.plugins');
 OCP\Util::addScript('roundcube', 'mail');
 OCP\Util::addScript('roundcube', 'modernizr');
