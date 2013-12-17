@@ -20,7 +20,7 @@
  *
  */
 
-$table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
+$table_exists = OC_RoundCube_DB_Util::tableExists();
 
 if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'DB table entries no created ...', OCP\Util::ERROR);

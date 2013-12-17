@@ -26,7 +26,7 @@
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('roundcube');
 
-$table_exists = OC_RoundCube_DB_Util::tableExists('roundcube');
+$table_exists = OC_RoundCube_DB_Util::tableExists();
 
 $html_output = "";
 if (!$table_exists) {

@@ -22,33 +22,27 @@
 class OC_RoundCube_DB_Util {
 
   /**
-   * Check if a table exists in the current database.
+   * Check if roundcube table exists in the current database.
    *
-   * @param string $table Table to search for.
    * @return bool TRUE if table exists, FALSE if no table found.
    */
-  public static function tableExists($table) {
-    OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Checking if table ' . $table . ' exists.', OCP\Util::DEBUG);
+  public static function tableExists() {
+    OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Checking if roundcube table exists.', OCP\Util::DEBUG);
     // Try a select statement against the table
     // Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
     try {
-      $sql = "SELECT * FROM *PREFIX*$table LIMIT 1";
+      $sql = 'SELECT * FROM `*PREFIX*roundcube` LIMIT 1';
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Used SQL: ' . $sql, OCP\Util::DEBUG);
       $query = \OCP\DB::prepare($sql);
       $result = $query -> execute();
 
     } catch (Exception $e) {
       // We got an exception == table not found
-      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exists.', OCP\Util::DEBUG);
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table roundcube does not exists. ' . $e, OCP\Util::DEBUG);
       return false;
     }
-    // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
-    if ($result instanceof PDOStatementWrapper) {
-      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' exists.', OCP\Util::DEBUG);
-      return true;
-    } else {
-      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exits.', OCP\Util::DEBUG);
-      return false;
-    }
+    OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table roundcube exists.', OCP\Util::DEBUG);
+    return true;
 
   }
 
