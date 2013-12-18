@@ -5,7 +5,10 @@
 // Check if we are a user
 OCP\User::checkAdminUser();
 OCP\JSON::checkAppEnabled('roundcube');
+
+// CSRF checks
 OCP\JSON::callCheck();
+
 $l = new OC_L10N('roundcube');
 
 $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noDebug', 'rcHost');

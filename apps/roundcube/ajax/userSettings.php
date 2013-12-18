@@ -5,7 +5,10 @@
 // Check if we are a user
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('roundcube');
+
+// CSRF checks
 OCP\JSON::callCheck();
+
 $l = new OC_L10N('roundcube');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {

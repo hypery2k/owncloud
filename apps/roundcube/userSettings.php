@@ -24,6 +24,8 @@
 // Check if we are a user
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('roundcube');
+// CSRF checks
+OCP\JSON::callCheck();
 
 // Check if we are a user
 if (!OCP\User::isLoggedIn()) {

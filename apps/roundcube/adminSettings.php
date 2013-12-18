@@ -24,6 +24,9 @@
 // ensure that only admin user access this page
 OCP\User::checkAdminUser();
 
+// CSRF checks
+OCP\JSON::callCheck();
+
 //OCP\Util::addStyle('roundcube', 'adminSettings');
 OCP\Util::addScript('roundcube', 'adminSettings');
 
