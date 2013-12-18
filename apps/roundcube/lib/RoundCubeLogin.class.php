@@ -145,6 +145,16 @@ class OC_RoundCube_Login {
   private $rcSessionAuth;
 
   /**
+   * Authentication headers to forward to the user's web browser.
+   */
+  private $authHeaders;
+
+  /**
+   * Location redirect, needed to detect successful login.
+   */
+  private $rcLocation;
+
+  /**
    * Save the current status of the Roundcube session.
    * 0 = unkown, 1 = logged in, -1 = not logged in.
    *
@@ -198,6 +208,8 @@ class OC_RoundCube_Login {
     $this -> rcSessionID = true;
     $this -> rcSessionAuth = true;
     $this -> rcLoginStatus = 0;
+    $this -> authHeaders = array();
+    $this -> rcLocation = false;
     $this -> addDebug("Creating new RoundCubeLogin instance:", "rcHost:" . $this -> rcHost . "rcPath:" . $this -> rcPath);
   }
 
@@ -225,28 +237,40 @@ class OC_RoundCube_Login {
       $this -> logout();
 
     // Try login
-    $data = (($this -> lastToken) ? "_token=" . $this -> lastToken . "&" : "") . "_task=login&_action=login&_timezone=1&_dstactive=1&_url=&_user=" . urlencode($username) . "&_pass=" . urlencode($password);
-
+    $data = array("_task" => "login",
+                  "_action" => "login",
+                  "_timezone" => "1", // what is this?
+                  "_dstactive" => "1",
+                  "_url" => "",
+                  "_user" => $username,
+                  "_pass" => $password);
+    if ($this->lastToken) {
+      $data["_token"] = $this->lastToken;
+    }
     $response = $this -> sendRequest($this -> rcPath, $data);
 
+    $this->rcLoginStatus = 0;
+
     //  Login successful! A redirection to ./?_task=... is a success!
-    if (preg_match('/^Location\:.+_task=/mi', $response)) {
+    if (preg_match('/^Location\:.+_task=/mi', $this->rcLocation)) {
       $this -> addDebug("LOGIN SUCCESSFUL", "RC sent a redirection to ./?_task=..., that means we did it!");
       $this -> rcLoginStatus = 1;
+    } else foreach ($this->authHeaders as $header) {
+      
+      // Login failure detected! If the login failed, RC sends the cookie
+      // "sessauth=-del-"
+      if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $header)) {
+        //header($line, false);
+
+        $this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
+        $this -> rcLoginStatus = -1;
+        break;
+      }
     }
-
-    // Login failure detected! If the login failed, RC sends the cookie
-    // "sessauth=-del-"
-    else if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $response)) {
-      //header($line, false);
-
-      $this -> addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
-      $this -> rcLoginStatus = -1;
-    }
-
-    // Unkown, neither failure nor success.
-    // This maybe the case if no session ID was sent
-    else {
+    
+    if ($this->rcLoginStatus == 0) {
+      // Unkown, neither failure nor success.
+      // This maybe the case if no session ID was sent
       $this -> addDebug("LOGIN STATUS UNKNOWN", "Neither failure nor success. This maybe the case if no session ID was sent");
       throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
     }
@@ -274,8 +298,10 @@ class OC_RoundCube_Login {
    * @return bool Returns TRUE if the login was successful, FALSE otherwise
    */
   public function logout() {
-    $data = (($this -> lastToken) ? "_token=" . $this -> lastToken . "&" : "") . "_action=logout&_task=logout";
-
+    $data = array("_action" => "logout", "_task" => "logout");
+    if ($this->lastToken) {
+      $data["_token"] = $this->lastToken;
+    }
     $this -> sendRequest($this -> rcPath, $data);
 
     return !$this -> isLoggedIn();
@@ -314,10 +340,10 @@ class OC_RoundCube_Login {
       return;
 
     // Get current session ID cookie
-    if ($_COOKIE['roundcube_sessid'])
+    if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid'])
       $this -> rcSessionID = $_COOKIE['roundcube_sessid'];
 
-    if ($_COOKIE['roundcube_sessauth'])
+    if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth'])
       $this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
 
     // Send request and maybe receive new session ID
@@ -364,14 +390,23 @@ class OC_RoundCube_Login {
    * @return string Returns the complete request response with all headers.
    */
   private function sendRequest($path, $postData = false) {
+    if (is_array($postData)) {
+      $postData = http_build_query($postData, '', '&');
+    }
     $method = (!$postData) ? "GET" : "POST";
-    $port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
-    $url = "/" . $path . "/";
-    // fix for issue #60, see https://github.com/hypery2k/owncloud/issues/60
-    $protocol = "HTTP/1.1";
-    $host = (($port == 443) ? "ssl://" : "") . $this -> rcHost;
+    if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+         $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+      $url = "https://";
+    } else {
+      $url = "https://";
+    }
+    $sep = $path[0] != '/' ? '/' : '';
+    $url .= $this->rcHost . $sep . $path . "/";
 
-    $this -> addDebug('sendRequest', 'Trying to connect via "' . $method . '" on port "' . $port . '" to URL "' . $url . '" on host"' . $host . '"');
+    $this -> addDebug('sendRequest',
+                      'Trying to connect via "' . $method .
+                      '" to URL "' . $url .
+                      '" on host"' . $this->rcHost . '"');
 
     // Load cookies and save them in a key/value array
     $cookies = array();
@@ -381,81 +416,91 @@ class OC_RoundCube_Login {
     }
 
     // Add roundcube session ID if available
-    if (!$_COOKIE['roundcube_sessid'] && $this -> rcSessionID) {
+    if ((!isset($_COOKIE['roundcube_sessid']) || !$_COOKIE['roundcube_sessid']) && $this -> rcSessionID) {
       // @formatter:off
       $cookies[] = "roundcube_sessid={$this->rcSessionID}";
       // @formatter:on
     }
-    if (!$_COOKIE['roundcube_sessauth'] && $this -> rcSessionAuth) {
+    if ((!isset($_COOKIE['roundcube_sessauth']) || !$_COOKIE['roundcube_sessauth']) && $this -> rcSessionAuth) {
       // @formatter:off
       $cookies[] = "roundcube_sessauth={$this->rcSessionAuth}";
       // @formatter:on
     }     
     $cookies = ($cookies) ? "Cookie: " . join("; ", $cookies) . "\r\n" : "";
 
-    // Create POST request with the given data
-    if ($method == "POST") {
-      $request = "POST " . $path . " HTTP/1.1\r\n" . "Host: " . $_SERVER['HTTP_HOST'] . "\r\n" . "User-Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Content-Type: application/x-www-form-urlencoded\r\n" . "Content-Length: " . strlen($postData) . "\r\n" . $cookies . "Connection: close\r\n\r\n" . $postData;
-    }
+    $header = 
+      "Content-Type: application/x-www-form-urlencoded" . "\r\n" .
+      "Content-Length: " . strlen($postData) . "\r\n" .
+      $cookies;
+    $context = stream_context_create(array('http' => array(
+                                             'method' => $method,
+                                             'header' => $header,
+                                             'content' => $postData)));
+    $fp = fopen($url, 'rb', false, $context);                                             
 
-    // Make GET
-    else {
-      $request = "GET " . $path . " HTTP/1.1\r\n" . "Host: " . $_SERVER['HTTP_HOST'] . "\r\n" . "User-Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . $cookies . "Connection: close\r\n\r\n";
-    }
-
-    // Send request
-    $fp = fsockopen($host, $port);
     if (!$fp) {
       $this -> addDebug("sendRequest", "Network connection failed on fsockopen. Please check your path for roundcube.");
       throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
     } else {
 
-      // Request
-      $this -> addDebug("sendRequest", "request was " . $request);
-      fputs($fp, $request);
-
       // Read response and set received cookies
-      $response = "";
-
-      while (!feof($fp)) {
-        $line = fgets($fp, 4096);
-
-        // Not found
-        if (preg_match('/^HTTP\/1\.\d\s+404\s+/', $line)) {
-          throw new OC_Mail_RC_InstallNotFoundException("No Roundcube installation found at '$path'. Maybe you forgotten to add a ending '/'?");
-        }
+      $response    = stream_get_contents($fp);
+      fclose($fp);
+      $responseHdr = $http_response_header;
+      
+      $this->authHeaders = array();
+      foreach($responseHdr as $header) {
         // Got session ID!
-        if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $line, $match)) {
-          header($line, false);
+        if (preg_match('/^Set-Cookie:\s*(.+roundcube_sessid=([^;]+);.+)$/i', $header, $match)) {
+          $this->authHeaders[] = $header;
+          $this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
+          // header($line, false);
 
           $this -> addDebug("sendRequest", "Got the following session ID " . $match[2]);
           $this -> rcSessionID = $match[2];
         }
 
         // Got sessauth
-        if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $line, $match)) {
-          header($line, false);
+        if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $header, $match)) {
+          $this->authHeaders[] = $header;
+          $this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
+          // header($line, false);
 
           $this -> addDebug("sendRequest", "New session auth: '$match[1]'.");
-          $this -> rcSessionAuthi = $match[1];
+          $this -> rcSessionAuth = $match[1];
         }
 
-        // Request token (since Roundcube 0.5.1)
-        if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
-          $this -> lastToken = $m[1];
+        // Location header
+        if (preg_match('/^Location\:.+/', $header)) {
+          $this->rcLocation = $header;
+        }
 
-        if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
-          $this -> lastToken = $m[1];
-        // override previous token (if this one exists!)
-
-        $response .= $line;
+      }
+      
+      // Request token (since Roundcube 0.5.1)
+      if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
+        $this -> lastToken = $m[1];
       }
 
-      fclose($fp);
+      if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
+          $this -> lastToken = $m[1];
+        // override previous token (if this one exists!)
+      }
 
-      $this -> addDebug("sendRequest", "Response was" . $response);
+      $this -> addDebug("sendRequest", "Header received: " . print_r($http_response_header, true) . "\nResponse was" . $response);
+
+      $this->emitAuthHeaders();
     }
     return $response;
+  }
+
+  /**Send authentication headers previously aquired
+   */
+  function emitAuthHeaders() 
+  {
+    foreach ($this->authHeaders as $header) {
+      header($header, false /* replace or not??? */);
+    }
   }
 
   /**
@@ -465,7 +510,9 @@ class OC_RoundCube_Login {
    * @param string Output data
    */
   private function addDebug($action, $data) {
-    OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::DEBUG);
+    if ($this->debugEnabled) {
+      OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::DEBUG);
+    }
   }
 
   /**

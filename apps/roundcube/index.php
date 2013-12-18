@@ -55,4 +55,5 @@ OCP\App::setActiveNavigationEntry("roundcube_index");
 
 $tmpl = new OCP\Template("roundcube", "mail", "user");
 $tmpl -> printpage();
+
 ?>

@@ -67,23 +67,86 @@ class OC_RoundCube_App {
   }
 
   /**
+   * @brief Generate a private/public key pair.
+   * @param $user User ID.
+   * @param $password Passphrase
+   *
+   * @return array('privateKey', 'publicKey')
+   */
+  public static function generateKeyPair($user, $pass = false)
+  {
+    /* Create the private and public key */
+    $res = openssl_pkey_new();
+
+    /* Extract the private key from $res to $privKey */
+    if (!openssl_pkey_export($res, $privKey, $password)) {
+      return false;
+    }
+
+    /* Extract the public key from $res to $pubKey */
+    $pubKey = openssl_pkey_get_details($res);
+
+    if ($pubKey === false) {
+      return false;
+    }
+    $pubKey = $pubKey['key'];
+
+    // We now store the public key unencrypted in the user preferences.
+    // The private key already is encrypted with the user's password,
+    // so there is no need to encrypt it again.
+
+    \OCP\Config::setUserValue($user, 'roundcube', 'publicSSLKey', $pubKey);
+    \OCP\Config::setUserValue($user, 'roundcube', 'privateSSLKey', $privKey);
+
+    return array('privateKey' => $privKey, 'publicKey' => $pubKey);
+  }
+
+
+  public static function getPublicKey($user)
+  {
+    $pubKey = \OCP\Config::getUserValue($user, 'roundcube', 'publicSSLKey', false);
+    return $pubKey;
+  }
+
+  public static function getPrivateKey($user, $password = false)
+  {
+    if ($user == false && $password == false &&
+        isset($_SESSION['OC\\ROUNDCUBE\\privateKey'])) {
+      return $_SESSION['OC\\ROUNDCUBE\\privateKey'];
+    } else if ($user == false) {
+      return false;
+    }
+
+    $privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', false);
+    if ($privKey === false) {
+      $result = self::generateKeyPair($user, $password);
+      $privKey = $result['privateKey'];
+    } else {
+      $privKey = openssl_pkey_get_private($privKey, $password);
+      if ($privKey === false) {
+        return false;
+      }
+      if (openssl_pkey_export($privKey, $privKey) === false) {
+        return false;
+      }
+    }
+    $_SESSION['OC\\ROUNDCUBE\\privateKey'] = $privKey;
+    
+    return $privKey;
+  }
+
+  /**
    * @brief own cryptfunction
    * @param object to encrypt $entry
    * @returns encrypted entry
    *
    */
-  public static function cryptMyEntry($entry) {
-
-    $before = OCP\Config::getAppValue('roundcube', 'encryptstring1', '');
-    $after = OCP\Config::getAppValue('roundcube', 'encryptstring2', '');
-    $string = $before . $entry . $after;
-
-    $hex = '';
-    for ($i = 0; $i < strlen($string); $i++) {
-      $hex .= dechex(ord($string[$i]));
+  public static function cryptMyEntry($entry, $pubKey) {
+    if (openssl_public_encrypt($entry, $entry, $pubKey) === false) {
+      return false;
     }
-
-    return $hex;
+    $entry = base64_encode($entry);
+    return $entry;
   }
 
   /**
@@ -92,16 +155,48 @@ class OC_RoundCube_App {
    * @returns decrypted entry
    *
    */
-  public static function decryptMyEntry($hex) {
-    $before = OCP\Config::getAppValue('roundcube', 'encryptstring1', '');
-    $after = OCP\Config::getAppValue('roundcube', 'encryptstring2', '');
-    $string = '';
-    for ($i = 0; $i < strlen($hex) - 1; $i += 2) {
-      $string .= chr(hexdec($hex[$i] . $hex[$i + 1]));
+  public static function decryptMyEntry($data, $privKey) {
+    $data = base64_decode($data);
+    if (openssl_private_decrypt($data, $data, $privKey) === false) {
+      return;
+    }
+    return $data;
+  }
+
+  /**Use the pulic key of the respective user to encrypt the given
+   * email identity and store it in the data-base.
+   *
+   * @param[in] $ocUuser The OwnCloud user id
+   *
+   * @param[in] $emailUser The IMAP account Id
+   *
+   * @param[in] $emailPassword The IMAP credentials.
+   *
+   */
+  public static function cryptEmailIdentity($ocUser, $emailUser, $emailPassword)
+  {
+    $mail_userdata_entries = OC_RoundCube_App::checkLoginData($ocUser);
+    if ($mail_userdata_entries === false) {
+      return false;
+    }
+    $mail_userdata = $mail_userdata_entries[0];
+    $myID = $mail_userdata['id'];
+
+    $pubKey = self::getPublicKey($ocUser);
+    if ($pubKey === false) {
+      return false;
+    }
+    $emailUser = OC_RoundCube_App::cryptMyEntry($emailUser, $pubKey);
+    $emailPassword = OC_RoundCube_App::cryptMyEntry($emailPassword, $pubKey)
+;
+    if ($emailUser === false || $emailPassword === false) {
+      return false;
     }
 
-    $string = str_replace(array($before, $after), '', $string);
-    return $string;
+    $stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
+    $result = $stmt -> execute(array($emailUser, $emailPassword, $myID));
+
+    return $result;
   }
 
   /**
@@ -112,8 +207,50 @@ class OC_RoundCube_App {
    * @param roundcube usernam $user
    */
   public static function logout($rcHost, $maildir, $user) {
-    $rcl = new OC_RoundCube_Login($rcHost, $maildir);
-    $rcl -> logout();
+    $noDebug = OCP\Config::getAppValue('roundcube', 'noDebug', 'true');
+
+    $rcl = new OC_RoundCube_Login($rcHost, $maildir, !$noDebug);
+    if ($rcl -> logout()) {
+      OCP\Util::writeLog('roundcube', $user.' successfully logged off from roundcube ', OCP\Util::INFO);
+    } else {
+      OCP\Util::writeLog('roundcube', 'Failed to log-off '.$user.' from roundcube ', OCP\Util::ERROR);
+    }
+  }
+
+  public static function login($rcHost, $maildir, $ownUser, $ownPass)
+  {
+    // Create RC login object.
+    $noDebug = OCP\Config::getAppValue('roundcube', 'noDebug', 'true');
+    $rcl = new OC_RoundCube_Login($rcHost, $maildir, !$noDebug);
+
+    // Try to login
+    OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
+    if ($rcl -> isLoggedIn()) {
+      $rcl -> logout();
+      $rcl = new OC_RoundCube_Login($rcHost, $maildir, !$noDebug);
+    }
+    if ($rcl -> login($ownUser, $ownPass)) {
+      OCP\Util::writeLog('roundcube', $ownUser.' successfully logged into roundcube ', OCP\Util::INFO);
+    } else {
+      // If the login fails, display an error message in the loggs
+      OCP\Util::writeLog('roundcube', $ownUser.': RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
+    }
+  }
+
+  public static function refresh($rcHost, $maildir)
+  {
+    // Create RC login object.
+    $noDebug = OCP\Config::getAppValue('roundcube', 'noDebug', 'true');
+
+    $rcl = new OC_RoundCube_Login($rcHost, $maildir, !$noDebug);
+
+    // Try to refresh
+    OCP\Util::writeLog('roundcube', 'Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
+    if ($rcl -> isLoggedIn()) {
+      OCP\Util::writeLog('roundcube', 'Probably successfully refreshed the RC session.', OCP\Util::INFO);
+    } else {
+      OCP\Util::writeLog('roundcube', 'Probably failed to refresh the RC session.', OCP\Util::ERROR);
+    }
   }
 
   /**
@@ -126,25 +263,19 @@ class OC_RoundCube_App {
    * @param roundcube password $ownPass
    *
    */
-  public static function showMailFrame($rcHost, $maildir, $ownUser, $ownPass) {
+  public static function showMailFrame($rcHost, $maildir, $ownUser = false, $ownPass = false) {
 
     $returnObject = new OC_Mail_Object();
 
     // Create RC login object.
-    $rcl = new OC_RoundCube_Login($rcHost, $maildir);
+    $noDebug = OCP\Config::getAppValue('roundcube', 'noDebug', 'true');
+
+    $rcl = new OC_RoundCube_Login($rcHost, $maildir, !$noDebug);
 
     try {
-      // Try to login
-      OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
-      if ($rcl -> isLoggedIn()) {
-        $rcl -> logout();
-        $rcl = new OC_RoundCube_Login($rcHost, $maildir);
-      }
-      if ($rcl -> login($ownUser, $ownPass)) {
-        OCP\Util::writeLog('roundcube', 'Successfully logged into roundcube ', OCP\Util::DEBUG);
-      } else {
+      if (!$rcl->isLoggedIn()) {
         // If the login fails, display an error message in the loggs
-        OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
+        OCP\Util::writeLog('roundcube', 'RoundCube: not logged in.', OCP\Util::ERROR);
       }
       OCP\Util::writeLog('roundcube', 'Preparing iFrame for roundcube:' . $rcl -> getRedirectPath(), OCP\Util::DEBUG);
       // loader image

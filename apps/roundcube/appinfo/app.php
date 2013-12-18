@@ -34,11 +34,15 @@ OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . '/
 
 $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
-if ($enable_auto_login) {
-  OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'autoSave');
-}
-
+OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'login');
 OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
+OCP\Util::connectHook('OC_User', 'post_setPassword', 'OC_RoundCube_AuthHelper', 'changePasswordListener');
+
+// probably no longer needed, now that we use routes ...
+// OCP\BackgroundJob::AddRegularTask('OC_RoundCube_AuthHelper', 'refresh');
+
+// Add global JS routines; this one triggers a session refresh for DW.
+OCP\Util::addScript('roundcube', 'routes');
 
 OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
