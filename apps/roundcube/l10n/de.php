@@ -10,6 +10,7 @@
 "Removes the buttons for different sections (mail, adressbook, settings) within the RoundCube mail application" => "Entferne Buttons für die verschiedenen Bereiche (Mail,Adressbuch,Einstellungen) innerhalb der RoundCube Anwendung",
 "Remove RoundCube control navigation menu items with currently logged in user information" => "RoundCube Navigationselemente mit aktuellen Nutzerinformationen ausblenden",
 "Remove information bar on top of page" => "Entfernen der Informationsleiste im oberen Seitenbereich",
+"Enable debug logging" => "Aktiviert Debugging für das Logging",
 "Name" => "Name",
 "Share" => "Teilen",
 "Download" => "Herunterladen",

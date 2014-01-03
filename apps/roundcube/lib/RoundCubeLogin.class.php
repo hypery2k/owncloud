@@ -398,10 +398,10 @@ class OC_RoundCube_Login {
          $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
       $url = "https://";
     } else {
-      $url = "https://";
+      $url = "http://";
     }
     $sep = $path[0] != '/' ? '/' : '';
-    $url .= $this->rcHost . $sep . $path . "/";
+    $url .= $this->rcHost . $sep . $path;
 
     $this -> addDebug('sendRequest',
                       'Trying to connect via "' . $method .
@@ -428,10 +428,7 @@ class OC_RoundCube_Login {
     }     
     $cookies = ($cookies) ? "Cookie: " . join("; ", $cookies) . "\r\n" : "";
 
-    $header = 
-      "Content-Type: application/x-www-form-urlencoded" . "\r\n" .
-      "Content-Length: " . strlen($postData) . "\r\n" .
-      $cookies;
+    $header = "Content-Type: application/x-www-form-urlencoded" . "\r\n" . "Content-Length: " . strlen($postData) . "\r\n" . $cookies;
     $context = stream_context_create(array('http' => array(
                                              'method' => $method,
                                              'header' => $header,

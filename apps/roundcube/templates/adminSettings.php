@@ -36,9 +36,9 @@
                    <?php if ($_['autoLogin']) echo ' checked'; ?>>                   
             <label title="<?php echo $l -> t('Enable autologin for users, which reuse the login data from OC for RoundCube.'); ?>" for="autoLogin"><?php echo $l -> t('Enable autologin for users'); ?></label>
           </td><td>
-            <input type="checkbox" name="noDebug" id="noDebug"
-                   <?php if ($_['noDebug']) echo ' checked'; ?>>
-            <label title="<?php echo $l->t('Disable (most) debug messages even if the global log setting is set to DEBUG. RC tends to bloat the log-files.'); ?>" for="noDebug"><?php echo $l->t('Disable debug logging'); ?></label>
+            <input type="checkbox" name="enableDebug" id="enableDebug"
+                   <?php if ($_['enableDebug']) echo ' checked'; ?>>
+            <label title="<?php echo $l->t('Enable debug messages. RC tends to bloat the log-files.'); ?>" for="enableDebug"><?php echo $l->t('Enable debug logging'); ?></label>
           </td>
       </tr></table>
       <label for="rcHost">
