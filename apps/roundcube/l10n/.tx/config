@@ -1,0 +1,5 @@
+[owncloud.roundcube]
+file_filter = <lang>/roundcube.po
+source_file = templates/roundcube.pot
+source_lang = en
+type = PO
