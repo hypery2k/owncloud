@@ -233,9 +233,9 @@ class OC_RoundCube_Login {
     $this -> updateLoginStatus();
 
     // If already logged in, perform a re-login (logout first)
-    if ($this -> isLoggedIn())
+    if ($this -> isLoggedIn()){
       $this -> logout();
-
+     }
     // Try login
     $data = array("_task" => "login",
                   "_action" => "login",
@@ -336,25 +336,26 @@ class OC_RoundCube_Login {
    * form.
    */
   private function updateLoginStatus($forceUpdate = false) {
-    if ($this -> rcSessionID && $this -> rcLoginStatus && !$forceUpdate)
+    if ($this -> rcSessionID && $this -> rcLoginStatus && !$forceUpdate){
       return;
-
+    }
     // Get current session ID cookie
-    if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid'])
+    if (isset($_COOKIE['roundcube_sessid']) && $_COOKIE['roundcube_sessid']){
       $this -> rcSessionID = $_COOKIE['roundcube_sessid'];
-
-    if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth'])
+    }
+    if (isset($_COOKIE['roundcube_sessauth']) && $_COOKIE['roundcube_sessauth']){
       $this -> rcSessionAuth = $_COOKIE['roundcube_sessauth'];
-
+    }
     // Send request and maybe receive new session ID
     $response = $this -> sendRequest($this -> rcPath);
 
     // Request token (since Roundcube 0.5.1)
-    if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m))
+    if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)){
       $this -> lastToken = $m[1];
-
-    if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m))
+    }
+    if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)){
       $this -> lastToken = $m[1];
+    }
     // override previous token (if this one exists!)
 
     // Login form available?

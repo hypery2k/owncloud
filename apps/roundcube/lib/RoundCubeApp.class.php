@@ -265,6 +265,7 @@ class OC_RoundCube_App {
    */
   public static function showMailFrame($rcHost, $maildir, $ownUser = false, $ownPass = false) {
 
+    // TODO remove obsolete params
     $returnObject = new OC_Mail_Object();
 
     // Create RC login object.
