@@ -24,14 +24,10 @@
 // ensure that only admin user access this page
 OCP\User::checkAdminUser();
 
-// CSRF checks
-OCP\JSON::callCheck();
-
-//OCP\Util::addStyle('roundcube', 'adminSettings');
 OCP\Util::addScript('roundcube', 'adminSettings');
 
 // fill template
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noDebug', 'rcHost');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost');
 
 $tmpl = new OCP\Template('roundcube', 'adminSettings');
 foreach ($params as $param) {

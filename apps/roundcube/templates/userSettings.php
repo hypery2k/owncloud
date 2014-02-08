@@ -32,8 +32,8 @@ $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
     <!-- Prevent CSRF attacks-->
   <input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
   <input type="hidden" name="appname" value="roundcube">
-  <fieldset class="personalblock">
-  <legend><strong><?php echo $l->t('RoundCube Mailaccount'); ?></strong></legend>
+  <fieldset class="personalblock" id="roundcube">
+  <h2><?php p($l->t('RoundCube Mailaccount')); ?></h2>
     <p>
 <?php
 $privKey = OC_RoundCube_App::getPrivateKey(false, false);
@@ -46,20 +46,20 @@ foreach($mail_userdata_entries as $mail_userdata) {
         id="mail_username"
           name="mail_username"
           value="<?php echo $mail_username; ?>"
-          placeholder="<?php echo $l->t('Email Login Name');?>"
+          placeholder="<?php p($l -> t('Email Login Name')); ?>"
           />
     <input type="password"
              id="mail_password"
              name="mail_password"
-             placeholder="<?php echo $l->t('Email Password');?>"
+             placeholder="<?php p($l -> t('Email Password')); ?>"
              data-typetoggle="#mail_password_show"/>
     <input type="checkbox" id="mail_password_show" name="show" />
-    <label for="mail_password_show"><?php echo $l->t('show');?></label>
+    <label for="mail_password_show"><?php p($l -> t('show')); ?></label>
 <?php
 }
 ?>  
     <input type="button"
-           value="<?php echo $l->t('Change Email Identity'); ?>"
+           value="<?php p($l -> t('Change Email Identity')); ?>"
            name="usermail_update"
            id="usermail_update"/>
     <div class="statusmessage" id="usermail_update_message"></div>

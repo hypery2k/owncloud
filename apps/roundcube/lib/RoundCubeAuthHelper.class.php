@@ -48,6 +48,8 @@ class OC_RoundCube_AuthHelper {
         $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
         $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
       }      
+      // save active mail username
+      OCP\Config::setAppValue('roundcube', 'mail_username', $mail_username);
 
       OC_RoundCube_App::login($rc_host, $maildir, $mail_username, $mail_password);
     } catch (Exception $e) {
