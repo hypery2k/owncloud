@@ -4,12 +4,7 @@
 #roundcubeFrame {
 	height: 100%;
 }
-/* This only works with JavaScript,
- if it's not present, don't show loader */
-.no-js #loader {
-	display: none;
-}
-.js #loader {
+#loader {
 	position: fixed;
 	top: 50%;
 	left: 50%;

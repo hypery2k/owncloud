@@ -1,4 +1,6 @@
+
 <?php
+
 
 /**
  * ownCloud - roundcube mail plugin
@@ -49,12 +51,12 @@ if (6 > @reset(OCP\Util::getVersion())) {
 }
 OCP\Util::addScript('roundcube', 'jquery.plugins');
 OCP\Util::addScript('roundcube', 'mail');
-OCP\Util::addScript('roundcube', 'modernizr');
 
 // add new navigation entry
 OCP\App::setActiveNavigationEntry("roundcube_index");
 
 $tmpl = new OCP\Template("roundcube", "mail", "user");
+
 $tmpl -> printpage();
 
 ?>
