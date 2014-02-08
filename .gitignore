@@ -9,3 +9,7 @@ tmp
 .refactorings
 .metadata
 __MACOSX
+
+.idea/workspace.xml
+
+.idea/deployment.xml
