@@ -45,6 +45,11 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
       }
     }
   }
+  // update login status
+  $username = OCP\User::getUser();
+  $params = array("uid" => $username);
+  $loginHelper = new OC_RoundCube_AuthHelper();
+  $loginHelper->login($params);
 } else {
   OC_JSON::error(array("data" => array( "message" => $l->t("Not submitted for us.") )));
   return false;
