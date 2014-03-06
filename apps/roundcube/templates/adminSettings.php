@@ -13,10 +13,12 @@
     
     <fieldset id="roundcube-1">
       <p>
-        <label for="mail"><?php echo $l -> t('Absolute path to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, just absolute paths to the same domain owncloud is running.'); ?>
-          <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>"
-                 onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"  />
+        <label for="maildir">
+            <?php echo $l -> t('Absolute path to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, just absolute paths to the same domain owncloud is running.'); ?>
         </label>
+        <br/>
+        <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>"
+               onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"  />
       </p>
     </fieldset>
     <fieldset id="roundcube-2">
@@ -42,7 +44,7 @@
           </td>
       </tr></table>
       <label for="rcHost">
-        <?php echo $l -> t('Overwritte roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies'); ?>
+        <?php echo $l -> t('Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies'); ?>
       </label>
       <input type="text" id="rcHost" name="rcHost" value="<?php echo $_['rcHost']; ?>">
       <br>                           
