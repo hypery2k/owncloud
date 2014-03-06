@@ -47,7 +47,12 @@
         <?php echo $l -> t('Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies'); ?>
       </label>
       <input type="text" id="rcHost" name="rcHost" value="<?php echo $_['rcHost']; ?>">
-      <br>                           
+      <br>
+      <label for="rcPort">
+        <?php echo $l -> t('Overwrite roundcube server port (If not specified, ports 80/443 are used for HTTP/S)'); ?>
+      </label>
+      <input type="text" id="rcPort" name="rcPort" value="<?php echo $_['rcPort']; ?>">
+      <br>
     </fieldset>
     <input id="rcAdminSubmit" type="submit" value="Save" />
     <span id="adminmail_update_message"></span>

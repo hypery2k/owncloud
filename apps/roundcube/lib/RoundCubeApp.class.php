@@ -201,15 +201,16 @@ class OC_RoundCube_App {
 
   /**
    * Logs the current user out from roundcube
-   *
+   * @param roundcube server address
+   * @param roundcube server port
    * @param path to roundcube installation, Note: The first parameter is the URL-path of the RC inst
    * NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
    * @param roundcube usernam $user
    */
-  public static function logout($rcHost, $maildir, $user) {
+  public static function logout($rcHost, $rcPort, $maildir, $user) {
     $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
 
-    $rcl = new OC_RoundCube_Login($rcHost, $maildir, $enableDebug);
+    $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
     if ($rcl -> logout()) {
       OCP\Util::writeLog('roundcube', $user.' successfully logged off from roundcube ', OCP\Util::INFO);
     } else {
@@ -217,17 +218,17 @@ class OC_RoundCube_App {
     }
   }
 
-  public static function login($rcHost, $maildir, $ownUser, $ownPass)
+  public static function login($rcHost, $rcPort, $maildir, $ownUser, $ownPass)
   {
     // Create RC login object.
     $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
-    $rcl = new OC_RoundCube_Login($rcHost, $maildir, $enableDebug);
+    $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 
     // Try to login
     OCP\Util::writeLog('roundcube', 'Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
     if ($rcl -> isLoggedIn()) {
       $rcl -> logout();
-      $rcl = new OC_RoundCube_Login($rcHost, $maildir, $enableDebug);
+      $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
     }
     if ($rcl -> login($ownUser, $ownPass)) {
       OCP\Util::writeLog('roundcube', $ownUser.' successfully logged into roundcube ', OCP\Util::INFO);
@@ -237,12 +238,12 @@ class OC_RoundCube_App {
     }
   }
 
-  public static function refresh($rcHost, $maildir)
+  public static function refresh($rcHost, $rcPort, $maildir)
   {
     // Create RC login object.
     $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
 
-    $rcl = new OC_RoundCube_Login($rcHost, $maildir, $enableDebug);
+    $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 
     // Try to refresh
     OCP\Util::writeLog('roundcube', 'Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
@@ -263,7 +264,7 @@ class OC_RoundCube_App {
    * @param roundcube password $ownPass
    *
    */
-  public static function showMailFrame($rcHost, $maildir, $ownUser = false, $ownPass = false) {
+  public static function showMailFrame($rcHost, $rcPort, $maildir, $ownUser = false, $ownPass = false) {
 
     // TODO remove obsolete params
     $returnObject = new OC_Mail_Object();
@@ -271,7 +272,7 @@ class OC_RoundCube_App {
     // Create RC login object.
     $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
 
-    $rcl = new OC_RoundCube_Login($rcHost, $maildir, $enableDebug);
+    $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 
     try {
       if (!$rcl->isLoggedIn()) {

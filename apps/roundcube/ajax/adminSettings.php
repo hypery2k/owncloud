@@ -11,7 +11,7 @@ OCP\JSON::callCheck();
 
 $l = new OC_L10N('roundcube');
 
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
   foreach ($params as $param) {

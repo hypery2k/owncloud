@@ -30,6 +30,7 @@ class OC_RoundCube_AuthHelper {
 
       $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
       $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+      $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
 
       $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
       
@@ -51,7 +52,7 @@ class OC_RoundCube_AuthHelper {
       // save active mail username
       OCP\Config::setAppValue('roundcube', 'mail_username', $mail_username);
 
-      OC_RoundCube_App::login($rc_host, $maildir, $mail_username, $mail_password);
+      OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
     } catch (Exception $e) {
       // We got an exception == table not found
       OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error.' . $e,
@@ -66,7 +67,9 @@ class OC_RoundCube_AuthHelper {
       OCP\Util::writeLog('roundcube', 'LOGOUT HOOK: Preparing logout of user from roundcube.', OCP\Util::DEBUG);
       $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
       $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
-      OC_RoundCube_App::logout($rc_host, $maildir, OCP\User::getUser());
+      $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
+
+      OC_RoundCube_App::logout($rc_host, $rc_port, $maildir, OCP\User::getUser());
       OCP\Util::writeLog('roundcube', 'Logout of user '.OCP\User::getUser().' from roundcube done', OCP\Util::INFO);
     } catch (Exception $e) {
       // We got an exception == table not found
@@ -80,8 +83,9 @@ class OC_RoundCube_AuthHelper {
       OCP\Util::writeLog('roundcube', 'Preparing refresh for roundcube credentials', OCP\Util::DEBUG);
       $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
       $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+      $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
 
-      OC_RoundCube_App::refresh($rc_host, $maildir);
+      OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
     } catch (Exception $e) {
       // We got an exception == table not found
       OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error.' . $e,

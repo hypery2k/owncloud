@@ -108,15 +108,6 @@
  *
  */
 class OC_RoundCube_Login {
-  /**
-   * Relative path to the Roundcube base directory on the server.
-   *
-   * Can be set via the first argument in the constructor.
-   * If the URL is www.example.com/roundcube/, set it to "/roundcube/".
-   *
-   * @var string
-   */
-  private $rcPath;
 
   /**
    * DNS name of the rouncube server
@@ -127,6 +118,26 @@ class OC_RoundCube_Login {
    * @var string
    */
   private $rcHost;
+
+  /**
+   * Relative path to the Roundcube base directory on the server.
+   *
+   * Can be set via the secound argument in the constructor.
+   * If the URL is www.example.com/roundcube/, set it to "/roundcube/".
+   *
+   * @var string
+   */
+  private $rcPath;
+
+
+  /**
+   * Port of the Roundcube the server.
+   *
+   * Can be set via the third argument in the constructor.
+   *
+   * @var string
+   */
+  private $rcPort;
 
   /**
    * Roundcube session ID
@@ -196,21 +207,36 @@ class OC_RoundCube_Login {
   /**
    * Create a new RoundcubeLogin class.
    * @param string servr host
+   * @param optional port of roundcube server
    * @param string Relative webserver path to the RC installation, e.g.
    * /roundcube/
    * @param bool Enable debugging, - shows the full POST and the response
    */
-  public function __construct($webmailHost, $webmailPath, $enableDebug = false) {
+  public function __construct($webmailHost, $webmailPort = '', $webmailPath,  $enableDebug = false) {
+    $this -> debugEnabled = $enableDebug;
+
+    $this -> addDebug("pre_construct", "Used Parameters:");
+    $this -> addDebug("pre_construct", "webmailHost: " . $webmailHost);
+    $this -> addDebug("pre_construct", "webmailPort: " . $webmailPort);
+    $this -> addDebug("pre_construct", "webmailPath: " . $webmailPath);
+    $this -> addDebug("pre_construct", "enableDebug: " . $enableDebug);
+
+
+    $this -> addDebug("__construct", "Creating new RoundCubeLogin instance:");
     $this -> debugStack = array();
     $this -> rcHost = $webmailHost;
-    $this -> debugEnabled = $enableDebug;
     $this -> rcPath = $webmailPath;
+    $this -> rcPort = $webmailPort;
     $this -> rcSessionID = true;
     $this -> rcSessionAuth = true;
     $this -> rcLoginStatus = 0;
     $this -> authHeaders = array();
     $this -> rcLocation = false;
-    $this -> addDebug("Creating new RoundCubeLogin instance:", "rcHost:" . $this -> rcHost . "rcPath:" . $this -> rcPath);
+
+    $this -> addDebug("post_construct", "Created new RoundCubeLogin instance:");
+    $this -> addDebug("post_construct", "rcHost: " . $this -> rcHost);
+    $this -> addDebug("post_construct", "rcPort: " . $this -> rcPort);
+    $this -> addDebug("post_construct", "rcPath: " . $this -> rcPath);
   }
 
   /**
@@ -316,15 +342,14 @@ class OC_RoundCube_Login {
   }
 
   public function getRedirectPath() {
-    # Prevent index error because "There is no guarantee that every web
-    # server will provide any of these; servers may omit some, or provide
-    # others not listed here."
-    # (http://www.php.net/manual/en/reserved.variables.server.php)
-    $port = (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 443 : 80;
     # Use a relative protocol in case we/roundcube are behind an SSL proxy (see
     # http://tools.ietf.org/html/rfc3986#section-4.2).
     $protocol = '//';
-    $path = $protocol . rtrim($this -> rcHost, "/") . "/" . ltrim($this -> rcPath, "/");
+    if(strlen($this -> rcPort) > 1){
+        $path = $protocol . rtrim($this -> rcHost, "/") . ":" . $this->rcPort . "/"  . ltrim($this -> rcPath, "/");
+    } else {
+        $path = $protocol . rtrim($this -> rcHost, "/") . "/" . ltrim($this -> rcPath, "/");
+    }
     return $path;
   }
 
@@ -402,7 +427,11 @@ class OC_RoundCube_Login {
       $url = "http://";
     }
     $sep = $path[0] != '/' ? '/' : '';
-    $url .= $this->rcHost . $sep . $path;
+    if(strlen($this -> rcPort) > 0){
+        $url .= $this->rcHost . ":" . $this->rcPort . $sep . $path;
+    } else {
+        $url .= $this->rcHost . $sep . $path;
+    }
 
     $this -> addDebug('sendRequest',
                       'Trying to connect via "' . $method .
@@ -522,4 +551,4 @@ class OC_RoundCube_Login {
   }
 
 }
-		?>
+?>

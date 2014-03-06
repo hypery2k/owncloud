@@ -28,6 +28,7 @@
 "Enable autologin for users" => "Autologin für Nutzer aktivieren",
 "Database error" => "Datenbankfehler.",
 "Please follow the wiki page to setup the database manually:" => "Bitte folgen sie den Hinweisen im Wiki zur manuellen Datenbankkonfiguration.",
-"Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies" => "Überschreibe roundcube server Hostnamen, wenn es nicht derselber wie Owncloud ist, z.B. (Sub)domänen wie rc.domain.tld. Das funktioniert aber nur innerhalb desselben Servers aufgrund von iFrame-Beschränkungen, siehe HTML/JS same-origin Policy."
+"Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies" => "Überschreibe roundcube server Hostnamen, wenn es nicht derselber wie Owncloud ist, z.B. (Sub)domänen wie rc.domain.tld. Das funktioniert aber nur innerhalb desselben Servers aufgrund von iFrame-Beschränkungen, siehe HTML/JS same-origin Policy.",
+"Overwrite roundcube server port (If not specified, ports 80/443 are used for HTTP/S)" => "Setze speziellen Port für RoundCube (Wenn nicht gesetzt wird automatisch Port 80 für HTTP und 443 für HTTPS genutzt)"
 /*@formatter:on*/
 );
