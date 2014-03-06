@@ -18,3 +18,5 @@ $.fn.extend({inFieldLabels: function (d) {
 }});
 $.fn.extend({tipsy: function (e) {
 }});
+$.fn.extend({avatar: function (f) {
+}});
