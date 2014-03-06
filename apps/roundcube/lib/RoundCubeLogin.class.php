@@ -287,9 +287,9 @@ class OC_RoundCube_Login {
   public function isLoggedIn() {
     $this -> updateLoginStatus();
 
-    if (!$this -> rcLoginStatus)
+    if (!$this -> rcLoginStatus){
       throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
-
+    }
     return ($this -> rcLoginStatus > 0) ? true : false;
   }
 
@@ -492,7 +492,8 @@ class OC_RoundCube_Login {
     return $response;
   }
 
-  /**Send authentication headers previously aquired
+  /**
+   * Send authentication headers previously aquired
    */
   function emitAuthHeaders() 
   {

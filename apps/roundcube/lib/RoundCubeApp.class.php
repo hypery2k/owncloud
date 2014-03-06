@@ -187,8 +187,8 @@ class OC_RoundCube_App {
       return false;
     }
     $emailUser = OC_RoundCube_App::cryptMyEntry($emailUser, $pubKey);
-    $emailPassword = OC_RoundCube_App::cryptMyEntry($emailPassword, $pubKey)
-;
+    $emailPassword = OC_RoundCube_App::cryptMyEntry($emailPassword, $pubKey);
+
     if ($emailUser === false || $emailPassword === false) {
       return false;
     }
