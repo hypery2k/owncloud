@@ -11,7 +11,7 @@ $(document).ready(function() {
 		// favor of the Ajax technology. Its just more handy and less
 		// error-prone.
 
-		$("#usermail_update").click(function() {
+		$("#usermail_update").click(function(event) {
 			event.preventDefault();
 
 			var self = $(this);
