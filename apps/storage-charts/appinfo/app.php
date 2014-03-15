@@ -23,25 +23,32 @@
 
 OCP\App::checkAppEnabled('storage-charts');
 
-OC::$CLASSPATH['OC_DLStCharts'] = OC_App::getAppPath('storage-charts') . "/lib/db.class.php";
-OC::$CLASSPATH['OC_DLStChartsLoader'] = OC_App::getAppPath('storage-charts') . "/lib/loader.class.php";
+$l = new OC_L10N('storage-charts');
 
-OCP\App::register(Array(
-	'order' => 60,
-	'id' => 'storage-charts',
-	'name' => 'Storage Charts'
-));
+OC::$CLASSPATH['OC_DLStCharts'] =  OC_App::getAppPath('storage-charts') . "/lib/db.class.php";
+OC::$CLASSPATH['OC_DLStChartsLoader'] =  OC_App::getAppPath('storage-charts') . "/lib/loader.class.php";
 
-OCP\App::addNavigationEntry(Array(
-	'id' => 'storage-charts',
-	'order' => 60,
-	'href' => OCP\Util::linkTo('storage-charts', 'charts.php'),
-	'icon' => OCP\Util::imagePath('storage-charts', 'chart.png'),
-	'name' => 'DL Charts'
-));
+//if(OC_Group::inGroup(OCP\User::getUser(), 'admin')){
+	OCP\App::register(Array(
+		'order' => 60,
+		'id' => 'storage-charts',
+		'name' => 'Storage Charts'
+	));
+	
+	OCP\App::addNavigationEntry(array(
+		'id' => 'storage-charts',
+		'order' => 60,
+		'href' => OCP\Util::linkTo('storage-charts', 'charts.php'),
+		'icon' => OCP\Util::imagePath('storage-charts', 'chart.png'),
+		'name' => $l->t('DL Charts')
+	));
+	
+	OCP\App::registerPersonal('storage-charts','settings');
+//}elseif(OCP\User::isLoggedIn() && $_GET['app'] == 'storage-charts'){
+//	die($l->t('Permission denied.'));
+//}
 
-OCP\App::registerPersonal('storage-charts','settings');
-
+// Get storage value for logged in user
 $data_dir = OCP\Config::getSystemValue('datadirectory', '');
 if(OCP\User::getUser() && strlen($data_dir) != 0){
 	$fs = OCP\Files::getStorage('files');
