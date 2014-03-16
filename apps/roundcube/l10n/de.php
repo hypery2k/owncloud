@@ -8,6 +8,7 @@
 "Email Login Name" => "Email Login",
 "Email Password" => "Email Passwort",
 "Change Email Identity" => "Zugangsdaten aktualisieren",
+"Autologin for users activated. OwnCloud user data will be used for login in roundcube" => "Autologin ist aktiviert. Es werden die OwnCloud Nutzerdaten für die Anmeldung in Roundcube genutzt.",
 "Roundcube version" => "Roundcube Version",
 "Remove RoundCube control navigation menu items" => "Navigationsleiste ausblenden",
 "Removes the buttons for different sections (mail, adressbook, settings) within the RoundCube mail application" => "Entferne Buttons für die verschiedenen Bereiche (Mail,Adressbuch,Einstellungen) innerhalb der RoundCube Anwendung",
