@@ -248,9 +248,9 @@ class OC_RoundCube_App {
     // Try to refresh
     OCP\Util::writeLog('roundcube', 'Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
     if ($rcl -> isLoggedIn()) {
-      OCP\Util::writeLog('roundcube', 'Probably successfully refreshed the RC session.', OCP\Util::INFO);
+      OCP\Util::writeLog('roundcube', 'Successfully refreshed the RC session.', OCP\Util::INFO);
     } else {
-      OCP\Util::writeLog('roundcube', 'Probably failed to refresh the RC session.', OCP\Util::ERROR);
+      OCP\Util::writeLog('roundcube', 'Failed to refresh the RC session.', OCP\Util::ERROR);
     }
   }
 
@@ -277,7 +277,9 @@ class OC_RoundCube_App {
     try {
       if (!$rcl->isLoggedIn()) {
         // If the login fails, display an error message in the loggs
-        OCP\Util::writeLog('roundcube', 'RoundCube: not logged in.', OCP\Util::ERROR);
+        OCP\Util::writeLog('roundcube', 'Not logged in.', OCP\Util::ERROR);
+        OCP\Util::writeLog('roundcube', 'Trying to refresh session.', OCP\Util::INFO);
+        OC_RoundCube_App::refresh($rcHost, $rcPort, $maildir);
       }
       OCP\Util::writeLog('roundcube', 'Preparing iFrame for roundcube:' . $rcl -> getRedirectPath(), OCP\Util::DEBUG);
       // loader image
