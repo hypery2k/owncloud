@@ -25,12 +25,6 @@
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('roundcube');
 
-// Check if we are a user
-if (!OCP\User::isLoggedIn()) {
-  header("Location: " . OCP\Util::linkTo('', 'index.php'));
-  exit();
-}
-
 OCP\Util::addStyle('roundcube', 'userSettings');
 OCP\Util::addScript('roundcube', 'userSettings');
 
