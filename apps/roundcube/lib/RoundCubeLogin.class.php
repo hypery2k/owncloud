@@ -387,7 +387,7 @@ class OC_RoundCube_Login {
     if (preg_match('/<input.+name="_pass"/mi', $response)) {
       $this -> addDebug("NOT LOGGED IN", "Detected that we're NOT logged in.");
       $this -> rcLoginStatus = -1;
-    } else if (preg_match('/<div.+id="message"/mi', $response)) {
+    } else if (preg_match('/<div.+id="messagetoolbar"/mi', $response)) {
       $this -> addDebug("LOGGED IN", "Detected that we're logged in.");
       $this -> rcLoginStatus = 1;
     } else {
