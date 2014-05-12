@@ -387,9 +387,14 @@ class OC_RoundCube_Login {
     if (preg_match('/<input.+name="_pass"/mi', $response)) {
       $this -> addDebug("NOT LOGGED IN", "Detected that we're NOT logged in.");
       $this -> rcLoginStatus = -1;
-    } else if (preg_match('/<div.+id="messagetoolbar"/mi', $response)) {
+    } else if (preg_match('/<div.+id="message"/mi', $response)) {
       $this -> addDebug("LOGGED IN", "Detected that we're logged in.");
       $this -> rcLoginStatus = 1;
+    // Changed html since Roundcube 1.0
+    } else if (preg_match('/<div.+id="messagetoolbar"/mi', $response)) {
+        $this -> addDebug("LOGGED IN", "Detected that we're logged in.");
+        $this -> rcLoginStatus = 1;
+
     } else {
       $this -> addDebug("UNKNOWN LOGIN STATE", "Unable to determine the login status. Did you change the RC version?");
       throw new OC_Mail_LoginException("Unable to determine the login status. Unable to continue due to technical problems.");
