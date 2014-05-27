@@ -62,8 +62,8 @@ class OC_DLStCharts {
 					$subFile = $path . '/' . $filename;
 					if(is_file($subFile)){
 						$size += filesize($subFile);
-					}else{
-						$size += self::getTotalDataSize($subFile);
+					}else{					 
+						$size += self::getTotalDataSize($subFile);					
 					}
 				}
 			}
@@ -76,7 +76,7 @@ class OC_DLStCharts {
 	 */
 	public static function getPieFreeUsedSpaceRatio(){
 		if(OC_Group::inGroup(OCP\User::getUser(), 'admin')){
-			$query = OCP\DB::prepare("SELECT stc_id, stc_dayts, oc_uid FROM (SELECT * FROM *PREFIX*dlstcharts ORDER BY stc_dayts DESC) last GROUP BY oc_uid");
+			$query = OCP\DB::prepare("SELECT stc_id, stc_dayts, oc_uid FROM (SELECT * FROM *PREFIX*dlstcharts ORDER BY stc_dayts DESC) last GROUP BY oc_uid, stc_id, stc_dayts");
 			$results = $query->execute()->fetchAll();
 		}else{
 			$query = OCP\DB::prepare("SELECT stc_id, MAX(stc_dayts) as stc_dayts FROM *PREFIX*dlstcharts WHERE oc_uid = ?");

@@ -52,7 +52,17 @@ OC::$CLASSPATH['OC_DLStChartsLoader'] =  OC_App::getAppPath('storage-charts') . 
 $data_dir = OCP\Config::getSystemValue('datadirectory', '');
 if(OCP\User::getUser() && strlen($data_dir) != 0){
 	$fs = OCP\Files::getStorage('files');
-	$used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
+					
+	// workaround to detect OC version
+	// OC 5
+	if (6 > @reset(OCP\Util::getVersion())) {
+	  	OCP\Util::writeLog('storage-charts', 'Running on OwnCloud 5', OCP\Util::DEBUG);				  
+		$used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
+	  	// OC 6
+	} else {
+		OCP\Util::writeLog('storage-charts', 'Running on OwnCloud 6', OCP\Util::DEBUG);		
+		$used = OC_DLStCharts::getTotalDataSize("datadirectory", OC::$SERVERROOT.'/data');
+	}
 	$total = OC_DLStCharts::getTotalDataSize($data_dir) + $fs->free_space();
 	OC_DLStCharts::update($used, $total);
 }
