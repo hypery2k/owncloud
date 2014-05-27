@@ -54,6 +54,19 @@
 					<artifactId>maven-eclipse-plugin</artifactId>
 					<version>${maven-eclipse-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<maxmem>2048m</maxmem>
+						<compilerArgs>
+							<arg>-XX:MaxPermSize=512m</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
