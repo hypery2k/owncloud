@@ -2,7 +2,9 @@ Some Apps for owncloud
 ========
 Wiki: https://github.com/hypery2k/owncloud/wiki
 
-Current Build Status: [![Build Status](https://secure.travis-ci.org/hypery2k/owncloud.png)](http://travis-ci.org/hypery2k/owncloud)
+Current Build Status:
+
+[![Build Status](https://martinreinhardt-online.de/jenkins/job/OwnCloud/badge/icon)](https://martinreinhardt-online.de/jenkins/job/OwnCloud/)
 
 In this repo you'll find apps and enhancements for owncloud.
 
