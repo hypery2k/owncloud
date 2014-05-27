@@ -13,3 +13,6 @@ __MACOSX
 .idea/workspace.xml
 
 .idea/deployment.xml
+roundcube/target/*
+storage-charts/target/*
+webtest/target/*
