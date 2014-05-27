@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.martinreinhardt-online.owncloud</groupId>
+	<artifactId>owncloud-parent-pom</artifactId>
+	<version>1.3-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>roundcube</module>
+		<module>storage-charts</module>
+		<module>webtest</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.phpmaven</groupId>
+							<artifactId>maven-php-plugin</artifactId>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>phpdocumentor</report>
+										<report>phpunit-coverage</report>
+										<report>phpunit</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+		</plugins>
+
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>${maven-eclipse-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+	</build>
+
+	<properties>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+
+		<!-- java settings version -->
+		<java.version>1.6</java.version>
+		<log4j.version>1.2.16</log4j.version>
+		<slf4j.version>1.6.1</slf4j.version>
+
+		<!-- Web properties -->
+		<maven-jstools-plugin.version>0.6</maven-jstools-plugin.version>
+		<jasmine-maven-plugin.version>1.3.1.5</jasmine-maven-plugin.version>
+
+		<!-- testing dependency versions -->
+		<junit.version>4.11</junit.version>
+		<thucydides.version>0.9.235</thucydides.version>
+
+		<hamcrest-library.version>1.1</hamcrest-library.version>
+		<webdriver.driver>firefox</webdriver.driver>
+
+		<!-- Maven Plugins -->
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-failsafe-plugin.version>2.12</maven-failsafe-plugin.version>
+		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
+		<!-- Note 2.8+ does not work with AspectJ aspect path -->
+		<maven-eclipse-plugin.version>2.7</maven-eclipse-plugin.version>
+		<maven-release-plugin.version>2.5</maven-release-plugin.version>
+		<maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
+		<maven-site-plugin.version>3.3</maven-site-plugin.version>
+		<exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
+		<sql-maven-plugin.version>1.5</sql-maven-plugin.version>
+		<maven-pdf-plugin.version>1.2</maven-pdf-plugin.version>
+		<maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+		<maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
+
+
+	</properties>
+
+	<dependencies>
+		<!-- phpUnit for PHP 5 -->
+		<dependency>
+			<groupId>org.phpmaven</groupId>
+			<artifactId>maven-php-phpunit</artifactId>
+			<version>2.0.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+
+	<pluginRepositories>
+		<!--<pluginRepository> <id>release-repo1.php-maven.org</id> <name>PHP-Maven 
+			2 Release Repository</name> <url>http://repos.php-maven.org/releases</url> 
+			<releases> <enabled>true</enabled> </releases> </pluginRepository> -->
+		<pluginRepository>
+			<id>release-codename-php</id>
+			<name>PHP-Maven 2 Release Repository</name>
+			<url>http://deploy.codename-php.de</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+
+	</pluginRepositories>
+
+	<repositories>
+
+		<!--<repository> <id>release-repo1.php-maven.org</id> <name>PHP-Maven 2 
+			Release Repository</name> <url>http://repos.php-maven.org/releases</url> 
+			<releases> <enabled>true</enabled> </releases> </repository> -->
+
+		<repository>
+			<id>release-codename-php</id>
+			<name>PHP-Maven 2 Release Repository</name>
+			<url>http://deploy.codename-php.de</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+</project>
