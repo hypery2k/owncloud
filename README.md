@@ -29,8 +29,9 @@ Embedd roundcube interface in owncloud
 
 ##Planned
 ========
+### StorageCharts
+* reenable StorageCharts App for OwnCloud 6 
+
 ### LDAP Profile Editor
 * Edit LDAP user profile including password change
 * update picture
-### Picture Gallery
-
