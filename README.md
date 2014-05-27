@@ -16,8 +16,7 @@ Or via PayPal:
 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"/>
 </img></a>
 
-## Currently released:
-========
+## Currently released
 ### Roundcube
 Embedd roundcube interface in owncloud
 
@@ -28,7 +27,6 @@ Embedd roundcube interface in owncloud
 
 
 ##Planned
-========
 ### StorageCharts
 * reenable StorageCharts App for OwnCloud 6 
 
