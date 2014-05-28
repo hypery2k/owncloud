@@ -94,8 +94,13 @@ mkdir -p $DIR_OC_APP_RC
 mkdir -p $DIR_OC_APP_SC
 
 
-cp -rp owncloud_releases/$OC_VERSION/* DIR_OC_CUR
-cp -rp roundcube_releases/$RC_VERSION/* DIR_RC_CUR
+cp -rp owncloud_releases/$OC_VERSION/* $DIR_OC_CUR
+echo "  ==> Directory listing for owncloud:"
+ls -lisah $DIR_OC_CUR*
+
+cp -rp roundcube_releases/$RC_VERSION/* $DIR_RC_CUR
+echo "  ==> Directory listing for roundcube:"
+ls -lisah $DIR_RC_CUR*
 
 # prepare roundcube app
 # TODO testdata in db
@@ -104,10 +109,10 @@ echo "  ==> copy app folder"
 cp -r $DIR_OC_DEV/roundcube/src/main/php/* $DIR_OC_APP_RC
 cp -r $DIR_OC_DEV/storage-charts/src/main/php/* $DIR_OC_APP_SC
 
-echo "  ==> Directory listing for roundcube:"
+echo "  ==> Directory listing for app-folder of roundcube:"
 ls -lisah $DIR_OC_APP_RC*
 echo
-echo "  ==> Directory listing for storage-charts:"
+echo "  ==> Directory listing for app-folder of storage-charts:"
 ls -lisah $DIR_OC_APP_SC*
 echo
 
@@ -126,7 +131,6 @@ case $DB_TYPE in
   mysql)        
     echo "  ==> Preparing MySQL DB"
     ;;
-  ;;
 esac
 
 echo "  ==> Done with setup of test environment"
