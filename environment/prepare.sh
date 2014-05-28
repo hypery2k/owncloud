@@ -10,22 +10,10 @@ PWD="`pwd`"
 DIR_WWW=/var/www/oc_testing
 DIR_OC_DEV=${PWD%/*}
 
-# Text color variables
-txtund=$(tput sgr 0 1)          # Underline
-txtbld=$(tput bold)             # Bold
-bldred=${txtbld}$(tput setaf 1) #  red
-bldblu=${txtbld}$(tput setaf 4) #  blue
-bldwht=${txtbld}$(tput setaf 7) #  white
-txtrst=$(tput sgr0)             # Reset
-info=${bldwht}*${txtrst}        # Feedback
-pass=${bldblu}*${txtrst}
-warn=${bldred}*${txtrst}
-ques=${bldblu}?${txtrst}
-
 echo
-echo "$txtbld ============================================== $txtrst"
-echo "$txtbld =   PREPARING OWNCLOUD INTEGRATION TESTING   = $txtrst"
-echo "$txtbld ============================================== $txtrst"
+echo "=============================================="
+echo "=   PREPARING OWNCLOUD INTEGRATION TESTING   ="
+echo "=============================================="
 echo 
 
 # A POSIX variable
@@ -76,10 +64,10 @@ shift $((OPTIND-1))
 [ "$1" = "--" ] && shift
 
 echo "  Using following settings:"
-echo "     ${txtund}OC_VERSION:${txtrst} ${OC_VERSION}"
-echo "     ${txtund}RC_VERSION:${txtrst} ${RC_VERSION}"
-echo "     ${txtund}DB_TYPE:${txtrst}    ${DB_TYPE}"
-echo "     ${txtund}HOST_URL:${txtrst}    ${HOST_URL}"
+echo "     OC_VERSION: ${OC_VERSION}"
+echo "     RC_VERSION: ${RC_VERSION}"
+echo "     DB_TYPE:    ${DB_TYPE}"
+echo "     HOST_URL:   ${HOST_URL}"
 echo
 
 
@@ -97,13 +85,13 @@ DIR_OC_APP_RC=$DIR_OC_APPS/roundcube
 DIR_OC_APP_SC=$DIR_OC_APPS/storage-charts
 
 #create all needed directories
-mkdir $DIR_WWW/$DB_TYPE
-mkdir $DIR_OC_CUR
-mkdir $DIR_RC_CUR
-mkdir $DIR_OC_APPS
-mkdir $DIR_OC_DATA
-mkdir $DIR_OC_APP_RC
-mkdir $DIR_OC_APP_SC
+mkdir -p $DIR_WWW/$DB_TYPE
+mkdir -p $DIR_OC_CUR
+mkdir -p $DIR_RC_CUR
+mkdir -p $DIR_OC_APPS
+mkdir -p $DIR_OC_DATA
+mkdir -p $DIR_OC_APP_RC
+mkdir -p $DIR_OC_APP_SC
 
 
 cp -rp owncloud_releases/$OC_VERSION/* DIR_OC_CUR
@@ -142,6 +130,6 @@ case $DB_TYPE in
 esac
 
 echo "  ==> Done with setup of test environment"
-echo "$txtbld ============================================== $txtrst"
+echo " ============================================== "
 echo 
 
