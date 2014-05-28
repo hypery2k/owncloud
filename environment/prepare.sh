@@ -119,6 +119,7 @@ echo
 
 echo "  ==> Setting up Directory rights"
 chmod -R 777 $DIR_WWW
+chmod -R 770 $DIR_OC_DATA
 
 echo "  ==> Done with general owncloud setup"
 
