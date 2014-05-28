@@ -75,7 +75,9 @@ echo
 echo "  ==> Preparing owncloud setup"
 
 # clean up first
-rm -r $DIR_WWW/$DB_TYPE
+rm -r $DIR_WWW/$DB_TYPE/*
+echo "  ==> Directory listing of web testing folder:"
+ls -lisah $DIR_WWW/$DB_TYPE/*
 
 DIR_OC_CUR=$DIR_WWW/$DB_TYPE/$OC_VERSION
 DIR_RC_CUR=$DIR_WWW/$DB_TYPE/$RC_VERSION
