@@ -1,0 +1,208 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User Experience &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="The Configuration File" href="index.html" />
+    <link rel="next" title="Mail Parameters" href="mail_parameters.html" />
+    <link rel="prev" title="Reverse Proxy Configurations" href="reverse_proxy_configurations.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Configuration File</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="default_parameters.html">Default Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverse_proxy_configurations.html">Reverse Proxy Configurations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User Experience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mail_parameters.html">Mail Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deleted_items.html">Deleted Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="session_info.html">Session Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_locations.html">Code Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html">APPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="previews.html">Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="user-experience">
+<h1>User Experience<a class="headerlink" href="#user-experience" title="Permalink to this headline">¶</a></h1>
+<p>The following parameters are those that influence the end user’s experience.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="24%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Parameter</strong></td>
+<td><strong>Format</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Default Language</strong></td>
+<td>&#8220;default_language&#8221; =&gt; &#8220;en&#8221;,</td>
+<td>This is the default language for the ownCloud WebUI. When configured, the default language will be the same for all users.
+Users may then configure their own language preference in their Personal page.
+When not configured, the default language is determined form the headers sent by the web browser.
+For instance, if the browser is in Spanish, ownCloud will be presented in Spanish</td>
+</tr>
+<tr class="row-odd"><td><strong>Default App</strong></td>
+<td>&#8220;defaultapp&#8221; =&gt; &#8220;files&#8221;,</td>
+<td>By default, when a user logs into ownCloud, they are brought to the files page.
+If, for instance, the admin desires a different page to be loaded upon login, configure that app here.
+Valid values are app id’s (for example news, files, gallery).</td>
+</tr>
+<tr class="row-even"><td><strong>Knowledge Base **
+**Enabled</strong></td>
+<td>&#8220;knowledgebaseenabled&#8221; =&gt; true,</td>
+<td>When enabled, default, the help menu brings up the user documentation.</td>
+</tr>
+<tr class="row-odd"><td><strong>Enable Avatars</strong></td>
+<td>&#8216;enable_avatars&#8217; =&gt; true,</td>
+<td>Allows for the ability to use avatars.</td>
+</tr>
+<tr class="row-even"><td><strong>Display Name</strong></td>
+<td>&#8216;allow_user_to_change_display_name&#8217; =&gt; true,</td>
+<td>Users can modify their display name in the Personal page.
+If this parameter is set to false, they may not change their display name.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

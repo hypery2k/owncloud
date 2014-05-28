@@ -1,0 +1,290 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Automatic Configuration &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Customizing Client Download Links" href="configuration_custom_clients.html" />
+    <link rel="prev" title="Find Third-Party Libraries" href="configuration_3rdparty.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_users.html">User Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Automatic Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-automatic-configurations">Sample Automatic Configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Using Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_preview.html">Enabling File Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Dealing with Big File Uploads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config_gui.html">Custom Mount Configuration Web-GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="automatic-configuration">
+<h1>Automatic Configuration<a class="headerlink" href="#automatic-configuration" title="Permalink to this headline">¶</a></h1>
+<p>If you need to install ownCloud on multiple servers you normally do not want
+to set-up each instance separately as described in the <a class="reference internal" href="configuration_database.html"><em>MySQL/Postgres/SQLite Support</em></a>.
+For this reason the automatic configuration feature has been introduced.</p>
+<p>To take advantage of this feature you need to create a configuration file, called
+<tt class="file docutils literal"><span class="pre">../owncloud/config/autoconfig.php</span></tt> and set the parameters as required.
+You can provide all parameters or just part of them - parameters which haven&#8217;t been provided (if any) will be asked
+at &#8220;Finish setup&#8221; screen at first run of ownCloud.</p>
+<p>The <tt class="file docutils literal"><span class="pre">../owncloud/config/autoconfig.php</span></tt> will be automatically removed after the initial configuration has been applied.</p>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>You need to keep in mind that two parameters are named differently in this
+configuration file compared to the normal <tt class="file docutils literal"><span class="pre">config.php</span></tt>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">autoconfig.php</th>
+<th class="head">config.php</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>directory</td>
+<td>datadirectory</td>
+</tr>
+<tr class="row-odd"><td>dbpass</td>
+<td>dbpassword</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sample-automatic-configurations">
+<h2>Sample Automatic Configurations<a class="headerlink" href="#sample-automatic-configurations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-directory">
+<h3>Data Directory<a class="headerlink" href="#data-directory" title="Permalink to this headline">¶</a></h3>
+<p>With the configuration below the &#8220;Finish setup&#8221; screen still will ask for database and admin credentials settings.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$AUTOCONFIG</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s2">&quot;directory&quot;</span>     <span class="o">=&gt;</span> <span class="s2">&quot;/www/htdocs/owncloud/data&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sqlite-database">
+<h3>SQLite Database<a class="headerlink" href="#sqlite-database" title="Permalink to this headline">¶</a></h3>
+<p>With the configuration below the &#8220;Finish setup&#8221; screen still will ask for data directory and admin credentials settings.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$AUTOCONFIG</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;sqlite&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbname&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;owncloud&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mysql-database">
+<h3>MySQL Database<a class="headerlink" href="#mysql-database" title="Permalink to this headline">¶</a></h3>
+<p>Keep in mind that the automatic configuration does not unburden you from creating the database user and database
+in advance, as described in <a class="reference internal" href="configuration_database.html"><em>MySQL/Postgres/SQLite Support</em></a>.</p>
+<p>With the configuration below the &#8220;Finish setup&#8221; screen still will ask for data directory and admin credentials settings.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$AUTOCONFIG</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;mysql&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbname&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;owncloud&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbuser&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbpass&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbhost&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="postgresql-database">
+<h3>PostgreSQL Database<a class="headerlink" href="#postgresql-database" title="Permalink to this headline">¶</a></h3>
+<p>Keep in mind that the automatic configuration does not unburden you from creating the database user and database
+in advance, as described in <a class="reference internal" href="configuration_database.html"><em>MySQL/Postgres/SQLite Support</em></a>.</p>
+<p>With the configuration below the &#8220;Finish setup&#8221; screen still will ask for data directory and admin credentials settings.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$AUTOCONFIG</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;pgsql&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbname&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;owncloud&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbuser&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbpass&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbhost&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="all-parameters">
+<h3>All Parameters<a class="headerlink" href="#all-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Keep in mind that the automatic configuration does not unburden you from creating the database user and database
+in advance, as described in <a class="reference internal" href="configuration_database.html"><em>MySQL/Postgres/SQLite Support</em></a>.</p>
+<p>With the configuration below &#8220;Finish setup&#8221; will be skipped at first ownCloud run since all parameters are already preconfigured.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$AUTOCONFIG</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;mysql&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbname&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;owncloud&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbuser&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbpass&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbhost&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;adminlogin&quot;</span>    <span class="o">=&gt;</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;adminpass&quot;</span>     <span class="o">=&gt;</span> <span class="s2">&quot;root-password&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;directory&quot;</span>     <span class="o">=&gt;</span> <span class="s2">&quot;/www/htdocs/owncloud/data&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

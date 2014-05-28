@@ -1,0 +1,313 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# F0ca <staffhabbfoca@live.it>, 2013
+# ogasser, 2013
+# polxmod <paolo.velati@gmail.com>, 2013
+# Vincenzo Reale <vinx.reale@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2013-11-27 09:16-0500\n"
+"PO-Revision-Date: 2013-11-27 14:16+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: appinfo/app.php:35 templates/personal.php:2 templates/settings.php:2
+msgid "Documents"
+msgstr "Documenti"
+
+#: js/3rdparty/webodf/webodf.js:831
+msgid "document-styles"
+msgstr ""
+
+#: js/3rdparty/webodf/webodf.js:832
+msgid "document-content"
+msgstr ""
+
+#: js/documents.js:23 js/locale.js:12 js/viewer/viewer.js:50
+msgid "Close"
+msgstr "Chiudi"
+
+#: js/documents.js:26
+msgid "Share"
+msgstr "Condividi"
+
+#: js/documents.js:102
+msgid "No connection to server. Trying to reconnect."
+msgstr "Nessuna connessione al server. Riprova a connetterti."
+
+#: js/documents.js:153
+msgid ""
+"Leaving this page in Editor mode might cause unsaved data. It is recommended"
+" to use 'Close' button instead."
+msgstr "Lasciare questa pagina nella modalità potrebbe causare il mancato salvataggio dei dati. Si consiglia invece di utilizzare il pulsante 'Chiudi'."
+
+#: js/documents.js:166
+msgid ""
+"Failed to load this document. Please check if it can be opened with an "
+"external odt editor. This might also mean it has been unshared or deleted "
+"recently."
+msgstr "Caricamento del documento non riuscito. Controlla se può essere aperto con un editor odt esterno. Ciò può anche significare che è stato tolto dalla condivisione o che è stato eliminato recentemente."
+
+#: js/documents.js:332
+msgid "Failed to load documents."
+msgstr "Caricamento documenti non riuscito."
+
+#: js/documents.js:375
+msgid "No documents are found. Please upload or create a document!"
+msgstr "Nessun documento trovato. Carica o crea un documento!"
+
+#: js/locale.js:1
+msgid "Align Left"
+msgstr "Allineamento a sinistra"
+
+#: js/locale.js:2
+msgid "Alignment"
+msgstr "Allineamento"
+
+#: js/locale.js:3
+msgid "Align Right"
+msgstr "Allineamento a destra"
+
+#: js/locale.js:4
+msgid "Annotate"
+msgstr "Annota"
+
+#: js/locale.js:5
+msgid "Background"
+msgstr "Sfondo"
+
+#: js/locale.js:6
+msgid "Bold"
+msgstr "Grassetto"
+
+#: js/locale.js:7
+msgid "Bottom"
+msgstr "In basso"
+
+#: js/locale.js:8
+msgid "Cancel"
+msgstr "Annulla"
+
+#: js/locale.js:9
+msgid "Center"
+msgstr "Centrato"
+
+#: js/locale.js:10
+msgid "Clone"
+msgstr "Clona"
+
+#: js/locale.js:11
+msgid "Clone this Style"
+msgstr "Clona questo stile"
+
+#: js/locale.js:13
+msgid "Color"
+msgstr "Colore"
+
+#: js/locale.js:14
+msgid "Create"
+msgstr "Crea"
+
+#: js/locale.js:15
+msgid "Decrease Indent"
+msgstr "Riduci rientro"
+
+#: js/locale.js:16
+msgid "Default Style"
+msgstr "Stile predefinito"
+
+#: js/locale.js:17
+msgid "Delete"
+msgstr "Elimina"
+
+#: js/locale.js:18
+msgid "Family"
+msgstr "Famiglia"
+
+#: js/locale.js:19
+msgid "Font"
+msgstr "Carattere"
+
+#: js/locale.js:20
+msgid "Font Effects"
+msgstr "Effetti carattere"
+
+#: js/locale.js:21
+msgid "Format"
+msgstr "Formato"
+
+#: js/locale.js:22
+msgid "Increase Indent"
+msgstr "Aumenta rientro"
+
+#: js/locale.js:23
+msgid "Insert Image"
+msgstr "Inserisci immagine"
+
+#: js/locale.js:24
+msgid "Invite Members"
+msgstr "Invita membri"
+
+#: js/locale.js:25
+msgid "Italic"
+msgstr "Corsivo"
+
+#: js/locale.js:26
+msgid "Justified"
+msgstr "Giustificato"
+
+#: js/locale.js:27
+msgid "Justify"
+msgstr "Giustifica"
+
+#: js/locale.js:28
+msgid "Left"
+msgstr "Sinistra"
+
+#: js/locale.js:29
+msgid "Loading"
+msgstr "Caricamento"
+
+#: js/locale.js:30
+msgid "Members"
+msgstr "Membri"
+
+#: js/locale.js:31
+msgid "New Name:"
+msgstr "Nuovo nome:"
+
+#: js/locale.js:32 templates/public.php:12
+msgid "OK"
+msgstr "OK"
+
+#: js/locale.js:33
+msgid "Open"
+msgstr "Apri"
+
+#: js/locale.js:34
+msgid "Options"
+msgstr "Opzioni"
+
+#: js/locale.js:35
+msgid "Paragraph..."
+msgstr "Paragrafo..."
+
+#: js/locale.js:36
+msgid "Paragraph Styles"
+msgstr "Stili paragrafo"
+
+#: js/locale.js:37
+msgid "Redo"
+msgstr "Rifai"
+
+#: js/locale.js:38
+msgid "Right"
+msgstr "Destra"
+
+#: js/locale.js:39
+msgid "Save"
+msgstr "Salva"
+
+#: js/locale.js:40
+msgid "Size"
+msgstr "Dimensione"
+
+#: js/locale.js:41
+msgid "Spacing"
+msgstr "Spaziatura"
+
+#: js/locale.js:42
+msgid "Strikethrough"
+msgstr "Barrato"
+
+#: js/locale.js:43
+msgid "Style"
+msgstr "Stile"
+
+#: js/locale.js:44
+msgid "Text"
+msgstr "Testo"
+
+#: js/locale.js:45
+msgid "Top"
+msgstr "In alto"
+
+#: js/locale.js:46
+msgid "Underline"
+msgstr "Sottolineato"
+
+#: js/locale.js:47
+msgid "Undo"
+msgstr "Annulla"
+
+#: js/locale.js:48
+msgid "Unknown Author"
+msgstr "Autore sconosciuto"
+
+#: lib/invite.php:64
+msgid "Sent"
+msgstr "Inviato"
+
+#: lib/invite.php:65 lib/invite.php:75
+msgid "Declined"
+msgstr "Rifiutato"
+
+#: lib/invite.php:66 lib/invite.php:76
+msgid "Accepted"
+msgstr "Accettato"
+
+#: lib/invite.php:74
+msgid "Incoming"
+msgstr "In arrivo"
+
+#: templates/documents.php:5
+msgid "New document"
+msgstr "Nuovo documento"
+
+#: templates/documents.php:7 templates/documents.php:27
+msgid "Upload"
+msgstr "Carica"
+
+#: templates/personal.php:4
+msgid "Save new documents to"
+msgstr "Salva i nuovi documenti in"
+
+#: templates/public.php:8
+msgid "Wrong password. Please retry."
+msgstr "Password errata. Riprova."
+
+#: templates/public.php:11
+msgid "Password"
+msgstr "Password"
+
+#: templates/public.php:17
+msgid "Please enter your nickname"
+msgstr "Inserisci il tuo pseudonimo"
+
+#: templates/public.php:18
+msgid "Join"
+msgstr "Entra"
+
+#: templates/public.php:24
+msgid ""
+"This link has been expired or is never existed. Please contact the person "
+"who shared it with you for details."
+msgstr "Questo collegamento è scaduto o non è mai esistito. Contatta la persona che lo ha condiviso per i dettagli."
+
+#: templates/settings.php:9
+msgid "Advanced feature-set"
+msgstr "Funzionalità avanzate"
+
+#: templates/settings.php:10
+msgid "(Unstable)"
+msgstr "(Non stabile)"

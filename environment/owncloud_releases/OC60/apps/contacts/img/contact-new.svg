@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="20" width="20" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <g transform="matrix(1.2461 0 0 1.242 -.12304 -.51608)">
+  <g transform="matrix(1.0634 0 0 1.0634 -.031694 -.53733)">
+   <rect height="9.1085" width="13.409" y="2.5105" x=".5" stroke-width="0"/>
+   <g stroke-width="0" fill="#fff">
+    <rect height="4.3601" width="3.169" y="3.2825" x="1.2452"/>
+    <rect height=".70081" width="6.1161" y="3.3218" x="5.0012"/>
+    <rect height=".70081" width="2.5802" y="5.122" x="5.0012"/>
+    <rect height=".70081" width="8.1389" y="8.4222" x="1.2264"/>
+    <rect height=".70081" width="4.3482" y="9.9222" x="1.2264"/>
+    <rect height=".70081" width="2.5802" y="5.122" x="8.601"/>
+    <rect height=".70081" width="4.9375" y="6.8222" x="5.0012"/>
+   </g>
+   <path d="m10.824 8.4436h2v2h2v2h-2v2h-2v-2h-2v-2h2z" stroke="#fff" stroke-width=".5"/>
+  </g>
+ </g>
+</svg>

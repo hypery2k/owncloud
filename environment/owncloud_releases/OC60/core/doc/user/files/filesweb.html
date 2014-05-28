@@ -1,0 +1,244 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Accessing your Files (Web Interface) &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Files &amp; Synchronization" href="index.html" />
+    <link rel="next" title="Accessing your Files (WebDAV)" href="files.html" />
+    <link rel="prev" title="Files &amp; Synchronization" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Files &amp; Synchronization</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Accessing your Files (Web Interface)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#navigating-inside-your-owncloud">Navigating inside your ownCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-uploading-files">Creating/uploading files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selecting-files">Selecting files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-files">Viewing files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#moving-files">Moving files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sharing-files">Sharing files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Accessing your Files (WebDAV)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioncontrol.html">Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deletedfiles.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync.html">Desktop Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encryption.html">Files Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quota.html">Storage Quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Big Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="accessing-your-files-web-interface">
+<h1>Accessing your Files (Web Interface)<a class="headerlink" href="#accessing-your-files-web-interface" title="Permalink to this headline">¶</a></h1>
+<p>Your ownCloud files can be accessed from anywhere by using your ownCloud&#8217;s web interface. In the files app,
+you can view (if a common type), move, rename, download, share and delete your files easily. If versioning app is
+enabled, you can also revert a file to specific version. See <a class="reference internal" href="versioncontrol.html"><em>Version Control</em></a> for details.</p>
+<div class="figure">
+<img alt="../_images/oc_filesweb.png" src="../_images/oc_filesweb.png" />
+</div>
+<p>Files app on ownCloud web interface</p>
+<p>With ownCloud 6, you can now see file thumbnails next to the filenames. By hovering your cursor on a file, you
+will be provided with some file operations. You can use rename, download, share buttons to perform those actions
+or click on the cross icon at the rightmost location to remove the hovered file. If the file is an editable
+office file, it will also show <em>Edit</em> button to open the file in documents app (if this app is enabled).</p>
+<div class="section" id="navigating-inside-your-owncloud">
+<h2>Navigating inside your ownCloud<a class="headerlink" href="#navigating-inside-your-owncloud" title="Permalink to this headline">¶</a></h2>
+<p>To navigate through folders in your ownCloud, you can simply click on a folder name. The navigation bar
+will show your current directory:</p>
+<div class="figure">
+<img alt="../_images/oc_filesweb_navigate.png" src="../_images/oc_filesweb_navigate.png" />
+</div>
+<p>Navigation bar</p>
+<p>You can click on one of the upper directories to navigate up or use home icon to navigate back into your root
+folder.</p>
+</div>
+<div class="section" id="creating-uploading-files">
+<h2>Creating/uploading files<a class="headerlink" href="#creating-uploading-files" title="Permalink to this headline">¶</a></h2>
+<p>You can create files by simply clicking on <em>New</em> button on files app. The <em>New</em> button will provide three
+options to choose from:</p>
+<div class="figure">
+<img alt="../_images/oc_filesweb_new.png" src="../_images/oc_filesweb_new.png" />
+</div>
+<p>New button options</p>
+<ul class="simple">
+<li><em>Text file</em> will create a simple text file and add into the current folder in your ownCloud.</li>
+<li><em>Folder</em> will create a folder in current folder.</li>
+<li><em>From link</em> will download the file from the provided link and place it into the current folder.</li>
+</ul>
+</div>
+<div class="section" id="selecting-files">
+<h2>Selecting files<a class="headerlink" href="#selecting-files" title="Permalink to this headline">¶</a></h2>
+<p>You can select one or more files by clicking on small thumbnails or icons of the files. To select all files in
+the current directory, use the checkbox just above the first file/folder on the list.</p>
+<p>If you select multiple files, selected files can be deleted or downloaded as ZIP by using the buttons just above of the file list.
+If download button is not visible, this means that administrator had disabled this feature.</p>
+</div>
+<div class="section" id="viewing-files">
+<h2>Viewing files<a class="headerlink" href="#viewing-files" title="Permalink to this headline">¶</a></h2>
+<p>ownCloud can display uncompressed text files, OpenDocument files, PDFs, and image files by simply clicking on
+the file name. If displaying of a file is not possible, a download process will start.</p>
+</div>
+<div class="section" id="moving-files">
+<h2>Moving files<a class="headerlink" href="#moving-files" title="Permalink to this headline">¶</a></h2>
+<p>In ownCloud web interface, file(s) can be moved by dragging and dropping them into a sub-directory. If you would like to move a directory to an upper directory, drag the file(s) into one of the folders shown in navigation bar (depicted above).</p>
+</div>
+<div class="section" id="sharing-files">
+<h2>Sharing files<a class="headerlink" href="#sharing-files" title="Permalink to this headline">¶</a></h2>
+<p>Any file/folder on ownCloud can be shared to download with a local user, group or any person online with a public link. Shared files/folders will show a <em>Shared</em> text next to their names.</p>
+<p>To share a file/folder, hover your cursor on an item in the files app and click <em>Share</em>. You will be provided with some options:</p>
+<div class="figure">
+<img alt="../_images/oc_files_share.png" src="../_images/oc_files_share.png" />
+</div>
+<p>Share dialog</p>
+<ul class="simple">
+<li>The first field is to share this file/folder with local users/groups. This is very useful
+if you are in a company and want to create a quick share with a collegue.</li>
+<li>If you click on <em>Share link</em>, the other options will be visible. Since this link allows everyone
+to download this file/folder, you may want to protect this share with a password. To do that,
+click on <em>Password protect</em> and set a password.</li>
+<li>If this share is a folder, you will also have an option to enable uploads into this folder using
+the provided link. This is very useful to collect files from multiple users into same place easily.</li>
+<li>If your server is configured with a mail server, you can type e-mail addresses seperated with space to send the link to multiple users.</li>
+<li>Finally, setting an expiration date will expiry the share after the specified date.</li>
+</ul>
+<p>If you type a user and/or group to the <em>share with</em> field, you will be given extra sharing options such as informing via e-mail,
+letting users edit (create, update, delete, re-share) the share. To revoke permissions from users, simply click on cross icon
+on the same line with the users.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

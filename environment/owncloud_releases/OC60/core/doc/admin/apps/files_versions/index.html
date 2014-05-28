@@ -1,0 +1,274 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Versions &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="First Run Wizard" href="../firstrunwizard/index.html" />
+    <link rel="prev" title="Deleted Files" href="../files_trashbin/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../activity/index.html">Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_antivirus/index.html">File Antivirus Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_encryption/index.html">Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_external/index.html">External storage support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_sharing/index.html">Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Versions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#expiry-of-versions">Expiry of versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#space-limitations">Space limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-and-storage">Configuration and storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utilization">Utilization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../firstrunwizard/index.html">First Run Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="versions">
+<h1>Versions<a class="headerlink" href="#versions" title="Permalink to this headline">¶</a></h1>
+<p>The ownCloud Versions app maintains older versions of a file which have been
+modified by an ownCloud user.</p>
+<div class="section" id="expiry-of-versions">
+<h2>Expiry of versions<a class="headerlink" href="#expiry-of-versions" title="Permalink to this headline">¶</a></h2>
+<p>The versions app expires old versions automatically to make certain that the
+user doesn’t run out of space.  The following algorithm is used to delete old
+versions:</p>
+<ul class="simple">
+<li>ownCloud keeps one new version every 2 seconds for the first 10 seconds</li>
+<li>ownCloud keeps one new version every minute for the first hour</li>
+<li>ownCloud keeps one new version every hour for the first 24 hours</li>
+<li>ownCloud keeps one new version every day for the first 30 days</li>
+<li>ownCloud keeps one new version every week thereafter.</li>
+</ul>
+<p>The versions are adjusted along this algorithm every time a new version is created.</p>
+</div>
+<div class="section" id="space-limitations">
+<h2>Space limitations<a class="headerlink" href="#space-limitations" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the expiry of versions, ownCloud’s versions app makes certain
+never to use more than 50% of the user’s currently available free space.  If
+stored versions exceed this limit, ownCloud will delete the oldest versions
+first until it meets this limit.</p>
+</div>
+<div class="section" id="configuration-and-storage">
+<h2>Configuration and storage<a class="headerlink" href="#configuration-and-storage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>By default, the ownCloud versions app is enabled.
+To verify or disable, navigate to the apps
+page and select Versions.</p>
+<p><img alt="1000000000000336000000F38C3FAF84_png" src="../../_images/1000000000000336000000F38C3FAF84.png" style="width: 6.5in; height: 1.9217in;" /></p>
+</div>
+<div class="section" id="storage">
+<h3>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h3>
+<p>Previous versions of files are stored in the <tt class="docutils literal"><span class="pre">data/&lt;user&gt;/files_versions</span></tt> folder.</p>
+<p><img alt="100000000000021C0000004CACBF786C_png" src="../../_images/100000000000021C0000004CACBF786C.png" style="width: 5.6252in; height: 0.7917in;" /></p>
+<p>This directory is automatically created when the first file version is created.</p>
+<p>The naming convention of the files in this directory are:</p>
+<div class="highlight-python"><pre>&lt;file_name&gt;.v&lt;unix_timestamp&gt;</pre>
+</div>
+<p><img alt="10000000000002210000002DE3BE7515_png" src="../../_images/10000000000002210000002DE3BE7515.png" style="width: 5.6772in; height: 0.4689in;" /></p>
+</div>
+</div>
+<div class="section" id="utilization">
+<h2>Utilization<a class="headerlink" href="#utilization" title="Permalink to this headline">¶</a></h2>
+<p>The versions app, when enabled, automatically creates a new version each time an existing, non-empty file is saved.</p>
+<div class="section" id="initial-file-creation">
+<h3>Initial File creation<a class="headerlink" href="#initial-file-creation" title="Permalink to this headline">¶</a></h3>
+<p>Create a file on the ownCloud server – either directly via the browser, an upload, or a file sync from the client.
+In this example, the file versionText.txt was created via the web browser.</p>
+<p><img alt="1000000000000427000000324F58266D_png" src="../../_images/1000000000000427000000324F58266D.png" style="width: 6.5in; height: 0.3055in;" /></p>
+<div class="section" id="note">
+<h4>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h4>
+<p>Since this file was initially created via the web browser, it is an empty file.</p>
+</div>
+</div>
+<div class="section" id="edit-the-file">
+<h3>Edit the file<a class="headerlink" href="#edit-the-file" title="Permalink to this headline">¶</a></h3>
+<p>Edit the file through the web browser.</p>
+<p><img alt="100000000000019E0000004CD2A0F407_png" src="../../_images/100000000000019E0000004CD2A0F407.png" style="width: 4.3126in; height: 0.7917in;" /></p>
+<p>And save.</p>
+<div class="section" id="notes">
+<h4>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h4>
+<p>Editing an empty file, as in this instance, for the first time, does not create a new version.</p>
+</div>
+</div>
+<div class="section" id="create-version">
+<h3>Create version<a class="headerlink" href="#create-version" title="Permalink to this headline">¶</a></h3>
+<p>Edit the non-zero byte file either via the web browser, via the sync client or via an upload.</p>
+<p><img alt="1000000000000194000000498325A766_png" src="../../_images/1000000000000194000000498325A766.png" style="width: 4.2083in; height: 0.7602in;" /></p>
+<p>And save.</p>
+<div class="section" id="id1">
+<h4>Notes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>When performing an upload of a file which already exists on the server, a dialog box appears asking whether to keep the existing file or the new file.</p>
+<p><img alt="10000000000001C1000000FE663748B2_png" src="../../_images/10000000000001C1000000FE663748B2.png" style="width: 4.6772in; height: 2.6457in;" /></p>
+<p>In order to create a version, the New File must be selected.
+If the Existing File is selected, the file is not replaced hence no new version is created.</p>
+</div>
+</div>
+<div class="section" id="accessing-versions">
+<h3>Accessing Versions<a class="headerlink" href="#accessing-versions" title="Permalink to this headline">¶</a></h3>
+<p>In order to view what versions exist for a given file, hover over the line containing the file and select Versions
+on the right side.</p>
+<p><img alt="1000000000000430000000AF9D6E724E_png" src="../../_images/1000000000000430000000AF9D6E724E.png" style="width: 6.5in; height: 1.061in;" /></p>
+<p>In this case, there are two previous versions of versionTest.txt
+.
+The thumbnail and creation time can be used to identify what was in the file in that version.</p>
+</div>
+<div class="section" id="reverting-to-a-different-version">
+<h3>Reverting to a different version<a class="headerlink" href="#reverting-to-a-different-version" title="Permalink to this headline">¶</a></h3>
+<p>To revert to a previous version, simply select the restore next to the version as seen in
+.</p>
+<div class="section" id="id2">
+<h4>Notes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>In the instance where a file is reverted to another version, the “existing” version of the file is versioned and can be reverted at a later date.</p>
+</div>
+</div>
+<div class="section" id="sharing-and-versions">
+<h3>Sharing and Versions<a class="headerlink" href="#sharing-and-versions" title="Permalink to this headline">¶</a></h3>
+<p>If user-A shares a file with user-B, user-B may revert the file to any previous version.
+If user-B modifies the file, a new version is created.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

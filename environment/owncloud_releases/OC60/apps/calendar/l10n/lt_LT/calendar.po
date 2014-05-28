@@ -1,0 +1,889 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Dr. ROX <to.dr.rox@gmail.com>, 2011, 2012
+# Liudas Ališauskas <liudas.alisauskas@gmail.com>, 2013
+# mambuta <vspyshkin@gmail.com>, 2013
+# Min2liz <min2lizz@gmail.com>, 2013
+# fizikiukas <fizikiukas@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2013-11-24 00:09-0500\n"
+"PO-Revision-Date: 2013-11-22 02:20+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/owncloud/language/lt_LT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt_LT\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ajax/cache/status.php:19
+msgid "Not all calendars are completely cached"
+msgstr "Ne visi kalendoriai pilnai kešuoti"
+
+#: ajax/cache/status.php:21
+msgid "Everything seems to be completely cached"
+msgstr "Viskas, atrodo, yra pilnai kešuota"
+
+#: ajax/categories/rescan.php:29
+msgid "No calendars found."
+msgstr "Kalendorių nerasta."
+
+#: ajax/categories/rescan.php:37
+msgid "No events found."
+msgstr "Įvykių nerasta."
+
+#: ajax/event/edit.form.php:21
+msgid "Wrong calendar"
+msgstr "Ne tas kalendorius"
+
+#: ajax/event/edit.form.php:224 lib/object.php:197 lib/object.php:233
+msgid "You do not have the permissions to edit this event."
+msgstr "Jūs neturite leidimo redaguoti šį įvykį."
+
+#: ajax/import/dropimport.php:29 ajax/import/import.php:66
+msgid ""
+"The file contained either no events or all events are already saved in your "
+"calendar."
+msgstr "Dokumente arba nebuvo įvykių, arba visi jame buvę įvykiai jau buvo jūsų kalendoriuje."
+
+#: ajax/import/dropimport.php:31 ajax/import/import.php:69
+msgid "events has been saved in the new calendar"
+msgstr "įvykiai išsaugoti naujame kalendoriuje"
+
+#: ajax/import/import.php:58
+msgid "Import failed"
+msgstr "importuoti nepavyko"
+
+#: ajax/import/import.php:71
+msgid "events has been saved in your calendar"
+msgstr "įvykiai išsaugoti tavo kalendoriuje"
+
+#: ajax/settings/guesstimezone.php:26
+msgid "New Timezone:"
+msgstr "Nauja laiko juosta:"
+
+#: ajax/settings/settimezone.php:23
+msgid "Timezone changed"
+msgstr "Laiko zona pakeista"
+
+#: ajax/settings/settimezone.php:25
+msgid "Invalid request"
+msgstr "Klaidinga užklausa"
+
+#: appinfo/app.php:38 js/l10n.php:87 templates/part.eventform.php:20
+#: templates/part.showevent.php:37
+msgid "Calendar"
+msgstr "Kalendorius"
+
+#: js/calendar.js:176
+msgid "Deletion failed"
+msgstr "Ištrinti nepavyko"
+
+#: js/calendar.js:263
+msgid "ddd d MMMM[ yyyy]{ - [ddd d] MMMM yyyy}"
+msgstr "ddd d MMMM[ yyyy]{ - [ddd d] MMMM yyyy}"
+
+#: js/calendar.js:265
+msgid "ddd d MMMM[ yyyy] HH:mm{ - [ ddd d MMMM yyyy] HH:mm}"
+msgstr "ddd d MMMM[ yyyy] HH:mm{ - [ ddd d MMMM yyyy] HH:mm}"
+
+#: js/calendar.js:581
+msgid "group"
+msgstr "grupė"
+
+#: js/calendar.js:583 templates/part.share.php:46 templates/part.share.php:81
+msgid "can edit"
+msgstr "gali redaguoti"
+
+#: js/calendar.js:584 templates/part.share.php:50 templates/part.share.php:87
+msgid "can share"
+msgstr ""
+
+#: js/calendar.js:855
+msgid "ddd"
+msgstr "ddd"
+
+#: js/calendar.js:856
+msgid "ddd M/d"
+msgstr "ddd M/d"
+
+#: js/calendar.js:857
+msgid "dddd M/d"
+msgstr "dddd M/d"
+
+#: js/calendar.js:860
+msgid "MMMM yyyy"
+msgstr "MMMM yyyy"
+
+#: js/calendar.js:862
+msgid "MMM d[ yyyy]{ '–'[ MMM] d yyyy}"
+msgstr "MMM d[ yyyy]{ '–'[ MMM] d yyyy}"
+
+#: js/calendar.js:864
+msgid "dddd, MMM d, yyyy"
+msgstr "dddd, MMM d, yyyy"
+
+#: js/l10n.php:77 lib/object.php:588 templates/settings.php:93
+msgid "Sunday"
+msgstr "Sekmadienis"
+
+#: js/l10n.php:77 lib/object.php:582 templates/settings.php:92
+msgid "Monday"
+msgstr "Pirmadienis"
+
+#: js/l10n.php:77 lib/object.php:583
+msgid "Tuesday"
+msgstr "Antradienis"
+
+#: js/l10n.php:77 lib/object.php:584
+msgid "Wednesday"
+msgstr "Trečiadienis"
+
+#: js/l10n.php:77 lib/object.php:585
+msgid "Thursday"
+msgstr "Ketvirtadienis"
+
+#: js/l10n.php:77 lib/object.php:586
+msgid "Friday"
+msgstr "Penktadienis"
+
+#: js/l10n.php:77 lib/object.php:587 templates/settings.php:94
+msgid "Saturday"
+msgstr "Šeštadienis"
+
+#: js/l10n.php:78
+msgid "Sun."
+msgstr "Sk."
+
+#: js/l10n.php:78
+msgid "Mon."
+msgstr "Pr."
+
+#: js/l10n.php:78
+msgid "Tue."
+msgstr "An."
+
+#: js/l10n.php:78
+msgid "Wed."
+msgstr "Tr."
+
+#: js/l10n.php:78
+msgid "Thu."
+msgstr "Kt."
+
+#: js/l10n.php:78
+msgid "Fri."
+msgstr "Pn."
+
+#: js/l10n.php:78
+msgid "Sat."
+msgstr "Št."
+
+#: js/l10n.php:79 lib/object.php:638
+msgid "January"
+msgstr "Sausis"
+
+#: js/l10n.php:79 lib/object.php:639
+msgid "February"
+msgstr "Vasaris"
+
+#: js/l10n.php:79 lib/object.php:640
+msgid "March"
+msgstr "Kovas"
+
+#: js/l10n.php:79 lib/object.php:641
+msgid "April"
+msgstr "Balandis"
+
+#: js/l10n.php:79 lib/object.php:642
+msgid "May"
+msgstr "Gegužė"
+
+#: js/l10n.php:79 lib/object.php:643
+msgid "June"
+msgstr "Birželis"
+
+#: js/l10n.php:79 lib/object.php:644
+msgid "July"
+msgstr "Liepa"
+
+#: js/l10n.php:79 lib/object.php:645
+msgid "August"
+msgstr "Rugpjūtis"
+
+#: js/l10n.php:79 lib/object.php:646
+msgid "September"
+msgstr "Rugsėjis"
+
+#: js/l10n.php:79 lib/object.php:647
+msgid "October"
+msgstr "Spalis"
+
+#: js/l10n.php:79 lib/object.php:648
+msgid "November"
+msgstr "Lapkritis"
+
+#: js/l10n.php:79 lib/object.php:649
+msgid "December"
+msgstr "Gruodis"
+
+#: js/l10n.php:80
+msgid "Jan."
+msgstr "Sau."
+
+#: js/l10n.php:80
+msgid "Feb."
+msgstr "Vas."
+
+#: js/l10n.php:80
+msgid "Mar."
+msgstr "Kov."
+
+#: js/l10n.php:80
+msgid "Apr."
+msgstr "Bal."
+
+#: js/l10n.php:80
+msgid "May."
+msgstr "Geg."
+
+#: js/l10n.php:80
+msgid "Jun."
+msgstr "Bir."
+
+#: js/l10n.php:80
+msgid "Jul."
+msgstr "Lie."
+
+#: js/l10n.php:80
+msgid "Aug."
+msgstr "Rugp."
+
+#: js/l10n.php:80
+msgid "Sep."
+msgstr "Rugs."
+
+#: js/l10n.php:80
+msgid "Oct."
+msgstr "Spa."
+
+#: js/l10n.php:80
+msgid "Nov."
+msgstr "Lap."
+
+#: js/l10n.php:80
+msgid "Dec."
+msgstr "Groud."
+
+#: js/l10n.php:83
+msgid "All day"
+msgstr "Visa diena"
+
+#: js/l10n.php:84 lib/import.php:214 templates/settings.php:23
+msgid "New Calendar"
+msgstr "Naujas kalendorius"
+
+#: js/l10n.php:85
+msgid "Missing or invalid fields"
+msgstr "Trūksta būtinos informacijos"
+
+#: js/l10n.php:86 templates/part.showevent.php:11
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: js/l10n.php:88
+msgid "From Date"
+msgstr "Nuo datos"
+
+#: js/l10n.php:89
+msgid "From Time"
+msgstr "Nuo laiko"
+
+#: js/l10n.php:90
+msgid "To Date"
+msgstr "Iki datos"
+
+#: js/l10n.php:91
+msgid "To Time"
+msgstr "Iki laiko"
+
+#: js/l10n.php:92
+msgid "The event ends before it starts"
+msgstr "Įvykis baigiasi anksčiau nei jis prasideda"
+
+#: js/l10n.php:93
+msgid "There was a database fail"
+msgstr "Įvyko duomenų bazės klaida"
+
+#: lib/app.php:121
+msgid "Birthday"
+msgstr "Gimtadienis"
+
+#: lib/app.php:122
+msgid "Business"
+msgstr "Verslas"
+
+#: lib/app.php:123
+msgid "Call"
+msgstr "Skambučiai"
+
+#: lib/app.php:124
+msgid "Clients"
+msgstr "Klientai"
+
+#: lib/app.php:125
+msgid "Deliverer"
+msgstr "Vykdytojas"
+
+#: lib/app.php:126
+msgid "Holidays"
+msgstr "Išeiginės"
+
+#: lib/app.php:127
+msgid "Ideas"
+msgstr "Idėjos"
+
+#: lib/app.php:128
+msgid "Journey"
+msgstr "Kelionė"
+
+#: lib/app.php:129
+msgid "Jubilee"
+msgstr "Jubiliejus"
+
+#: lib/app.php:130
+msgid "Meeting"
+msgstr "Susitikimas"
+
+#: lib/app.php:131
+msgid "Other"
+msgstr "Kiti"
+
+#: lib/app.php:132
+msgid "Personal"
+msgstr "Asmeniniai"
+
+#: lib/app.php:133
+msgid "Projects"
+msgstr "Projektai"
+
+#: lib/app.php:134
+msgid "Questions"
+msgstr "Klausimai"
+
+#: lib/app.php:135
+msgid "Work"
+msgstr "Darbas"
+
+#: lib/app.php:411
+msgid "by"
+msgstr " "
+
+#: lib/app.php:474
+msgid "unnamed"
+msgstr "be pavadinimo"
+
+#: lib/calendar.php:178 lib/calendar.php:211
+msgid "You do not have the permissions to update this calendar."
+msgstr "Jūs neturite leidimo atnaujinti šį kalendorių."
+
+#: lib/calendar.php:246
+msgid "You do not have the permissions to delete this calendar."
+msgstr "Jūs neturite leidimo ištrinti šį kalendorių."
+
+#: lib/calendar.php:280
+msgid "You do not have the permissions to add to this calendar."
+msgstr "Jūs neturite leidimo prijungti prie šio kalendoriaus."
+
+#: lib/object.php:122 lib/object.php:162 lib/object.php:317
+msgid "You do not have the permissions to add events to this calendar."
+msgstr "Jūs neturite leidimo pridėti įvykių į šį kalendorių."
+
+#: lib/object.php:267 lib/object.php:297
+msgid "You do not have the permissions to delete this event."
+msgstr "Jūs neturite leidimo ištrinti šį įvykį."
+
+#: lib/object.php:491
+msgid "Busy"
+msgstr "Užimtas"
+
+#: lib/object.php:531
+msgid "Show full event"
+msgstr ""
+
+#: lib/object.php:532
+msgid "Show only busy"
+msgstr ""
+
+#: lib/object.php:533
+msgid "Hide event"
+msgstr ""
+
+#: lib/object.php:543
+msgid "Does not repeat"
+msgstr "Nekartoti"
+
+#: lib/object.php:544
+msgid "Daily"
+msgstr "Kasdien"
+
+#: lib/object.php:545
+msgid "Weekly"
+msgstr "Kiekvieną savaitę"
+
+#: lib/object.php:546
+msgid "Every Weekday"
+msgstr "Kiekvieną savaitės dieną"
+
+#: lib/object.php:547
+msgid "Bi-Weekly"
+msgstr "Kas dvi savaites"
+
+#: lib/object.php:548
+msgid "Monthly"
+msgstr "Kiekvieną mėnesį"
+
+#: lib/object.php:549
+msgid "Yearly"
+msgstr "Kiekvienais metais"
+
+#: lib/object.php:559
+msgid "never"
+msgstr "niekada"
+
+#: lib/object.php:560
+msgid "by occurrences"
+msgstr "pagal įvykius"
+
+#: lib/object.php:561
+msgid "by date"
+msgstr "pagal datą"
+
+#: lib/object.php:571
+msgid "by monthday"
+msgstr "pagal mėnesio dieną"
+
+#: lib/object.php:572
+msgid "by weekday"
+msgstr "pagal savaitės dieną"
+
+#: lib/object.php:598
+msgid "events week of month"
+msgstr "menėsio įvykių savaitė"
+
+#: lib/object.php:599
+msgid "first"
+msgstr "pirmas"
+
+#: lib/object.php:600
+msgid "second"
+msgstr "antras"
+
+#: lib/object.php:601
+msgid "third"
+msgstr "trečias"
+
+#: lib/object.php:602
+msgid "fourth"
+msgstr "ketvirtas"
+
+#: lib/object.php:603
+msgid "fifth"
+msgstr "penktas"
+
+#: lib/object.php:604
+msgid "last"
+msgstr "paskutinis"
+
+#: lib/object.php:659
+msgid "by events date"
+msgstr "pagal įvykių datą"
+
+#: lib/object.php:660
+msgid "by yearday(s)"
+msgstr "pagal metų diena(s)"
+
+#: lib/object.php:661
+msgid "by weeknumber(s)"
+msgstr "pagal savaitę(es)"
+
+#: lib/object.php:662
+msgid "by day and month"
+msgstr "pagal dieną ir mėnesį"
+
+#: lib/sabre/backend.php:66
+msgid "Contact birthdays"
+msgstr "Kontaktų gimtadieniai"
+
+#: lib/search.php:35 lib/search.php:37 lib/search.php:40
+msgid "Date"
+msgstr "Data"
+
+#: lib/search.php:43
+msgid "Cal."
+msgstr "Kal."
+
+#: templates/calendar.php:6
+msgid "Day"
+msgstr ""
+
+#: templates/calendar.php:7
+msgid "Week"
+msgstr "Savaitė"
+
+#: templates/calendar.php:8
+msgid "Month"
+msgstr "Mėnuo"
+
+#: templates/calendar.php:12 templates/calendar.php:18
+msgid "Today"
+msgstr "Šiandien"
+
+#: templates/calendar.php:13
+msgid "Settings"
+msgstr "Nustatymai"
+
+#: templates/part.choosecalendar.rowfields.php:13
+msgid "Share Calendar"
+msgstr "Dalintis kalendoriumi"
+
+#: templates/part.choosecalendar.rowfields.php:24 templates/settings.php:28
+msgid "CalDav Link"
+msgstr "CalDav adresas"
+
+#: templates/part.choosecalendar.rowfields.php:27
+msgid "Download"
+msgstr "Atsisiųsti"
+
+#: templates/part.choosecalendar.rowfields.php:31
+msgid "Edit"
+msgstr "Keisti"
+
+#: templates/part.choosecalendar.rowfields.php:36
+msgid "Delete"
+msgstr "Trinti"
+
+#: templates/part.editcalendar.php:9
+msgid "New calendar"
+msgstr "Naujas kalendorius"
+
+#: templates/part.editcalendar.php:9
+msgid "Edit calendar"
+msgstr "Taisyti kalendorių"
+
+#: templates/part.editcalendar.php:12
+msgid "Displayname"
+msgstr "Pavadinimas"
+
+#: templates/part.editcalendar.php:20
+msgid "Calendar color"
+msgstr "Kalendoriaus spalva"
+
+#: templates/part.editcalendar.php:33
+msgid "Save"
+msgstr "Išsaugoti"
+
+#: templates/part.editcalendar.php:33
+msgid "Submit"
+msgstr "Išsaugoti"
+
+#: templates/part.editcalendar.php:34
+msgid "Cancel"
+msgstr "Atšaukti"
+
+#: templates/part.editevent.php:1
+msgid "Edit event"
+msgstr ""
+
+#: templates/part.editevent.php:8
+msgid "Save event"
+msgstr ""
+
+#: templates/part.editevent.php:9
+msgid "Delete event"
+msgstr ""
+
+#: templates/part.eventform.php:5 templates/part.showevent.php:3
+msgid "Eventinfo"
+msgstr "Informacija"
+
+#: templates/part.eventform.php:6 templates/part.showevent.php:4
+msgid "Repeating"
+msgstr "Pasikartojimas"
+
+#: templates/part.eventform.php:7 templates/part.showevent.php:5
+msgid "Alarm"
+msgstr "Priminimas"
+
+#: templates/part.eventform.php:8 templates/part.showevent.php:6
+msgid "Attendees"
+msgstr "Dalyviai"
+
+#: templates/part.eventform.php:10
+msgid "Share"
+msgstr "Dalintis"
+
+#: templates/part.eventform.php:15
+msgid "Title of the Event"
+msgstr "Įvykio pavadinimas"
+
+#: templates/part.eventform.php:31
+msgid "from"
+msgstr "iš"
+
+#: templates/part.eventform.php:36
+msgid "to"
+msgstr ""
+
+#: templates/part.eventform.php:44 templates/part.showevent.php:66
+msgid "All Day Event"
+msgstr "Visos dienos įvykis"
+
+#: templates/part.eventform.php:47 templates/part.showevent.php:86
+msgid "Advanced options"
+msgstr "Papildomi nustatymai"
+
+#: templates/part.eventform.php:51 templates/part.showevent.php:91
+msgid "Location"
+msgstr "Vieta"
+
+#: templates/part.eventform.php:56
+msgid "Categories (separate by comma)"
+msgstr ""
+
+#: templates/part.eventform.php:58 templates/part.eventform.php:59
+msgid "Edit categories"
+msgstr "Redaguoti kategorijas"
+
+#: templates/part.eventform.php:61 templates/part.showevent.php:99
+msgid "Description"
+msgstr "Aprašymas"
+
+#: templates/part.eventform.php:63
+msgid "Export event"
+msgstr ""
+
+#: templates/part.eventform.php:70 templates/part.showevent.php:109
+msgid "Repeat"
+msgstr "Kartoti"
+
+#: templates/part.eventform.php:77 templates/part.showevent.php:116
+msgid "Advanced"
+msgstr "Išplėstiniai"
+
+#: templates/part.eventform.php:121 templates/part.showevent.php:160
+msgid "Select weekdays"
+msgstr "Pasirinkite savaitės dienas"
+
+#: templates/part.eventform.php:134 templates/part.eventform.php:147
+#: templates/part.showevent.php:173 templates/part.showevent.php:186
+msgid "Select days"
+msgstr "Pasirinkite dienas"
+
+#: templates/part.eventform.php:139 templates/part.showevent.php:178
+msgid "and the events day of year."
+msgstr "ir metų įvykių diena."
+
+#: templates/part.eventform.php:152 templates/part.showevent.php:191
+msgid "and the events day of month."
+msgstr "ir menėsio įvykių diena."
+
+#: templates/part.eventform.php:160 templates/part.showevent.php:199
+msgid "Select months"
+msgstr "Pasirinkite mėnesius"
+
+#: templates/part.eventform.php:173 templates/part.showevent.php:212
+msgid "Select weeks"
+msgstr "Pasirinkite savaites"
+
+#: templates/part.eventform.php:178 templates/part.showevent.php:217
+msgid "and the events week of year."
+msgstr "ir metų įvykių savaitė"
+
+#: templates/part.eventform.php:184 templates/part.showevent.php:223
+msgid "Interval"
+msgstr "Intervalas"
+
+#: templates/part.eventform.php:190 templates/part.showevent.php:229
+msgid "End"
+msgstr "Pabaiga"
+
+#: templates/part.eventform.php:203 templates/part.showevent.php:242
+msgid "occurrences"
+msgstr "įvykiai"
+
+#: templates/part.eventform.php:222
+msgid "Visibility to people shared with"
+msgstr ""
+
+#: templates/part.import.php:14
+msgid "create a new calendar"
+msgstr "sukurti naują kalendorių"
+
+#: templates/part.import.php:17
+msgid "Import a calendar file"
+msgstr "Importuoti kalendoriaus failą"
+
+#: templates/part.import.php:24
+msgid "Please choose a calendar"
+msgstr "Pasirinkite kalendorių"
+
+#: templates/part.import.php:36
+msgid "Name of new calendar"
+msgstr "Naujo kalendoriaus pavadinimas"
+
+#: templates/part.import.php:44
+msgid "Take an available name!"
+msgstr "Pasirinkite neužimtą pavadinimą!"
+
+#: templates/part.import.php:45
+msgid ""
+"A Calendar with this name already exists. If you continue anyhow, these "
+"calendars will be merged."
+msgstr "Kalendorius tokiu pavadinimu jau egzistuoja. Jei tęsite toliau, šie kalendoriai bus sujungti."
+
+#: templates/part.import.php:48
+msgid "Remove all events from the selected calendar"
+msgstr "Ištrinti visus įvykius iš pasirinkto kalendoriaus"
+
+#: templates/part.import.php:50
+msgid "Import"
+msgstr "Importuoti"
+
+#: templates/part.import.php:59
+msgid "Close Dialog"
+msgstr "Uždaryti"
+
+#: templates/part.newevent.php:1
+msgid "Create a new event"
+msgstr "Sukurti naują įvykį"
+
+#: templates/part.newevent.php:8
+msgid "Create event"
+msgstr ""
+
+#: templates/part.share.php:32
+msgid "Share with user or group"
+msgstr ""
+
+#: templates/part.share.php:53
+msgid "Unshare"
+msgstr "Nebesidalinti"
+
+#: templates/part.share.php:59
+msgid "Not shared with anyone"
+msgstr ""
+
+#: templates/part.share.php:63
+msgid "Send Email"
+msgstr "Siųsti el. laišką"
+
+#: templates/part.share.php:67
+msgid "Shared via calendar"
+msgstr "Dalintis per kalendorių"
+
+#: templates/part.share.php:94
+msgid "Not shared with anyone via calendar"
+msgstr ""
+
+#: templates/part.showevent.php:1
+msgid "View an event"
+msgstr "Peržiūrėti įvykį"
+
+#: templates/part.showevent.php:19
+msgid "Category"
+msgstr "Kategorija"
+
+#: templates/part.showevent.php:23
+msgid "No categories selected"
+msgstr "Nepasirinktos jokios katagorijos"
+
+#: templates/part.showevent.php:41
+msgid "of"
+msgstr "iš"
+
+#: templates/part.showevent.php:50
+msgid "Access Class"
+msgstr "Priėjimo klasė"
+
+#: templates/part.showevent.php:70
+msgid "From"
+msgstr "Nuo"
+
+#: templates/part.showevent.php:73 templates/part.showevent.php:81
+msgid "at"
+msgstr " "
+
+#: templates/part.showevent.php:78
+msgid "To"
+msgstr "Iki"
+
+#: templates/settings.php:2
+msgid "Your calendars"
+msgstr "Jūsų kalendoriai"
+
+#: templates/settings.php:34
+msgid "General"
+msgstr "Bendrai"
+
+#: templates/settings.php:39
+msgid "Timezone"
+msgstr "Laiko juosta"
+
+#: templates/settings.php:70
+msgid "Update timezone automatically"
+msgstr "Atnaujinti laiko zoną automatiškai"
+
+#: templates/settings.php:75
+msgid "Time format"
+msgstr "Laiko formatas"
+
+#: templates/settings.php:80
+msgid "24h"
+msgstr "24val"
+
+#: templates/settings.php:81
+msgid "12h"
+msgstr "12val"
+
+#: templates/settings.php:87
+msgid "Start week on"
+msgstr "Savaitę pradėti nuo"
+
+#: templates/settings.php:100
+msgid "Cache"
+msgstr "Kešavimas"
+
+#: templates/settings.php:104
+msgid "Clear cache for repeating events"
+msgstr "Išvalyti kešuotus ir pasikartojančius įvykius"
+
+#: templates/settings.php:109
+msgid "URLs"
+msgstr "Nuorodos"
+
+#: templates/settings.php:111
+msgid "Calendar CalDAV syncing addresses"
+msgstr "CalDAV kalendoriaus synchronizavimo adresas"
+
+#: templates/settings.php:111
+msgid "more info"
+msgstr "daugiau informacijos"
+
+#: templates/settings.php:113
+msgid "Primary address (Kontact et al)"
+msgstr "Pirminis adresas"
+
+#: templates/settings.php:115
+msgid "iOS/OS X"
+msgstr "iOS/OS X"
+
+#: templates/settings.php:117
+msgid "Read only iCalendar link(s)"
+msgstr "iCalendar nuoroda(os) tik skaitymui"

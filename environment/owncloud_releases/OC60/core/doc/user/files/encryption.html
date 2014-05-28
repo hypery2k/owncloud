@@ -1,0 +1,219 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Files Encryption &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Files &amp; Synchronization" href="index.html" />
+    <link rel="next" title="Storage Quota" href="quota.html" />
+    <link rel="prev" title="Desktop Synchronization" href="sync.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Files &amp; Synchronization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="filesweb.html">Accessing your Files (Web Interface)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Accessing your Files (WebDAV)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioncontrol.html">Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deletedfiles.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync.html">Desktop Synchronization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Files Encryption</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-gets-encrypted">What gets encrypted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decrypt-your-data-again">Decrypt your data again</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings">Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quota.html">Storage Quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Big Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="files-encryption">
+<h1>Files Encryption<a class="headerlink" href="#files-encryption" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud ships a encryption app, which enables encryption of all files stored in
+your ownCloud. Once the encryption app is enabled by the admin, all your files
+will be encrypted automatically. Encryption and decryption always happens
+server-side. This enables the user to continue to use all the other apps to
+view and edit their data. But this also means that the server administrator could
+intercept your data. Server-Side encryption is especially useful if you
+use external storages. This way you can make sure that the storage provider is
+not able to read your data.</p>
+<p>Please remember. Once the encryption app is enabled your log-in password is required
+to decrypt and access your data. By default your data will be lost if
+you lose your log-in password. If you want to protect yourself against password
+loss, store your log-in password in a secure place or enable the recovery-key
+feature as described below.</p>
+<div class="section" id="what-gets-encrypted">
+<h2>What gets encrypted<a class="headerlink" href="#what-gets-encrypted" title="Permalink to this headline">¶</a></h2>
+<p>The current version encrypts all your files stored in ownCloud except the following:</p>
+<ul class="simple">
+<li>old files in the trash bin (files which were deleted before the encryption app was enabled)</li>
+<li>image thumbnails from the gallery app and previews from the files app</li>
+<li>search index from the full text search app</li>
+</ul>
+<p>All this data is stored directly on your ownCloud server, so you don&#8217;t have to worry about exposing
+your data to a third party storage provider.</p>
+</div>
+<div class="section" id="decrypt-your-data-again">
+<h2>Decrypt your data again<a class="headerlink" href="#decrypt-your-data-again" title="Permalink to this headline">¶</a></h2>
+<p>If the encryption app is disabled after users have already stored encrypted data, users
+will be promted to decrypt their files again in their personal settings. After this is
+done, they can continue to use their ownCloud without encryption.</p>
+</div>
+<div class="section" id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>Once the encryption app is enabled, you will find some additional settings on
+your personal settings page.</p>
+<div class="section" id="recovery-key">
+<h3>Recovery Key<a class="headerlink" href="#recovery-key" title="Permalink to this headline">¶</a></h3>
+<p>If the admin enabled the recovery-key feature you can decide for yourself if
+you want to use this feature for your account. If you enable &#8220;Password recovery&#8221;
+the admin will be able to read your data with a special password. This allows
+him to recover your files in the event you lose your password. If the recovery-key
+is not enabled than there is no way to restore your files if you lose your log-in
+password.</p>
+</div>
+<div class="section" id="change-private-key-password">
+<h3>Change Private Key Password<a class="headerlink" href="#change-private-key-password" title="Permalink to this headline">¶</a></h3>
+<p>This option will be only available if your log-in password but not your
+encryption password was changed by your admin. This can happen if your ownCloud
+provider uses a external user back-end, e.g. LDAP, and changed your log-in
+password there. In this case you can set your encryption password to your new
+log-in password by providing your old and new log-in password. The encryption
+app only works if log-in password and encryption password is identical.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

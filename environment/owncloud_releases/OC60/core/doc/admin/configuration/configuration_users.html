@@ -1,0 +1,382 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User Management &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="LDAP Authentication" href="auth_ldap.html" />
+    <link rel="prev" title="Managing Apps" href="configuration_apps.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#users">Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-groups">User Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Using Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_preview.html">Enabling File Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Dealing with Big File Uploads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config_gui.html">Custom Mount Configuration Web-GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="user-management">
+<h1>User Management<a class="headerlink" href="#user-management" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud administrators can easily manage users via the web interface. To go into
+user management page, click your username on the web interface and select <em>Users</em>.
+A page similar to the image below will be shown:</p>
+<div class="figure">
+<img alt="../_images/oc_admin_user_manage.png" src="../_images/oc_admin_user_manage.png" />
+</div>
+<p>Users management page</p>
+<p>A fictive use case will help you understand the concept of users, user groups
+and group admins.</p>
+<p>Think of a small, 25-member staff company, named &#8220;Cloud Lovers&#8221;, that is lead
+by its founder Richard. In this company Bob acts as IT operator and recently
+set up ownCloud. Being the installing user, Bob is member of the so called
+&#8220;admin&#8221; user group of ownCloud. His colleague Tom, who provides support if Bob
+is on holiday, is member of the &#8220;admin&#8221; user group as well. All employees,
+including Bob and Tom, are members of the user group &#8220;Internal&#8221;, that is used
+to share data across the company. Mostly for operational data, that should not
+be accessible to all employees, Bob created the &#8220;Administration&#8221; user group
+having two members: Richard and his assistant Susan. Richard is group admin of
+this user group, so he can manage the members of the &#8220;Administration&#8221; user
+group on his own.</p>
+<div class="section" id="users">
+<h2>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h2>
+<p>A user represents an account of the ownCloud installation. In this section the
+core properties are listed.</p>
+<dl class="docutils">
+<dt><em>Login name (Username)</em></dt>
+<dd>This is the unique ID of a ownCloud user (e.g. test, jon.doe).</dd>
+<dt><em>Full Name</em></dt>
+<dd>This is the name that is used all over the user interface to identify the
+user i.e. when sharing data or sending mails. If no display name is set, it
+defaults to the login name.</dd>
+<dt><em>Password</em></dt>
+<dd>This is the password the user uses to login to ownCloud.</dd>
+<dt><em>Groups</em></dt>
+<dd>This is a list of security groups the user is assigned to. By default the
+user is not member of any user group.</dd>
+<dt><em>Group Admin</em></dt>
+<dd>This is a list of security groups the user has administration privileges for.
+By default the user is not registered as group admin for any user group.</dd>
+<dt><em>Storage</em></dt>
+<dd>This is the maximum disk space that may be used by the user. If the user
+reaches this limit he/she is not able to upload or sync further data. The
+storage quota is specified in the format <em>Number Unit</em> (e.g. 100 B (byte),
+50 KB (kilobyte), 20 MB (megabyte), 5 GB (gigabyte)). If no unit is given,
+the number is interpreted as bytes.</dd>
+</dl>
+<p>Each user is able to change its display name and password.</p>
+<div class="section" id="create-a-user">
+<h3>Create a user<a class="headerlink" href="#create-a-user" title="Permalink to this headline">¶</a></h3>
+<p>Before users can sign in and share data, they need ownCloud user accounts.</p>
+<p>To create a user account:</p>
+<ol class="arabic">
+<li><p class="first">Enter the new user&#8217;s <strong>Login Name</strong> and its initial <strong>Password</strong> in the
+appropriate fields.</p>
+</li>
+<li><p class="first">(Optional) Select the <strong>Groups</strong> to which you want to assign the new user.</p>
+</li>
+<li><p class="first">Click <strong>Create</strong>.</p>
+</li>
+<li><p class="first">(Optional) Edit additional user settings.</p>
+<p>To set other user settings, such as setting a display name or limiting the
+user&#8217;s storage, see instructions as follows.</p>
+</li>
+</ol>
+<p>Created users will have the storage specified on <em>Default Storage</em> setting
+on the same page.</p>
+<p>Login names may contain letters (a-z, A-Z), numbers (0-9), dashes (-),
+underscores (_), periods (.) and at signs (&#64;).</p>
+</div>
+<div class="section" id="reset-a-user-s-password">
+<h3>Reset a user&#8217;s password<a class="headerlink" href="#reset-a-user-s-password" title="Permalink to this headline">¶</a></h3>
+<p>To reset a user&#8217;s password:</p>
+<ol class="arabic simple">
+<li>Hover the line of the user.</li>
+<li>Click on the <strong>pencil icon</strong> next to the password field.</li>
+<li>Enter the user&#8217;s new password in the password field and then hit the
+<strong>Enter</strong> key of your keyboard.</li>
+</ol>
+<p>Remember to provide the user with the new login information after you have
+reset the password.</p>
+</div>
+<div class="section" id="rename-a-user">
+<h3>Rename a user<a class="headerlink" href="#rename-a-user" title="Permalink to this headline">¶</a></h3>
+<p>Each ownCloud user has two names: an unique <em>login name</em> used for
+authentication, and a <em>display name</em> (e.g. the user&#8217;s first name and last name)
+used in the user interface. You can edit the display name of a user, but you
+cannot change the login name of any user.</p>
+<p>To set a user&#8217;s display name:</p>
+<ol class="arabic simple">
+<li>Hover the line of the user.</li>
+<li>Click on the <strong>pencil icon</strong> next to the display name field.</li>
+<li>Enter the user&#8217;s new display name in the corresponding field and then hit
+the <strong>Enter</strong> key of your keyboard.</li>
+</ol>
+</div>
+<div class="section" id="grant-administrator-privileges-to-a-user">
+<h3>Grant administrator privileges to a user<a class="headerlink" href="#grant-administrator-privileges-to-a-user" title="Permalink to this headline">¶</a></h3>
+<p>If a user has administrator privileges, the user has the right to manage other
+users. Within ownCloud there are two types of administrators: <em>Super
+Administrators</em> and <em>Group Administrators</em>.</p>
+<p>Group administrators have the management rights to:</p>
+<ul class="simple">
+<li>Create new users and assign them to the group of the group administrator</li>
+<li>Edit and delete users that are assigned to the group of the group
+administrator</li>
+</ul>
+<p>Group administrators cannot access system settings or modify installation-wide
+configuration like the default storage.</p>
+<p>To assign the <em>super administrator</em> role to a user:</p>
+<ol class="arabic simple">
+<li>Use the drop-down list in <em>Groups</em> column of the user</li>
+<li>Assign the user to the &#8220;admin&#8221; user group</li>
+</ol>
+<p>To assign the <em>group administrator</em> role to a user:</p>
+<p>Find the user and select the user groups from the <strong>Group Admin</strong> drop-down
+list you want the user become group administrator for.</p>
+</div>
+<div class="section" id="assign-a-user-to-a-user-group">
+<h3>Assign a user to a user group<a class="headerlink" href="#assign-a-user-to-a-user-group" title="Permalink to this headline">¶</a></h3>
+<p>To assign a user to a user group:</p>
+<p>Find the user and select the user groups from the <strong>Groups</strong> drop-down list
+you want to assign the user to. You can use <em>add group</em> link to create a new
+group to assign the user to. You can assign the user more than one group by checking
+multiple groups.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a file/folder is shared with a group, newly created users will immediately
+have access to the share.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you assign a user to the <em>admin</em> user group, the user will become a
+<em>Super Administrator</em> with unlimited privileges.</p>
+</div>
+</div>
+<div class="section" id="limit-a-user-s-storage">
+<h3>Limit a user&#8217;s storage<a class="headerlink" href="#limit-a-user-s-storage" title="Permalink to this headline">¶</a></h3>
+<p>To limit a user&#8217;s storage quota:</p>
+<p>Find the user and select an item from the <strong>Storage</strong> drop-down list.</p>
+<blockquote>
+<div><ul class="simple">
+<li>If you select <em>Default</em>, the default storage limit, specified in the
+action bar at the top, is applied.</li>
+<li>If you select <em>Unlimited</em>, the user is not limited until the total disk
+space is consumed.</li>
+<li>If you want to enter a custom limit, select <em>Other...</em>, enter the storage
+quota of your choice and hit the <strong>Enter</strong> key of your keyboard.</li>
+</ul>
+</div></blockquote>
+<p>If you edit the value of the <strong>Default Storage</strong> field in the action bar, all
+users with storage <em>Default</em> are affected by this change, i.e. changing the
+default storage from <em>Unlimited</em> to <em>1 GB</em> will cause all users with <em>Default</em>
+storage being limited to 1 GB storage each.</p>
+</div>
+<div class="section" id="delete-user">
+<h3>Delete User<a class="headerlink" href="#delete-user" title="Permalink to this headline">¶</a></h3>
+<p><strong>Important considerations before deleting a user:</strong></p>
+<ul class="simple">
+<li>The user will no longer be able to sign in to your ownCloud installation.</li>
+<li>You cannot revert the deletion or restore a deleted account.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If this user had a share with a group or user, the share also will
+be deleted permanently.</p>
+</div>
+<p>To delete a user account:</p>
+<ol class="arabic simple">
+<li>Hover the line of the user you want to delete.</li>
+<li>Click the <strong>cross icon</strong> at the end of the line.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you accidentally delete a user, you can use undo button shown on
+notification bar at the top of the page.</p>
+</div>
+</div>
+</div>
+<div class="section" id="user-groups">
+<h2>User Groups<a class="headerlink" href="#user-groups" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-group">
+<h3>Create Group<a class="headerlink" href="#create-group" title="Permalink to this headline">¶</a></h3>
+<p>To create a user group:</p>
+<ol class="arabic simple">
+<li>Open the <strong>Groups</strong> drop-down list in the action bar.</li>
+<li>Click <strong>add group</strong>.</li>
+<li>Enter the name of the new group and then hit the <strong>Enter</strong> key of your
+keyboard.</li>
+</ol>
+<p>You can <em>assign users</em> to the newly created user groups anytime by using users&#8217;
+group drop-down list.</p>
+</div>
+<div class="section" id="edit-delete-group">
+<h3>Edit/Delete Group<a class="headerlink" href="#edit-delete-group" title="Permalink to this headline">¶</a></h3>
+<p>Currently, groups cannot be edited (e.g. renamed) or removed. This feature
+will be available in a future version of ownCloud.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have direct access to the database, you can manually delete the group
+from database tables oc_groups and oc_group_user.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,229 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Storage Quota &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Files &amp; Synchronization" href="index.html" />
+    <link rel="next" title="Big Files" href="configuring_big_file_upload.html" />
+    <link rel="prev" title="Files Encryption" href="encryption.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Files &amp; Synchronization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="filesweb.html">Accessing your Files (Web Interface)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Accessing your Files (WebDAV)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioncontrol.html">Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deletedfiles.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync.html">Desktop Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encryption.html">Files Encryption</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Storage Quota</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#checking-the-available-space">Checking the available space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sharing">Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#excluded-from-quota">Excluded from quota</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Big Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="storage-quota">
+<h1>Storage Quota<a class="headerlink" href="#storage-quota" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud makes it possible to specify a storage quota for users which is the <strong>maximum space</strong> a user is allowed to use for files located in their individual home storage.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When setting a quota, administrators need to be aware that it <strong>only applies to actual files</strong>, not application metadata. This means that when allocating a quota, they need to make sure there at least 10% more space available for a given user.</p>
+</div>
+<div class="section" id="checking-the-available-space">
+<h2>Checking the available space<a class="headerlink" href="#checking-the-available-space" title="Permalink to this headline">¶</a></h2>
+<p>You can check your available space by going to the &#8220;Personal&#8221; page from the top-right menu.</p>
+<p>The available space of a given user is calculated using the following formula:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">available_space</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">quota</span><span class="p">,</span> <span class="n">disk_free_space</span><span class="p">)</span> <span class="o">-</span> <span class="n">used_space</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">disk_free_space</span></tt> is the space available on the partition on which the user&#8217;s home storage is located on the server. It could happen that the available space on that partition is less than the user&#8217;s quota.</p>
+</div>
+<div class="section" id="sharing">
+<h2>Sharing<a class="headerlink" href="#sharing" title="Permalink to this headline">¶</a></h2>
+<p>When sharing files or directories, their used space is counted in the owner&#8217;s quota.</p>
+<div class="section" id="shared-files">
+<h3>Shared files<a class="headerlink" href="#shared-files" title="Permalink to this headline">¶</a></h3>
+<p>If user A shares a file F with user B, the size of F will be counted in user A&#8217;s storage, even if the file is modified or its size is increased by user B.</p>
+</div>
+<div class="section" id="shared-directories">
+<h3>Shared directories<a class="headerlink" href="#shared-directories" title="Permalink to this headline">¶</a></h3>
+<p>If user A shares a directory D with user B, any file that is modified or uploaded by user B inside of directory D will count in user A&#8217;s used space.</p>
+</div>
+<div class="section" id="resharing">
+<h3>Resharing<a class="headerlink" href="#resharing" title="Permalink to this headline">¶</a></h3>
+<p>When resharing a file or a directory, the used space is still counted in the quota of the owner who shared it initially.</p>
+</div>
+<div class="section" id="public-sharing-with-upload-permission">
+<h3>Public sharing with upload permission<a class="headerlink" href="#public-sharing-with-upload-permission" title="Permalink to this headline">¶</a></h3>
+<p>If user A publicly shares (share with link) a directory D and enables the &#8220;public upload&#8221; permission, people with the link will be able to upload files into D and their sizes will be counted in user A&#8217;s used space.</p>
+</div>
+</div>
+<div class="section" id="excluded-from-quota">
+<h2>Excluded from quota<a class="headerlink" href="#excluded-from-quota" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="metadata-and-cache">
+<h3>Metadata and cache<a class="headerlink" href="#metadata-and-cache" title="Permalink to this headline">¶</a></h3>
+<p>Application metadata and cached information are excluded from the total used space.</p>
+<p>Such data could be thumbnails (icon previews, pictures app), temporary files, encryption keys, etc.</p>
+<p>Some apps are also storing information directly in the database (not as files) like the <a class="reference internal" href="../pim/calendar.html"><em>calendar</em></a> and <a class="reference internal" href="../pim/contacts.html"><em>contacts</em></a> apps. This data is also excluded from the total used space.</p>
+</div>
+<div class="section" id="deleted-files">
+<h3>Deleted files<a class="headerlink" href="#deleted-files" title="Permalink to this headline">¶</a></h3>
+<p>When deleting files, these are moved/copied to the <a class="reference internal" href="deletedfiles.html"><em>trashbin</em></a> at first. These files do not count in the user&#8217;s used space.</p>
+<p>For example with a quota of 10 GB, if the user has 4 GB used space and 5 GB in the trashbin, they will still see 6 GB free space. If the user uploads 6 GB of files at this point, the <a class="reference internal" href="deletedfiles.html"><em>trashbin app</em></a> will discard deleted files when necessary to make room for the new files.</p>
+</div>
+<div class="section" id="version-control">
+<h3>Version Control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
+<p>The size of older file versions does not count in the used space.</p>
+<p>For example with a quota of 10 GB, if the user has 4 GB used space and 5 GB of older file versions, they will still see 6 GB free space. If the user uploads 6 GB of files at this point, the <a class="reference internal" href="versioncontrol.html"><em>versions app</em></a> will discard older versions when necessary to make room for the new files.</p>
+<p>See <a class="reference internal" href="versioncontrol.html"><em>Version Control</em></a> for details about the version expiration behavior.</p>
+</div>
+<div class="section" id="encryption">
+<h3>Encryption<a class="headerlink" href="#encryption" title="Permalink to this headline">¶</a></h3>
+<p>When files are <a class="reference internal" href="encryption.html"><em>encrypted</em></a>, they take slightly more physical space than the original files. Only the original size will be counted in the used space.</p>
+</div>
+<div class="section" id="external-storage">
+<h3>External storage<a class="headerlink" href="#external-storage" title="Permalink to this headline">¶</a></h3>
+<p>When mounting external storage, either as administrator or as user, the space available on that storage is not taken into account for the user&#8217;s quota.
+It is currently not possible to set a quota for external storage.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

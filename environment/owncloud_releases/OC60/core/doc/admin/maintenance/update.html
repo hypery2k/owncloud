@@ -1,0 +1,218 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Updating ownCloud &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Maintenance" href="index.html" />
+    <link rel="next" title="Restoring ownCloud" href="restore.html" />
+    <link rel="prev" title="Backing up ownCloud" href="backup.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Maintenance</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backing up ownCloud</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Updating ownCloud</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#update">Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrade">Upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="restore.html">Restoring ownCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrating.html">Migrating ownCloud Installations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="updating-owncloud">
+<h1>Updating ownCloud<a class="headerlink" href="#updating-owncloud" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have installed ownCloud from a repository, your package management should take care of it. Probably
+you will need to look for compatible third party applications yourself. <strong>Always do backups anyway.</strong></p>
+</div>
+<div class="section" id="update">
+<h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>Updating means updating ownCloud to the latest <em>point release</em>, e.g. ownCloud 6.0.0a → 6.0.2. This procedure uses the
+ownCloud updater plugin called &#8220;Updater&#8221;: it&#8217;s an internal application already present in your ownCloud installation.</p>
+<p>To update ownCloud, follow those steps:</p>
+<ol class="arabic simple">
+<li>Make a backup of the ownCloud folder and the database.</li>
+<li>Make sure that updater plugin is enabled.</li>
+<li>Navigate to the &#8216;Admin&#8217; page.</li>
+<li>Click &#8216;Update&#8217;.</li>
+<li>Refresh the page with Ctrl+F5.</li>
+</ol>
+<p>If this procedure doesn&#8217;t work (for example, ownCloud 5.0.10 doesn&#8217;t show new any new version) you could try to perform
+a full upgrade to update to the latest point release (see below).</p>
+</div>
+<div class="section" id="upgrade">
+<h2>Upgrade<a class="headerlink" href="#upgrade" title="Permalink to this headline">¶</a></h2>
+<p>Upgrade is to bring an ownCloud instance to a new <em>major release</em>, e.g.
+ownCloud 5.0.14a → 6.0.2. Always do backups anyway.</p>
+<p>To upgrade ownCloud, follow those steps:</p>
+<ol class="arabic">
+<li><p class="first">Make sure that you ran the latest point release of the major ownCloud
+version, e.g. 5.0.14a in the 5.0 series. If not, update to that version first
+(see above).</p>
+</li>
+<li><p class="first">Make a backup of the ownCloud folder and the database.</p>
+</li>
+<li><p class="first">Download the latest version to the working directory:</p>
+<div class="highlight-python"><pre>wget http://download.owncloud.org/community/owncloud-latest.tar.bz2</pre>
+</div>
+</li>
+<li><p class="first">Deactivate all third party applications.</p>
+</li>
+<li><p class="first">Delete everything from your ownCloud installation directory, except data and
+config.</p>
+</li>
+<li><p class="first">Unpack the release tarball in the ownCloud directory (or copy the
+files thereto). Assuming that your installation directory is called &#8216;owncloud&#8217; and that it&#8217;s inside your working
+directory, you could execute this command:</p>
+<div class="highlight-python"><pre>tar xfj owncloud-latest.tar.bz2</pre>
+</div>
+</li>
+<li><p class="first">Set the permissions properly</p>
+</li>
+<li><p class="first">With the next page request the update procedures will run.</p>
+</li>
+<li><p class="first">If you had 3rd party applications, check if they provide versions compatible
+with the new release. If so, install and enable them, update procedures will run if needed.</p>
+</li>
+</ol>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>First Run Wizard &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="LDAP user and group backend" href="../user_ldap/index.html" />
+    <link rel="prev" title="Versions" href="../files_versions/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../activity/index.html">Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_antivirus/index.html">File Antivirus Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_encryption/index.html">Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_external/index.html">External storage support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_sharing/index.html">Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_versions/index.html">Versions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">First Run Wizard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#links">Links</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="first-run-wizard">
+<h1>First Run Wizard<a class="headerlink" href="#first-run-wizard" title="Permalink to this headline">¶</a></h1>
+<p>The ownCloud First Run Wizard is a welcome screen which links users to the various ownCloud utilities such as the Sync Client, Mobile Apps, and WebDav</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The First Run Wizard app is enabled by default.
+To verify or disable this app, navigate to the apps page and select “First Run Wizard”</p>
+<p><img alt="1000000000000200000000BCCCC35DEB_png" src="../../_images/1000000000000200000000BCCCC35DEB.png" style="width: 5.3335in; height: 1.9583in;" /></p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>When enabled, a user entering the ownCloud web browser for the first time will have the Welcome screen popup.</p>
+<p><img alt="10000000000004920000028D9C8DC2CB_png" src="../../_images/10000000000004920000028D9C8DC2CB.png" style="width: 6.5in; height: 3.628in;" /></p>
+<p>To close the window, select the ‘x’ in the upper right corner.
+If the user would like to bring up this window at a later time, they may do so by navigating to the Personal menu selection and select “Show First Run Wizard again”</p>
+<p><img alt="10000000000002A6000000BFBE298238_png" src="../../_images/10000000000002A6000000BFBE298238.png" style="width: 6.5in; height: 1.8311in;" /></p>
+</div>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
+<p>The wizard contains links for the Desktop app, Android App on Google Play, and iOS on the App store, as well as how to access files via WebDav.</p>
+<div class="section" id="desktop-app">
+<h3>Desktop App<a class="headerlink" href="#desktop-app" title="Permalink to this headline">¶</a></h3>
+<p>Selecting the Desktop App link will bring the user to ownCloud’s web site to download the client.</p>
+<p><img alt="1000000000000557000002E148BAB6D4_png" src="../../_images/1000000000000557000002E148BAB6D4.png" style="width: 6.5in; height: 3.5043in;" /></p>
+</div>
+<div class="section" id="android-app">
+<h3>Android App<a class="headerlink" href="#android-app" title="Permalink to this headline">¶</a></h3>
+<p>Selecting the Android App will load the web page to purchase the android client from the Google Play store.</p>
+<p><img alt="1000000000000668000002D29EAD9899_png" src="../../_images/1000000000000668000002D29EAD9899.png" style="width: 6.5in; height: 2.861in;" /></p>
+</div>
+<div class="section" id="ios-app">
+<h3>iOS App<a class="headerlink" href="#ios-app" title="Permalink to this headline">¶</a></h3>
+<p>Selecting the iOS App loads the itunes web page to obtain the ownCloud iOS mobile client.</p>
+<p><img alt="10000000000005F30000030F1372448D_png" src="../../_images/10000000000005F30000030F1372448D.png" style="width: 6.5in; height: 3.3417in;" /></p>
+</div>
+<div class="section" id="access-files-via-webdav">
+<h3>Access files via WebDAV<a class="headerlink" href="#access-files-via-webdav" title="Permalink to this headline">¶</a></h3>
+<p>This link brings up a link with documentation on how to access files on the ownCloud server using WebDAV.</p>
+<p><img alt="100000000000066D000001AAD8CE8256_png" src="../../_images/100000000000066D000001AAD8CE8256.png" style="width: 6.5in; height: 1.6835in;" /></p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

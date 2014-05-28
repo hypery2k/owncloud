@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Miscellaneous &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="The Configuration File" href="index.html" />
+    <link rel="next" title="Issues" href="../issues/index.html" />
+    <link rel="prev" title="Maintenance" href="maintenance.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Configuration File</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="default_parameters.html">Default Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverse_proxy_configurations.html">Reverse Proxy Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_experience.html">User Experience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mail_parameters.html">Mail Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deleted_items.html">Deleted Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="session_info.html">Session Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_locations.html">Code Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html">APPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="previews.html">Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="miscellaneous">
+<h1>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h1>
+<p>The remaining parameters are listed below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="47%" />
+<col width="48%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Parameter</strong></td>
+<td><strong>Format</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Open SSL</strong></td>
+<td><p class="first">&#8216;openssl&#8217; =&gt; array(</p>
+<p>//&#8217;config&#8217; =&gt; &#8216;/absolute/location/of/openssl.cnf&#8217;,</p>
+<p class="last">),</p>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><strong>User Backends</strong></td>
+<td><p class="first">&#8216;user_backends&#8217;=&gt;array(</p>
+<p>array(</p>
+<p>&#8216;class&#8217;=&gt;&#8217;OC_User_IMAP&#8217;,</p>
+<p>&#8216;arguments&#8217;=&gt;array(&#8216;{imap.gmail.com:993/imap/ssl}INBOX&#8217;),</p>
+<p>),</p>
+<p class="last">),</p>
+</td>
+<td>It is possible to configure additional user backends in ownCloud.
+The “External user Support” (user_external) app provides the following backends: IMAP (OC_User_IMAP), SMB (OC_User_SMB), FTP (OC_User_FTP).</td>
+</tr>
+<tr class="row-even"><td><strong>CSP Policy</strong></td>
+<td>&#8220;custom_csp_policy&#8221; =&gt; &#8220;default-src &#8216;self&#8217;; script-src &#8216;self&#8217; &#8216;unsafe-eval&#8217;; style-src &#8216;self&#8217; &#8216;unsafe-inline&#8217;; frame-src *; img-src *; font-src &#8216;self&#8217; data:; media-src *&#8221;,</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><strong>X Frame</strong></td>
+<td>“xframe_restriction&#8221; =&gt; true,</td>
+<td>XFrame-restriction is a header which
+prevents browsers from showing the site inside an iframe.
+This may be used to prevent clickjacking.</td>
+</tr>
+<tr class="row-even"><td><strong>Mem Cache</strong></td>
+<td>&#8220;memcached_server&#8221; =&gt; array(&#8216;localhost&#8217;, 11211),</td>
+<td>Server details for one or more memcached servers to use for memory caching.
+Memcache is only used if other memory cache options (xcache, apc, apcu) are not available.</td>
+</tr>
+<tr class="row-odd"><td><strong>Force SSL</strong></td>
+<td>&#8220;forcessl&#8221; =&gt; false,</td>
+<td>If the admin checks “Enforce HTTPS” in the Admin page of the ownCloud WebUI. This will be set to true indicating that only HTTPS may be used to access this instance of ownCloud.
+HTTP requests will be denied.</td>
+</tr>
+<tr class="row-even"><td><strong>Black List</strong></td>
+<td>&#8220;blacklisted_files&#8221; =&gt; array(&#8216;.htaccess&#8217;),</td>
+<td>Files listed in this array will not be uploaded to ownCloud.
+It should be noted that wildcards are not supported in this array.
+The configured must be exact file names to be blocked.
+If wildcards are
+required, use the ownCloud firewall.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

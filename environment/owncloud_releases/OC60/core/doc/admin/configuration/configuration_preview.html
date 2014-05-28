@@ -1,0 +1,286 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Enabling File Previews &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Reverse Proxy Configuration" href="configuration_reverseproxy.html" />
+    <link rel="prev" title="Enable Maintenance Mode" href="configuration_maintenance.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_users.html">User Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Using Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Enabling File Previews</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#soft-dependencies">Soft dependencies:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Dealing with Big File Uploads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config_gui.html">Custom Mount Configuration Web-GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="enabling-file-previews">
+<h1>Enabling File Previews<a class="headerlink" href="#enabling-file-previews" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud 6 introduced the new thumbnail system. It is used to generate
+thumbnails from various file types.  By default, it can generate previews for:</p>
+<ul class="simple">
+<li>Images</li>
+<li>Movies</li>
+<li>Cover from mp3 files</li>
+<li>various office files</li>
+<li>Pdf</li>
+<li>Svg</li>
+<li>Text</li>
+</ul>
+<div class="section" id="soft-dependencies">
+<h2>Soft dependencies:<a class="headerlink" href="#soft-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="imagick">
+<h3>imagick:<a class="headerlink" href="#imagick" title="Permalink to this headline">¶</a></h3>
+<p>ownCloud needs the imagick php extension to generate previews from office, pdf
+and svg files. For further information on how to install the imagick php
+extension on your system take a look at the <a class="reference external" href="http://www.php.net/manual/en/imagick.installation.php">PHP documentation</a>.
+If imagick is not installed, ownCloud will show file type icons instead of previews.</p>
+</div>
+<div class="section" id="libreoffice-openoffice">
+<h3>LibreOffice / OpenOffice:<a class="headerlink" href="#libreoffice-openoffice" title="Permalink to this headline">¶</a></h3>
+<p>ownCloud comes with a php-only preview system for office files. But this
+preview system has limited capabilities and is only able to create previews
+from basic Microsoft Office files. If you need previews from advanced
+Microsoft Office files or OpenDocument files, you have to install LibreOffice
+or OpenOffice. To learn more about installing LibreOffice/OpenOffice consider
+your distribution&#8217;s documentation.</p>
+</div>
+<div class="section" id="avconv-ffmpeg">
+<h3>avconv / ffmpeg:<a class="headerlink" href="#avconv-ffmpeg" title="Permalink to this headline">¶</a></h3>
+<p>ownCloud requires avconv of ffmpeg to generate previews from movies. To learn
+more about installing avconv or ffmpeg consider your distribution&#8217;s
+documentation.</p>
+</div>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="disabling-previews">
+<h3>Disabling previews:<a class="headerlink" href="#disabling-previews" title="Permalink to this headline">¶</a></h3>
+<p>Under certain circumstances like a big user base or limited resources you might
+want to consider disabling previews.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;enable_previews&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>There is a config option called &#8216;enable_previews&#8217;. By default it&#8217;s set to true.
+You can disable previews by setting this option to false:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;enable_previews&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="maximum-preview-size">
+<h3>Maximum preview size:<a class="headerlink" href="#maximum-preview-size" title="Permalink to this headline">¶</a></h3>
+<p>There are two config options to set the maximum size of a preview.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_max_x&#39;</span> <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+  <span class="s1">&#39;preview_max_y&#39;</span> <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>By default, both config options are set to null. &#8216;Null&#8217; is equal to no limit.
+Numeric values represent the size in pixel. The following code limits previews
+to a maximum size of 100px by 100px:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_max_x&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="s1">&#39;preview_max_y&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>&#8216;preview_max_x&#8217; represents the x-axis and &#8216;preview_max_y&#8217; represents the y-axis.</p>
+</div>
+<div class="section" id="maximum-scale-factor">
+<h3>Maximum scale factor:<a class="headerlink" href="#maximum-scale-factor" title="Permalink to this headline">¶</a></h3>
+<p>If you have a lot of small pictures and the preview system generates blurry
+previews, you might want to consider setting a maximum scale factor. By default,
+ownCloud scales pictures up to 10 times the original size:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_max_scale_factor&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>If you want to disable scaling at all, you can set the config value to &#8216;1&#8217;:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_max_scale_factor&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>If you want to disable the maximum scaling factor, you can set the config value to &#8216;null&#8217;:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_max_scale_factor&#39;</span> <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>LibreOffice / OpenOffice:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>You can set a custom path for the LibreOffice binary. If LibreOffice is not yet
+available on your system, you can also use OpenOffice instead.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_libreoffice_path&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/usr/bin/libreoffice&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>You can set custom LibreOffice / OpenOffice command line parameters by setting
+the preview_office_cl_parameters option.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+  <span class="s1">&#39;preview_office_cl_parameters&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

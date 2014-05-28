@@ -1,0 +1,216 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documents &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="index.html" />
+    <link rel="next" title="User Account Migration" href="migration.html" />
+    <link rel="prev" title="Using the Bookmarks App" href="bookmarks.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-main-interface">The main interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-upload-a-document">Create/Upload a Document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit-a-document">Edit a Document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-a-document">Delete a Document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#share-a-document">Share a Document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="documents">
+<h1>Documents<a class="headerlink" href="#documents" title="Permalink to this headline">¶</a></h1>
+<p>Document editing is one of the new features in ownCloud 6. With this app, multiple users
+can edit rich-text simultaneously. The documents can be created from within the
+web-interface or existing documents can be uploaded. Sharing and editing can be done
+securely in the browser and be shared inside ownCloud or via a public link. User that
+have an account on the same server can be invited or public invitations can also be
+sent be email. The editing works on top of normal ODF files that are stored in ownCloud.</p>
+<div class="section" id="the-main-interface">
+<h2>The main interface<a class="headerlink" href="#the-main-interface" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<img alt="_images/oc_documents.png" src="_images/oc_documents.png" />
+</div>
+<div class="section" id="create-upload-a-document">
+<h3>Create/Upload a Document<a class="headerlink" href="#create-upload-a-document" title="Permalink to this headline">¶</a></h3>
+<p>In the documents application, click on the respective buttons to create or upload a document into your ownCloud. The <em>New document</em> button will create a document named &#8220;New document.odt&#8221;. The extension ODT is an OpenDocument format, which many major office applications let you create/edit/view.</p>
+<p>The <em>Upload</em> button allows you to upload any kind of document, but currently you can only edit ODT files within ownCloud.</p>
+</div>
+<div class="section" id="edit-a-document">
+<h3>Edit a Document<a class="headerlink" href="#edit-a-document" title="Permalink to this headline">¶</a></h3>
+<p>If ownCloud contains at least one ODT file, you can immediately start editing by clicking on
+the file within the documents app. Clicking on documents in files app will only display it. Below, you
+can see editing a newly created document file:</p>
+<div class="figure">
+<img alt="_images/oc_documents_edit.png" src="_images/oc_documents_edit.png" />
+</div>
+<p>Here is the explanation of each field in the image shown above:</p>
+<ol class="arabic simple">
+<li>Clicking on the file name allows you to change filename.</li>
+<li>Allows you to share the document to public, specific users or groups. Will be explained in detail in <a class="reference internal" href="#share-a-document"><em>Share a document</em></a> section.</li>
+<li>Formatting toolbar lets you change text styles.</li>
+<li>Zoom in/out</li>
+<li>Close document by saving changes</li>
+<li>Users currently editing this document</li>
+</ol>
+<div class="section" id="collaboratively-editing-a-document">
+<h4>Collaboratively Editing a Document<a class="headerlink" href="#collaboratively-editing-a-document" title="Permalink to this headline">¶</a></h4>
+<p>To edit a file collaboratively, it needs to be shared with at least one user by using the <em>Share</em> button. When multiple uses have permission to edit a document, they will be able to edit it at the same time. The cursor of all editing users will be the same color as the border color of their user picture.</p>
+<div class="figure">
+<img alt="_images/oc_documents_col_edit.png" src="_images/oc_documents_col_edit.png" />
+</div>
+<p>If a user is not a local user (e.g accessing the file using public link), he/she will be shown as guest in user list and they will type a nickname before editing.</p>
+</div>
+</div>
+<div class="section" id="delete-a-document">
+<h3>Delete a Document<a class="headerlink" href="#delete-a-document" title="Permalink to this headline">¶</a></h3>
+<p>A document can be deleted using the files app and following the same procedure as for other file types. Clicking on the cross icon deletes the selected document.</p>
+</div>
+<div class="section" id="share-a-document">
+<span id="id1"></span><h3>Share a Document<a class="headerlink" href="#share-a-document" title="Permalink to this headline">¶</a></h3>
+<p>Document sharing has the same options as when sharing other files. While editing a document, you can use the <em>Share</em> button to enable other users to edit the document. This button will display all available options to share:</p>
+<div class="figure">
+<img alt="_images/oc_documents_share.png" src="_images/oc_documents_share.png" />
+</div>
+<p>By default, you can enter local users or groups to share with. Checking <em>Share link</em> will enable sharing via a public link, for which you can set a password to prevent editing by unwanted users. Shares can also have an expiration date that will expire the link after a given date. ownCloud will send the public link to users by email by typing each email address into the email field.  Separate multiple email addresses with a space.</p>
+<p>To see all of the features of the ownCloud document app, watch the
+<a class="reference external" href="https://www.youtube.com/watch?v=70pCBnNPdew">video on YouTube</a>.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

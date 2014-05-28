@@ -1,0 +1,290 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using the Contacts App &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Contacts &amp; Calendar" href="index.html" />
+    <link rel="next" title="Using the Calendar App" href="calendar.html" />
+    <link rel="prev" title="Contacts &amp; Calendar" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contacts &amp; Calendar</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Using the Contacts App</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-contacts">Adding contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-new-addressbooks">Creating new addressbooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keeping-your-addressbook-in-sync">Keeping your addressbook in sync</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#it-doesn-t-work">It doesn&#8217;t work!!!</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Using the Calendar App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync_ios.html">iOS - Synchronize iPhone/iPad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync_osx.html">Synchronizing with OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync_thunderbird.html">Thunderbird - Synchronize Addressbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync_kde.html">Synchronizing with KDE SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="using-the-contacts-app">
+<h1>Using the Contacts App<a class="headerlink" href="#using-the-contacts-app" title="Permalink to this headline">¶</a></h1>
+<p>The contacts app of ownCloud is like any other mobile contact app but with more functionality.
+Just as you open your account you will get the a default addressbook available.
+We will see later that Of course you can always add and remove addressbooks in here.</p>
+<div class="section" id="adding-contacts">
+<h2>Adding contacts<a class="headerlink" href="#adding-contacts" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways in which you can add contacts</p>
+<ol class="arabic simple">
+<li>Add them manually</li>
+<li>Import a VCF file</li>
+</ol>
+<div class="section" id="importing">
+<h3>Importing<a class="headerlink" href="#importing" title="Permalink to this headline">¶</a></h3>
+<p>So first we&#8217;ll check out how to import all the VCF files as they are a lot
+more faster way of creating contacts.
+Just below the contact list, click on the gear button:</p>
+<img alt="../_images/contact_bottombar.png" src="../_images/contact_bottombar.png" />
+<p>Contact settings icon</p>
+<p>Once you&#8217;ve clicked it, an up arrow button which lets you upload files will be shown:</p>
+<img alt="../_images/contact_uploadbutton.png" src="../_images/contact_uploadbutton.png" />
+<p>Contact file upload icon</p>
+<p>After choosing an addressbook to import into, click on the arrow. The upload window will be opened and let you choose your files.
+You can upload the files one by one or upload all of them at one go.</p>
+<p>Let us demonstrate.
+Open the directory in which you store all the files and then do the following
+Keep pressing CTRL and select the files to upload.
+After you are done just click on the open button
+After the upload it should look something like this in which all the names and contacts will be sorted alphabetically</p>
+<img alt="../_images/contact_vcfpick.jpg" src="../_images/contact_vcfpick.jpg" />
+<p>Picking VCF files</p>
+<p>After upload, the interface will automatically place your contacts into ownCloud.</p>
+</div>
+<div class="section" id="create-contacts-manually">
+<h3>Create contacts manually<a class="headerlink" href="#create-contacts-manually" title="Permalink to this headline">¶</a></h3>
+<p>On the left side of contacts app, you could see the new contact button (first one).
+Click on it. You can now see an empty contact in the main part of the interface.
+You have the ability to add all your informations about the contact:
+the name, the address, the e-mail, the telephone nr, etc.</p>
+<p>Just click on a field and start typing the information.
+You can use the &#8220;Add Field&#8221; button to add another types of information for this contact.</p>
+<img alt="../_images/contact_emptycontact.png" src="../_images/contact_emptycontact.png" />
+<p>Empty contact view</p>
+<p>When you want to remove an information of your contact, just click on little delete icon
+at the right of the field you want to remove.</p>
+</div>
+<div class="section" id="adding-picture-to-the-contact">
+<h3>Adding picture to the contact<a class="headerlink" href="#adding-picture-to-the-contact" title="Permalink to this headline">¶</a></h3>
+<p>There are two methods in which you can give a picture id to the specific contact</p>
+<img alt="../_images/contact_picture.jpg" src="../_images/contact_picture.jpg" />
+<p>Contact picture options</p>
+<ol class="arabic simple">
+<li><strong>Direct upload</strong></li>
+<li><strong>Select pics already uploaded in ownCloud files.</strong></li>
+</ol>
+<p>After you have selected the picture for the contact you get
+an option to crop the picture to suit your requirements</p>
+<img alt="../_images/contact_crop.jpg" src="../_images/contact_crop.jpg" />
+<p>Cropping contact picture</p>
+<p>You can crop the picture however you wish and then press OK.</p>
+<p>As you can see it is really easy to set things right in this app.
+It automatically picks up the First name, Middle name (if any) and the last name
+You may add or delete any section you want for your own convenience.</p>
+</div>
+</div>
+<div class="section" id="creating-new-addressbooks">
+<h2>Creating new addressbooks<a class="headerlink" href="#creating-new-addressbooks" title="Permalink to this headline">¶</a></h2>
+<p>When you click on settings button on bottom bar,
+you will have access to the application&#8217;s settings.
+Then, you will be shown all available addressbooks to access the options.</p>
+<img alt="../_images/contact_del_ab.png" src="../_images/contact_del_ab.png" />
+<p>Addressbook options</p>
+<p>There, you have the ability to add, delete, download or share your addressbooks.
+Hover your cursor on every icon to see what they mean.</p>
+</div>
+<div class="section" id="keeping-your-addressbook-in-sync">
+<h2>Keeping your addressbook in sync<a class="headerlink" href="#keeping-your-addressbook-in-sync" title="Permalink to this headline">¶</a></h2>
+<p>One of the most important thing in any contact app is to keep it in Sync.
+You can sync this contact app to your phone which has the following OS&#8217;s- Android and iOS</p>
+<div class="section" id="syncing-with-android">
+<h3>Syncing with Android<a class="headerlink" href="#syncing-with-android" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Install CardDAV- Sync free from Google play store by visiting <a class="reference external" href="https://play.google.com/store/apps/details?id=org.dmfs.carddav.sync">this link</a>.</li>
+<li>This app supports auto- configuration which is a Boon- after installing visit this link - carddavs://example.org/remote.php/carddav/ to auto-configure the app.</li>
+<li>Enter your login details</li>
+<li>After the app has checked your login details you may just select- Sync server to phone option</li>
+<li>That&#8217;s it there is nothing else to do for Android :)</li>
+</ol>
+<img alt="../_images/contact_syncopt.jpg" src="../_images/contact_syncopt.jpg" />
+</div>
+<div class="section" id="syncing-your-ios-device">
+<h3>Syncing your iOS device<a class="headerlink" href="#syncing-your-ios-device" title="Permalink to this headline">¶</a></h3>
+<p>Synchronizing the Address book</p>
+<ol class="arabic simple">
+<li>Open the settings application.</li>
+<li>Select Mail, Contacts, Calendars.</li>
+<li>Select Add Account.</li>
+<li>Select other as account type.</li>
+<li>Select Add CardDAV account.</li>
+<li>For server, type <a class="reference external" href="http://example.org/remote.php/carddav/principals/username">http://example.org/remote.php/carddav/principals/username</a></li>
+<li>Enter your user name and password.</li>
+<li>Select Next.</li>
+<li>If your server does not support SSL, a warning will be displayed. Select Continue.</li>
+<li>If the iPhone is unable to verify the account information perform the following:</li>
+</ol>
+<ul class="simple">
+<li>Select OK.</li>
+<li>Select advanced settings.</li>
+<li>Make sure Use SSL is set to OFF.</li>
+<li>Change port to 80.</li>
+<li>Go back to account information and hit Save.</li>
+</ul>
+<p>Now should now find your contacts in the address book of your iPhone.</p>
+</div>
+<div class="section" id="other-syncing-options-provided-by-owncloud">
+<h3>Other Syncing options provided by ownCloud<a class="headerlink" href="#other-syncing-options-provided-by-owncloud" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>For Android you may use official Android app which can be found <a class="reference external" href="https://owncloud.org/install/">here</a>.</li>
+<li>And for iOS (iPhone and iPad) use their app which can be found <a class="reference external" href="https://owncloud.org/install/">here</a>.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="it-doesn-t-work">
+<h2>It doesn&#8217;t work!!!<a class="headerlink" href="#it-doesn-t-work" title="Permalink to this headline">¶</a></h2>
+<p>Are you having problems using the app? Have a look at the <a class="reference internal" href="troubleshooting.html"><em>Troubleshooting</em></a> guide.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

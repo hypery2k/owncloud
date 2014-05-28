@@ -1,0 +1,239 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Custom Mount Configuration Web-GUI &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Custom Mount Configuration" href="custom_mount_config.html" />
+    <link rel="prev" title="Dealing with Big File Uploads" href="configuring_big_file_upload.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_users.html">User Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Using Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_preview.html">Enabling File Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Dealing with Big File Uploads</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Custom Mount Configuration Web-GUI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Dropbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Google Drive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="custom-mount-configuration-web-gui">
+<h1>Custom Mount Configuration Web-GUI<a class="headerlink" href="#custom-mount-configuration-web-gui" title="Permalink to this headline">¶</a></h1>
+<p>Since ownCloud 5.0 it is possible to mount external storage providers into
+ownCloud&#8217;s virtual file system. To add an external storage backend to your
+ownCloud head to <em>Settings</em> -&gt; <em>Admin</em> or <em>Personal</em>. As administrator you
+can mount external storage for any group or user. Users are also allowed
+to mount external storage for themselves if this setting has been enabled
+by the administrator.</p>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-1.png" src="../_images/custom_mount_config_gui-1.png" />
+</div>
+<p>At first the mount point has to be entered, this is the directory in ownCloud&#8217;s
+virtual file system, that the storage will be mounted to. Then the storage
+backend has to be selected from the list of supported backends. As of writing
+ownCloud currently supports the following storage backends:</p>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-2.png" src="../_images/custom_mount_config_gui-2.png" />
+</div>
+<ul class="simple">
+<li>Local file system (mount local storage that is outside ownCloud&#8217;s data
+directory)</li>
+<li>FTP (or FTPS)</li>
+<li>SFTP</li>
+<li>SMB</li>
+<li>WebDAV</li>
+<li><a class="reference external" href="http://aws.amazon.com/de/s3/">Amazon S3</a></li>
+<li><a class="reference external" href="https://www.dropbox.com/">Dropbox</a></li>
+<li><a class="reference external" href="https://drive.google.com/start">Google Drive</a></li>
+<li><a class="reference external" href="http://openstack.org/projects/storage/">OpenStack Swift</a></li>
+</ul>
+<p>Please keep in mind, that users are not allowed to mount local file storage for
+security purposes.</p>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-3.png" src="../_images/custom_mount_config_gui-3.png" />
+</div>
+<div class="figure">
+<img alt="../_images/custom_mount_config_gui-4.png" src="../_images/custom_mount_config_gui-4.png" />
+</div>
+<p>Once a backend has been selected, more configuration fields will appear. The
+displayed configuration fields may vary depending on the selected storage backend.
+For example, the FTP storage backend needs the following configuration details
+to be entered:</p>
+<ul class="simple">
+<li><strong>host</strong>: the hostname of the ftp server</li>
+<li><strong>user</strong>: the username used to login to the ftp server</li>
+<li><strong>password</strong>: the password to login to the ftp server</li>
+<li><strong>secure</strong>: whether to use ftps:// (FTP over TLS) to connect to the ftp
+server instead of ftp:// (optional, defaults to false)</li>
+<li><strong>root</strong>: the name of the folder inside the ftp server to mount (optional,
+defaults to ‘/’)</li>
+</ul>
+<div class="section" id="id1">
+<h2>Dropbox<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Mounting a Dropbox account requires that you create an app with Dropbox and then provide the app key and secret to the
+external storage configuration user interface. Go to My apps at Dropbox and create an app. Select <em>Full Dropbox</em> access
+level. Copy the app key and app secret and paste them into the corresponding fields for the Dropbox storage.</p>
+<p>Click the <em>Grant access</em> button and you will be redirected to a Dropbox website to give ownCloud permission to access your account.</p>
+</div>
+<div class="section" id="id2">
+<h2>Google Drive<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>For a detailed step-by-step guide read <a class="reference external" href="../../user_manual/external_storage/google_drive.html">User Manual</a></p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

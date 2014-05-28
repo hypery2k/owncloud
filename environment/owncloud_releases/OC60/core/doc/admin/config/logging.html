@@ -1,0 +1,230 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Logging &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="The Configuration File" href="index.html" />
+    <link rel="next" title="Session Info" href="session_info.html" />
+    <link rel="prev" title="Verification" href="verification.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Configuration File</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="default_parameters.html">Default Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverse_proxy_configurations.html">Reverse Proxy Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_experience.html">User Experience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mail_parameters.html">Mail Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deleted_items.html">Deleted Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="session_info.html">Session Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_locations.html">Code Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html">APPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="previews.html">Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="logging">
+<h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
+<p>This section describes parameters associated with ownCloud’s logging abilities.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="25%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Parameter</strong></td>
+<td><strong>Format</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Log Type</strong></td>
+<td>&#8220;log_type&#8221; =&gt; &#8220;owncloud&#8221;,</td>
+<td>By default the ownCloud logs are sent to the owncloud.log file within the default data directory.
+If syslogging is desired, set this parameter to syslog.</td>
+</tr>
+<tr class="row-odd"><td><strong>Log File</strong></td>
+<td>&#8220;logfile&#8221; =&gt; &#8220;&#8221;,</td>
+<td>The log file, by default, is owncloud.log and stored in the default data directory.
+Use this parameter to change the name to something other than owncloud.log.</td>
+</tr>
+<tr class="row-even"><td><strong>Log Level</strong></td>
+<td>&#8220;loglevel&#8221; =&gt; &#8220;&#8221;,</td>
+<td>ownCloud has several levels of logging.
+This may be set on the Admin page of the webUI or directly in the configuration file using this parameter.
+Valid values are: 0=Debug, 1=Info, 2=Warning, 3=Error.
+The default value is Warning</td>
+</tr>
+<tr class="row-odd"><td><strong>Log Date Format</strong></td>
+<td>&#8216;logdateformat&#8217; =&gt; &#8216;F d, Y H:i:s&#8217;,</td>
+<td>ownCloud allows the admin to specify the format of the time and date within the log file.
+Valid values may be found at the following website:
+<a class="reference external" href="http://www.php.net/manual/en/function.date.php">http://www.php.net/manual/en/function.date.php</a>
+.</td>
+</tr>
+<tr class="row-even"><td><strong>Log Time Zone</strong></td>
+<td>&#8216;logtimezone&#8217; =&gt; &#8216;Europe/Berlin&#8217;,</td>
+<td>By default, the time zone displayed in the ownCloud logs is UTC.
+To change the displayed time zone to the local time zone, use this parameter.
+For a list of valid values, see the following website:
+<a class="reference external" href="http://php.net/manual/en/timezones.php">http://php.net/manual/en/timezones.php</a>
+.</td>
+</tr>
+<tr class="row-odd"><td><strong>Log Query</strong></td>
+<td>&#8220;log_query&#8221; =&gt; false,</td>
+<td>When set to “true”, all SQL queries performed by ownCloud will be written to the log file.
+Default is false.
+It is not recommended to run with this enabled as it will fill up the log file.
+Use only for debugging purposes.</td>
+</tr>
+<tr class="row-even"><td><strong>Log Auth Fail IP</strong></td>
+<td>&#8220;log_authfailip&#8221; =&gt; false,</td>
+<td>When set to true, the IP addresses of failed login attempts will be logged.</td>
+</tr>
+<tr class="row-odd"><td><strong>Log Rotate Size</strong></td>
+<td>&#8216;log_rotate_size&#8217; =&gt; false, // 104857600, // 100 MiB</td>
+<td>Since ownCloud log files can get large in size, this parameter may be used to rotate to a new log file once it reaches the specified size.
+This should be configured in bytes.
+Default is false, or 0, which will not rotate the file.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

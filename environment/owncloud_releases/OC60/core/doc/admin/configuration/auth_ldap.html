@@ -1,0 +1,787 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LDAP Authentication &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Background Jobs" href="background_jobs.html" />
+    <link rel="prev" title="User Management" href="configuration_users.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_users.html">User Management</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">LDAP Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-settings">Advanced Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expert-settings">Expert Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-the-configuration">Testing the configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#owncloud-avatar-integration">ownCloud Avatar integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting-tips-and-tricks">Troubleshooting, Tips and Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-certificate-verification-ldaps-tls">SSL Certificate Verification (LDAPS, TLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#microsoft-active-directory">Microsoft Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#duplicating-server-configurations">Duplicating Server Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#owncloud-ldap-internals">ownCloud LDAP Internals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#groups">Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-and-group-mapping">User and Group Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#caching">Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handling-with-backup-server">Handling with Backup Server</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Using Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_preview.html">Enabling File Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Dealing with Big File Uploads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config_gui.html">Custom Mount Configuration Web-GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="ldap-authentication">
+<h1>LDAP Authentication<a class="headerlink" href="#ldap-authentication" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud ships an LDAP backend, which allows full use of ownCloud for users
+logging in with LDAP credentials including:</p>
+<ul class="simple">
+<li>LDAP group support</li>
+<li>File sharing with users and groups</li>
+<li>Access via WebDAV and of course ownCloud Desktop Client</li>
+<li>Versioning, external Storages and all other ownCloud goodies</li>
+</ul>
+<p>To connect to an LDAP server the configuration needs to be set up properly.
+Once the LDAP backend is activated (Apps Sidebar→Apps, choose <strong>LDAP user and
+group backend</strong>, click on <strong>Enable</strong>) the configuration can be found on
+Settings→Admin. Read on for a detailed description of the configuration fields.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The LDAP backend configuration follows a wizard-like approach, split into four tabs. A
+correctly completed first tab (&#8220;Server&#8221;) is mandatory to access the other tabs.
+The settings in the other tabs are detected automatically, but should be reviewed by the
+admin. An indicator will show whether the configuration is incomplete, incorrect or OK.</p>
+<p>The settings are changed automatically, as soon as a input element loses the
+focus, i.e. the cursor is taken away by clicking somewhere else or pressing the
+Tab key.</p>
+<p>The other tabs can be navigated by clicking the tabs or by using the <em>Continue</em>
+and <em>Back</em> buttons. They are located on the lower right, next to the status
+indicator.</p>
+<div class="section" id="server">
+<h3>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h3>
+<p>The Server tab contains the basic information on the LDAP server. They make sure
+that ownCloud will be able to connect to LDAP and be able to read data from
+there. The admin at least needs to provide a hostname. If anonymous access is
+not possible he will need to provide an account DN and a password, too. ownCloud
+attempts to auto-detect the port and the base DN.</p>
+<div class="figure">
+<img alt="../_images/ldap-wizard-1-server.png" src="../_images/ldap-wizard-1-server.png" />
+</div>
+<dl class="docutils">
+<dt>Server configuration:</dt>
+<dd>ownCloud can be configured to connect to multiple LDAP servers. Using this
+control you can pick a configuration you want to edit or add a new one. The
+button <strong>Delete Configuration</strong> deletes the current configuration.</dd>
+<dt>Host:</dt>
+<dd><p class="first">The host name of the LDAP server. It can also be a <strong>ldaps://</strong> URI, for
+instance.</p>
+<p>It is also possible to pass a port number, which speeds up port detection. It
+is especially useful, if a custom port is used. ownCloud will move the value
+to the port field subsequently.</p>
+<p>Examples:</p>
+<ul class="last simple">
+<li><em>directory.my-company.com</em></li>
+<li><em>ldaps://directory.my-company.com</em></li>
+<li><em>directory.my-company.com:9876</em></li>
+</ul>
+</dd>
+<dt>Port:</dt>
+<dd><p class="first">The port on which to connect to the LDAP server. The field is disabled in the
+beginning of a new configuration. The port will be detected automatically,
+if the LDAP server is running on a standard port. After ownCloud attempted to
+determine the port, the field will be enabled for user input. A successfully
+found port will be inserted by ownCloud, of course.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>389</em></li>
+</ul>
+</dd>
+<dt>User DN:</dt>
+<dd><p class="first">The name as DN of a user who is able to do searches in the LDAP
+directory. Leave it empty for anonymous access. It is recommended to have a
+special system user for ownCloud.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>uid=owncloudsystemuser,cn=sysusers,dc=my-company,dc=com</em></li>
+</ul>
+</dd>
+<dt>Password:</dt>
+<dd>The password for the user given above. Empty for anonymous access.</dd>
+<dt>Base DN:</dt>
+<dd><p class="first">The base DN of LDAP, from where all users and groups can be reached. Separated
+Base DNs for users and groups can be set in the Advanced tab. Nevertheless,
+this field is mandatory. ownCloud attempts to determine the Base DN according
+to the provided User DN or the provided Host.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>dc=my-company,dc=com</em></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="user-filter">
+<h3>User Filter<a class="headerlink" href="#user-filter" title="Permalink to this headline">¶</a></h3>
+<p>The settings in the User Filter tab determine which LDAP users will appear and
+are allowed to log in into ownCloud. It is also possible to enter a raw LDAP
+filter.</p>
+<div class="figure">
+<img alt="../_images/ldap-wizard-2-user.png" src="../_images/ldap-wizard-2-user.png" />
+</div>
+<dl class="docutils">
+<dt>only those object classes:</dt>
+<dd>ownCloud will determine the object classes that are typically available for
+(ideally only) user objects in your LDAP. ownCloud will automatically select
+the object class that returns the highest amount of users. You can select
+multiple object classes.</dd>
+<dt>only from those groups:</dt>
+<dd><p class="first">If your LDAP server supports the member-of-overlay in LDAP filters, you can
+define that only users from one or more certain groups are allowed to
+appear and log in into ownCloud. By default, no value will be selected. You
+can select multiple groups.</p>
+<p class="last">If your LDAP server does not support the member-of-overlay in LDAP filters,
+the input field is disabled. Please contact your LDAP administrator.</p>
+</dd>
+<dt>Edit raw filter instead:</dt>
+<dd><p class="first">Clicking on this text will toggle the filter mode. Instead of the assisted
+approach, you can enter the raw LDAP filter directly in the appearing field.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>objectClass=inetOrgPerson</em></li>
+</ul>
+</dd>
+<dt>x users found:</dt>
+<dd>This is an indicator that tells you approximately how many users will be
+allowed to access ownCloud. The number will update after any change you do.</dd>
+</dl>
+</div>
+<div class="section" id="login-filter">
+<h3>Login Filter<a class="headerlink" href="#login-filter" title="Permalink to this headline">¶</a></h3>
+<p>The settings in the Login Filter tab determine which user detail will be
+compared to the login value entered by the user. It is possible to allow
+multiple user details. It is also possible to enter a raw LDAP filter.</p>
+<p>The user limitation as set up in the previous tab is in effect, unless you
+manually configure the filter in raw mode.</p>
+<div class="figure">
+<img alt="../_images/ldap-wizard-3-login.png" src="../_images/ldap-wizard-3-login.png" />
+</div>
+<dl class="docutils">
+<dt>LDAP Username:</dt>
+<dd>If this value is checked, the login value will be compared to the username in
+the LDAP directory. The corresponding attribute, usually <em>uid</em> or
+<em>samaccountname</em> will be detected automatically by ownCloud.</dd>
+<dt>LDAP Email Address:</dt>
+<dd>If this value is checked, the login value will be compared to an email address
+in the LDAP directory. The email address will be looked for in the
+<em>mailPrimaryAddress</em> and <em>mail</em> attributes.</dd>
+<dt>Other Attributes:</dt>
+<dd>This multiselect box allows you to select other attributes for the comparison.
+The list is generated automatically based on the attributes that a user object
+contains in your LDAP server.</dd>
+<dt>Edit raw filter instead:</dt>
+<dd><p class="first">Clicking on this text will toggle the filter mode. Instead of the assisted
+approach, you can enter the raw LDAP filter directly in the appearing field.</p>
+<p>The <strong>%uid</strong> placeholder will be replaced with the login name entered by the user
+upon login. When you enter the filter manually.</p>
+<p>Examples:</p>
+<ul class="last simple">
+<li>only username: <em>uid=%uid</em></li>
+<li>username or email address: <em>(|(uid=%uid)(mail=$uid))</em></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="group-filter">
+<h3>Group Filter<a class="headerlink" href="#group-filter" title="Permalink to this headline">¶</a></h3>
+<p>The settings in the Group Filter tab determine which groups will be available
+in ownCloud. It does not have any restrictions on logins, this has been dealt
+with in the prior tabs.  It is also possible to enter a raw LDAP
+filter.</p>
+<p>By default, no groups will be available in ownCloud. You actively need to
+enable groups.</p>
+<div class="figure">
+<img alt="../_images/ldap-wizard-4-group.png" src="../_images/ldap-wizard-4-group.png" />
+</div>
+<dl class="docutils">
+<dt>only those object classes:</dt>
+<dd>ownCloud will determine the object classes that are typically available for
+(ideally only) group objects in your LDAP. ownCloud will only list object
+classes that return at least one group object. You can select multiple
+object classes. A typical object class is &#8220;group&#8221;, or &#8220;posixGroup&#8221;.</dd>
+<dt>only from those groups:</dt>
+<dd>This setting lets you pick certain groups that shall be available in
+ownCloud. This field follows a whitelist approach. ownCloud will generate a
+list of available groups found in your LDAP server. You can select multiple
+groups.</dd>
+<dt>Edit raw filter instead:</dt>
+<dd><p class="first">Clicking on this text will toggle the filter mode. Instead of the assisted
+approach, you can enter the raw LDAP filter directly in the appearing field.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>objectClass=group</em></li>
+<li><em>objectClass=posixGroup</em></li>
+</ul>
+</dd>
+<dt>y groups found:</dt>
+<dd>This is an indicator that tells you approximately how many groups will be
+available in  ownCloud. The number will update after any change you do.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="advanced-settings">
+<h2>Advanced Settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
+<p>In the LDAP Advanced Settings section you can define options, that are less
+common to set. They are not needed for a working connection. It can also have a
+positive effect on the performance to specify distinguished bases for user and
+group searches.</p>
+<p>The Advanced Settings are structured into three parts:</p>
+<ul class="simple">
+<li>Connection Settings</li>
+<li>Directory Settings</li>
+<li>Special Attributes</li>
+</ul>
+<div class="section" id="connection-settings">
+<h3>Connection Settings<a class="headerlink" href="#connection-settings" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<img alt="../_images/ldap-advanced-1-connection.png" src="../_images/ldap-advanced-1-connection.png" />
+<p class="caption">LDAP Advanced Settings, section Connection Settings</p>
+</div>
+<dl class="docutils">
+<dt>Configuration Active:</dt>
+<dd><p class="first">Enables or Disables the current configuration. Disabled configuration will not
+connect to the LDAP server.</p>
+<p class="last">By default, it is turned off. It will be automatically turned on, when using
+the wizard and the configuration is OK and a test connection successful.</p>
+</dd>
+<dt>Backup (Replica) Host:</dt>
+<dd><p class="first">A backup server can be defined here. ownCloud tries to connect to the backup
+server automatically, when the main host (as specified in basic settings)
+cannot be reached. It is important that the backup server is a replica of the
+main server, because the object UUIDs must match.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>directory2.my-company.com</em></li>
+</ul>
+</dd>
+<dt>Backup (Replica) Port:</dt>
+<dd><p class="first">The port on which to connect to the backup LDAP server. If no port is given,
+but a host, then the main port (as specified above) will be used.</p>
+<p>Example:</p>
+<ul class="last simple">
+<li><em>389</em></li>
+</ul>
+</dd>
+<dt>Disable Main Server:</dt>
+<dd>You can manually override the main server and make ownCloud only connect to
+the backup server. This may be handy for planned downtimes.</dd>
+<dt>Case insensitive LDAP server (Windows):</dt>
+<dd>Whether the LDAP server is running on a Windows host. Usually, it is not
+necessary to check it, however.</dd>
+<dt>Turn off SSL certificate validation:</dt>
+<dd>Turns off check of valid SSL certificates. Use it – if needed –
+for testing, only!</dd>
+<dt>Cache Time-To-Live:</dt>
+<dd><p class="first">A cache is introduced to avoid unnecessary LDAP traffic,
+for example lookups check whether the users exist on every page request or
+WebDAV interaction. It is also supposed to speed up the Admin → User page or
+list of users to share with, once it is populated. Saving the configuration
+empties the cache (changes are not necessary). The time is given in seconds.</p>
+<p>Note that almost every PHP request would require to build up a new connection
+to the LDAP server. If you require most up-to-dateness it is recommended not
+to totally switch off the cache, but define a minimum life time of 15s.</p>
+<p>Examples:</p>
+<ul class="last simple">
+<li>ten minutes: <em>600</em></li>
+<li>one hour: <em>3600</em></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="directory-settings">
+<h3>Directory Settings<a class="headerlink" href="#directory-settings" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<img alt="../_images/ldap-advanced-2-directory.png" src="../_images/ldap-advanced-2-directory.png" />
+<p class="caption">LDAP Advanced Settings, section Directory Settings</p>
+</div>
+<dl class="docutils">
+<dt>User Display Name Field:</dt>
+<dd><p class="first">The attribute that should be used as display name in ownCloud.</p>
+<ul class="last simple">
+<li>Example: <em>displayName</em></li>
+</ul>
+</dd>
+<dt>Base User Tree:</dt>
+<dd><p class="first">The base DN of LDAP, from where all users can be reached. It needs to be given
+completely despite to the Base DN from the Basic settings. You can specify
+multiple base trees, one in each line.</p>
+<ul class="last">
+<li><p class="first">Example:</p>
+<div class="line-block">
+<div class="line"><em>cn=programmers,dc=my-company,dc=com</em></div>
+<div class="line"><em>cn=designers,dc=my-company,dc=com</em></div>
+</div>
+</li>
+</ul>
+</dd>
+<dt>User Search Attributes:</dt>
+<dd><p class="first">These attributes are used when a search for users is done. This happens, for
+instance, in the share dialogue. By default the user display name attribute as
+specified above is being used. Multiple attributes can be given, one in each
+line.</p>
+<p>Beware that if an attribute is not available on a user object, the user will
+neither be listed (e.g. in the share dialogue) nor be able to login. This also
+affects the display name attribute as specified above. If you override the
+default, the display name attribute will not be taken into account, unless you
+specify it as well.</p>
+<ul class="last">
+<li><p class="first">Example:</p>
+<div class="line-block">
+<div class="line"><em>displayName</em></div>
+<div class="line"><em>mail</em></div>
+</div>
+</li>
+</ul>
+</dd>
+<dt>Group Display Name Field:</dt>
+<dd><p class="first">The attribute that should be used as ownCloud group name. ownCloud allows a
+limited set of characters (a-zA-Z0-9.-_&#64;), every other character will be
+replaced in ownCloud. Once a group name is assigned, it will not be changed,
+i.e. changing this value will only have effect to new LDAP groups.</p>
+<ul class="last simple">
+<li>Example: <em>cn</em></li>
+</ul>
+</dd>
+<dt>Base Group Tree:</dt>
+<dd><p class="first">The base DN of LDAP, from where all groups can be reached.
+It needs to be given completely despite to the Base DN from the Basic
+settings. You can specify multiple base trees, one in each line.</p>
+<ul class="last">
+<li><p class="first">Example:</p>
+<div class="line-block">
+<div class="line"><em>cn=barcelona,dc=my-company,dc=com</em></div>
+<div class="line"><em>cn=madrid,dc=my-company,dc=com</em></div>
+</div>
+</li>
+</ul>
+</dd>
+<dt>Group Search Attributes:</dt>
+<dd><p class="first">These attributes are used when a search for groups is done. This happens, for
+instance, in the share dialogue. By default the group display name attribute
+as specified above is being used. Multiple attributes can be given, one in
+each line.</p>
+<p>If you override the default, the group display name attribute will not be
+taken into account, unless you specify it as well.</p>
+<ul class="last">
+<li><p class="first">Example:</p>
+<div class="line-block">
+<div class="line"><em>cn</em></div>
+<div class="line"><em>description</em></div>
+</div>
+</li>
+</ul>
+</dd>
+<dt>Group Member association:</dt>
+<dd><p class="first">The attribute that is used to indicate group memberships, i.e. the attribute
+used by LDAP groups to refer to their users.</p>
+<p>ownCloud detects the value automatically. You should only change it if you
+have a very valid reason and know what you are doing.</p>
+<ul class="last simple">
+<li>Example: <em>uniquemember</em></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="special-attributes">
+<h3>Special Attributes<a class="headerlink" href="#special-attributes" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<img alt="../_images/ldap-advanced-3-attributes.png" src="../_images/ldap-advanced-3-attributes.png" />
+<p class="caption">LDAP Advanced Settings, section Special Attributes</p>
+</div>
+<dl class="docutils">
+<dt>Quota Field:</dt>
+<dd><p class="first">ownCloud can read an LDAP attribute and set the user quota according to its
+value. Specify the attribute here, otherwise keep it empty. The attribute
+shall return human readable values, e.g. &#8220;2 GB&#8221;.</p>
+<ul class="last simple">
+<li>Example: <em>ownCloudQuota</em></li>
+</ul>
+</dd>
+<dt>Quota Default:</dt>
+<dd><p class="first">Override ownCloud default quota for LDAP users who do not
+have a quota set in the attribute given above.</p>
+<ul class="last simple">
+<li>Example: <em>15 GB</em></li>
+</ul>
+</dd>
+<dt>Email Field:</dt>
+<dd><p class="first">ownCloud can read an LDAP attribute and set the user email
+there from. Specify the attribute here, otherwise keep it empty.</p>
+<p>Although the wizard offers you to check login by email, the correct email
+attribute is not detected and you need to specify it manually.</p>
+<ul class="last simple">
+<li>Example: <em>mail</em></li>
+</ul>
+</dd>
+<dt>User Home Folder Naming Rule:</dt>
+<dd><p class="first">By default, the ownCloud creates the user
+directory, where all files and meta data are kept, according to the ownCloud
+user name. You may want to override this setting and name it after an
+attribute value. The attribute given can also return an absolute path, e.g.
+<tt class="docutils literal"><span class="pre">/mnt/storage43/alice</span></tt>. Leave it empty for default behavior.</p>
+<ul class="last simple">
+<li>Example: <em>cn</em></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="expert-settings">
+<h2>Expert Settings<a class="headerlink" href="#expert-settings" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<img alt="../_images/ldap-expert.png" src="../_images/ldap-expert.png" />
+</div>
+<p>In the Expert Settings fundamental behavior can be adjusted to your needs. The
+configuration should be done before starting production use or when testing the
+installation.</p>
+<dl class="docutils">
+<dt>Internal Username:</dt>
+<dd><p class="first">The internal username is the identifier in ownCloud for LDAP users. By default
+it will be created from the UUID attribute. By using the UUID attribute it is
+made sure that the username is unique and characters do not need to be
+converted. The internal username has the restriction that only these
+characters are allowed: [a-zA-Z0-9_.&#64;-]. Other characters are replaced with
+their ASCII correspondence or are simply omitted.</p>
+<p>The LDAP backend ensures that there are no duplicate internal usernames in
+ownCloud, i.e. that it is checking all other activated user backends
+(including local ownCloud users). On collisions a random number (between 1000
+and 9999) will be attached to the retrieved value. For example, if &#8220;alice&#8221;
+exists, the next username may be &#8220;alice_1337&#8221;.</p>
+<p>The internal username is also the default name for the user home folder in
+ownCloud. It is also a part of remote URLs, for instance for all *DAV services.
+With this setting the default behaviour can be overridden.</p>
+<p>Leave it empty for default behaviour. Changes will have effect only on newly
+mapped (added) LDAP users.</p>
+<ul class="last simple">
+<li>Example: <em>uid</em></li>
+</ul>
+</dd>
+<dt>Override UUID detection</dt>
+<dd><p class="first">By default, ownCloud auto-detects the UUID attribute. The UUID attribute is
+used to doubtlessly identify LDAP users and groups. Also, the internal
+username will be created based on the UUID, if not specified otherwise above.</p>
+<p>You can override the setting and pass an attribute of your choice. You must
+make sure that the attribute of your choice can be fetched for both users and
+groups and it is unique. Leave it empty for default behaviour. Changes will
+have effect only on newly mapped (added) LDAP users and groups. It also will
+have effect when a user&#8217;s or group&#8217;s DN changes and an old UUID was cached: it
+will result in a new user. Because of this, the setting should be applied
+before putting ownCloud in production use and cleaning the bindings
+(see below).</p>
+<ul class="last simple">
+<li>Example: <em>cn</em></li>
+</ul>
+</dd>
+<dt>Username-LDAP User Mapping</dt>
+<dd><p class="first">ownCloud uses the usernames as key to store and assign data. In order to
+precisely identify and recognize users, each LDAP user will have a internal
+username in ownCloud. This requires a mapping from ownCloud username to LDAP
+user. The created username is mapped to the UUID of the LDAP user.
+Additionally the DN is cached as well to reduce LDAP interaction, but it is
+not used for identification. If the DN changes, the change will be detected by
+ownCloud by checking the UUID value.</p>
+<p>The same is valid for groups.</p>
+<p>The internal ownCloud name is used all over in ownCloud. Clearing the Mappings
+will have leftovers everywhere. Never clear the mappings
+in a production environment. Only clear mappings in a testing or experimental
+stage.</p>
+<p class="last"><strong>Clearing the Mappings is not configuration sensitive, it affects all LDAP
+configurations!</strong></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="testing-the-configuration">
+<h2>Testing the configuration<a class="headerlink" href="#testing-the-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>Test Configuration</strong> button on the bottom
+of the LDAP settings section will always check the values as currently
+given in the input fields. You do not need to save before testing. By clicking
+on the button, ownCloud will try to bind to the ownCloud server with the
+settings currently given in the input fields. The response will look like this:</p>
+<div class="figure">
+<img alt="../_images/ldap-settings-invalid-oc45.png" src="../_images/ldap-settings-invalid-oc45.png" />
+<p class="caption">Failure</p>
+</div>
+<p>In case the configuration fails, you can see details in ownCloud&#8217;s log, which
+is in the data directory and called <strong>owncloud.log</strong> or on the bottom the
+<strong>Settings →  Admin page</strong>. Unfortunately it requires a reload – sorry for the
+inconvenience.</p>
+<div class="figure">
+<img alt="../_images/ldap-settings-valid-oc45.png" src="../_images/ldap-settings-valid-oc45.png" />
+<p class="caption">Success</p>
+</div>
+<p>In this case, Save the settings. You can check if the users and groups are
+fetched correctly on the Settings → Users page.</p>
+</div>
+<div class="section" id="owncloud-avatar-integration">
+<h2>ownCloud Avatar integration<a class="headerlink" href="#owncloud-avatar-integration" title="Permalink to this headline">¶</a></h2>
+<p>ownCloud 6 incorporates a user profile picture feature, called Avatar. If a user
+has a photo stored in the <em>jpegPhoto</em> or, since 6.0.2, <em>thumbnailPhoto</em>
+attribute, it will be used as Avatar. The user then is not able to change his
+avatar in the personal settings. It must be done within LDAP. <em>jpegPhoto</em> is
+preferred over <em>thumbnailPhoto</em>.</p>
+<div class="figure">
+<img alt="../_images/ldap-fetched-avatar.png" src="../_images/ldap-fetched-avatar.png" />
+<p class="caption">Profile picture fetched from LDAP, Personal Settings</p>
+</div>
+<p>If the <em>jpegPhoto</em> or <em>thumbnailPhoto</em> attribute is not set or empty, the
+default ownCloud behaviour is active, i.e. the user will be able to set and
+change his profile picture in the personal settings. If the user sets a profile
+picture within ownCloud it will _not_ be stored in LDAP.</p>
+<p>The <em>jpegPhoto</em> or <em>thumbnailPhoto</em> attribute will be fetched once a day to make
+sure the current photo from LDAP is used in ownCloud. If a picture is added
+later, a possibly set profile picture will be overridden with the LDAP one. If a
+photo stored in the <em>jpegPhoto</em> and/or <em>thumbnailPhoto</em> attribute is deleted
+later, the last profile picture in ownCloud will still be used.</p>
+<p>The photo taken from LDAP will be adjusted to the requirements of the ownCloud
+avatar automatically, i.e. it will be transformed into a square. If the photo
+needs to be cut, it will be done equally from both affected sides. The original
+photo stored in LDAP will stay the same, of course.</p>
+</div>
+<div class="section" id="troubleshooting-tips-and-tricks">
+<h2>Troubleshooting, Tips and Tricks<a class="headerlink" href="#troubleshooting-tips-and-tricks" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="ssl-certificate-verification-ldaps-tls">
+<h2>SSL Certificate Verification (LDAPS, TLS)<a class="headerlink" href="#ssl-certificate-verification-ldaps-tls" title="Permalink to this headline">¶</a></h2>
+<p>A common mistake with SSL certificates is that they may not be known to PHP.
+If you have trouble with certificate validation make sure that</p>
+<ul class="simple">
+<li>you have the certificate of the server installed on the ownCloud server</li>
+<li>the certificate is announced in the system&#8217;s LDAP configuration file (usually
+<em>/etc/ldap/ldap.conf</em> on Linux, <em>C:\openldap\sysconf\ldap.conf</em> or
+<em>C:\ldap.conf</em> on Windows) using a <strong>TLS_CACERT /path/to/cert</strong> line.</li>
+<li>Using LDAPS, also make sure that the port is correctly configured (by default
+686)</li>
+</ul>
+</div>
+<div class="section" id="microsoft-active-directory">
+<h2>Microsoft Active Directory<a class="headerlink" href="#microsoft-active-directory" title="Permalink to this headline">¶</a></h2>
+<p>Compared to earlier ownCloud versions, no further tweaks need to be done to
+make ownCloud work with Active Directory. ownCloud will automatically find the
+correct configuration in the wizard-like set up process.</p>
+</div>
+<div class="section" id="duplicating-server-configurations">
+<h2>Duplicating Server Configurations<a class="headerlink" href="#duplicating-server-configurations" title="Permalink to this headline">¶</a></h2>
+<p>In case you have a working configuration and want to create a similar one or
+&#8220;snapshot&#8221; configurations before modifying them you can do the following:</p>
+<ol class="arabic simple">
+<li>Go to the <strong>Server</strong> tab</li>
+<li>On <strong>Server Configuration</strong> choose <em>Add Server Configuration</em></li>
+<li>Answer the question <em>Take over settings from recent server configuration?</em>
+with <em>yes</em>.</li>
+<li>(optional) Switch to <strong>Advanced</strong> tab and uncheck <strong>Configuration Active</strong>
+in the <em>Connection Settings</em>, so the new configuration is not used on Save</li>
+<li>Click on <strong>Save</strong></li>
+</ol>
+<p>Now you can modify the configuration and enable it if you wish.</p>
+</div>
+<div class="section" id="owncloud-ldap-internals">
+<h2>ownCloud LDAP Internals<a class="headerlink" href="#owncloud-ldap-internals" title="Permalink to this headline">¶</a></h2>
+<p>Some parts of how the LDAP backend works are described here. May it be helpful.</p>
+</div>
+<div class="section" id="groups">
+<h2>Groups<a class="headerlink" href="#groups" title="Permalink to this headline">¶</a></h2>
+<p>At the moment, only secondary groups are read. That means that only the groups
+are retrieved, which are returned by the attribute auto-detected (or manually
+chosen) in Group-Member association. Primary groups are not taken into
+account.</p>
+</div>
+<div class="section" id="user-and-group-mapping">
+<h2>User and Group Mapping<a class="headerlink" href="#user-and-group-mapping" title="Permalink to this headline">¶</a></h2>
+<p>In ownCloud the user or group name is used to have all relevant information in
+the database assigned. To work reliably a permanent internal user name and
+group name is created and mapped to the LDAP DN and UUID. If the DN changes in
+LDAP it will be detected, there will be no conflicts.</p>
+<p>Those mappings are done in the database table ldap_user_mapping and
+ldap_group_mapping. The user name is also used for the user&#8217;s folder (except
+something else is specified in <em>User Home Folder Naming Rule</em>), which
+contains files and meta data.</p>
+<p>As of ownCloud 5 internal user name and a visible display name are separated.
+This is not the case for group names, yet, i.e. group cannot be altered.</p>
+<p>That means that your LDAP configuration should be good and ready before putting
+it into production. The mapping tables are filled early, but as long as you are
+testing, you can empty the tables any time. Do not do this in production. If you
+want to rename a group, be very careful. Do not rename the user&#8217;s internal name.</p>
+</div>
+<div class="section" id="caching">
+<h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
+<p>For performance reasons a cache has been introduced to ownCloud. The cache stores
+all users and groups, group memberships or internal userExists-requests. Since
+ownCloud is written in PHP and each and every page request (also done by Ajax)
+loads ownCloud and would execute one or more LDAP queries again, you do want to
+have some of those queries cached and save those requests and traffic. It is
+highly recommended to have the cache filled for a small amount of time, which
+comes also very handy when using the sync client, as it is yet another request
+for PHP.</p>
+</div>
+<div class="section" id="handling-with-backup-server">
+<h2>Handling with Backup Server<a class="headerlink" href="#handling-with-backup-server" title="Permalink to this headline">¶</a></h2>
+<p>When ownCloud is not able to contact the main server, it will be treated as
+offline and no connection attempts will be done for the time specified in
+<strong>Cache Time-To-Live</strong>. If a backup server is configured, it will be connected
+instead. For planned downtime, check <strong>Disable Main Server</strong> for
+the time being to avoid unnecessary connection attempts every now and then.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

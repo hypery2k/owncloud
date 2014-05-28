@@ -1,0 +1,228 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dealing with Big File Uploads &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Custom Mount Configuration Web-GUI" href="custom_mount_config_gui.html" />
+    <link rel="prev" title="Reverse Proxy Configuration" href="configuration_reverseproxy.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_users.html">User Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_encryption.html">Using Server-Side Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_preview.html">Enabling File Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Dealing with Big File Uploads</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#not-outnumberable-upload-limits">Not outnumberable upload limits:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-recommendable-preconditions">Other recommendable preconditions:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-uploading-big-files">Enabling uploading big files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config_gui.html">Custom Mount Configuration Web-GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="dealing-with-big-file-uploads">
+<h1>Dealing with Big File Uploads<a class="headerlink" href="#dealing-with-big-file-uploads" title="Permalink to this headline">¶</a></h1>
+<p>It&#8217;s useful to know limiting factors, that make it impossible to exceed the values given by the ownCloud-system:</p>
+<div class="section" id="not-outnumberable-upload-limits">
+<h2>Not outnumberable upload limits:<a class="headerlink" href="#not-outnumberable-upload-limits" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>&lt; 2GB on 32Bit OS-architecture</li>
+<li>&lt; 2GB with Server Version 4.5 or older</li>
+<li>&lt; 2GB with IE6 - IE8</li>
+<li>&lt; 4GB with IE9 - IE10</li>
+</ul>
+</div>
+<div class="section" id="other-recommendable-preconditions">
+<h2>Other recommendable preconditions:<a class="headerlink" href="#other-recommendable-preconditions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Make sure, that the latest version of PHP (at least 5.4.9) is installed</li>
+<li>Disable user quota. This means: set the user quota of the account, you are currently logged in, to &#8220;unlimited&#8221;.</li>
+</ul>
+<p>This is important, because you possibly could not watch otherwise, whether the desired changes take effect.</p>
+</div>
+<div class="section" id="enabling-uploading-big-files">
+<h2>Enabling uploading big files<a class="headerlink" href="#enabling-uploading-big-files" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The order of the following steps is important! If you swap steps described below, the settings may fail.</p>
+</div>
+<p><strong>Go to the admin section in the ownCloud-WebUI and do the following:</strong></p>
+<ul class="simple">
+<li>Under &#8220;File handling&#8221; set the Maximum upload size to the desired value (e.g. 16GB)</li>
+<li>Click the &#8220;save&#8221;-Button</li>
+</ul>
+<p><strong>Open the php.ini - file</strong></p>
+<ul class="simple">
+<li>Under Debian or SUSE and their derivatives this file resides at <tt class="docutils literal"><span class="pre">/etc/php5/apache2/php.ini</span></tt></li>
+<li>On Windows, you can find this file within <tt class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\PHP\PHP.ini</span></tt></li>
+</ul>
+<p><strong>Do the following:</strong></p>
+<ul class="simple">
+<li>Set the following three parameters inside th php.ini to the same value as chosen inside the admin-section one step before:</li>
+<li><tt class="docutils literal"><span class="pre">upload_max_filesize</span> <span class="pre">=</span> <span class="pre">16G</span></tt>   (e.g., to stay consistent with the example value above)</li>
+<li><tt class="docutils literal"><span class="pre">post_max_size</span> <span class="pre">=</span> <span class="pre">16G</span></tt>   (e.g., to stay consistent with the example value above)</li>
+<li><tt class="docutils literal"><span class="pre">output_buffering</span> <span class="pre">=</span> <span class="pre">16384</span></tt>  (e.g., to stay consistent with the example value above)</li>
+</ul>
+<p>whereas the &#8220;output_buffering&#8221; has to be given in MegaBytes but as a plain figure (without size-units as &#8216;M&#8217; or &#8216;G&#8217;)</p>
+<p>These client configurations have been proven by testing maximum file sizes of 16 GB:</p>
+<ul class="simple">
+<li>Linux 32 Bit: Ubuntu, Firefox =&gt; 16GB</li>
+<li>Windows 8  64 Bit: Google Chrome =&gt; 8GB</li>
+</ul>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

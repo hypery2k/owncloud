@@ -1,0 +1,520 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Get Shares from a Specific File or Folder &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Sharing API" href="index.html" />
+    <link rel="next" title="Get Information about a known share" href="get_information_about_a_known_share.html" />
+    <link rel="prev" title="Get All Shares" href="get_all_shares.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Sharing API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="get_all_shares.html">Get All Shares</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Get Shares from a Specific File or Folder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#poster-default-arguments">Poster – Default arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl-default-configuration">Curl – Default configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#poster-to-add-another-argument-such-as-re-shares">Poster – To add another argument, such as re-shares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl-to-add-another-argument-such-as-re-shares">Curl – To add another argument, such as re-shares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="get_information_about_a_known_share.html">Get Information about a known share</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create_a_new_share.html">Create a new Share</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delete_share.html">Delete Share</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="get-shares-from-a-specific-file-or-folder">
+<h1>Get Shares from a Specific File or Folder<a class="headerlink" href="#get-shares-from-a-specific-file-or-folder" title="Permalink to this headline">¶</a></h1>
+<p>The following will provide a list shares for a specific file.
+The input is the full path of the desired file.
+The output is a list of everyone who has the file shared with them.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="17%" />
+<col width="7%" />
+<col width="58%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Syntax</strong></td>
+<td>&lt;Base URL&gt;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><strong>Method</strong></td>
+<td>GET</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><strong>Mandatory Argument</strong></td>
+<td>Path</td>
+<td>string</td>
+<td>Path to file or folder</td>
+</tr>
+<tr class="row-even"><td><strong>Argument</strong></td>
+<td>Reshares</td>
+<td>boolean</td>
+<td><p class="first">If set to ‘false’ (default), only shares from the current user are returned</p>
+<p class="last">If set to ‘true’, all shares from the given file are returned</p>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Argument</strong></td>
+<td>Subfiles</td>
+<td>boolean</td>
+<td><p class="first">If set to ‘false’ (default), lists only the folder being shared</p>
+<p class="last">If set to ‘true’, all shared files within the folder are returned.</p>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Result</strong></td>
+<td>XML code with shares</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>The following is a list of returned status codes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>HTTP Status Code</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>100</td>
+<td>Successful</td>
+</tr>
+<tr class="row-odd"><td>400</td>
+<td>Not a directory (if the ‘subfile’ argument was used)</td>
+</tr>
+<tr class="row-even"><td>404</td>
+<td>File does not exist</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="poster-default-arguments">
+<h2>Poster – Default arguments<a class="headerlink" href="#poster-default-arguments" title="Permalink to this headline">¶</a></h2>
+<p>This example shows the output of share information for “test share api/ieee.txt”</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Field</td>
+<td>Value</td>
+</tr>
+<tr class="row-even"><td><strong>URL</strong></td>
+<td>Base URL for the API of the ownCloud server</td>
+</tr>
+<tr class="row-odd"><td><strong>User Auth</strong></td>
+<td>User ID of the file owner</td>
+</tr>
+<tr class="row-even"><td><strong>Password</strong></td>
+<td>User’s Password</td>
+</tr>
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td>Argument being passed</td>
+</tr>
+<tr class="row-even"><td><strong>Value</strong></td>
+<td>Full path of file/folder shared</td>
+</tr>
+</tbody>
+</table>
+<p>Navigate to the “Parameters” tab and input the Name and value.</p>
+<p><img alt="10000000000002720000013FB6EDA793_png" src="../_images/10000000000002720000013FB6EDA793.png" style="width: 6.5in; height: 3.3126in;" /></p>
+<p>Navigate to the “Content to Send” tab and select “Body from Parameters” to move the required parameters to the query.</p>
+<p><img alt="1000000000000291000001951B69B9A6_png" src="../_images/1000000000000291000001951B69B9A6.png" style="width: 6.5in; height: 4.0071in;" /></p>
+<p>Select GET.</p>
+</div>
+<div class="section" id="curl-default-configuration">
+<h2>Curl – Default configuration<a class="headerlink" href="#curl-default-configuration" title="Permalink to this headline">¶</a></h2>
+<p>$ curl –G –data &#8220;path=test_share_api/ieee.txt&#8221; http://&lt;userid&gt;:&lt;password&gt;&#64;&lt;ip&gt;/ocs/v1.php/apps/files_sharing/api/v1/shares</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="64%" />
+<col width="36%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&lt;?xml version=&#8221;1.0&#8221;?&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;status&gt;ok&lt;/status&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;statuscode&gt;100&lt;/statuscode&gt;</td>
+<td>Status=100: Successful</td>
+</tr>
+<tr class="row-even"><td>&lt;message/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;element&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;id&gt;7&lt;/id&gt;</td>
+<td>Share ID=7</td>
+</tr>
+<tr class="row-odd"><td>&lt;item_type&gt;file&lt;/item_type&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;item_source&gt;675&lt;/item_source&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;parent/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;share_type&gt;0&lt;/share_type&gt;</td>
+<td>Share Type=0: user</td>
+</tr>
+<tr class="row-odd"><td>&lt;share_with&gt;ser72&lt;/share_with&gt;</td>
+<td>Share with user ser72</td>
+</tr>
+<tr class="row-even"><td>&lt;file_source&gt;675&lt;/file_source&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;path&gt;/test share api/ieee.txt&lt;/path&gt;</td>
+<td>File /test share api/ieee.txt</td>
+</tr>
+<tr class="row-even"><td>&lt;permissions&gt;27&lt;/permissions&gt;</td>
+<td>Permissions 27</td>
+</tr>
+<tr class="row-odd"><td>&lt;stime&gt;1386698116&lt;/stime&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;expiration/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;token/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;storage&gt;4&lt;/storage&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;mail_send&gt;0&lt;/mail_send&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;share_with_displayname&gt;ser72&lt;/share_with_displayname&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/element&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;/data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="poster-to-add-another-argument-such-as-re-shares">
+<h2>Poster – To add another argument, such as re-shares<a class="headerlink" href="#poster-to-add-another-argument-such-as-re-shares" title="Permalink to this headline">¶</a></h2>
+<p>This example shows the output of share information for “test share api/ieee.txt”.
+reshares is set to true which will show output if the file is re-shared by another user.</p>
+<p><img alt="1000000000000304000001B964698779_png" src="../_images/1000000000000304000001B964698779.png" style="width: 6.5in; height: 3.7134in;" /></p>
+<p>Navigate to the “Content to Send” tab and select “Body from Parameters”</p>
+<p><img alt="100000000000029B0000018885B5282E_png" src="../_images/100000000000029B0000018885B5282E.png" style="width: 6.5in; height: 3.8201in;" /></p>
+<p>Select Get</p>
+</div>
+<div class="section" id="curl-to-add-another-argument-such-as-re-shares">
+<h2>Curl – To add another argument, such as re-shares<a class="headerlink" href="#curl-to-add-another-argument-such-as-re-shares" title="Permalink to this headline">¶</a></h2>
+<p>$ curl –G –data &#8220;path=test_share_api/ieee.tx&amp;reshares=true&#8221; http://&lt;userid&gt;:&lt;password&gt;&#64;&lt;ip&gt;/ocs/v1.php/apps/files_sharing/api/v1/shares</p>
+</div>
+<div class="section" id="id1">
+<h2>Output<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&lt;?xml version=&#8221;1.0&#8221;?&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;status&gt;ok&lt;/status&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;statuscode&gt;100&lt;/statuscode&gt;</td>
+<td>Status=100: Successful</td>
+</tr>
+<tr class="row-even"><td>&lt;message/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;element&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;id&gt;7&lt;/id&gt;</td>
+<td>Share id = 7</td>
+</tr>
+<tr class="row-odd"><td>&lt;item_type&gt;file&lt;/item_type&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;item_source&gt;675&lt;/item_source&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;parent/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;share_type&gt;0&lt;/share_type&gt;</td>
+<td>Share Type=0: User</td>
+</tr>
+<tr class="row-odd"><td>&lt;share_with&gt;ser72&lt;/share_with&gt;</td>
+<td>Share with user ser72</td>
+</tr>
+<tr class="row-even"><td>&lt;file_source&gt;675&lt;/file_source&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;path&gt;/test share api/ieee.txt&lt;/path&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;permissions&gt;27&lt;/permissions&gt;</td>
+<td>Permissions 27</td>
+</tr>
+<tr class="row-odd"><td>&lt;stime&gt;1386698116&lt;/stime&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;expiration/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;token/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;storage&gt;4&lt;/storage&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;mail_send&gt;0&lt;/mail_send&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;share_with_displayname&gt;ser72&lt;/share_with_displayname&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/element&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;element&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;id&gt;8&lt;/id&gt;</td>
+<td>Share id 8</td>
+</tr>
+<tr class="row-even"><td>&lt;item_type&gt;file&lt;/item_type&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;parent&gt;7&lt;/parent&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;share_type&gt;0&lt;/share_type&gt;</td>
+<td>Parent share id = 7</td>
+</tr>
+<tr class="row-odd"><td>&lt;share_with&gt;ser73&lt;/share_with&gt;</td>
+<td>Share with ser73</td>
+</tr>
+<tr class="row-even"><td>&lt;file_source&gt;675&lt;/file_source&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;path&gt;/test share api/ieee.txt&lt;/path&gt;</td>
+<td>Share file /test share api/ieee.txt</td>
+</tr>
+<tr class="row-even"><td>&lt;permissions&gt;19&lt;/permissions&gt;</td>
+<td>Permissions 19 – read, update, share</td>
+</tr>
+<tr class="row-odd"><td>&lt;stime&gt;1386698465&lt;/stime&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;expiration/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;token/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;storage&gt;4&lt;/storage&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;mail_send&gt;0&lt;/mail_send&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;share_with_displayname&gt;ser73&lt;/share_with_displayname&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/element&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;/data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

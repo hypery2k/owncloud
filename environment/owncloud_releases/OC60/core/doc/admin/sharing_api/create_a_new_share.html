@@ -1,0 +1,426 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create a new Share &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Sharing API" href="index.html" />
+    <link rel="next" title="Delete Share" href="delete_share.html" />
+    <link rel="prev" title="Get Information about a known share" href="get_information_about_a_known_share.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Sharing API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="get_all_shares.html">Get All Shares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_shares_from_a_specific_file_or_folder.html">Get Shares from a Specific File or Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_information_about_a_known_share.html">Get Information about a known share</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Create a new Share</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#poster-share-as-a-link">Poster – Share as a link</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl-share-as-link">Curl – Share as link</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#poster-share-with-user">Poster – Share with user</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl-share-with-user">Curl – Share with User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="delete_share.html">Delete Share</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="create-a-new-share">
+<h1>Create a new Share<a class="headerlink" href="#create-a-new-share" title="Permalink to this headline">¶</a></h1>
+<p>To create a new share the following may be used.
+This allows sharing with a user or group or as a link.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="32%" />
+<col width="6%" />
+<col width="48%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Syntax</td>
+<td>&lt;Base URL&gt;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Method</td>
+<td>POST</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Mandatory Argument</td>
+<td>path</td>
+<td>string</td>
+<td>Full path of the file/folder being shared</td>
+</tr>
+<tr class="row-even"><td>Mandatory Argument</td>
+<td>shareType</td>
+<td>int</td>
+<td>‘0’ = user, ‘1’ = group, ‘3’ = Public link</td>
+</tr>
+<tr class="row-odd"><td>Argument</td>
+<td>shareWith</td>
+<td>string</td>
+<td>User/group ID with who the file should be shared.
+This is mandatory for shareType of 0 or 1</td>
+</tr>
+<tr class="row-even"><td>Argument</td>
+<td>publicUpload</td>
+<td>boolean</td>
+<td><p class="first">If ‘false’ (default) public cannot upload to a public shared folder</p>
+<p>If ‘true’ public can upload to a shared folder</p>
+<p class="last">Only available for public link shares</p>
+</td>
+</tr>
+<tr class="row-odd"><td>Argument</td>
+<td>password</td>
+<td>string</td>
+<td><p class="first">Password to protect a public link share</p>
+<p class="last">Only available for public link shares</p>
+</td>
+</tr>
+<tr class="row-even"><td>Argument</td>
+<td>permissions</td>
+<td>int</td>
+<td>From table in section 2.2 for user or group shares</td>
+</tr>
+<tr class="row-odd"><td>Result</td>
+<td>XML Code with share ID of newly created share</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>The following is a list of returned status codes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>HTTP Status Code</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>100</td>
+<td>Successful</td>
+</tr>
+<tr class="row-odd"><td>400</td>
+<td>Unknown Share type</td>
+</tr>
+<tr class="row-even"><td>403</td>
+<td>Public Upload disabled by admin</td>
+</tr>
+<tr class="row-odd"><td>404</td>
+<td>File couldn’t be shared</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="poster-share-as-a-link">
+<h2>Poster – Share as a link<a class="headerlink" href="#poster-share-as-a-link" title="Permalink to this headline">¶</a></h2>
+<p>The following example shares the file “test/Lab.txt” as a public link</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Field</td>
+<td>Value</td>
+</tr>
+<tr class="row-even"><td><strong>URL</strong></td>
+<td>Base URL for the API of the ownCloud server</td>
+</tr>
+<tr class="row-odd"><td><strong>User Auth</strong></td>
+<td>User ID of the file owner</td>
+</tr>
+<tr class="row-even"><td><strong>Password</strong></td>
+<td>User’s Password</td>
+</tr>
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td>Argument being passed</td>
+</tr>
+<tr class="row-even"><td><strong>Value</strong></td>
+<td>Full path of file/folder shared</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="1000000000000298000001874D3CA506_png" src="../_images/1000000000000298000001874D3CA506.png" style="width: 6.5in; height: 3.828in;" /></p>
+<p>Navigate to the “Content to Send” tab and select “Body from Parameters”</p>
+<p><img alt="1000000000000298000001870B0581FA_png" src="../_images/1000000000000298000001870B0581FA.png" style="width: 6.5in; height: 3.828in;" /></p>
+<p>Select POST.</p>
+</div>
+<div class="section" id="curl-share-as-link">
+<h2>Curl – Share as link<a class="headerlink" href="#curl-share-as-link" title="Permalink to this headline">¶</a></h2>
+<p>$ curl http://&lt;ip&gt;/ocs/v1.php/apps/files_sharing/api/v1/shares -k -u user:password -X POST –data “path=&lt;file&gt;&amp;shareType=3”</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="77%" />
+<col width="23%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&lt;?xml version=&#8221;1.0&#8221;?&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;status&gt;ok&lt;/status&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;statuscode&gt;100&lt;/statuscode&gt;</td>
+<td>Status = 100: successful</td>
+</tr>
+<tr class="row-even"><td>&lt;message/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;id&gt;9&lt;/id&gt;</td>
+<td>Share ID = 9</td>
+</tr>
+<tr class="row-even"><td>&lt;url&gt;http://192.168.1.63/owncloud6RC3/public.php?service=files&amp;amp;t=e1947aaeaa2b88a69cc1e90bf27ddfe2&lt;/url&gt;</td>
+<td>Share Link.
+Send this to the desired users</td>
+</tr>
+<tr class="row-odd"><td>&lt;token&gt;e1947aaeaa2b88a69cc1e90bf27ddfe2&lt;/token&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;/data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><strong>&lt;/ocs&gt;</strong></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="poster-share-with-user">
+<h2>Poster – Share with user<a class="headerlink" href="#poster-share-with-user" title="Permalink to this headline">¶</a></h2>
+<p>The following example shares a file called “test/Lab.txt” with user “ser72”</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Field</td>
+<td>Value</td>
+</tr>
+<tr class="row-even"><td><strong>URL</strong></td>
+<td>Base URL for the API of the ownCloud server</td>
+</tr>
+<tr class="row-odd"><td><strong>User Auth</strong></td>
+<td>User ID of the file owner</td>
+</tr>
+<tr class="row-even"><td><strong>Password</strong></td>
+<td>User’s Password</td>
+</tr>
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td>Argument being passed</td>
+</tr>
+<tr class="row-even"><td><strong>Value</strong></td>
+<td>Full path of file/folder shared</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="1000000000000289000001A9D7F3941F_png" src="../_images/1000000000000289000001A9D7F3941F.png" style="width: 6.5in; height: 4.2563in;" /></p>
+<p>Navigate to the “Content to Send Tab” and select “Body from Parameters”</p>
+<p><img alt="10000000000002950000019EF5732E36_png" src="../_images/10000000000002950000019EF5732E36.png" style="width: 6.5in; height: 4.0701in;" /></p>
+<p>Select POST.</p>
+</div>
+<div class="section" id="curl-share-with-user">
+<h2>Curl – Share with User<a class="headerlink" href="#curl-share-with-user" title="Permalink to this headline">¶</a></h2>
+<p>$ curl http://&lt;ip&gt;/ocs/v1.php/apps/files_sharing/api/v1/shares -k -u user:password -X POST –data &#8220;path=&lt;file&gt;&amp;shareType=0&amp;shareWith=&lt;user&gt;&#8221;</p>
+</div>
+<div class="section" id="id1">
+<h2>Output<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&lt;?xml version=&#8221;1.0&#8221;?&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;status&gt;ok&lt;/status&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;statuscode&gt;100&lt;/statuscode&gt;</td>
+<td>Status: 100: Successful</td>
+</tr>
+<tr class="row-even"><td>&lt;message/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;id&gt;10&lt;/id&gt;</td>
+<td>Share ID = 10</td>
+</tr>
+<tr class="row-even"><td>&lt;/data&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

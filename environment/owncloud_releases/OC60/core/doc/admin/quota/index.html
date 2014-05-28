@@ -1,0 +1,239 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Quota Calculation &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="next" title="Sharing API" href="../sharing_api/index.html" />
+    <link rel="prev" title="Driving Events with Cron" href="../cron/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quota Calculation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-available-space">Checking available space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sharing">Sharing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#shared-files">Shared Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shared-directories">Shared Directories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resharing">Resharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#public-sharing-with-upload-permission">Public sharing with upload permission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metadata-and-cache">Metadata and cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deleted-files">Deleted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-control">Version Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#encryption">Encryption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-storage">External Storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="quota-calculation">
+<h1>Quota Calculation<a class="headerlink" href="#quota-calculation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>ownCloud allows the admin to specify a storage quota for users.
+This quota is the maximum space a user is allowed to utilize for files located in their home storage.</p>
+<p>The users quota is set in the Users page within ownCloud when creating a user.</p>
+<p><img alt="10000000000003DF000000D953A456B6_png" src="../_images/10000000000003DF000000D953A456B6.png" style="width: 6.5in; height: 1.4228in;" /></p>
+<p>Each user can have a different quota (shown above in the Storage column).
+In addition, there is a default quota should a user not have a quota specified.</p>
+<p>It is important to note that when setting a quota, the administrator needs to be aware that it applies only to the actual files and not the metadata.
+This means when allocating a quota, the admin should make sure at least 10% more space is available for each user.</p>
+</div>
+<div class="section" id="checking-available-space">
+<h2>Checking available space<a class="headerlink" href="#checking-available-space" title="Permalink to this headline">¶</a></h2>
+<p>A user can check their available space on the Personal page.</p>
+<p><img alt="10000000000003A800000039364066E4_png" src="../_images/10000000000003A800000039364066E4.png" style="width: 6.5in; height: 0.3957in;" /></p>
+<p>The available space for a given user is calculated using the following formula:</p>
+<p><img alt="10000000000002BB000000266DB6AD1A_png" src="../_images/10000000000002BB000000266DB6AD1A.png" style="width: 6.5in; height: 0.3535in;" /></p>
+<p>Where disk_free_space is the space available on the partition where the user’s home storage is located on the server.</p>
+</div>
+<div class="section" id="sharing">
+<h2>Sharing<a class="headerlink" href="#sharing" title="Permalink to this headline">¶</a></h2>
+<p>Shared files or directories are counted against the owner’s quota and not the “shared-to” user’s quota.</p>
+<div class="section" id="shared-files">
+<h3>Shared Files<a class="headerlink" href="#shared-files" title="Permalink to this headline">¶</a></h3>
+<p>When user A shares a file with user B, the size of the file will be counted against user A’s quota.
+This is the case even if the file is modified by user B or if user B increases the file size.</p>
+</div>
+<div class="section" id="shared-directories">
+<h3>Shared Directories<a class="headerlink" href="#shared-directories" title="Permalink to this headline">¶</a></h3>
+<p>When user A shares a directory with User B, all files uploaded to that directory by user B will count against user A’s quota.
+Likewise, files within that directory which are modified by user B will count against user A’s quota.</p>
+</div>
+<div class="section" id="resharing">
+<h3>Resharing<a class="headerlink" href="#resharing" title="Permalink to this headline">¶</a></h3>
+<p>If user A shares a file with user B who then reshares a file to user C, the space occupied by that file is counted against user A’s quota.</p>
+</div>
+<div class="section" id="public-sharing-with-upload-permission">
+<h3>Public sharing with upload permission<a class="headerlink" href="#public-sharing-with-upload-permission" title="Permalink to this headline">¶</a></h3>
+<p>If user A publicly shares a directory via a link and enables “public upload” permission, files uploaded to that directory from the outside are counted against user A’s quota.
+Excluded from quota
+===================</p>
+<p>The following sections describe information which is not counted in a user’s quota.</p>
+</div>
+<div class="section" id="metadata-and-cache">
+<h3>Metadata and cache<a class="headerlink" href="#metadata-and-cache" title="Permalink to this headline">¶</a></h3>
+<p>Application metadata and cached information are excluded from total used space.
+Examples of such data are thumbnails (icon previews, pictures app), temporary files, and encryption keys.</p>
+</div>
+<div class="section" id="deleted-files">
+<h3>Deleted Files<a class="headerlink" href="#deleted-files" title="Permalink to this headline">¶</a></h3>
+<p>Files which have been moved to the trash bin do not count against a user’s quota.
+Deleted items are permanently deleted, oldest to newest, should the user run out of space to make room for new files.</p>
+<p>For example, if the user has a 10GB quota, and has used 4GB of space and 5GB in the trash bin, the user will still have 6GB available space.
+If, however, the user uploads 6GB, ownCloud will permanently delete files from the trash bin in order to make room for the new files.</p>
+</div>
+<div class="section" id="version-control">
+<h3>Version Control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
+<p>Older versions do not count against the user’s quota.
+The versions app will delete old versions, oldest to newest, should the user run out of space to make room for new files.</p>
+<p>For example, if the user has a 10GB quota, and has used 4GB and 5GB is used on older versions, the user will still have 6GB available space.
+If, however, the user uploads 6GB, ownCloud will discard older versions to make room for the new files.</p>
+</div>
+<div class="section" id="encryption">
+<h3>Encryption<a class="headerlink" href="#encryption" title="Permalink to this headline">¶</a></h3>
+<p>Encrypted files are slightly larger than their unencrypted equivalents.
+The unencrypted file size is used to determine the quota.</p>
+</div>
+<div class="section" id="external-storage">
+<h3>External Storage<a class="headerlink" href="#external-storage" title="Permalink to this headline">¶</a></h3>
+<p>External storage, mounted by either a user or the admin, is not taken into consideration when calculating the user’s storage.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

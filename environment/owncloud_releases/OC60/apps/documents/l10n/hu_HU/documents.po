@@ -1,0 +1,313 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ádám Radovits <adamradovits12@hotmail.com>, 2013
+# sherlock79 <david@interpont.hu>, 2013
+# ebela <bela@dandre.hu>, 2013
+# Laszlo Tornoci <torlasz@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2013-11-29 11:21-0500\n"
+"PO-Revision-Date: 2013-11-27 15:10+0000\n"
+"Last-Translator: Ádám Radovits <adamradovits12@hotmail.com>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: appinfo/app.php:35 templates/personal.php:2 templates/settings.php:2
+msgid "Documents"
+msgstr "Dokumentumok"
+
+#: js/3rdparty/webodf/webodf.js:831
+msgid "document-styles"
+msgstr "dokumentum-stílusok"
+
+#: js/3rdparty/webodf/webodf.js:832
+msgid "document-content"
+msgstr "dokumentum-tartalom"
+
+#: js/documents.js:23 js/locale.js:12 js/viewer/viewer.js:50
+msgid "Close"
+msgstr "Bezárás"
+
+#: js/documents.js:26
+msgid "Share"
+msgstr "Megosztás"
+
+#: js/documents.js:102
+msgid "No connection to server. Trying to reconnect."
+msgstr "Nincs kapcsolat a szerverrel. Újracsatlakozás."
+
+#: js/documents.js:153
+msgid ""
+"Leaving this page in Editor mode might cause unsaved data. It is recommended"
+" to use 'Close' button instead."
+msgstr "Ha elnavigálsz az oldalról miközben Szerkesztés módban vagy akkor lehet lesznek elvesztett adatok amiket még nem mentettél el. Ajánlott inkább a 'Bezár' gombbal befejezni az oldal szerkesztését."
+
+#: js/documents.js:166
+msgid ""
+"Failed to load this document. Please check if it can be opened with an "
+"external odt editor. This might also mean it has been unshared or deleted "
+"recently."
+msgstr "A dokumentum betöltése sikertelen. Próbáld külső odt szerkeszővel megnyitni. Ez hiba jelentheti azt, hogy már nincs megosztva vagy már törölve lett a dokumentum."
+
+#: js/documents.js:332
+msgid "Failed to load documents."
+msgstr "A dokumentum betőltése sikertelen"
+
+#: js/documents.js:375
+msgid "No documents are found. Please upload or create a document!"
+msgstr "Nem található egy dokumentum sem. Tölts fel vagy hozz létre egy dokumentumot."
+
+#: js/locale.js:1
+msgid "Align Left"
+msgstr "Balra igazítás"
+
+#: js/locale.js:2
+msgid "Alignment"
+msgstr "Igazítás"
+
+#: js/locale.js:3
+msgid "Align Right"
+msgstr "Jobbra igazítás"
+
+#: js/locale.js:4
+msgid "Annotate"
+msgstr ""
+
+#: js/locale.js:5
+msgid "Background"
+msgstr "Háttér"
+
+#: js/locale.js:6
+msgid "Bold"
+msgstr "Félkövér"
+
+#: js/locale.js:7
+msgid "Bottom"
+msgstr "Alsó"
+
+#: js/locale.js:8
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: js/locale.js:9
+msgid "Center"
+msgstr "Közép"
+
+#: js/locale.js:10
+msgid "Clone"
+msgstr "Másolás"
+
+#: js/locale.js:11
+msgid "Clone this Style"
+msgstr "Stílus másolása"
+
+#: js/locale.js:13
+msgid "Color"
+msgstr "Szín"
+
+#: js/locale.js:14
+msgid "Create"
+msgstr "Létrehozás"
+
+#: js/locale.js:15
+msgid "Decrease Indent"
+msgstr ""
+
+#: js/locale.js:16
+msgid "Default Style"
+msgstr "Alapértelmezett stílus"
+
+#: js/locale.js:17
+msgid "Delete"
+msgstr "Törlés"
+
+#: js/locale.js:18
+msgid "Family"
+msgstr "Család"
+
+#: js/locale.js:19
+msgid "Font"
+msgstr "Betűtípus"
+
+#: js/locale.js:20
+msgid "Font Effects"
+msgstr "Betűtípus effektek"
+
+#: js/locale.js:21
+msgid "Format"
+msgstr "Formátum"
+
+#: js/locale.js:22
+msgid "Increase Indent"
+msgstr ""
+
+#: js/locale.js:23
+msgid "Insert Image"
+msgstr "Kép beillesztése"
+
+#: js/locale.js:24
+msgid "Invite Members"
+msgstr "Tagok meghívása"
+
+#: js/locale.js:25
+msgid "Italic"
+msgstr "Dőlt"
+
+#: js/locale.js:26
+msgid "Justified"
+msgstr "Sorkizárt"
+
+#: js/locale.js:27
+msgid "Justify"
+msgstr ""
+
+#: js/locale.js:28
+msgid "Left"
+msgstr "Bal"
+
+#: js/locale.js:29
+msgid "Loading"
+msgstr "Betöltés"
+
+#: js/locale.js:30
+msgid "Members"
+msgstr "Tagok"
+
+#: js/locale.js:31
+msgid "New Name:"
+msgstr "Új név:"
+
+#: js/locale.js:32 templates/public.php:12
+msgid "OK"
+msgstr "OK"
+
+#: js/locale.js:33
+msgid "Open"
+msgstr "Megnyitás"
+
+#: js/locale.js:34
+msgid "Options"
+msgstr "Opciók"
+
+#: js/locale.js:35
+msgid "Paragraph..."
+msgstr "Paragrafus..."
+
+#: js/locale.js:36
+msgid "Paragraph Styles"
+msgstr "Paragrafus stílusok"
+
+#: js/locale.js:37
+msgid "Redo"
+msgstr "Helyrehoz"
+
+#: js/locale.js:38
+msgid "Right"
+msgstr "Jobb"
+
+#: js/locale.js:39
+msgid "Save"
+msgstr "Mentés"
+
+#: js/locale.js:40
+msgid "Size"
+msgstr "Méret"
+
+#: js/locale.js:41
+msgid "Spacing"
+msgstr "Ritkítás"
+
+#: js/locale.js:42
+msgid "Strikethrough"
+msgstr "Áthúzott"
+
+#: js/locale.js:43
+msgid "Style"
+msgstr "Stílus"
+
+#: js/locale.js:44
+msgid "Text"
+msgstr "SMS"
+
+#: js/locale.js:45
+msgid "Top"
+msgstr "Felső"
+
+#: js/locale.js:46
+msgid "Underline"
+msgstr "Aláhúzás"
+
+#: js/locale.js:47
+msgid "Undo"
+msgstr "Visszavonás"
+
+#: js/locale.js:48
+msgid "Unknown Author"
+msgstr "Ismeretlen szerző"
+
+#: lib/invite.php:64
+msgid "Sent"
+msgstr "Elküldött"
+
+#: lib/invite.php:65 lib/invite.php:75
+msgid "Declined"
+msgstr "Elutasított"
+
+#: lib/invite.php:66 lib/invite.php:76
+msgid "Accepted"
+msgstr "Elfogadott"
+
+#: lib/invite.php:74
+msgid "Incoming"
+msgstr "Beérkező"
+
+#: templates/documents.php:5
+msgid "New document"
+msgstr "Új dokumentum"
+
+#: templates/documents.php:7 templates/documents.php:27
+msgid "Upload"
+msgstr "Feltöltés"
+
+#: templates/personal.php:4
+msgid "Save new documents to"
+msgstr "Az új dokumentumokat ide mentese:"
+
+#: templates/public.php:8
+msgid "Wrong password. Please retry."
+msgstr "Hibás jelszó. Próbálkozzon újra!"
+
+#: templates/public.php:11
+msgid "Password"
+msgstr "Jelszó"
+
+#: templates/public.php:17
+msgid "Please enter your nickname"
+msgstr "Kérem adja meg a becenevét (nick)"
+
+#: templates/public.php:18
+msgid "Join"
+msgstr "Belépés"
+
+#: templates/public.php:24
+msgid ""
+"This link has been expired or is never existed. Please contact the person "
+"who shared it with you for details."
+msgstr "Ez a link vagy lejárt vagy sohasem létezett. Kérdezd meg azt aki megosztotta veled ezt a linket."
+
+#: templates/settings.php:9
+msgid "Advanced feature-set"
+msgstr "Haladó funkciók"
+
+#: templates/settings.php:10
+msgid "(Unstable)"
+msgstr "(nem stabil)"

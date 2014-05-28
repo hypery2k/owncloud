@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Changing Preferences &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="index.html" />
+    <link rel="next" title="External storage" href="external_storage/google_drive.html" />
+    <link rel="prev" title="User Account Migration" href="migration.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">User Account Migration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="changing-preferences">
+<h1>Changing Preferences<a class="headerlink" href="#changing-preferences" title="Permalink to this headline">¶</a></h1>
+<div class="figure">
+<img alt="_images/oc_user_preferences.png" src="_images/oc_user_preferences.png" />
+</div>
+<p>As a user, you can change your personal settings by clicking on your username
+on the top-right of ownCloud instance and choosing <em>Personal</em>.</p>
+<p>If you are an administrator, you can also manage users and administer the server
+by using the related links. Those links will not be shown to a normal user.</p>
+<p>This document will explain the default items on this page. Depending on the enabled
+applications, you may have more options listed.</p>
+<ul class="simple">
+<li>In the beginning of the page, you will see your usage and available quota.</li>
+<li>You can change your password. For that, you need to enter your current and new password in the field
+named <em>Password</em>. If you would like to able to recover your password via e-mail, fill the e-mail field
+with the one that you currently using.</li>
+<li>By default, your image will have the initial of your username. This image is currently used in editing documents.
+You can either upload a new image or choose one from the existing images on your ownCloud to set.</li>
+<li>In this page, you can also change your web interface language if you want to override the browser settings.</li>
+<li>WebDAV link will allow you to only view and download your ownCloud files using a browser. You will still need
+your username and password to access this page.</li>
+<li>Documents app will have an option to specify the folder for newly created documents. You can set the folder here.</li>
+<li>This page will have more options if you have e.g. external storage app enabled.</li>
+</ul>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

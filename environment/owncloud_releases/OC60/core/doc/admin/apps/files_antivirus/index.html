@@ -1,0 +1,256 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>File Antivirus Engine &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="Encryption" href="../files_encryption/index.html" />
+    <link rel="prev" title="Finding Deployment Dependencies" href="../admin_dependencies_chk/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../activity/index.html">Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">File Antivirus Engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../files_encryption/index.html">Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_external/index.html">External storage support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_sharing/index.html">Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_versions/index.html">Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../firstrunwizard/index.html">First Run Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="file-antivirus-engine">
+<h1>File Antivirus Engine<a class="headerlink" href="#file-antivirus-engine" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud integrates with ClamAV, an open source (GPL) antivirus engine, to provide an antivirus solution for files which are uploaded to the ownCloud server.
+Via this method, ownCloud/ClamAV can detect Trojans, viruses, malware and other malicious threats.
+Files are scanned for virus upon initial upload to the ownCloud server.</p>
+<p>The ownCloud antivirus app is supported on ownCloud instances which are installed on a Linux operating system.</p>
+<p>The antivirus app can run in one of three modes:</p>
+<ul class="simple">
+<li>Executable – ClamAV is running on the same server as the ownCloud instance.
+For executable mode, the ClamAV process is started and stopped with each file upload.</li>
+<li>Daemon – ClamAV is running on a different server from the ownCloud instance</li>
+<li>Daemon (Socket) – ClamAV is running on the same server as the ownCloud instance. In this mode, the ClamAV process is running in the background at all times.
+It is a bit quicker for scanning than executable mode, but requires system administrator skills and root access.</li>
+</ul>
+<p>In addition, there are two possible actions which may occur when an infected file is found:</p>
+<ul class="simple">
+<li>Only Log – A log entry is created when an infected file is found.</li>
+<li>Delete File – The infected file is deleted.</li>
+</ul>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enable-the-app">
+<h3>Enable The app<a class="headerlink" href="#enable-the-app" title="Permalink to this headline">¶</a></h3>
+<p>To enable the Antivirus App, navigate to the Apps page and select “Antivirus App for Files” and enable.</p>
+<p><img alt="10000000000001800000009A9494E037_png" src="../../_images/10000000000001800000009A9494E037.png" style="width: 4in; height: 1.6043in;" /></p>
+</div>
+<div class="section" id="install-clamav">
+<h3>Install ClamAV<a class="headerlink" href="#install-clamav" title="Permalink to this headline">¶</a></h3>
+<p>ClamAV must be installed on the server (either the local for Executable or Daemon Socket mode or a remote server for Daemon mode).</p>
+<p>To install, use the repository’s installation method to install “clamav”.
+For example:</p>
+<div class="highlight-python"><pre>apt-get install clamav</pre>
+</div>
+<p>For daemon mode, the ClamAV daemon must also be installed (either on the local machine for Daemon Socket or the remote machine for daemon mode):</p>
+<div class="highlight-python"><pre>apt-get install clamav-daemon</pre>
+</div>
+</div>
+<div class="section" id="configure-logging">
+<h3>Configure Logging<a class="headerlink" href="#configure-logging" title="Permalink to this headline">¶</a></h3>
+<p>Set log level to Everything in the Admin page.</p>
+<p><img alt="10000000000001AC000000477C76808F_png" src="../../_images/10000000000001AC000000477C76808F.png" style="width: 4.4583in; height: 0.7398in;" /></p>
+</div>
+<div class="section" id="executable-mode">
+<h3>Executable Mode<a class="headerlink" href="#executable-mode" title="Permalink to this headline">¶</a></h3>
+<p>To run in executable mode, ClamAV must be installed on the local server.
+From the Admin page, configure Antivirus as follows:</p>
+<p><img alt="1000000000000165000000D3FF2168AB_png" src="../../_images/1000000000000165000000D3FF2168AB.png" style="width: 3.7189in; height: 2.198in;" /></p>
+<p>The Stream Length is defined as the ClamAV StreamMaxLengeth Size.
+The default value, according to the ClamAV web site is 10M which equates to 10485760 bytes as shown in the above example.</p>
+<p>The Path to clamscan is the path for the executable clamscan file.
+By default it installs in /usr/bin/clamscan.</p>
+<p>When files are uploaded, they will be scanned and, if clean, the following logs will appear:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Scanning file : \/Lab.txt&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T15:24:05+00:00&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Exec scan: \/Lab.txt&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T15:24:05+00:00&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Result CLEAN!&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T15:24:09+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="daemon-mode">
+<h3>Daemon Mode<a class="headerlink" href="#daemon-mode" title="Permalink to this headline">¶</a></h3>
+<p>When running in Daemon Mode, install ClamAV and clamAV-Daemon on a remote server.</p>
+<p>The port, upon which ClamAV listens must be configured.
+To do this, add the following line in <tt class="docutils literal"><span class="pre">/etc/clamav/clamd.conf</span></tt>:</p>
+<div class="highlight-python"><pre>TCPSocket 3310</pre>
+</div>
+<p>Then restart the Clamd service:</p>
+<div class="highlight-python"><pre>/etc/init.d/clamav-daemon restart</pre>
+</div>
+<p>Back on the ownCloud server, navigate to the Admin page and configure the Antivirus Configuration as follows:</p>
+<p><img alt="1000000000000194000000FAD39BC0D8_png" src="../../_images/1000000000000194000000FAD39BC0D8.png" style="width: 4.2083in; height: 2.6043in;" /></p>
+<p>Where the host is the IP of the server running the ClamAV Daemon and the Port is what was configured in the above step.</p>
+<p>Upon upload of files to the ownCloud server, the following logs will appear indicating the files are clean:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Scanning file : \/Lab.txt&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T17:39:35+00:00&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Response :: stream: OK</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T17:39:48+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="daemon-socket-mode">
+<h3>Daemon Socket mode<a class="headerlink" href="#daemon-socket-mode" title="Permalink to this headline">¶</a></h3>
+<p>To run in Daemon socket mode, install clamav and clamav-daemon on the ownCloud server.</p>
+<p>Configure the Admin page as such:</p>
+<p><img alt="1000000000000160000000DBB2FB0223_png" src="../../_images/1000000000000160000000DBB2FB0223.png" style="width: 3.6665in; height: 2.2811in;" /></p>
+<p>Where Socket is the location of the Clamd executable.</p>
+<p>Upon upload of a clean file to the ownCloud server, the following logs will appear:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Scanning file : \/Lab.txt&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T18:19:08+00:00&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s">&quot;app&quot;</span><span class="p">:</span><span class="s">&quot;files_antivirus&quot;</span><span class="p">,</span><span class="s">&quot;message&quot;</span><span class="p">:</span><span class="s">&quot;Response :: stream: OK</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="s">&quot;level&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;time&quot;</span><span class="p">:</span><span class="s">&quot;2013-12-17T18:19:08+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

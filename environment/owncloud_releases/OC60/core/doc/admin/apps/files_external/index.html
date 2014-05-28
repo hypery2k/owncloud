@@ -1,0 +1,494 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>External storage support &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="Sharing" href="../files_sharing/index.html" />
+    <link rel="prev" title="Encryption" href="../files_encryption/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../activity/index.html">Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_antivirus/index.html">File Antivirus Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_encryption/index.html">Encryption</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">External storage support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-mounts">Supported mounts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../files_sharing/index.html">Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_versions/index.html">Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../firstrunwizard/index.html">First Run Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="external-storage-support">
+<h1>External storage support<a class="headerlink" href="#external-storage-support" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud provides the ability to mount an external storage device.
+The external storage devices serves as a secondary storage device within ownCloud.</p>
+<p>The ownCloud Admin has the ability to create such a mount.
+In addition, the ownCloud Admin may decide to provide the end user the ability to create the mount.
+The mounts may be created on a per-user, per group, or all user basis.</p>
+<div class="section" id="supported-mounts">
+<h2>Supported mounts<a class="headerlink" href="#supported-mounts" title="Permalink to this headline">¶</a></h2>
+<p>The following lists the supported storage types.</p>
+<ul class="simple">
+<li>Local</li>
+<li>Amazon S3</li>
+<li>Dropbox</li>
+<li>FTP</li>
+<li>Google Drive</li>
+<li>OpenStack Object Storage</li>
+<li>SMB/CIFS</li>
+<li>ownCloud/WebDAV</li>
+<li>SFTP</li>
+<li>iRODS</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enable-the-app">
+<h3>Enable the app<a class="headerlink" href="#enable-the-app" title="Permalink to this headline">¶</a></h3>
+<p>From the <tt class="docutils literal"><span class="pre">APPs</span></tt> Page within ownCloud, select <tt class="docutils literal"><span class="pre">External</span> <span class="pre">Storage</span> <span class="pre">Support</span></tt> and enable.</p>
+<p><img alt="10000000000001980000009271BE0D26_png" src="../../_images/10000000000001980000009271BE0D26.png" style="width: 4.25in; height: 1.5201in;" /></p>
+</div>
+<div class="section" id="configure-mounts">
+<h3>Configure mounts<a class="headerlink" href="#configure-mounts" title="Permalink to this headline">¶</a></h3>
+<p>As stated previously, the Admin has the ability to configure these mounts, as
+well as decide whether an end user can configure mounts for themselves.  For
+the Admin, the configuration is performed in the <tt class="docutils literal"><span class="pre">Admin</span></tt> page.  For end
+users, the configuration is performed in the <tt class="docutils literal"><span class="pre">Personal</span></tt> Page.  This document
+will discuss how the Admin configures the mounts, however, the configuration is
+the same for the end user.</p>
+<p>On the <tt class="docutils literal"><span class="pre">Admin</span></tt> page, scroll to External Storage:</p>
+<p><img alt="1000000000000631000000E19D116AA0_png" src="../../_images/1000000000000631000000E19D116AA0.png" style="width: 6.5in; height: 0.9228in;" /></p>
+<div class="section" id="enable-users-to-mount-their-own-devices">
+<h4>Enable users to mount their own devices<a class="headerlink" href="#enable-users-to-mount-their-own-devices" title="Permalink to this headline">¶</a></h4>
+<p>In order to allow end users to mount their own devices, select the radio button next to
+Enable User External Storage.</p>
+</div>
+<div class="section" id="local-storage">
+<h4>Local Storage<a class="headerlink" href="#local-storage" title="Permalink to this headline">¶</a></h4>
+<p>This is used to mount storage that is outside ownCloud’s data directory</p>
+<p><img alt="10000000000006060000006A0106CA0C_png" src="../../_images/10000000000006060000006A0106CA0C.png" style="width: 6.5in; height: 0.4465in;" /></p>
+<ul class="simple">
+<li>Location – The directory to mount</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p><img alt="10000000000003DF00000071A41D8A1F_png" src="../../_images/10000000000003DF00000071A41D8A1F.png" style="width: 6.5in; height: 0.7409in;" /></p>
+<p>Note: When configured correctly, a <em>Green Light</em> will appear next to the Folder Name.
+If misconfigured, a <em>Red Light</em> will appear.</p>
+<p><img alt="10000000000004770000008AAF3CFFDB_png" src="../../_images/10000000000004770000008AAF3CFFDB.png" style="width: 6.5in; height: 0.7846in;" /></p>
+</div>
+<div class="section" id="amazon-s3">
+<h4>Amazon S3<a class="headerlink" href="#amazon-s3" title="Permalink to this headline">¶</a></h4>
+<p>This is used to mount to an S3 server</p>
+<p><img alt="100000000000061D0000007047877972_png" src="../../_images/100000000000061D0000007047877972.png" style="width: 6.5in; height: 0.4654in;" /></p>
+<ul class="simple">
+<li>Access Key – The access key provided by the S3 storage provider</li>
+<li>Secret Key – The secret key provided by the S3 storage provider</li>
+<li>Bucket – The bucket created within the S3 storage server</li>
+<li>Hostname (optional) – The host of the s3 storage server</li>
+<li>Port (optional) – The port to communicate to the host on</li>
+<li>Region (optional) – The region where the storage exists</li>
+<li>Applicable – A list of users who can see this mount</li>
+</ul>
+<p><img alt="10000000000005BB0000007C1DF71FA7_png" src="../../_images/10000000000005BB0000007C1DF71FA7.png" style="width: 6.5in; height: 0.5492in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the Folder Name.
+If misconfigured, a Red Light will appear.</p>
+</div>
+<p><img alt="100000000000063F00000090AAE1FA4A_png" src="../../_images/100000000000063F00000090AAE1FA4A.png" style="width: 6.5in; height: 0.5846in;" /></p>
+</div>
+<div class="section" id="dropbox">
+<h4>Dropbox<a class="headerlink" href="#dropbox" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a dropbox in the Dropbox cloud into the virtual file system.</p>
+<div class="section" id="configure-dropbox">
+<h5>Configure DropBox<a class="headerlink" href="#configure-dropbox" title="Permalink to this headline">¶</a></h5>
+<p>Log onto the <a class="reference external" href="http://www.dropbox.com/developers">Dropbox Developers page</a>:</p>
+<p>Select App Console:</p>
+<p><img alt="10000000000000A800000073F49785A6_png" src="../../_images/10000000000000A800000073F49785A6.png" style="width: 1.75in; height: 1.198in;" /></p>
+<p>This will ask you to accept terms and conditions.</p>
+<p>Select Dropbox API and configure down the page as follows:</p>
+<p><img alt="1000000000000372000002AF943ADDA0_png" src="../../_images/1000000000000372000002AF943ADDA0.png" style="width: 6.5in; height: 5.0634in;" /></p>
+<p>The name can be any unique name desired.</p>
+<p>Select Create App</p>
+<p><img alt="10000000000000950000004412998BE7_png" src="../../_images/10000000000000950000004412998BE7.png" style="width: 1.552in; height: 0.7083in;" /></p>
+<p>Enter the OAuth redirect URI as follows:</p>
+<div class="highlight-python"><pre>http://&lt;ownCloud instance&gt;/index.php/settings/personal
+http://&lt;ownCloud instance&gt;/index.php/settings/admin</pre>
+</div>
+<p><img alt="10000000000003A6000002A9C7A660BE_png" src="../../_images/10000000000003A6000002A9C7A660BE.png" style="width: 6.5in; height: 4.7398in;" /></p>
+<p>Take note of the App Key and App Secret and enter into ownCloud.</p>
+</div>
+<div class="section" id="owncloud-configuration">
+<h5>ownCloud Configuration<a class="headerlink" href="#owncloud-configuration" title="Permalink to this headline">¶</a></h5>
+<p><img alt="100000000000060300000065DF96536B_png" src="../../_images/100000000000060300000065DF96536B.png" style="width: 6.5in; height: 0.4264in;" /></p>
+<ul class="simple">
+<li>App key – The app key to login to your Dropbox</li>
+<li>App secret – The app secret to login to your Dropbox</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p><img alt="10000000000005EC00000073E678DFEC_png" src="../../_images/10000000000005EC00000073E678DFEC.png" style="width: 6.5in; height: 0.4929in;" /></p>
+<p>Select “Grant Access” and the following appears</p>
+<p><img alt="10000000000002950000021E245F6883_png" src="../../_images/10000000000002950000021E245F6883.png" style="width: 6.5in; height: 5.3299in;" /></p>
+<p>Note if you are not logged into Dropbox, you will first be prompted to login.
+Select Allow.</p>
+<p><img alt="10000000000005E6000000676902E040_png" src="../../_images/10000000000005E6000000676902E040.png" style="width: 6.5in; height: 0.4429in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the Folder Name.
+If misconfigured, a Red Light will appear.</p>
+</div>
+<p><img alt="100000000000061A0000006FC014C3A4_png" src="../../_images/100000000000061A0000006FC014C3A4.png" style="width: 6.5in; height: 0.461in;" /></p>
+</div>
+</div>
+<div class="section" id="ftp">
+<h4>FTP<a class="headerlink" href="#ftp" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a folder on a remote FTP or FTPS server</p>
+<p><img alt="100000000000061E0000006BCF9ECC0B_png" src="../../_images/100000000000061E0000006BCF9ECC0B.png" style="width: 6.5in; height: 0.4437in;" /></p>
+<ul class="simple">
+<li>URL – The hostname of the FTP/FTPS server</li>
+<li>Username – The username to login to the FTP/FTPS server</li>
+<li>Password – The password to login to the FTP/FTPS esrver</li>
+<li>Root – The folder inside the FTP/FTPS server to mount (optional – defaults to ‘/’)</li>
+<li>Secure <tt class="docutils literal"><span class="pre">ftps://</span></tt> &#8211; Whether to use ftps:// to connect to the FTP server instead of <tt class="docutils literal"><span class="pre">ftp://</span></tt></li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p><img alt="10000000000005AF00000074604B1A67_png" src="../../_images/10000000000005AF00000074604B1A67.png" style="width: 6.5in; height: 0.5181in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+<p><img alt="10000000000005D50000009458C5EE48_png" src="../../_images/10000000000005D50000009458C5EE48.png" style="width: 6.5in; height: 0.6437in;" /></p>
+</div>
+<div class="section" id="googledrive">
+<h4>GoogleDrive<a class="headerlink" href="#googledrive" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a share in the Google cloud.</p>
+<div class="section" id="configure-googledrive">
+<h5>Configure GoogleDrive<a class="headerlink" href="#configure-googledrive" title="Permalink to this headline">¶</a></h5>
+<p>All applications that access a Google API must be registered through the “Google Cloud Console”.
+This can be accessed at the following URL:</p>
+<p><a class="reference external" href="https://cloud.google.com">https://cloud.google.com</a></p>
+<p>Once logged into Google, create a project by selecting
+Create Project</p>
+<p><img alt="1000000000000247000000A77440E4D3_png" src="../../_images/1000000000000247000000A77440E4D3.png" style="width: 6.0728in; height: 1.7398in;" /></p>
+<p>Enter a Project name and either keep or enter a new Project ID
+<img alt="100000000000027B0000011D10F70F88_png" src="../../_images/100000000000027B0000011D10F70F88.png" style="width: 6.5in; height: 2.9173in;" /></p>
+<p>Select the project and choose the APIs &amp; auth menu entry
+<img alt="10000000000000B600000120706C3C75_png" src="../../_images/10000000000000B600000120706C3C75.png" style="width: 1.8957in; height: 3in;" /></p>
+<p>Enable <tt class="docutils literal"><span class="pre">Drive</span> <span class="pre">API</span></tt> and <tt class="docutils literal"><span class="pre">Drive</span> <span class="pre">SDK</span></tt> and then select the</p>
+<p><img alt="100000000000003800000018D49F1CE7_png" src="../../_images/100000000000003800000018D49F1CE7.png" style="width: 0.5835in; height: 0.25in;" /></p>
+<p>next to either <tt class="docutils literal"><span class="pre">Drive</span> <span class="pre">API</span></tt> or <tt class="docutils literal"><span class="pre">Drive</span> <span class="pre">SDK</span></tt></p>
+<p><img alt="10000000000004100000005657010336_png" src="../../_images/10000000000004100000005657010336.png" style="width: 6.5in; height: 0.5374in;" /></p>
+<p>Select <tt class="docutils literal"><span class="pre">API</span> <span class="pre">Access</span></tt> on the menu</p>
+<p><img alt="10000000000000CD000000ECA8DE7780_png" src="../../_images/10000000000000CD000000ECA8DE7780.png" style="width: 2.1346in; height: 2.4583in;" /></p>
+<p>Select <tt class="docutils literal"><span class="pre">REGISTER</span> <span class="pre">APP</span></tt></p>
+<p><img alt="10000000000001FD000000DF8D2D7546_png" src="../../_images/10000000000001FD000000DF8D2D7546.png" style="width: 5.302in; height: 2.3228in;" /></p>
+<p>Enter a name and select <tt class="docutils literal"><span class="pre">Web</span> <span class="pre">Application</span></tt></p>
+<p><img alt="10000000000002840000016729388B7F_png" src="../../_images/10000000000002840000016729388B7F.png" style="width: 6.5in; height: 3.6228in;" /></p>
+<p>Expand <tt class="docutils literal"><span class="pre">OAuth</span> <span class="pre">2.0</span> <span class="pre">Client</span> <span class="pre">ID</span></tt>
+Enter the following in the <tt class="docutils literal"><span class="pre">REDIRECT</span> <span class="pre">URI</span></tt> field:</p>
+<div class="highlight-python"><pre>http://&lt;ownCloud instance&gt;/index.php/settings/personal
+http://&lt;ownCloud instance&gt;/index.php/settings/admin</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">&lt;ownCloud</span> <span class="pre">instance&gt;</span></tt> must be a Fully Qualified Domain Name.  It cannot be an IP address!</p>
+</div>
+<p>Select <tt class="docutils literal"><span class="pre">Generate</span></tt></p>
+<p><img alt="10000000000003B30000021B5EE5D338_png" src="../../_images/10000000000003B30000021B5EE5D338.png" style="width: 6.5in; height: 3.6992in;" /></p>
+<p>Verify that the required email addresses are in the Permissions tab</p>
+<p><img alt="10000000000003A60000011E274A1A28_png" src="../../_images/10000000000003A60000011E274A1A28.png" style="width: 6.5in; height: 1.9902in;" /></p>
+</div>
+<div class="section" id="configure-owncloud">
+<h5>Configure ownCloud<a class="headerlink" href="#configure-owncloud" title="Permalink to this headline">¶</a></h5>
+<p>Prior to configuring the mount, an E-mail address needs to be configured in the <tt class="docutils literal"><span class="pre">Personal</span></tt> tab</p>
+<p><img alt="10000000000001880000007EA4444400_png" src="../../_images/10000000000001880000007EA4444400.png" style="width: 4.0835in; height: 1.3126in;" /></p>
+<p><img alt="10000000000006000000005EDA7B96BE_png" src="../../_images/10000000000006000000005EDA7B96BE.png" style="width: 6.5in; height: 0.398in;" /></p>
+<ul class="simple">
+<li>Client ID – The client id to login to the Google Drive from <tt class="docutils literal"><span class="pre">OAuth</span> <span class="pre">2.0</span> <span class="pre">Client</span> <span class="pre">ID</span></tt> above</li>
+<li>Client secret – The client secret to login to the Google Drive from <tt class="docutils literal"><span class="pre">OAuth</span> <span class="pre">2.0</span> <span class="pre">Client</span> <span class="pre">ID</span></tt> above</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p>Once the required fields are filled in, a <tt class="docutils literal"><span class="pre">Grant</span> <span class="pre">access</span></tt> button appears.  Select this button.</p>
+<p><img alt="10000000000005F70000007E43DB8026_png" src="../../_images/10000000000005F70000007E43DB8026.png" style="width: 6.5in; height: 0.5362in;" /></p>
+<p>The following screen appears. Select <tt class="docutils literal"><span class="pre">Accept</span></tt></p>
+<p><img alt="10000000000001D30000014DC251C948_png" src="../../_images/10000000000001D30000014DC251C948.png" style="width: 4.8646in; height: 3.4689in;" /></p>
+<p><img alt="10000000000004C0000000795BB2C146_png" src="../../_images/10000000000004C0000000795BB2C146.png" style="width: 6.5in; height: 0.6465in;" /></p>
+<p><img alt="1000000000000552000000BF22E90239_png" src="../../_images/1000000000000552000000BF22E90239.png" style="width: 6.5in; height: 0.911in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+</div>
+</div>
+<div class="section" id="openstack-object-storage">
+<h4>OpenStack Object Storage<a class="headerlink" href="#openstack-object-storage" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a container on an OpenStack Object Storage server.</p>
+<p><img alt="100000000000053A00000067708C8F53_png" src="../../_images/100000000000053A00000067708C8F53.png" style="width: 6.5in; height: 0.5008in;" /></p>
+<p><img alt="10000000000002170000004A27056037_png" src="../../_images/10000000000002170000004A27056037.png" style="width: 5.5728in; height: 0.7701in;" /></p>
+<ul class="simple">
+<li>Username</li>
+<li>Bucket</li>
+<li>Region</li>
+<li>API Key</li>
+<li>Tenantname</li>
+<li>Password</li>
+<li>Service Name</li>
+<li>URL of identity Endpoint</li>
+<li>Timeout of HTTP request</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+</div>
+<div class="section" id="smb-cifs">
+<h4>SMB/CIFS<a class="headerlink" href="#smb-cifs" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a folder on a remote Samba server, NAS appliance, or Windows machine.</p>
+<p><img alt="10000000000005FA0000005CE8491B77_png" src="../../_images/10000000000005FA0000005CE8491B77.png" style="width: 6.5in; height: 0.3909in;" /></p>
+<ul class="simple">
+<li>URL – The host name of the Samba server.</li>
+<li>Username – The user name used to login to the Samba server.</li>
+<li>Password – The password to login to the Samba server.</li>
+<li>Share – The share on the Samba server to mount.</li>
+<li>Root – The folder inside the Samba share to mount (optional, defaults to ‘/’)</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p><img alt="10000000000005C30000006CAFFAAD61_png" src="../../_images/10000000000005C30000006CAFFAAD61.png" style="width: 6.5in; height: 0.4756in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The SMB backend requires <tt class="docutils literal"><span class="pre">smbclient</span></tt> to be installed on the server.</p>
+</div>
+<p><img alt="10000000000005D00000003B29340A7A_png" src="../../_images/10000000000005D00000003B29340A7A.png" style="width: 6.5in; height: 0.2575in;" /></p>
+</div>
+<div class="section" id="owncloud-webdav">
+<h4>ownCloud/WebDAV<a class="headerlink" href="#owncloud-webdav" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a folder on a WebDAV server (or another ownCloud instance via WebDAV).</p>
+<p><img alt="10000000000005F70000005F0912E904_png" src="../../_images/10000000000005F70000005F0912E904.png" style="width: 6.5in; height: 0.4043in;" /></p>
+<ul class="simple">
+<li>URL – The hostname of the WebDAV server.</li>
+<li>Username – The username used to login to the WebDAV server.</li>
+<li>Password – The password used to login to the WebDAV server.</li>
+<li>Root – The folder inside the WebDav server to mount (optional, defaults to ‘/’)</li>
+<li>Secure <tt class="docutils literal"><span class="pre">https://</span></tt> - Whether to use <tt class="docutils literal"><span class="pre">https://</span></tt> to connect to the WebDav server instead of <tt class="docutils literal"><span class="pre">http://</span></tt></li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p><img alt="10000000000005B90000007866D92D14_png" src="../../_images/10000000000005B90000007866D92D14.png" style="width: 6.5in; height: 0.5319in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+<p><img alt="10000000000005E20000009B1BA5A8CF_png" src="../../_images/10000000000005E20000009B1BA5A8CF.png" style="width: 6.5in; height: 0.6689in;" /></p>
+</div>
+<div class="section" id="sftp">
+<h4>SFTP<a class="headerlink" href="#sftp" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a folder on a remote SSH server.</p>
+<p><img alt="10000000000005FF0000005F35710398_png" src="../../_images/10000000000005FF0000005F35710398.png" style="width: 6.5in; height: 0.402in;" /></p>
+<ul class="simple">
+<li>URL – The hostname of the SSH server.</li>
+<li>Username – The username used to login to the SSH server.</li>
+<li>Password – The password used to login to the SSH server.</li>
+<li>Root – The folder inside the SSH server to mount (optional, defaults to ‘/’)</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<p><img alt="10000000000005970000006AE23997C9_png" src="../../_images/10000000000005970000006AE23997C9.png" style="width: 6.5in; height: 0.4811in;" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+<p><img alt="10000000000005EB000000A68BA73E2D_png" src="../../_images/10000000000005EB000000A68BA73E2D.png" style="width: 6.5in; height: 0.7126in;" /></p>
+</div>
+<div class="section" id="irods">
+<h4>iRODS<a class="headerlink" href="#irods" title="Permalink to this headline">¶</a></h4>
+<p>Mounts a folder on a iRODS server.</p>
+<p><img alt="100000000000062A0000005F61A18950_png" src="../../_images/100000000000062A0000005F61A18950.png" style="width: 6.5in; height: 0.3909in;" /></p>
+<ul class="simple">
+<li>Host</li>
+<li>Port</li>
+<li>Use ownCloud login</li>
+<li>Username</li>
+<li>Password</li>
+<li>Authentication Mode</li>
+<li>Zone</li>
+<li>Applicable – A list users of who can see this mount</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When configured correctly, a Green Light will appear next to the
+Folder Name.  If misconfigured, a Red Light will appear.</p>
+</div>
+</div>
+</div>
+<div class="section" id="configuration-file">
+<h3>Configuration File<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>The configuration of mounts created within the External Storage App are stored in the
+<tt class="docutils literal"><span class="pre">data/mount.json</span></tt> file.
+This file contains all settings in JSON (JavaScript Object Notation) format.
+Two different types of entries exist:</p>
+<ul class="simple">
+<li>Group mounts -
+Each entry configures a mount for each user in group</li>
+<li>User mount – Each entry configures a mount for a single user or all users.</li>
+</ul>
+<p>For each type, there is a JSON array with the user/group name as key and an array of configuration values as the value.
+Each entry consist of the class name of the storage backend and an array of backend specific options (described above) and will be replaced by the user login.</p>
+<p>Although configuration may be done by making modifications to the mount.json file, it is recommended to use the Web-GUI in the administrator panel (as described in the above section) to add, remove, or modify mount options in order to prevent any problems.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

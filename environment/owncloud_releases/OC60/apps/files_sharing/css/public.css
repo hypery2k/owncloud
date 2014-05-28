@@ -1,0 +1,113 @@
+body {
+	height: auto;
+}
+
+#header {
+	background-color: #1d2d44;
+	height:32px;
+	left:0;
+	line-height:32px;
+	position:fixed;
+	right:0;
+	top:0;
+	z-index:100;
+	padding:7px;
+}
+
+.header-right {
+	padding: 0;
+	height: 32px;
+}
+
+#details {
+	color:#fff;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+	opacity: .5;
+	padding-right: 5px;
+}
+
+#controls {
+	left: 0;
+}
+
+#preview {
+	background: #fff;
+	text-align: center;
+	margin: 45px auto 0;
+}
+
+#noPreview {
+	display:none;
+	padding-top:5em;
+}
+
+footer {
+	margin-top: 45px;
+}
+
+p.info {
+	color: #777;
+	text-align: center;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+p.info a {
+	color:#777;
+	font-weight:700;
+}
+
+#imgframe {
+	height:75%;
+	padding-bottom:2em;
+	padding-top:2em;
+	width:80%;
+	margin:0 auto;
+}
+
+#imgframe img {
+	max-height:100%;
+	max-width:100%;
+}
+
+/* some margin for the file type icon */
+#imgframe .publicpreview {
+	margin-top: 10%;
+}
+
+thead {
+	padding-left: 0 !important; /* fixes multiselect bar offset on shared page */
+}
+
+#data-upload-form {
+	position: relative;
+	right: 0;
+	height: 32px;
+	overflow: hidden;
+	padding: 0;
+	float: right;
+	display: inline;
+	margin: 0;
+}
+
+.directDownload,
+.directLink {
+	margin-bottom: 20px;
+}
+.directDownload .button img {
+	vertical-align: text-bottom;
+}
+.directLink label {
+	font-weight: normal;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+	opacity: .5;
+}
+.directLink input {
+	margin-left: 5px;
+	width: 300px;
+}
+.public_actions {
+	padding: 4px;
+}

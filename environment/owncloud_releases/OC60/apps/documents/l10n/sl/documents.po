@@ -1,0 +1,310 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# mateju <>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2013-11-29 11:21-0500\n"
+"PO-Revision-Date: 2013-11-27 18:15+0000\n"
+"Last-Translator: mateju <>\n"
+"Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#: appinfo/app.php:35 templates/personal.php:2 templates/settings.php:2
+msgid "Documents"
+msgstr "Dokumenti"
+
+#: js/3rdparty/webodf/webodf.js:831
+msgid "document-styles"
+msgstr "slogi dokumenta"
+
+#: js/3rdparty/webodf/webodf.js:832
+msgid "document-content"
+msgstr "vsebina dokumenta"
+
+#: js/documents.js:23 js/locale.js:12 js/viewer/viewer.js:50
+msgid "Close"
+msgstr "Zapri"
+
+#: js/documents.js:26
+msgid "Share"
+msgstr "Souporaba"
+
+#: js/documents.js:102
+msgid "No connection to server. Trying to reconnect."
+msgstr "Ni povezave s strežnikom. Poskus povezave bo ponovljen."
+
+#: js/documents.js:153
+msgid ""
+"Leaving this page in Editor mode might cause unsaved data. It is recommended"
+" to use 'Close' button instead."
+msgstr "Odhod s strani v načinu urejevalnika lahko vpliva na shranjevanje podatkov. Priporočljivo je raje uporabiti gumb za 'zapiranje' okna."
+
+#: js/documents.js:166
+msgid ""
+"Failed to load this document. Please check if it can be opened with an "
+"external odt editor. This might also mean it has been unshared or deleted "
+"recently."
+msgstr "Nalaganje dokumenta je spodletelo. Preverite, ali ga je mogoče odpreti v zunanjem urejevalniku datotek odt. Do napake je lahko prišlo tudi, če je datoteka izbrisana, ali pa ni več v souporabi."
+
+#: js/documents.js:332
+msgid "Failed to load documents."
+msgstr "Nalaganje dokumentov je spodletelo."
+
+#: js/documents.js:375
+msgid "No documents are found. Please upload or create a document!"
+msgstr "Ni najdenih dokumentov. Pošljite dokument na strežnik, ali pa ga ustvarite."
+
+#: js/locale.js:1
+msgid "Align Left"
+msgstr "Poravnaj levo"
+
+#: js/locale.js:2
+msgid "Alignment"
+msgstr "Poravnava"
+
+#: js/locale.js:3
+msgid "Align Right"
+msgstr "Poravnaj desno"
+
+#: js/locale.js:4
+msgid "Annotate"
+msgstr "Zabeleži"
+
+#: js/locale.js:5
+msgid "Background"
+msgstr "Ozadje"
+
+#: js/locale.js:6
+msgid "Bold"
+msgstr "Krepko"
+
+#: js/locale.js:7
+msgid "Bottom"
+msgstr "Spodaj"
+
+#: js/locale.js:8
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: js/locale.js:9
+msgid "Center"
+msgstr "Sredina"
+
+#: js/locale.js:10
+msgid "Clone"
+msgstr "Kloniraj"
+
+#: js/locale.js:11
+msgid "Clone this Style"
+msgstr "Kloniraj slog"
+
+#: js/locale.js:13
+msgid "Color"
+msgstr "Barva"
+
+#: js/locale.js:14
+msgid "Create"
+msgstr "Ustvari"
+
+#: js/locale.js:15
+msgid "Decrease Indent"
+msgstr "Zmanjšaj zamik"
+
+#: js/locale.js:16
+msgid "Default Style"
+msgstr "Privzet slog"
+
+#: js/locale.js:17
+msgid "Delete"
+msgstr "Izbriši"
+
+#: js/locale.js:18
+msgid "Family"
+msgstr "Družina"
+
+#: js/locale.js:19
+msgid "Font"
+msgstr "Pisava"
+
+#: js/locale.js:20
+msgid "Font Effects"
+msgstr "Učinki pisave"
+
+#: js/locale.js:21
+msgid "Format"
+msgstr "Zapis"
+
+#: js/locale.js:22
+msgid "Increase Indent"
+msgstr "Povečaj zamik"
+
+#: js/locale.js:23
+msgid "Insert Image"
+msgstr "Vstavi sliko"
+
+#: js/locale.js:24
+msgid "Invite Members"
+msgstr "Povabi druge uporabnike"
+
+#: js/locale.js:25
+msgid "Italic"
+msgstr "Ležeče"
+
+#: js/locale.js:26
+msgid "Justified"
+msgstr "Poravnano"
+
+#: js/locale.js:27
+msgid "Justify"
+msgstr "Poravnaj"
+
+#: js/locale.js:28
+msgid "Left"
+msgstr "Levo"
+
+#: js/locale.js:29
+msgid "Loading"
+msgstr "Nalaganje"
+
+#: js/locale.js:30
+msgid "Members"
+msgstr "Člani"
+
+#: js/locale.js:31
+msgid "New Name:"
+msgstr "Novo ime:"
+
+#: js/locale.js:32 templates/public.php:12
+msgid "OK"
+msgstr "V redu"
+
+#: js/locale.js:33
+msgid "Open"
+msgstr "Odpri"
+
+#: js/locale.js:34
+msgid "Options"
+msgstr "Možnosti"
+
+#: js/locale.js:35
+msgid "Paragraph..."
+msgstr "Odstavek ..."
+
+#: js/locale.js:36
+msgid "Paragraph Styles"
+msgstr "Slog odstavka"
+
+#: js/locale.js:37
+msgid "Redo"
+msgstr "Ponovno uveljavi"
+
+#: js/locale.js:38
+msgid "Right"
+msgstr "Desno"
+
+#: js/locale.js:39
+msgid "Save"
+msgstr "Shrani"
+
+#: js/locale.js:40
+msgid "Size"
+msgstr "Velikost"
+
+#: js/locale.js:41
+msgid "Spacing"
+msgstr "Razmik"
+
+#: js/locale.js:42
+msgid "Strikethrough"
+msgstr "Prečrtano"
+
+#: js/locale.js:43
+msgid "Style"
+msgstr "Slog"
+
+#: js/locale.js:44
+msgid "Text"
+msgstr "Besedilo"
+
+#: js/locale.js:45
+msgid "Top"
+msgstr "Zgoraj"
+
+#: js/locale.js:46
+msgid "Underline"
+msgstr "Podčrtano"
+
+#: js/locale.js:47
+msgid "Undo"
+msgstr "Razveljavi"
+
+#: js/locale.js:48
+msgid "Unknown Author"
+msgstr "Neznan avtor"
+
+#: lib/invite.php:64
+msgid "Sent"
+msgstr "Poslano"
+
+#: lib/invite.php:65 lib/invite.php:75
+msgid "Declined"
+msgstr "Zavrnjeno"
+
+#: lib/invite.php:66 lib/invite.php:76
+msgid "Accepted"
+msgstr "Sprejeto"
+
+#: lib/invite.php:74
+msgid "Incoming"
+msgstr "Prihajajoče"
+
+#: templates/documents.php:5
+msgid "New document"
+msgstr "Nov dokument"
+
+#: templates/documents.php:7 templates/documents.php:27
+msgid "Upload"
+msgstr "Pošlji"
+
+#: templates/personal.php:4
+msgid "Save new documents to"
+msgstr "Shrani nove dokumente v"
+
+#: templates/public.php:8
+msgid "Wrong password. Please retry."
+msgstr "Napačno geslo. Poskusite znova."
+
+#: templates/public.php:11
+msgid "Password"
+msgstr "Geslo"
+
+#: templates/public.php:17
+msgid "Please enter your nickname"
+msgstr "Vnesite vzdevek"
+
+#: templates/public.php:18
+msgid "Join"
+msgstr "Pridruži se"
+
+#: templates/public.php:24
+msgid ""
+"This link has been expired or is never existed. Please contact the person "
+"who shared it with you for details."
+msgstr "Povezava je pretekla ali pa ni nikoli obstajala. Za več podrobnosti stopite v stik z osebo, ki naj bi vam jo poslala."
+
+#: templates/settings.php:9
+msgid "Advanced feature-set"
+msgstr "Napredne zmožnosti"
+
+#: templates/settings.php:10
+msgid "(Unstable)"
+msgstr "(nestabilno)"

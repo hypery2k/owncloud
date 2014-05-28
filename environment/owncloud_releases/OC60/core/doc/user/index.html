@@ -1,0 +1,230 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ownCloud 6.0 User Documentation &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="#" />
+    <link rel="next" title="The ownCloud Web Interface" href="webinterface.html" />
+    <link rel="prev" title="ownCloud documentation contents" href="contents.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">ownCloud 6.0 User Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#web-interface">Web interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#files-synchronization">Files &amp; Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contacts-calendar">Contacts &amp; Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documents">Documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bookmarks">Bookmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backup">Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-storage">External storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="owncloud-version-user-documentation">
+<span id="index"></span><h1>ownCloud 6.0 User Documentation<a class="headerlink" href="#owncloud-version-user-documentation" title="Permalink to this headline">¶</a></h1>
+<p><strong>Welcome to ownCloud, your self-hosted file sync and share solution.</strong></p>
+<p>ownCloud is open source file sync and share software for everyone from individuals operating the free Community Edition, to large enterprises and service providers operating ownCloud Enterprise Edition. ownCloud provides a safe, secure and compliant file sync and share solution on servers you control.</p>
+<p>With ownCloud you can share one or more folders on your PC, and sync them with your ownCloud server. Place files in your local shared directories, and those files are immediately synced to the server, and then to other PCs via the desktop client. Not near a desktop client? No problem, simply log in with the web client and manage your files there. The Android and iOS mobile apps allow you to browse, download and upload photos and videos. On Android, you may also create, download, edit and upload any other files, with the correct software installed.</p>
+<p>Whether using a mobile device, a workstation, or a web client, ownCloud provides the ability to put the right files in the right hands at the right time on any device in one simple-to-use, secure, private and controlled solution. After all, with ownCloud, it’s Your Cloud, Your Data, Your Way.</p>
+<div class="section" id="web-interface">
+<h2>Web interface<a class="headerlink" href="#web-interface" title="Permalink to this headline">¶</a></h2>
+<p>This chapter contains a general overview how you access ownCloud from a Browser like Firefox, Chrome or Internet Explorer</p>
+<ul class="simple">
+<li><a class="reference internal" href="webinterface.html"><em>The ownCloud Web Interface</em></a></li>
+</ul>
+</div>
+<div class="section" id="files-synchronization">
+<h2>Files &amp; Synchronization<a class="headerlink" href="#files-synchronization" title="Permalink to this headline">¶</a></h2>
+<p>This chapter contains information about accessing your files via WebDAV and Synchronization.</p>
+<ul class="simple">
+<li><a class="reference internal" href="files/filesweb.html"><em>Accessing your Files (Web Interface)</em></a></li>
+<li><a class="reference internal" href="files/files.html"><em>Accessing your Files (WebDAV)</em></a></li>
+<li><a class="reference internal" href="files/sync.html"><em>Desktop Synchronization</em></a></li>
+<li><a class="reference internal" href="files/versioncontrol.html"><em>Version Control</em></a></li>
+<li><a class="reference internal" href="files/deletedfiles.html"><em>Deleted Files</em></a></li>
+<li><a class="reference internal" href="files/encryption.html"><em>Files Encryption</em></a></li>
+<li><a class="reference internal" href="files/quota.html"><em>Storage Quota</em></a></li>
+<li><a class="reference internal" href="files/configuring_big_file_upload.html"><em>Big Files</em></a></li>
+</ul>
+</div>
+<div class="section" id="contacts-calendar">
+<h2>Contacts &amp; Calendar<a class="headerlink" href="#contacts-calendar" title="Permalink to this headline">¶</a></h2>
+<p>Contacts &amp; Calendar web interface, export, import and synchronization.</p>
+<ul class="simple">
+<li><a class="reference internal" href="pim/calendar.html"><em>Using the Calendar App</em></a></li>
+<li><a class="reference internal" href="pim/contacts.html"><em>Using the Contacts App</em></a></li>
+<li><a class="reference internal" href="pim/sync_ios.html"><em>iOS - Synchronize iPhone/iPad</em></a></li>
+<li><a class="reference internal" href="pim/sync_kde.html"><em>Synchronizing with KDE SC</em></a></li>
+<li><a class="reference internal" href="pim/sync_osx.html"><em>Synchronizing with OS X</em></a></li>
+</ul>
+</div>
+<div class="section" id="documents">
+<h2>Documents<a class="headerlink" href="#documents" title="Permalink to this headline">¶</a></h2>
+<p>Documents allows users collaboratively edit rich-text documents at the same time.</p>
+<ul class="simple">
+<li><a class="reference internal" href="documents.html"><em>Documents</em></a></li>
+</ul>
+</div>
+<div class="section" id="bookmarks">
+<h2>Bookmarks<a class="headerlink" href="#bookmarks" title="Permalink to this headline">¶</a></h2>
+<p>Web interface for managing your bookmarks.</p>
+<ul class="simple">
+<li><a class="reference internal" href="bookmarks.html"><em>Using the Bookmarks App</em></a></li>
+</ul>
+</div>
+<div class="section" id="backup">
+<h2>Backup<a class="headerlink" href="#backup" title="Permalink to this headline">¶</a></h2>
+<p>Import and export your user account settings.</p>
+<ul class="simple">
+<li><a class="reference internal" href="migration.html"><em>User Account Migration</em></a></li>
+</ul>
+</div>
+<div class="section" id="external-storage">
+<h2>External storage<a class="headerlink" href="#external-storage" title="Permalink to this headline">¶</a></h2>
+<p>Mount external storages into ownCloud.</p>
+<ul class="simple">
+<li><a class="reference internal" href="external_storage/google_drive.html"><em>External storage</em></a></li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+</ul>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

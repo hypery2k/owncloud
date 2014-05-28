@@ -1,0 +1,206 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>External storage &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="../index.html" />
+    <link rel="prev" title="Changing Preferences" href="../userpreferences.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">External storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#google-drive">Google Drive</a></li>
+</ul>
+</li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="external-storage">
+<h1>External storage<a class="headerlink" href="#external-storage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="google-drive">
+<h2>Google Drive<a class="headerlink" href="#google-drive" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">All applications that access a Google API must be registered through the &#8220;Google Cloud Console&#8221; which can be accessed using the following URL:</p>
+<div class="highlight-python"><pre>https://cloud.google.com/console</pre>
+</div>
+</li>
+<li><p class="first">Enter your Google login credentials and press the <tt class="docutils literal"><span class="pre">Sign</span> <span class="pre">in</span></tt> button.</p>
+<img alt="../_images/external_google_drive_1_sign_in.png" src="../_images/external_google_drive_1_sign_in.png" />
+</li>
+<li><p class="first">Enter your verification code which has been sent to you by SMS or the Authenticator App and press the <tt class="docutils literal"><span class="pre">Verify</span></tt> button.</p>
+<img alt="../_images/external_google_drive_2_verify.png" src="../_images/external_google_drive_2_verify.png" />
+</li>
+<li><p class="first">Create a project, e.g. &#8220;ownCloud-Project&#8221;</p>
+<img alt="../_images/external_google_drive_3_create_project.png" src="../_images/external_google_drive_3_create_project.png" />
+</li>
+<li><p class="first">Select the project and choose the &#8220;APIs &amp; auth&#8221; menu entry.</p>
+</li>
+<li><p class="first">Make sure that the &#8220;Drive API&#8221; and &#8220;Drive SDK&#8221; status is set to &#8220;ON&#8221; in the APIs menu.</p>
+<img alt="../_images/external_google_drive_4_enable_api.png" src="../_images/external_google_drive_4_enable_api.png" />
+</li>
+<li><p class="first">Click on the <tt class="docutils literal"><span class="pre">gear-wheel</span></tt> button behind &#8220;Drive API&#8221; or &#8220;Drive SDK&#8221; and choose the &#8220;API access&#8221; menu entry.</p>
+</li>
+<li><p class="first">Click on the <tt class="docutils literal"><span class="pre">Create</span> <span class="pre">another</span> <span class="pre">client</span> <span class="pre">ID...</span></tt> button and fill in the branding information.</p>
+</li>
+<li><p class="first">Click on the <tt class="docutils literal"><span class="pre">Next</span></tt> button and create a new client ID by selecting &#8220;Web application&#8221; as application type.</p>
+</li>
+<li><p class="first">Next to your site or hostname click on the <tt class="docutils literal"><span class="pre">Edit</span> <span class="pre">settings</span> <span class="pre">...</span></tt> button.</p>
+</li>
+<li><p class="first">Enter the following URLs to the &#8220;Authorized Redirect URIs&#8221; list and press the Update-button.</p>
+</li>
+</ol>
+<div class="highlight-python"><pre>https://your-internet-domain/owncloud/index.php/settings/personal
+https://your-internet-domain/owncloud/index.php/settings/admin</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>Attention:</strong> Make sure that the URLs contain a valid internet domain name and that this domain name is also used to access ownCloud, otherwise these URLs will not be accepted. This does not mean that ownCloud need to be accessible from the Internet, but that the domain name is send to Google to verify if the redirect URIs are valid.</p>
+</div>
+<ol class="arabic" start="12">
+<li><p class="first">Login into ownCloud using the previously entered Internet domain.</p>
+</li>
+<li><p class="first">Click on the <tt class="docutils literal"><span class="pre">Add</span> <span class="pre">storage</span></tt> button in the ownCloud Admin or Personal settings dialog to add a Google Drive.</p>
+</li>
+<li><p class="first">Enter the folder name which should be used to access the share, e.g. &#8220;GDrive&#8221;, enter the Google OAuth 2.0 <strong>Client ID</strong> and <strong>Client secret</strong>. Additional for the admin settings you have to choose the <strong>user and/or group</strong> who/which should be allowed to access the Google Drive (Applicable).</p>
+<img alt="../_images/external_google_drive_5_setup_ownCloud.png" src="../_images/external_google_drive_5_setup_ownCloud.png" />
+</li>
+<li><p class="first">Now press the <tt class="docutils literal"><span class="pre">Grant</span> <span class="pre">Access</span></tt> button and you will finally be redirected to a Google website.</p>
+</li>
+<li><p class="first">Click on the <tt class="docutils literal"><span class="pre">Accept</span></tt> button to confirm that you accept the Google data usage and data security policy.</p>
+<img alt="../_images/external_google_drive_6_accept.png" src="../_images/external_google_drive_6_accept.png" />
+</li>
+</ol>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Delete Share &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Sharing API" href="index.html" />
+    <link rel="next" title="The Configuration File" href="../config/index.html" />
+    <link rel="prev" title="Create a new Share" href="create_a_new_share.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Sharing API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="get_all_shares.html">Get All Shares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_shares_from_a_specific_file_or_folder.html">Get Shares from a Specific File or Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_information_about_a_known_share.html">Get Information about a known share</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create_a_new_share.html">Create a new Share</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Delete Share</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#poster">Poster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl">Curl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="delete-share">
+<h1>Delete Share<a class="headerlink" href="#delete-share" title="Permalink to this headline">¶</a></h1>
+<p>The following method should be used in the event that a file share should be removed.</p>
+<p>Note: the share ID can be obtained from the output of any of the previous Share API calls or the creation of a new share.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Syntax</td>
+<td>&lt;Base URL&gt;/&lt;share id&gt;</td>
+</tr>
+<tr class="row-even"><td>Method</td>
+<td>DELETE</td>
+</tr>
+<tr class="row-odd"><td>Argument</td>
+<td>Share ID (int)</td>
+</tr>
+</tbody>
+</table>
+<p>The following is a list of returned status codes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>HTTP Status Code</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>100</td>
+<td>Successful</td>
+</tr>
+<tr class="row-odd"><td>404</td>
+<td>File couldn’t be deleted</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="poster">
+<h2>Poster<a class="headerlink" href="#poster" title="Permalink to this headline">¶</a></h2>
+<p>To remove the share identified by ID 10, use the following method.</p>
+<p><img alt="10000000000002910000018B31D51F03_png" src="../_images/10000000000002910000018B31D51F03.png" style="width: 6.5in; height: 3.9075in;" /></p>
+<p>Press DELETE</p>
+</div>
+<div class="section" id="curl">
+<h2>Curl<a class="headerlink" href="#curl" title="Permalink to this headline">¶</a></h2>
+<p>$ curl –X &#8220;DELETE&#8221; http://&lt;user&gt;:&lt;password&gt;&#64;&lt;ip&gt;/ocs/v1.php/apps/files_sharing/api/v1/files/&lt;share_id&gt;</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&lt;?xml version=&#8221;1.0&#8221;?&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;status&gt;ok&lt;/status&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;statuscode&gt;100&lt;/statuscode&gt;</td>
+<td>Status=100: Successful</td>
+</tr>
+<tr class="row-even"><td>&lt;message/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/meta&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&lt;data/&gt;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&lt;/ocs&gt;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,325 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The ownCloud Web Interface &mdash; ownCloud User Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 6.0 documentation" href="../index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">User Account Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Changing Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_storage/google_drive.html">External storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="the-owncloud-web-interface">
+<h1>The ownCloud Web Interface<a class="headerlink" href="#the-owncloud-web-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This document will discuss the ownCloud web interface from a user’s perspective.
+It will detail how to log into ownCloud, upload files, create files and folders, as well as describe the Personal Page settings.
+When possible, it will reference other more detailed documents on specific functionality.</p>
+</div>
+<div class="section" id="initial-log-in">
+<h2>Initial Log In<a class="headerlink" href="#initial-log-in" title="Permalink to this headline">¶</a></h2>
+<p>The ownCloud initial login screen is as follows.</p>
+<p><img alt="1000000000000453000001BFFCF48776_png" src="../_images/1000000000000453000001BFFCF48776.png" style="width: 6.5in; height: 2.6252in;" /></p>
+<p>It should be noted, that if the instance of ownCloud is themed differently, there will be a different logo on the screen.</p>
+<p>To log into ownCloud, enter the username and password provided by your ownCloud admin.
+To remain logged into ownCloud under the same credentials, select the checkbox next to Remember.</p>
+<p>Upon initial login, the user will most likely see the “Welcome to ownCloud” banner as below.</p>
+<p><img alt="1000000000000479000002887E7F48EA_png" src="../_images/1000000000000479000002887E7F48EA.png" style="width: 6.5in; height: 3.6783in;" /></p>
+<p>This banner provides links to download the desktop sync app (see Desktop Client document), as well as the mobile apps.
+This banner will appear upon the first login only, provided the admin has not disabled it.
+To close the banner and start using ownCloud, select the ‘x’ in the upper right corner of the banner.</p>
+</div>
+<div class="section" id="main-owncloud-screen">
+<h2>Main ownCloud screen<a class="headerlink" href="#main-owncloud-screen" title="Permalink to this headline">¶</a></h2>
+<p>Once logged into ownCloud, the main screen will be displayed.</p>
+<p><img alt="100000000000047700000219A3013A92_png" src="../_images/100000000000047700000219A3013A92.png" style="width: 6.5in; height: 3.0535in;" /></p>
+<p>There are four sections in the main ownCloud screen</p>
+<ol class="arabic simple">
+<li>This is the apps bar.
+Any user related apps will be displayed here.
+In a default enterprise edition of ownCloud, the Files app and the Activity app are listed.</li>
+<li>This section will display all data loaded into ownCloud.</li>
+<li>The home button brings the user to the home directory.
+The New button allows the user to create a file or folder, or link, and the upload arrow allows the user to upload a file.</li>
+<li>The search box allows the user to search and the user name pull^down can bring the user to the Personal page for personal configurations as well as log the user out.</li>
+</ol>
+</div>
+<div class="section" id="adding-data">
+<h2>Adding Data<a class="headerlink" href="#adding-data" title="Permalink to this headline">¶</a></h2>
+<p>There are a few ways to add data to the ownCloud instance.
+Files may be uploaded or text files may be created directly within ownCloud.
+Folders may also be created directly within the ownCloud web interface.</p>
+<div class="section" id="creation">
+<h3>Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h3>
+<p>To create a file or folder, select the New button in section 3 of the main ownCloud screen.</p>
+<p><img alt="1000000000000163000000E9CDA84C92_png" src="../_images/1000000000000163000000E9CDA84C92.png" style="width: 3.698in; height: 2.4272in;" /></p>
+<div class="section" id="create-a-text-file">
+<h4>Create a text file<a class="headerlink" href="#create-a-text-file" title="Permalink to this headline">¶</a></h4>
+<p>Select “Text file” from the menu and enter the desired file name.</p>
+<p><img alt="1000000000000175000000FAB2A2B294_png" src="../_images/1000000000000175000000FAB2A2B294.png" style="width: 3.8846in; height: 2.6043in;" /></p>
+<p>Then press enter.</p>
+<p><img alt="100000000000047A000000FB86FF2A9A_png" src="../_images/100000000000047A000000FB86FF2A9A.png" style="width: 6.5in; height: 1.4228in;" /></p>
+<p>Notice the file has been placed in section 2 of the main ownCloud window.
+Since it is an empty file, the size is “0 Bytes” and it was last modified a few seconds ago.</p>
+</div>
+<div class="section" id="create-a-folder">
+<h4>Create a folder<a class="headerlink" href="#create-a-folder" title="Permalink to this headline">¶</a></h4>
+<p>To create a folder within ownCloud, simply select “Folder” from the menu and enter the desired folder name.</p>
+<p><img alt="1000000000000195000000EF7E44082C_png" src="../_images/1000000000000195000000EF7E44082C.png" style="width: 4.2189in; height: 2.4898in;" /></p>
+<p>Then select Enter.</p>
+<p>Notice the folder appears in the window.</p>
+<p><img alt="100000000000047A0000011C6682A254_png" src="../_images/100000000000047A0000011C6682A254.png" style="width: 6.5in; height: 1.611in;" /></p>
+</div>
+<div class="section" id="adding-a-file-from-a-link">
+<h4>Adding a file from a link<a class="headerlink" href="#adding-a-file-from-a-link" title="Permalink to this headline">¶</a></h4>
+<p>If the desired file exists on the internet already it is possible to add the file to ownCloud using the internet link.
+To do this, select “From link” from the menu and enter the URL of the file then select enter.</p>
+<p><img alt="10000000000001CE000000F2E2084BA1_png" src="../_images/10000000000001CE000000F2E2084BA1.png" style="width: 4.8126in; height: 2.5201in;" /></p>
+<p><img alt="100000000000046D0000015F4B5494A9_png" src="../_images/100000000000046D0000015F4B5494A9.png" style="width: 6.5in; height: 2.0138in;" /></p>
+<p>The file contained in the link now appears in the user’s ownCloud instance.</p>
+</div>
+</div>
+<div class="section" id="uploading-files">
+<h3>Uploading files<a class="headerlink" href="#uploading-files" title="Permalink to this headline">¶</a></h3>
+<p>There are two methods possible to upload files to the ownCloud web interface.</p>
+<div class="section" id="drag-and-drop">
+<h4>Drag and Drop<a class="headerlink" href="#drag-and-drop" title="Permalink to this headline">¶</a></h4>
+<p>Simply drag and drop one or more files from the client’s
+Desktop into section 2 of the main ownCloud window.
+These files will then be uploaded to ownCloud and appear in the data window.</p>
+</div>
+<div class="section" id="upload-button">
+<h4>Upload Button<a class="headerlink" href="#upload-button" title="Permalink to this headline">¶</a></h4>
+<p>The second method to upload a file to ownCloud is to select the upload arrow on the top left of the main ownCloud screen.
+This will being up a File Upload selection box.</p>
+<p><img alt="100000000000048100000245268CDB7A_png" src="../_images/100000000000048100000245268CDB7A.png" style="width: 6.5in; height: 3.2756in;" /></p>
+<p>Navigate to the directory containing the desired files and select the file for uploading and press Open.
+To upload multiple files simultaneously, use either the SHIFT or CTRL key during file selection as appropriate.</p>
+</div>
+</div>
+</div>
+<div class="section" id="navigation">
+<h2>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changing-directories">
+<h3>Changing directories<a class="headerlink" href="#changing-directories" title="Permalink to this headline">¶</a></h3>
+<p>To navigate to other folders within ownCloud, simply click on the desired folder.</p>
+<p><img alt="1000000000000470000001B68AE60DD3_png" src="../_images/1000000000000470000001B68AE60DD3.png" style="width: 6.5in; height: 2.5063in;" /></p>
+<p>Notice that Section 3 shows the currently displayed directory “my_folder”.
+To navigate back to the root directly, select the “Home” button.</p>
+</div>
+<div class="section" id="viewing-editing-files">
+<h3>Viewing/Editing files<a class="headerlink" href="#viewing-editing-files" title="Permalink to this headline">¶</a></h3>
+<p>ownCloud has the ability to view text files as well as pictures.
+To view a text file or a picture, click on the file.</p>
+<p><img alt="10000000000004710000014BBC34499D_png" src="../_images/10000000000004710000014BBC34499D.png" style="width: 6.5in; height: 1.8925in;" /></p>
+<p>For text files, a text editor will be brought up allowing the user to modify the file as desired.
+Just type the desired text and select “Save” to commit the changes.
+Once changes have been made to the file, prior to saving, the name of the file will have an “*” next to it indicating it has yet to be saved.</p>
+<p><img alt="100000000000046F000000DEA2BFCD9B_png" src="../_images/100000000000046F000000DEA2BFCD9B.png" style="width: 6.5in; height: 1.2717in;" /></p>
+<p>Once changes have been saved, a thumbnail of the text file will appear in the main data window.</p>
+<p><img alt="100000000000041D0000003D52225C0D_png" src="../_images/100000000000041D0000003D52225C0D.png" style="width: 6.5in; height: 0.3764in;" /></p>
+</div>
+<div class="section" id="downloading-a-file">
+<h3>Downloading a file<a class="headerlink" href="#downloading-a-file" title="Permalink to this headline">¶</a></h3>
+<p>To download a file from ownCloud to your working computer, hover over the file and then select the “Download” button.</p>
+<p><img alt="100000000000047200000129CB014025_png" src="../_images/100000000000047200000129CB014025.png" style="width: 6.5in; height: 1.6965in;" /></p>
+<p>For non^text or picture files, the user may also click on the file name to download it.</p>
+</div>
+<div class="section" id="renaming-files-or-folders">
+<h3>Renaming files or Folders<a class="headerlink" href="#renaming-files-or-folders" title="Permalink to this headline">¶</a></h3>
+<p>To rename a file or folder within ownCloud, hover over the file and select Rename.
+Then type the new name of the file or folder.</p>
+</div>
+<div class="section" id="sharing-versions-delete-and-activity">
+<h3>Sharing, Versions, Delete, and Activity<a class="headerlink" href="#sharing-versions-delete-and-activity" title="Permalink to this headline">¶</a></h3>
+<p>For more information on the sharing, versions, deletion or Activity features, please see the respective documents.</p>
+</div>
+</div>
+<div class="section" id="personal-configurations">
+<h2>Personal Configurations<a class="headerlink" href="#personal-configurations" title="Permalink to this headline">¶</a></h2>
+<p>Each ownCloud user may configure some personal preferences.
+To make these configurations, navigate to the Personal page.
+Select the user name and the following menu will appear.</p>
+<p><img alt="100000000000047A000000B727198874_png" src="../_images/100000000000047A000000B727198874.png" style="width: 6.5in; height: 1.0382in;" /></p>
+<p>Select Personal to get to the configuration page.</p>
+<p>Configuration options on this page may appear or disappear depending on what the ownCloud admin has configured.
+The basic configuration parameters are as follows.</p>
+<p><img alt="1000000000000467000002B63162E59B_png" src="../_images/1000000000000467000002B63162E59B.png" style="width: 6.5in; height: 4.0028in;" /></p>
+<p><img alt="10000000000004690000026615360BEB_png" src="../_images/10000000000004690000026615360BEB.png" style="width: 6.5in; height: 3.5346in;" /></p>
+<div class="section" id="important-links">
+<h3>Important links<a class="headerlink" href="#important-links" title="Permalink to this headline">¶</a></h3>
+<p>The top section of the Personal page contains the same links as the First Run Wizard described earlier in this document.
+For more information on this, see the document on the First Run Wizard.</p>
+</div>
+<div class="section" id="quota">
+<h3>Quota<a class="headerlink" href="#quota" title="Permalink to this headline">¶</a></h3>
+<p>Below shows the used and remaining space for the user.
+For information as to how this is calculated, refer to the ownCloud Quota Calculations document.</p>
+</div>
+<div class="section" id="password-change">
+<h3>Password Change<a class="headerlink" href="#password-change" title="Permalink to this headline">¶</a></h3>
+<p>If the user desires to change the password, do so in this section.
+Enter the current password followed by the new password and select “Change Password”.
+It should be noted, that when using LDAP authentication, the password is contained within the LDAP and not locally thus this field will not change the password.</p>
+</div>
+<div class="section" id="change-display-name">
+<h3>Change Display Name<a class="headerlink" href="#change-display-name" title="Permalink to this headline">¶</a></h3>
+<p>To change the way your name is displayed within ownCloud, enter the desired name under “Full Name”.</p>
+</div>
+<div class="section" id="add-email-address">
+<h3>Add Email Address<a class="headerlink" href="#add-email-address" title="Permalink to this headline">¶</a></h3>
+<p>For password recovery and share notifications, it is important for ownCloud to have an email on record.
+Enter the desired email address under the EMAIL section.</p>
+</div>
+<div class="section" id="avatar">
+<h3>Avatar<a class="headerlink" href="#avatar" title="Permalink to this headline">¶</a></h3>
+<p>ownCloud allows a user to upload an Avatar for their ownCloud instance.
+This can be done under the “Profile Picture” section of the Personal Page.</p>
+<p>To upload a new Avatar, select the “Upload new” button.
+If the desired avatar exists on the ownCloud file system, select “Select new from Files” and to remove the avatar and return to the default, select “Remove image”</p>
+</div>
+<div class="section" id="language">
+<h3>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h3>
+<p>If English is not the user’s native language, they may change the language in this section.</p>
+</div>
+<div class="section" id="webdav">
+<h3>WebDAV<a class="headerlink" href="#webdav" title="Permalink to this headline">¶</a></h3>
+<p>This provides the address to use in order to access a user’s files via WebDav.</p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

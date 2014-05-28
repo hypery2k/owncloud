@@ -1,0 +1,248 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Activity &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="Finding Deployment Dependencies" href="../admin_dependencies_chk/index.html" />
+    <link rel="prev" title="Apps" href="../index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Activity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utilization">Utilization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rss-feed">RSS Feed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_antivirus/index.html">File Antivirus Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_encryption/index.html">Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_external/index.html">External storage support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_sharing/index.html">Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_versions/index.html">Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../firstrunwizard/index.html">First Run Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="activity">
+<h1>Activity<a class="headerlink" href="#activity" title="Permalink to this headline">¶</a></h1>
+<p>The ownCloud Activity app shows an activity feed where users can see what they did in the past and what happened to
+their files and what others did with their shared files.</p>
+<p>The Activity Stream introduces a central interface where all events that happen in a user’s ownCloud instance are shown.</p>
+<p>The following can be seen in the new interface:</p>
+<ul class="simple">
+<li>Creation, edit or deletion of files along with a thumbnail and date and path</li>
+<li>If someone shared a file with you</li>
+<li>If someone created, edited or deleted something in a folder you shared to them.</li>
+</ul>
+<p>All the events are presented with endless scrolling and also in an RSS feed which a user can subscribe to.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The Activity App is enabled by default.  To verify or to disable, navigate to the APPS page and search for <tt class="docutils literal"><span class="pre">Activity</span></tt>.</p>
+<img alt="../../_images/10000000000002F3000000926CA65D02.png" src="../../_images/10000000000002F3000000926CA65D02.png" style="width: 6.5in; height: 1.2571in;" />
+</div>
+<div class="section" id="utilization">
+<h2>Utilization<a class="headerlink" href="#utilization" title="Permalink to this headline">¶</a></h2>
+<p>The Activities can be viewed by selecting
+Activity
+in the App bar on the left side of the ownCloud browser interface</p>
+<p><img alt="1000000000000050000000DB83B8FA5B_png" src="../../_images/1000000000000050000000DB83B8FA5B.png" style="width: 0.8335in; height: 2.2811in;" /></p>
+<p>This will bring up the Activity interface showing all the activities which occurred for this user’s instance.</p>
+<div class="section" id="sample-activities">
+<h3>Sample Activities<a class="headerlink" href="#sample-activities" title="Permalink to this headline">¶</a></h3>
+<p>This section will show how the different activities may appear within this interface</p>
+<div class="section" id="create-file">
+<h4>Create file<a class="headerlink" href="#create-file" title="Permalink to this headline">¶</a></h4>
+<p>The following shows a file entitled
+DeleteMe.txt
+being created 3 days ago.</p>
+<p><img alt="10000000000000F300000068AF0ECD53_png" src="../../_images/10000000000000F300000068AF0ECD53.png" style="width: 2.5311in; height: 1.0835in;" /></p>
+</div>
+<div class="section" id="delete-file">
+<h4>Delete File<a class="headerlink" href="#delete-file" title="Permalink to this headline">¶</a></h4>
+<p>The following shows a file entitled <tt class="docutils literal"><span class="pre">DeleteMe.txt</span></tt> being deleted 3 days ago.</p>
+<p><img alt="10000000000000F5000000675DC5F68C_png" src="../../_images/10000000000000F5000000675DC5F68C.png" style="width: 2.552in; height: 1.0728in;" /></p>
+</div>
+<div class="section" id="edit-a-file">
+<h4>Edit a file<a class="headerlink" href="#edit-a-file" title="Permalink to this headline">¶</a></h4>
+<p>The following shows a file <tt class="docutils literal"><span class="pre">Shared/test.txt</span></tt> being edited mere seconds ago.</p>
+<p><img alt="10000000000000F1000000F6704F46D3_png" src="../../_images/10000000000000F1000000F6704F46D3.png" style="width: 2.5102in; height: 2.5626in;" /></p>
+</div>
+<div class="section" id="share-a-file-with-a-user">
+<h4>Share a file with a user<a class="headerlink" href="#share-a-file-with-a-user" title="Permalink to this headline">¶</a></h4>
+<p>The following shows the file <tt class="docutils literal"><span class="pre">shareMe</span></tt> being shared with another user.</p>
+<p><img alt="10000000000000F1000000F56125BDBA_png" src="../../_images/10000000000000F1000000F56125BDBA.png" style="width: 2.5102in; height: 2.552in;" /></p>
+</div>
+<div class="section" id="file-shared-to-user">
+<h4>File shared to user<a class="headerlink" href="#file-shared-to-user" title="Permalink to this headline">¶</a></h4>
+<p>The following shows the file <tt class="docutils literal"><span class="pre">Shared/test.txt</span></tt> being shared with this user almost an hour ago.</p>
+<p><img alt="10000000000000F60000006754ED2A1E_png" src="../../_images/10000000000000F60000006754ED2A1E.png" style="width: 2.5626in; height: 1.0728in;" /></p>
+</div>
+<div class="section" id="file-created-by-another-user-in-shared-folder">
+<h4>File created by another user in Shared folder<a class="headerlink" href="#file-created-by-another-user-in-shared-folder" title="Permalink to this headline">¶</a></h4>
+<p>The following is shown when another user creates a file in your shared folder.</p>
+<p><img alt="10000000000000F500000067A8845EF8_png" src="../../_images/10000000000000F500000067A8845EF8.png" style="width: 2.552in; height: 1.0728in;" /></p>
+</div>
+<div class="section" id="shared-file-modified">
+<h4>Shared file modified<a class="headerlink" href="#shared-file-modified" title="Permalink to this headline">¶</a></h4>
+<p>The following shows a file <tt class="docutils literal"><span class="pre">BoB/test.txt</span></tt> modified by a user who this file was shared to.</p>
+<p><img alt="10000000000000F6000000685DFB3767_png" src="../../_images/10000000000000F6000000685DFB3767.png" style="width: 2.5626in; height: 1.0835in;" /></p>
+</div>
+<div class="section" id="combined-activities">
+<h4>Combined activities<a class="headerlink" href="#combined-activities" title="Permalink to this headline">¶</a></h4>
+<p>The following shows what “combined” activities may look like on the activity interface.</p>
+<p><img alt="10000000000000F40000019A110DD159_png" src="../../_images/10000000000000F40000019A110DD159.png" style="width: 2.5417in; height: 4.2701in;" /></p>
+</div>
+</div>
+</div>
+<div class="section" id="rss-feed">
+<h2>RSS Feed<a class="headerlink" href="#rss-feed" title="Permalink to this headline">¶</a></h2>
+<p>To subscribe to the RSS Feed, navigate to the <tt class="docutils literal"><span class="pre">Activity</span></tt> page and select <tt class="docutils literal"><span class="pre">RSS</span> <span class="pre">feed</span></tt> in the upper right of the
+browser.</p>
+<p><img alt="10000000000001440000005A2989832F_png" src="../../_images/10000000000001440000005A2989832F.png" style="width: 3.3752in; height: 0.9374in;" /></p>
+<p>The resulting page will look something like this:</p>
+<p><img alt="10000000000002B1000002258C08D304_png" src="../../_images/10000000000002B1000002258C08D304.png" style="width: 6.5in; height: 5.1791in;" /></p>
+<p>To subscribe, select the <tt class="docutils literal"><span class="pre">Subscribe</span> <span class="pre">Now</span></tt> button.  The RSS Feed may be viewed via the browser’s capabilities.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,294 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Encryption &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="External storage support" href="../files_external/index.html" />
+    <link rel="prev" title="File Antivirus Engine" href="../files_antivirus/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../activity/index.html">Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_antivirus/index.html">File Antivirus Engine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Encryption</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-gets-encrypted">What gets encrypted?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decrypting-the-data">Decrypting the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-systems">File Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../files_external/index.html">External storage support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_sharing/index.html">Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_versions/index.html">Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../firstrunwizard/index.html">First Run Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="encryption">
+<h1>Encryption<a class="headerlink" href="#encryption" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud contains an encryption app which, when enabled, encrypts all files stored in ownCloud.
+The encryption is done automatically once the admin enables the app.
+All encryption and decryption occur on the ownCloud server, which allows the
+user to continue to use other apps to view and edit the data.</p>
+<p>The user’s password is used as the key to decrypt their data.
+This means that if the user loses their login password, data will be lost.
+To protect against password loss, the recovery key may be used as described in a later section.</p>
+<div class="section" id="what-gets-encrypted">
+<h2>What gets encrypted?<a class="headerlink" href="#what-gets-encrypted" title="Permalink to this headline">¶</a></h2>
+<p>All files stored in ownCloud will be encrypted with the following exceptions:</p>
+<ul class="simple">
+<li>Old versions (versions created prior to enabling the encryption app)</li>
+<li>Old files in the trash bin (files deleted prior to enabling the encryption app)</li>
+<li>Existing files on external storage.
+Only new files placed on the external storage mount after encryption was enabled are encrypted.</li>
+<li>Image thumbnails from the gallery app</li>
+<li>Search index form the full text search app.</li>
+</ul>
+</div>
+<div class="section" id="decrypting-the-data">
+<h2>Decrypting the data<a class="headerlink" href="#decrypting-the-data" title="Permalink to this headline">¶</a></h2>
+<p>If the encryption app is disable, users will get the following message alerting
+them how to decrypt their files.</p>
+<img alt="../../_images/100000000000023B000000125381F51B.png" src="../../_images/100000000000023B000000125381F51B.png" style="width: 5.948in; height: 0.1874in;" />
+<p>Navigating to the Personal settings page, the user can enter their password and
+decrypt all files.</p>
+<img alt="../../_images/100000000000018B000000A090F31164.png" src="../../_images/100000000000018B000000A090F31164.png" style="width: 4.1146in; height: 1.6665in;" />
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>To enable the encryption app, navigate to the Apps page and select Encryption, then enable.</p>
+<img alt="../../_images/10000000000001A3000000AAFE82893A.png" src="../../_images/10000000000001A3000000AAFE82893A.png" />
+<p>Once the app is enabled, the following message will appear for all users
+currently logged into the web browser as they navigate to a new page within the
+ownCloud web browser</p>
+<img alt="../../_images/10000000000001BF00000012349EAE2F.png" src="../../_images/10000000000001BF00000012349EAE2F.png" />
+<p>It is necessary to logout of ownCloud and re-login to initialize the encryption keys.</p>
+<div class="section" id="recovery-key">
+<h3>Recovery Key<a class="headerlink" href="#recovery-key" title="Permalink to this headline">¶</a></h3>
+<p>Enabling the recovery key globally is done by the admin.
+Each user then has the option as to whether they wish to do so for their own account.
+If enabled, the admin will be able to reset the user’s encryption password
+using a predefined recovery password.  This allows for the recovery of a user’s
+files in the event of a password loss.  If recovery key is not enabled, there
+is no way to restore files if the login password is lost.</p>
+<div class="section" id="admin-level">
+<h4>Admin level<a class="headerlink" href="#admin-level" title="Permalink to this headline">¶</a></h4>
+<p>To enable the recovery key, the Admin must first enable this feature in the Admin page.</p>
+<img alt="../../_images/100000000000018E000000C4BA62B2A3.png" src="../../_images/100000000000018E000000C4BA62B2A3.png" />
+<p>Once enabled, the Admin may change the recovery key password at any time.</p>
+<img alt="../../_images/1000000000000193000001AE9AB8B0A2.png" src="../../_images/1000000000000193000001AE9AB8B0A2.png" />
+</div>
+<div class="section" id="user-level">
+<h4>User level<a class="headerlink" href="#user-level" title="Permalink to this headline">¶</a></h4>
+<p>The user can then navigate to the Personal page and enable password recovery.</p>
+<img alt="../../_images/1000000000000227000000935D9B1EF6.png" src="../../_images/1000000000000227000000935D9B1EF6.png" />
+</div>
+<div class="section" id="recovery">
+<h4>Recovery<a class="headerlink" href="#recovery" title="Permalink to this headline">¶</a></h4>
+<p>In order for the admin to recover the user’s files in the event of a lost
+password, the admin should navigate to the “Users” tab and enter the Recovery
+Key Password into the “Admin Recovery Password” field at the top of the page.</p>
+<img alt="../../_images/10000000000003730000002B6865E951.png" src="../../_images/10000000000003730000002B6865E951.png" />
+<p>This will allow the admin to generate a new encryption password for the user.</p>
+<ul class="simple">
+<li>For local user management, this will generate both a new log-in password as well
+as a new encryption password for the data.</li>
+<li>If LDAP authentication is in use, the admin would need to set the new log-in password
+in the LDAP server, and then enter the same password in the user management page for
+the encryption key. It is important that both the password in the LDAP server and the
+password entered in the user management page are identical.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="file-systems">
+<h2>File Systems<a class="headerlink" href="#file-systems" title="Permalink to this headline">¶</a></h2>
+<p>Once enabled, all files within ownCloud are encrypted, with the exceptions mentioned above.
+This includes files in local storage, as well as files contained within external storage mounts.</p>
+<p>The encryption app creates several key files/folders when enabled.
+<tt class="docutils literal"><span class="pre">~/data/public-keys</span></tt> contains the public keys for all users, and
+<tt class="docutils literal"><span class="pre">~/data/owncloud_private_keys</span></tt> contains system wide private keys utilized for
+public link shares as well as the recovery key.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">root@server:/var/www/owncloud/data#</span> ls
+<span class="go">files_encryption/  mount.json  owncloud.log           public-keys/ yogi/</span>
+<span class="go">index.html         oc6admin/   owncloud_private_key/  user1/</span>
+</pre></div>
+</div>
+<p>The encryption app stores key information in the <tt class="docutils literal"><span class="pre">~/data/&lt;user&gt;/files_encryption</span></tt> directory.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">root@server:/var/www/owncloud/data/user1/encryption#</span> ls
+<span class="go">keyfiles/ user1.private.key share-keys/</span>
+</pre></div>
+</div>
+<p>As mentioned previously, the private key is generated from the user’s password.</p>
+<p>Each file that the user owns will have a corresponding keyfile maintained in the keyfiles directory.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">root@server:/var/www/owncloud/data/user1/files_encryption/keyfiles#</span> ls
+<span class="go">documents/ ownCloud undelete.docx.key photos/</span>
+<span class="go">music/     ownCloudUserManual.pdf.key test encryption.txt.key</span>
+</pre></div>
+</div>
+<p>In addition a share key will be generated for each file in the event that there
+is an external storage mount by the admin for multiple users or groups.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">root@server:/var/www/owncloud/data/user1/files_encryption/share-keys#</span> ls
+<span class="go">documents/</span>
+<span class="go">music/</span>
+<span class="go">ownCloud undelete.docx.recovery_5dcce10a.shareKey</span>
+<span class="go">ownCloud undelete.docx.user1.shareKey</span>
+<span class="go">ownCloudUserManual.pdf.recovery_5dcce10a.shareKey</span>
+<span class="go">ownCloudUserManual.pdf.user1.shareKey</span>
+<span class="go">photos/</span>
+<span class="go">test encryption.txt.recovery_5dcce10a.shareKey</span>
+<span class="go">test encryption.txt.user1.shareKey</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>When viewing a file directly on the ownCloud data directory, it will show up as encrypted.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">root@server:/var/www/owncloud/data/user1/files#</span> more <span class="nb">test</span><span class="se">\ </span>encryption.txt
+<span class="go">2JnmDdDh//8FVcDhLrnD1WH0JjhrzKpFKV6V61pAfUCu9IJX00iv007Yw3Tf/QBbtJFpQFxx</span>
+</pre></div>
+</div>
+<p>However, viewing the same file via the browser, the actual contents of the file are displayed.</p>
+<img alt="../../_images/edit_encrypted_file.png" src="../../_images/edit_encrypted_file.png" />
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

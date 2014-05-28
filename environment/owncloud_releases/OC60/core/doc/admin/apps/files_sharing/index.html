@@ -1,0 +1,261 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sharing &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Apps" href="../index.html" />
+    <link rel="next" title="Deleted Files" href="../files_trashbin/index.html" />
+    <link rel="prev" title="External storage support" href="../files_external/index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Apps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../activity/index.html">Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_dependencies_chk/index.html">Finding Deployment Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_antivirus/index.html">File Antivirus Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_encryption/index.html">Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_external/index.html">External storage support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Sharing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utilization">Utilization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieving-shared-data">Retrieving shared data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../files_trashbin/index.html">Deleted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../files_versions/index.html">Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../firstrunwizard/index.html">First Run Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_ldap/index.html">LDAP user and group backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../viewers/index.html">File Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="sharing">
+<h1>Sharing<a class="headerlink" href="#sharing" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud allows users to share files and folders with both other ownCloud
+users, as well as publicly via a link.  Sharing may be done either via the web
+interface or via the Sharing API.  This document will discuss the web interface
+and sharing. For information on the Sharing API, please refer to that document.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enable-the-app">
+<h3>Enable the app<a class="headerlink" href="#enable-the-app" title="Permalink to this headline">¶</a></h3>
+<p>The Share Files app is enabled by default. To verify this and/or disable this functionality,
+navigate to the APPS page in the web interface and select “Share Files”</p>
+<p><img alt="1000000000000167000000B43E4BF478_png" src="../../_images/1000000000000167000000B43E4BF478.png" style="width: 3.7398in; height: 1.8752in;" /></p>
+</div>
+<div class="section" id="configuring-the-permitted-functionality">
+<h3>Configuring the permitted functionality<a class="headerlink" href="#configuring-the-permitted-functionality" title="Permalink to this headline">¶</a></h3>
+<p>There are several functions which may be enabled or disabled at the admin’s discretion.
+To configure these functions, navigate to the Admin page in the web interface and scroll to the “Sharing” section.</p>
+<p><img alt="10000000000001CF00000176B0BE1EBC_png" src="../../_images/10000000000001CF00000176B0BE1EBC.png" style="width: 4.8228in; height: 3.8957in;" /></p>
+<p>The above parameters are self-explanatory and may be enabled or disabled as required.</p>
+</div>
+</div>
+<div class="section" id="utilization">
+<h2>Utilization<a class="headerlink" href="#utilization" title="Permalink to this headline">¶</a></h2>
+<p>An ownCloud user may share files or entire folders with other individuals.
+The method of sharing is the same.</p>
+<div class="section" id="share-with-another-owncloud-user">
+<h3>Share with another ownCloud user<a class="headerlink" href="#share-with-another-owncloud-user" title="Permalink to this headline">¶</a></h3>
+<p>Hover over the line containing the file or folder to be shared.
+And then select Share.
+The following dialog appears.</p>
+<p><img alt="10000000000003EC000000AB60616FA7_png" src="../../_images/10000000000003EC000000AB60616FA7.png" style="width: 6.5in; height: 1.1071in;" /></p>
+<p>In the “share with user or group” text box, enter the user to share with, or the group to share with.
+Note, as letters are typed, the users and groups who match the typed string will appear.
+As a short cut, simply select the desired user/group</p>
+</div>
+<div class="section" id="setting-permissions-on-the-share">
+<h3>Setting Permissions on the share<a class="headerlink" href="#setting-permissions-on-the-share" title="Permalink to this headline">¶</a></h3>
+<p>When a file or folder is shared, the permissions may be modified stating what the other user may do with the file/folder.
+Once the share with user or group has been entered, the dialog will expand as follows.</p>
+<p><img alt="1000000000000404000000FCFC13E732_png" src="../../_images/1000000000000404000000FCFC13E732.png" style="width: 6.5in; height: 1.5929in;" /></p>
+<p>If the shared with user has an email address configured, the sharing user may choose to notify the shared with user of the share.
+To do this, select the checkbox next to “notify by email”.
+It is important to note, this checkbox appears whether or not the shared with user has email configured.</p>
+<p>When sharing a file/folder, it is obvious that the file may be viewed or downloaded.
+However, if the shared with user is allowed to modify the file in any way, the “can edit” box should be checked.
+The sharing user may allow the shared with user to update, delete, or re-share the file.
+Note, by default, all permissions are set.</p>
+<p>It should be noted that when sharing a folder, an additional permission, “create” is available.
+When enabled, the shared to users can create new files and folders within the shared folder.</p>
+</div>
+<div class="section" id="share-as-a-link">
+<h3>Share as a link<a class="headerlink" href="#share-as-a-link" title="Permalink to this headline">¶</a></h3>
+<p>In the event that an ownCloud user desires to share a file with a non-ownCloud user, the file may be shared as a link.
+To share as a link, hover over the line containing the file and select Share.
+Then select the check box next to “Share link”</p>
+<p><img alt="10000000000003E8000001524A147A04_png" src="../../_images/10000000000003E8000001524A147A04.png" style="width: 6.5in; height: 2.1965in;" /></p>
+<p>The link is then shown in the text box.
+The link may be copied and pasted into an email and sent to the other user.
+Alternatively, if email is setup within ownCloud, the sharing user may input the shared with user’s email address in the text box and select send.
+The shared user will then receive an email from the ownCloud server with the link.</p>
+<p>There may be circumstances where the file owner wants some security on the link so it cannot be accessed by anyone other than the desired person.
+To do this, the link may be Password Protected by selecting the “Password Protect” checkbox and entering a desired password.</p>
+<p><img alt="1000000000000403000001632F0B76F6_png" src="../../_images/1000000000000403000001632F0B76F6.png" style="width: 6.5in; height: 2.2465in;" /></p>
+</div>
+<div class="section" id="setting-expiration-date">
+<h3>Setting Expiration Date<a class="headerlink" href="#setting-expiration-date" title="Permalink to this headline">¶</a></h3>
+<p>ownCloud allows the sharing user to expire a file or folder share at a given date.
+This expiration applies to all shares within the folder as well.
+So, if a user expires a folder share, all files within the folder will no longer be shared.</p>
+<p>To set an expiration, select the Set expiration date checkbox and then select the expiration date.
+(The calendar will appear when the mouse is clicked in the Expiration date text box.</p>
+<p><img alt="10000000000004010000017E4A6552BC_png" src="../../_images/10000000000004010000017E4A6552BC.png" style="width: 6.5in; height: 2.422in;" /></p>
+</div>
+</div>
+<div class="section" id="retrieving-shared-data">
+<h2>Retrieving shared data<a class="headerlink" href="#retrieving-shared-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="user-group-shares">
+<h3>User/group shares<a class="headerlink" href="#user-group-shares" title="Permalink to this headline">¶</a></h3>
+<p>When the shared with user logs into their ownCloud instance they will see a “Shared” folder.</p>
+<p><img alt="100000000000046C000000C2D3E5CF30_png" src="../../_images/100000000000046C000000C2D3E5CF30.png" style="width: 6.5in; height: 1.1138in;" /></p>
+<p>Within that Shared folder are all files and folders which have been shared to that user by any other ownCloud user.</p>
+<p><img alt="1000000000000462000000D44541CF9A_png" src="../../_images/1000000000000462000000D44541CF9A.png" style="width: 6.5in; height: 1.2283in;" /></p>
+</div>
+<div class="section" id="share-as-link">
+<h3>Share as link<a class="headerlink" href="#share-as-link" title="Permalink to this headline">¶</a></h3>
+<p>To view a file/folder which was shared as a link, simply enter the link into the browser.</p>
+<p><img alt="10000000000004CA000002B52116BE0C_png" src="../../_images/10000000000004CA000002B52116BE0C.png" style="width: 6.5in; height: 3.6744in;" /></p>
+<p>To download the file/folder select the Download button on the upper right of the page.
+If this link was password protected, the user will be prompted with a password prior to this page appearing.</p>
+<p><img alt="100000000000045800000197FE462F2B_png" src="../../_images/100000000000045800000197FE462F2B.png" style="width: 6.5in; height: 2.3791in;" /></p>
+</div>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

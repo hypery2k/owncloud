@@ -1,0 +1,228 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using Server-Side Encryption &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration" href="index.html" />
+    <link rel="next" title="Disable Knowledge Base" href="configuration_knowledgebase.html" />
+    <link rel="prev" title="MySQL/Postgres/SQLite Support" href="configuration_database.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_apps.html">Managing Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_users.html">User Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auth_ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_jobs.html">Background Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_3rdparty.html">Find Third-Party Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_automation.html">Automatic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_custom_clients.html">Customizing Client Download Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_database.html">MySQL/Postgres/SQLite Support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Using Server-Side Encryption</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enable-file-recovery-feature">Enable File Recovery Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recover-user-files">Recover User Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ldap-and-other-external-user-back-ends">LDAP and other external user back-ends</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_knowledgebase.html">Disable Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_language.html">Setting the Default Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_logging.html">Configure Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_mail.html">Sending Mail Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_maintenance.html">Enable Maintenance Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_preview.html">Enabling File Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_reverseproxy.html">Reverse Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring_big_file_upload.html">Dealing with Big File Uploads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config_gui.html">Custom Mount Configuration Web-GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_mount_config.html">Custom Mount Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_user_backend.html">Custom User Backend Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xsendfile.html">Serving static files via web server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="using-server-side-encryption">
+<h1>Using Server-Side Encryption<a class="headerlink" href="#using-server-side-encryption" title="Permalink to this headline">¶</a></h1>
+<p>ownCloud ships a encryption app, which allows to encrypt all files stored in
+your ownCloud. Encryption and decryption always happens server-side. This
+enables the user to continue to use all the other apps to view and edit his
+data.</p>
+<p>The app uses the user&#8217;s log-in password as encryption-password. This means that
+by default the user will lose access to his files if he loses his log-in
+password.</p>
+<p>It might be a good idea to make regular backups of all encryption keys. The
+encryption keys are stored in following folders:</p>
+<ul class="simple">
+<li>data/owncloud_private_key (recovery key, if enabled and public share key)</li>
+<li>data/public-keys (public keys from all users)</li>
+<li>data/&lt;user&gt;/files_encryption (users&#8217; private keys and all other keys necessary to
+decrypt the users&#8217; files)</li>
+</ul>
+<div class="section" id="enable-file-recovery-feature">
+<h2>Enable File Recovery Feature<a class="headerlink" href="#enable-file-recovery-feature" title="Permalink to this headline">¶</a></h2>
+<p>The admin can offer the user some kind of protection against password
+loss. Therefore you have to enable the recovery key in the admin settings and
+provide a strong recovery key password. The admin settings also enables you to
+change the recovery key password if you wish. But you should make sure to never
+lose this password, because that&#8217;s the only way to recover users&#8217; files.</p>
+<p>Once the recovery key was enabled every user can choose in his personal
+settings to enable this feature or not.</p>
+</div>
+<div class="section" id="recover-user-files">
+<h2>Recover User Files<a class="headerlink" href="#recover-user-files" title="Permalink to this headline">¶</a></h2>
+<p>If the recovery feature was enabled the admin will see a additional input field
+at the top of the user management settings. After entering the recovery-key
+password the admin can change the user&#8217;s log-in password which will
+automatically recover the user&#8217;s file.</p>
+<p>If you use a user back-end which doesn&#8217;t allow you to change the log-in
+password directly within ownCloud, e.g. the LDAP back-end, than you can follow
+the same procedure to recover a user&#8217;s files. The only difference is that
+you need to change the log-in password additionally at your back-end. In this
+case make sure to use both times the same password.</p>
+</div>
+<div class="section" id="ldap-and-other-external-user-back-ends">
+<h2>LDAP and other external user back-ends<a class="headerlink" href="#ldap-and-other-external-user-back-ends" title="Permalink to this headline">¶</a></h2>
+<p>if you configure a external user back-end you will be able to change the user&#8217;s log-in password
+at the back-end. Since the encryption password must be the same as the user&#8217;s log-in password
+this will result in a non-functional encryption system. If the recovery feature was enabled,
+the administrator will be able to recover the user&#8217;s files directly over the recovery feature.
+See the description above. Otherwise the user will be informed that his log-in password and
+his encryption password no longer matches after his next log-in. In this case the user will be
+able to adjust his encryption password in the personal settings by providing both, his old and
+his new log-in password.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

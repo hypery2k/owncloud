@@ -1,0 +1,254 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Default Parameters &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="The Configuration File" href="index.html" />
+    <link rel="next" title="Reverse Proxy Configurations" href="reverse_proxy_configurations.html" />
+    <link rel="prev" title="The Configuration File" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Configuration File</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Default Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverse_proxy_configurations.html">Reverse Proxy Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_experience.html">User Experience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mail_parameters.html">Mail Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deleted_items.html">Deleted Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="session_info.html">Session Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_locations.html">Code Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html">APPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="previews.html">Previews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="default-parameters">
+<h1>Default Parameters<a class="headerlink" href="#default-parameters" title="Permalink to this headline">¶</a></h1>
+<p>The following parameters are automatically configured by ownCloud upon the initial admin login.
+These parameters are mandatory for the ownCloud instance to operate properly.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="12%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Parameter</strong></td>
+<td><strong>Format</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Debug</strong></td>
+<td>define(&#8220;DEBUG&#8221;, true);</td>
+<td>When set to true, additional information is written to the logs.
+This is to be used only for local development and not in a production environment.</td>
+</tr>
+<tr class="row-odd"><td><strong>Installed</strong></td>
+<td>&#8220;installed&#8221; =&gt; false,</td>
+<td>This flag indicates whether the ownCloud instance was installed successfully.
+When set to true, the install was successful.
+When set to false the instance is not properly installed.</td>
+</tr>
+<tr class="row-even"><td><strong>DB Type</strong></td>
+<td>&#8220;dbtype&#8221; =&gt; &#8220;sqlite&#8221;,</td>
+<td>The dbtype indicates what type of database is being used with this install.</td>
+</tr>
+<tr class="row-odd"><td><strong>DB Name</strong></td>
+<td>&#8220;dbname&#8221; =&gt; &#8220;owncloud&#8221;,</td>
+<td>The ownCloud database within the SQL instance.
+ownCloud database configuration guides use “owncloud” in the instructions, it is the default for this field.
+This may be set to any valid table name.
+If the table does not exist, the setup will attempt to create it, provided it has proper permissions.</td>
+</tr>
+<tr class="row-even"><td><strong>DB User</strong></td>
+<td>&#8220;dbuser&#8221; =&gt; &#8220;&#8221;,</td>
+<td>This is the user that ownCloud uses to write to the database.
+This must be unique across ownCloud instances using the same SQL database.
+The user will be created when the install wizard is complete.
+Since the database user in the initial login screen has admin privileges (root), ownCloud creates a new user to ensure ownCloud does not run with unnecessary database permissions.
+ownCloud prefixes “oc_” to the userid to prevent a collision between the ownCloud admin user and any existing database users.
+This is generated at the time of the initial login and is the Admin User as entered by the ownCloud admin.</td>
+</tr>
+<tr class="row-odd"><td><strong>DB Password</strong></td>
+<td>&#8220;dbpassword&#8221; =&gt; &#8220;&#8221;,</td>
+<td>When a new database user is created for ownCloud, a password for the database is generated by hashing the admin user password.
+This hash is stored in this parameter.</td>
+</tr>
+<tr class="row-even"><td><strong>DB Host</strong></td>
+<td>&#8220;dbhost&#8221; =&gt; &#8220;&#8221;,</td>
+<td>This parameter shows the location of the database.
+Can be an IP pointing to the database server, a Fully Qualified Domain Name (FQDN) or localhost.</td>
+</tr>
+<tr class="row-odd"><td><strong>DB Table Prefix</strong></td>
+<td>&#8220;dbtableprefix&#8221; =&gt; &#8220;oc_&#8221;,</td>
+<td>All tables in the database will begin with this prefix.
+By default the prefix is “oc_”.
+If this prefix is changed in the config file, the tables in the database will need to be manually renamed.
+ownCloud will not detect a change to this option so changing this prefix without manually renaming the tables will break the instance of ownCloud.</td>
+</tr>
+<tr class="row-even"><td><strong>Password Salt</strong></td>
+<td>&#8220;passwordsalt&#8221; =&gt; &#8220;&#8221;,</td>
+<td>This is the salt used to hash passwords within the ownCloud instance.
+It is important not to remove or lose this password.
+If lost, all passwords within the ownCloud instance will be lost.</td>
+</tr>
+<tr class="row-odd"><td><strong>Data Directory</strong></td>
+<td>&#8220;datadirectory&#8221; =&gt; &#8220;&#8221;,</td>
+<td>This parameter tells ownCloud where the default data directory is located.
+It is configured in the installation wizard.
+If using SQLITE, the database is stored in this data directory as well.</td>
+</tr>
+<tr class="row-even"><td><strong>Trusted Domains</strong></td>
+<td><p class="first">&nbsp; &#8216;trusted_domains&#8217; =&gt;</p>
+<p>&nbsp;&nbsp;array (</p>
+<p>&nbsp;&nbsp;&nbsp; 0 =&gt; ‘A.B.C.D
+&#8216;,</p>
+<p class="last">&nbsp; ),</p>
+</td>
+<td>This parameter identifies trusted URL for ownCloud which users may log into.
+The initial entry ‘0’ is automatic.
+If it is desired to have additional entries, these may be added manually.
+This is used to mitigate Header Post Poisoning attacks.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>
