@@ -4,7 +4,7 @@
 #
 # author Martin Reinhardt
 #
-# usage $0 -h -o OC50 -r RC07 -d mysql or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --workspace /tmp
+# usage $0 -h -o OC50 -r RC07 -d mysql or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --db_name oc_testing --db_user root --db_password password --workspace /tmp
 
 DIR_WWW=/var/www/oc_testing
 
@@ -21,6 +21,9 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 OC_VERSION=""
 RC_VERSION=""
 DB_TYPE=""
+DB_USER="oc_testing"
+DB_PASS="password"
+DB_NAME="oc_testing"
 HOST_URL=""
 
 # set current path as working dir (fallback)
@@ -34,7 +37,7 @@ do
   shift
   case $key in
     -h|--help)
-      echo "usage $0 -h -o OC50 -r RC07 -d mysql -u http://localhost -w /tmp or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --url http://localhost --workspace /tmp"
+      echo "usage $0 -h -o OC50 -r RC07 -d mysql --n oc_testing --i root --p password -u http://localhost -w /tmp or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --db_name oc_testing --db_user root --db_password password  --url http://localhost --workspace /tmp"
       exit 0
       ;;
     -o|--oc_version)        
@@ -47,6 +50,18 @@ do
       ;;
     -d|--db_type)        
       DB_TYPE="$1"
+      shift
+      ;;
+    -n|--db_name)        
+      DB_NAME="$1"
+      shift
+      ;;
+    -i|--db_user)        
+      DB_USER="$1"
+      shift
+      ;;
+    -p|--db_password)        
+      DB_PASS="$1"
       shift
       ;;
     -u|--url)        
@@ -139,10 +154,6 @@ echo "  ==> Preparing OwnCloud DB"
 # copy settings template
 cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
 
-MUSER="oc_testing"
-MPASS="password"
-MDB="oc_testing"
-
 # Detect paths
 MYSQL=$(which mysql)
 AWK=$(which awk)
@@ -154,7 +165,7 @@ case $DB_TYPE in
     ;;
   mysql)        
     echo "  ==> Preparing MySQL DB"
-    $MYSQL -u $MUSER -p$MPASS $MDB < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
+    $MYSQL -u $DB_USER -p$DB_PASS $DB_NAME < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
     ;;
 esac
 
