@@ -142,19 +142,22 @@ ls -lisah $DIR_OC_APP_SC*
 echo
 
 
+echo "  ==> Setting up config"
+# copy settings template
+cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
+chown -R www-data ${DIR_OC_CUR}/config
+touch $DIR_OC_DATA/.ocdata
+
 echo "  ==> Setting up Directory rights"
 chmod -R 777 $DIR_WWW
 chown -R www-data $DIR_WWW/$DB_TYPE/
 chmod -R 770 $DIR_OC_DATA
+chmod -R 770 ${DIR_OC_CUR}/config/
+chmod 770 ${DIR_OC_CUR}/config/
 
 echo "  ==> Done with general owncloud setup"
-
 echo
 echo "  ==> Preparing OwnCloud DB"
-# copy settings template
-cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
-chown www-data ${DIR_OC_CUR}/config/config.php
-chmod 770 ${DIR_OC_CUR}/config/config.php
 
 # Detect paths
 MYSQL=$(which mysql)
