@@ -145,6 +145,7 @@ echo
 echo "  ==> Setting up Directory rights"
 chmod -R 777 $DIR_WWW
 chown -R www-data $DIR_WWW/$DB_TYPE/
+chmod -R 770 $DIR_WWW/$DB_TYPE/config
 chmod -R 770 $DIR_OC_DATA
 
 echo "  ==> Done with general owncloud setup"
