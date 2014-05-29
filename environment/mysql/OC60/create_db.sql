@@ -308,7 +308,7 @@ DROP TABLE IF EXISTS `oc6_dlstcharts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc6_dlstcharts` (
   `stc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oc6_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `oc_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `stc_month` bigint(20) NOT NULL,
   `stc_dayts` bigint(20) NOT NULL,
   `stc_used` bigint(20) NOT NULL,
@@ -335,7 +335,7 @@ DROP TABLE IF EXISTS `oc6_dlstcharts_uconf`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc6_dlstcharts_uconf` (
   `uc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oc6_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `oc_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `uc_key` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `uc_val` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`uc_id`)
@@ -958,7 +958,7 @@ DROP TABLE IF EXISTS `oc6_roundcube`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc6_roundcube` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `oc6_user` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `oc_user` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `mail_user` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `mail_password` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
