@@ -28,7 +28,6 @@ public class LoginTest extends AbstractUITest {
 	@Test
 	public void trying_Login() {
 		endUserLogin.enter_login_area();
-		//endUserLogin.do_login("", "");
-
+		endUserLogin.do_login("admin", "password");
 	}
 }
