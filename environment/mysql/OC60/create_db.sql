@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: oc_testing_OC60
+-- Host: localhost    Database: oc_testing
 -- ------------------------------------------------------
 -- Server version	5.5.37-0ubuntu0.12.04.1-log
 
@@ -1118,11 +1118,11 @@ LOCK TABLES `oc6_vcategory_to_object` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'oc_testing_OC60'
+-- Dumping events for database 'oc_testing'
 --
 
 --
--- Dumping routines for database 'oc_testing_OC60'
+-- Dumping routines for database 'oc_testing'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

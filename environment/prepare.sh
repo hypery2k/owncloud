@@ -131,7 +131,7 @@ echo "  ==> Done with general owncloud setup"
 echo
 echo "  ==> Preparing OwnCloud DB"
 # copy settings template
-cp ${DIR_OC_CUR}config/config_${DB_TYPE}.php ${DIR_OC_CUR}config/config.php
+cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
 
 MUSER="oc_testing"
 MPASS="password"
