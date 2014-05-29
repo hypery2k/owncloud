@@ -74,17 +74,18 @@ echo
 # SETUP OWNCLOUD
 echo "  ==> Preparing owncloud setup"
 
-# clean up first
-rm -r $DIR_WWW/$DB_TYPE/*
 echo "  ==> Directory listing of web testing folder:"
 ls -lisah $DIR_WWW/$DB_TYPE/*
+
+# clean up first
+rm -r $DIR_WWW/$DB_TYPE/*
 
 DIR_OC_CUR=$DIR_WWW/$DB_TYPE/$OC_VERSION
 DIR_RC_CUR=$DIR_WWW/$DB_TYPE/$RC_VERSION
 DIR_OC_APPS=$DIR_OC_CUR/apps
 DIR_OC_DATA=$DIR_OC_CUR/data
 DIR_OC_APP_RC=$DIR_OC_APPS/roundcube
-DIR_OC_APP_SC=$DIR_OC_APPS/storage-charts
+DIR_OC_APP_SC=$DIR_OC_APPS/storage_charts
 
 #create all needed directories
 mkdir -p $DIR_WWW/$DB_TYPE
@@ -106,10 +107,11 @@ ls -lisah $DIR_RC_CUR*
 
 # prepare roundcube app
 # TODO testdata in db
+
 cd $DIR_OC_DEV
 echo "  ==> copy app folder"
-cp -r $DIR_OC_DEV/roundcube/src/main/php/* $DIR_OC_APP_RC
-cp -r $DIR_OC_DEV/storage-charts/src/main/php/* $DIR_OC_APP_SC
+cp -r $DIR_OC_DEV/roundcube/target/classes/php/* $DIR_OC_APP_RC
+cp -r $DIR_OC_DEV/storage_charts/target/classes/php/* $DIR_OC_APP_SC
 
 echo "  ==> Directory listing for app-folder of roundcube:"
 ls -lisah $DIR_OC_APP_RC*
@@ -121,18 +123,32 @@ echo
 
 echo "  ==> Setting up Directory rights"
 chmod -R 777 $DIR_WWW
+chown -R www-data $DIR_WWW/$DB_TYPE/
 chmod -R 770 $DIR_OC_DATA
 
 echo "  ==> Done with general owncloud setup"
 
 echo
 echo "  ==> Preparing OwnCloud DB"
+# copy settings template
+cp ${DIR_OC_CUR}config/config_${DB_TYPE}.php ${DIR_OC_CUR}config/config.php
+
+MUSER="oc_testing"
+MPASS="password"
+MDB="oc_testing"
+
+# Detect paths
+MYSQL=$(which mysql)
+AWK=$(which awk)
+GREP=$(which grep)
+
 case $DB_TYPE in
   sqllite)        
     echo "  ==> Preparing SQLite DB"
     ;;
   mysql)        
     echo "  ==> Preparing MySQL DB"
+    $MYSQL -u $MUSER -p$MPASS $MDB < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
     ;;
 esac
 
