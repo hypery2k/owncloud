@@ -131,8 +131,8 @@ ls -lisah $DIR_RC_CUR*
 
 cd $DIR_OC_DEV
 echo "  ==> copy app folder"
-cp -r $DIR_OC_DEV/roundcube/target/classes/php/* $DIR_OC_APP_RC
-cp -r $DIR_OC_DEV/storage_charts/target/classes/php/* $DIR_OC_APP_SC
+cp -r $DIR_OC_DEV/roundcube/target/classes/* $DIR_OC_APP_RC
+cp -r $DIR_OC_DEV/storage_charts/target/classes/* $DIR_OC_APP_SC
 
 echo "  ==> Directory listing for app-folder of roundcube:"
 ls -lisah $DIR_OC_APP_RC*
