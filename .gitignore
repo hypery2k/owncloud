@@ -16,3 +16,6 @@ __MACOSX
 roundcube/target/*
 storage-charts/target/*
 webtest/target/*
+storage_charts/target/*
+webtest/logs/*
+webtest/build/*
