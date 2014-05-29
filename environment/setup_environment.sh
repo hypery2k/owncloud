@@ -4,11 +4,9 @@
 #
 # author Martin Reinhardt
 #
-# usage $0 -h -o OC50 -r RC07 -d mysql or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql
+# usage $0 -h -o OC50 -r RC07 -d mysql or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --workspace /tmp
 
-PWD="`pwd`"
 DIR_WWW=/var/www/oc_testing
-DIR_OC_DEV=${PWD%/*}
 
 echo
 echo "=============================================="
@@ -25,6 +23,10 @@ RC_VERSION=""
 DB_TYPE=""
 HOST_URL=""
 
+# set current path as working dir (fallback)
+PWD="`pwd`"
+DIR_OC_DEV=${PWD%/*}
+
 
 while [[ $# > 1 ]]
 do
@@ -32,7 +34,7 @@ do
   shift
   case $key in
     -h|--help)
-      echo "usage $0 -h -o OC50 -r RC07 -d mysql -u http://localhost or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --url http://localhost"
+      echo "usage $0 -h -o OC50 -r RC07 -d mysql -u http://localhost -w /tmp or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --url http://localhost --workspace /tmp"
       exit 0
       ;;
     -o|--oc_version)        
@@ -51,9 +53,13 @@ do
       HOST_URL="$1"
       shift
       ;;
+    -w|--workspace)        
+      DIR_OC_DEV="$1"
+      shift
+      ;;
     *)
       echo "Unkown option"
-      echo "usage $0 -h -o OC50 -r RC07 -d mysql -u http://localhost or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --url http://localhost"
+      echo "usage $0 -h -o OC50 -r RC07 -d mysql -u http://localhost -w /tmp or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --url http://localhost --workspace /tmp"
       exit 0
     ;;
   esac
