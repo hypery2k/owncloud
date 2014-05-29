@@ -21,23 +21,17 @@
 * 
 */
 
-OCP\User::checkLoggedIn();
-OCP\App::checkAppEnabled('storage-charts');
+OCP\JSON::checkLoggedIn();
+OCP\JSON::checkAppEnabled('storage_charts');
 
-$tmpl = new OCP\Template('storage-charts', 'settings.tpl');
+$l = new OC_L10N('storage_charts');
 
-if(isset($_POST['storage-charts_disp']) && count($_POST['storage-charts_disp']) <= 3){
-	$c = $_POST['storage-charts_disp'];
-	$c_disp = Array('cpie_rfsus'=>0,'clines_usse'=>0,'chisto_us'=>0);
-	foreach(array_keys($c_disp) as $chart){
-		if(in_array($chart, $c)){
-			$c_disp[$chart] = 1;
-		}
+// Update and save the new configuration
+if(is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus'))){
+	OC_DLStCharts::setUConfValue($_POST['k'], $_POST['s']);
+	if(strcmp($_POST['k'],'hu_size') == 0){
+		OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('clines_usse', $l)));
+	}else{
+		OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('chisto_us', $l)));
 	}
-	OC_DLStCharts::setUConfValue('c_disp', serialize($c_disp));
-	$tmpl->assign('stc_save_ok', TRUE);
 }
-
-$displays = OC_DLStCharts::getUConfValue('c_disp', Array('uc_val' => 'a:3:{s:10:"cpie_rfsus";i:1;s:11:"clines_usse";i:1;s:9:"chisto_us";i:1;}'));
-$tmpl->assign('displays', unserialize($displays['uc_val']));
-return $tmpl->fetchPage();

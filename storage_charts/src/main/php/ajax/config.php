@@ -22,16 +22,23 @@
 */
 
 OCP\JSON::checkLoggedIn();
-OCP\JSON::checkAppEnabled('storage-charts');
+OCP\JSON::checkAppEnabled('storage_charts');
 
-$l = new OC_L10N('storage-charts');
-
-// Update and save the new configuration
-if(is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus'))){
-	OC_DLStCharts::setUConfValue($_POST['k'], $_POST['s']);
-	if(strcmp($_POST['k'],'hu_size') == 0){
-		OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('clines_usse', $l)));
-	}else{
-		OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('chisto_us', $l)));
+if(in_array($_POST['k'], Array('hu_size','sc_sort','hu_size_hus'))){
+	switch($_POST['o']){
+		case 'set':
+			$i = NULL;
+			if(is_array($_POST['i'])){
+				$i = serialize($_POST['i']);
+				
+			}elseif(is_numeric($_POST['i'])){
+				$i = $_POST['i'];
+			}
+			OC_DLStCharts::setUConfValue($_POST['k'], $i);
+		break;
+		case 'get':
+			$v = OC_DLStCharts::getUConfValue($_POST['k']);
+			OCP\JSON::encodedPrint(Array('r' => $v['uc_val']));
+		break;
 	}
 }

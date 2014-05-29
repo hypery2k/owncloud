@@ -22,7 +22,7 @@
 */
 
 /**
- * This class manages storage-charts. 
+ * This class manages storage_charts. 
  */
 class OC_DLStCharts {
 	

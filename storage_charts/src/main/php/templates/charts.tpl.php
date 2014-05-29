@@ -23,11 +23,11 @@
 * 
 */
 
-OCP\Util::addStyle('storage-charts', 'styles');
-OCP\Util::addScript('storage-charts', 'highCharts-2.2.1/highcharts.min');
+OCP\Util::addStyle('storage_charts', 'styles');
+OCP\Util::addScript('storage_charts', 'highCharts-2.2.1/highcharts.min');
 OCP\Util::addScript('3rdparty','chosen/chosen.jquery.min');
 OCP\Util::addStyle('3rdparty','chosen');
-OCP\Util::addScript('storage-charts', 'units.min');
+OCP\Util::addScript('storage_charts', 'units.min');
 
 ?>
 
@@ -37,7 +37,7 @@ OCP\Util::addScript('storage-charts', 'units.min');
     		axis:'y',handle:'h3',placeholder:'ui-state-highlight',update:function(e,u){
     			$.ajax({
 		        	type:'POST',
-		        	url:OC.linkTo('storage-charts','ajax/config.php'),
+		        	url:OC.linkTo('storage_charts','ajax/config.php'),
 		        	dataType:'json',
 		        	data:{o:'set',k:'sc_sort',i:$('#stc_sortable').sortable('toArray')},
 		        	async:true
@@ -48,7 +48,7 @@ OCP\Util::addScript('storage-charts', 'units.min');
     });
 </script>
 
-<div id="storage-charts">
+<div id="storage_charts">
 	<div class="personalblock topblock titleblock">
 		DjazzLab Storage Charts<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?></span>
 	</div>
@@ -65,7 +65,7 @@ OCP\Util::addScript('storage-charts', 'units.min');
 			}
 			if($_['c_disp'][$sc_sort]){ ?>
 			<div id="<?php print($sc_sort); ?>" class="personalblock">
-				<h3><img src="<?php print(OCP\Util::imagePath('storage-charts', 'move.png')); ?>" /><?php print($l->t($sc_sort_title).' '.$l->t('for')); ?> "<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getUser()); ?>"</h3>
+				<h3><img src="<?php print(OCP\Util::imagePath('storage_charts', 'move.png')); ?>" /><?php print($l->t($sc_sort_title).' '.$l->t('for')); ?> "<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getUser()); ?>"</h3>
 				<div id="<?php print(substr($sc_sort, 1)); ?>" style="max-width:100%;height:400px;margin:0 auto"></div>
 				<script type="text/javascript">$(document).ready(function(){<?php print(OC_DLStChartsLoader::loadChart($sc_sort, $l)); ?>});</script>
 			</div>
