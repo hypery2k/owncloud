@@ -16,44 +16,64 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.phpmaven</groupId>
-				<artifactId>maven-php-plugin</artifactId>
-				<version>${maven-php.version}</version>
-				<extensions>true</extensions>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.0</version>
+				<version>${maven-site-plugin.version}</version>
 				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.phpmaven</groupId>
-							<artifactId>maven-php-plugin</artifactId>
-							<reportSets>
-								<reportSet>
-									<reports>
-										<report>phpdocumentor</report>
-										<report>phpunit-coverage</report>
-										<report>phpunit</report>
-									</reports>
-								</reportSet>
-							</reportSets>
-						</plugin>
-					</reportPlugins>
+					<generateReports>false</generateReports>
+					<inputEncoding>UTF-8</inputEncoding>
+					<outputEncoding>UTF-8</outputEncoding>
+					<!-- Site deployment done using GitHub site plugin -->
+					<skipDeploy>true</skipDeploy>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>lt.velykis.maven.skins</groupId>
+						<artifactId>reflow-velocity-tools</artifactId>
+						<version>1.1.0</version>
+					</dependency>
+					<!-- Reflow skin requires Velocity >= 1.7 -->
+					<dependency>
+						<groupId>org.apache.velocity</groupId>
+						<artifactId>velocity</artifactId>
+						<version>1.7</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<!-- GitHub site plug-in for deployment to GitHub pages -->
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>${github-site-maven-plugin.version}</version>
+				<configuration>
+					<message>Creating site for ${project.artifactId},
+						${project.version}</message>
+					<!-- this does the trick to place every module in the correct subfolder -->
+					<path>${project.distributionManagement.site.url}</path>
+					<merge>true</merge>
+				</configuration>
+				<executions>
+					<execution>
+						<id>github-site</id>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>site-deploy</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 
 
 		<pluginManagement>
+
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-eclipse-plugin</artifactId>
-					<version>${maven-eclipse-plugin.version}</version>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-plugin</artifactId>
+					<version>${maven-php.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -111,27 +131,20 @@
 		<maven-pdf-plugin.version>1.2</maven-pdf-plugin.version>
 		<maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
 		<maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
+		<github-site-maven-plugin.version>0.9</github-site-maven-plugin.version>
 
 
 	</properties>
 
-	<dependencies>
-		<!-- phpUnit for PHP 5 -->
-		<dependency>
-			<groupId>org.phpmaven</groupId>
-			<artifactId>maven-php-phpunit</artifactId>
-			<version>${maven-php.version}</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-
-
 	<pluginRepositories>
-		<!--<pluginRepository> <id>release-repo1.php-maven.org</id> <name>PHP-Maven 
-			2 Release Repository</name> <url>http://repos.php-maven.org/releases</url> 
-			<releases> <enabled>true</enabled> </releases> </pluginRepository> -->
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Repository</name>
+			<url>http://repo1.maven.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
 		<pluginRepository>
 			<id>release-codename-php</id>
 			<name>PHP-Maven 2 Release Repository</name>
@@ -144,6 +157,15 @@
 	</pluginRepositories>
 
 	<repositories>
+
+		<repository>
+			<id>central</id>
+			<name>Maven Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
 		<!--<repository> <id>release-repo1.php-maven.org</id> <name>PHP-Maven 2 
 			Release Repository</name> <url>http://repos.php-maven.org/releases</url> 
@@ -158,5 +180,25 @@
 			</releases>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<site>
+			<id>${site.deploy.id}</id>
+			<name>Deployment through GitHub's site deployment plugin</name>
+			<url>${site.deploy.url}</url>
+		</site>
+	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:git@github.com:hypery2k/owncloud.git</connection>
+		<developerConnection>scm:git:git@github.com:hypery2k/owncloud.git</developerConnection>
+		<url>http://github.com/hypery2k/owncloud/tree/master</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>http://github.com/hypery2k/owncloud/issues</url>
+	</issueManagement>
 
 </project>
