@@ -171,6 +171,7 @@ case $DB_TYPE in
   mysql)        
     echo "  ==> Preparing MySQL DB"
     $MYSQL -u $DB_USER -p$DB_PASS $DB_NAME < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
+    $MYSQL -u $DB_USER -p$DB_PASS $DB_NAME -e "INSERT INTO oc_testing.oc6_appconfig (appid,configkey,configvalue) VALUES('roundcube','maildir','/oc_testing/mysql/$RC_VERSION/');"
     ;;
 esac
 
