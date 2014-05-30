@@ -41,7 +41,3 @@ Options -Indexes
 <IfModule pagespeed_module>
         ModPagespeed Off
 </IfModule>
-
-order allow,deny
-allow from 127.0.0.1
-deny from all
