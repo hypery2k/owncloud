@@ -164,12 +164,21 @@ MYSQL=$(which mysql)
 AWK=$(which awk)
 GREP=$(which grep)
 
+
 case $DB_TYPE in
   sqllite)        
     echo "  ==> Preparing SQLite DB"
     ;;
   mysql)        
-    echo "  ==> Preparing MySQL DB"
+    echo "  ==> Preparing MySQL DB"    
+	# clean up first
+	TABLES=$($MYSQL -u $DB_USER -p$DB_PASS $DB_NAME -e 'show tables' | $AWK '{ print $1}' | $GREP -v '^Tables' )
+	for t in $TABLES
+	do
+		echo "    Deleting $t table from $MDB database..."
+		$MYSQL -u $DB_USER -p$DB_PASS $DB_NAME -e "drop table $t"
+	done
+	echo "  ==> Setting up MySQL DB"  
     $MYSQL -u $DB_USER -p$DB_PASS $DB_NAME < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
     $MYSQL -u $DB_USER -p$DB_PASS $DB_NAME -e "INSERT INTO oc_testing.oc6_appconfig (appid,configkey,configvalue) VALUES('roundcube','maildir','/oc_testing/mysql/$RC_VERSION/');"
     ;;
