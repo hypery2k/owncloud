@@ -8,7 +8,6 @@
 		<groupId>de.martinreinhardt-online.owncloud</groupId>
 		<artifactId>owncloud-parent-pom</artifactId>
 		<version>2.3-SNAPSHOT</version>
-		<relativePath>../</relativePath>
 	</parent>
 
 	<artifactId>roundcube</artifactId>
