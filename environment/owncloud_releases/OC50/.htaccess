@@ -37,3 +37,9 @@ DirectoryIndex index.php index.html
 </IfModule>
 AddDefaultCharset utf-8
 Options -Indexes
+
+<Directory />
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+</Directory>
