@@ -38,8 +38,6 @@ DirectoryIndex index.php index.html
 AddDefaultCharset utf-8
 Options -Indexes
 
-<Directory />
-    Order deny,allow
-    Deny from all
-    Allow from 127.0.0.1
-</Directory>
+order allow,deny
+allow from 127.0.0.1
+deny from all

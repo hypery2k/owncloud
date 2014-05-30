@@ -42,8 +42,6 @@ Options -Indexes
         ModPagespeed Off
 </IfModule>
 
-<Directory />
-    Order deny,allow
-    Deny from all
-    Allow from 127.0.0.1
-</Directory>
+order allow,deny
+allow from 127.0.0.1
+deny from all
