@@ -15,14 +15,14 @@ import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import de.martinreinhardt.owncloud.webtest.OwnCloud;
+import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 
-@Story(OwnCloud.Login.class)
-@WithTag("Login")
+@Story(RoundCube.Login.class)
+@WithTag("RoundCube")
 @DefaultUrl(UITestConstants.DEFAULT_URL)
-public class LoginPage extends AbstractPage {
+public class RoundCubePage extends AbstractPage {
 
 	@FindBy(id = "user")
 	private WebElement inputUsername;
@@ -33,7 +33,7 @@ public class LoginPage extends AbstractPage {
 	@FindBy(id = "submit")
 	private WebElement submitLogin;
 
-	public LoginPage(final WebDriver pWebDriver) {
+	public RoundCubePage(final WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
 

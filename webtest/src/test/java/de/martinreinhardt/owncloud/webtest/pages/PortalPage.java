@@ -19,33 +19,30 @@ import de.martinreinhardt.owncloud.webtest.OwnCloud;
 import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 
-@Story(OwnCloud.Login.class)
-@WithTag("Login")
+@Story(OwnCloud.Apps.class)
+@WithTag("Apps")
 @DefaultUrl(UITestConstants.DEFAULT_URL)
-public class LoginPage extends AbstractPage {
+public class PortalPage extends AbstractPage {
 
-	@FindBy(id = "user")
-	private WebElement inputUsername;
+	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='roundcube_index']/a/img")
+	private WebElement roundcubeButton;
 
-	@FindBy(id = "password")
-	private WebElement inputPassword;
+	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='storage_charts']/a/img")
+	private WebElement storageChartsButton;
 
-	@FindBy(id = "submit")
-	private WebElement submitLogin;
-
-	public LoginPage(final WebDriver pWebDriver) {
+	/**
+	 * @param pWebDriver
+	 */
+	public PortalPage(WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
 
-	public void enter_username(String keyword) {
-		input(inputUsername, keyword);
+	public void go_to_roundcube_app() {
+		click(roundcubeButton);
 	}
 
-	public void enter_password(String keyword) {
-		input(inputPassword, keyword);
+	public void go_to_storage_charts_app() {
+		click(storageChartsButton);
 	}
 
-	public void do_login() {
-		click(submitLogin);
-	}
 }
