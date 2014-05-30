@@ -179,7 +179,7 @@ case $DB_TYPE in
 	for t in $TABLES
 	do
 		echo "    Deleting $t table from $MDB database..."
-		$MYSQL -u $DB_USER -p$DB_PASS $DB_NAME -e "drop table $t"
+		$MYSQL -u $DB_USER -p$DB_PASS $DB_NAME -e "drop table $t;"
 	done
 	echo "  ==> Setting up MySQL DB"  
     $MYSQL -u $DB_USER -p$DB_PASS $DB_NAME < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
