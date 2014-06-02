@@ -21,3 +21,5 @@ webtest/logs/*
 webtest/build/*
 
 target/*
+roundcube/.buildpath
+roundcube/.settings/*

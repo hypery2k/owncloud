@@ -25,11 +25,14 @@ class OC_Mail_Object {
 
   const ERROR_CODE_GENERAL = '0';
 
-  const ERROR_CODE_LOGIN = '1';
+  // LOGIN RELATED ERRORS
+  const ERROR_CODE_LOGIN = '10';
 
-  const ERROR_CODE_NETWORK = '2';
+  const ERROR_CODE_AUTOLOGIN = '11';
 
-  const ERROR_CODE_RC_NOT_FOUND = '3';
+  const ERROR_CODE_NETWORK = '20';
+
+  const ERROR_CODE_RC_NOT_FOUND = '30';
 
   private $errorOccurred;
 

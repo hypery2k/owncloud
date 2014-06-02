@@ -47,6 +47,7 @@ if (!$table_exists) {
   $mail_password = $mail_userdata['mail_password'];
 
   $disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
+  $enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
   $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
   $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
@@ -57,11 +58,10 @@ if (!$table_exists) {
       if ($mail_username != '' && $mail_password != '') {
         $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
         if ($maildir != '') {
-
           $mailAppReturn = OC_RoundCube_App::showMailFrame($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
-
           if ($mailAppReturn -> isErrorOccurred()) {
-            OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::INFO);
+            OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view not done due to errors', OCP\Util::ERROR);
+		    OCP\Util::writeLog('roundcube', 'Got the following error code: ' + $mailAppReturn -> getErrorCode(),OCP\Util::ERROR);
             switch ($mailAppReturn -> getErrorCode()) {
               case OC_Mail_Object::ERROR_CODE_NETWORK :
                 $html_output = $this -> inc("part.error.error-settings");
@@ -82,10 +82,8 @@ if (!$table_exists) {
             }
           } else {
             OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::INFO);
-
             if (!$disable_control_nav) {
-              $mail_user = OCP\Config::getAppValue('roundcube', 'mail_username', OCP\User::getUser());
-              $html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_user . "</div></div>";
+              $html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
             }
             $html_output = $html_output . "<div id=\"notification\"></div>";
             if (!$disable_control_nav) {
@@ -99,16 +97,28 @@ if (!$table_exists) {
           }
 
         } else {
+		  OCP\Util::writeLog('roundcube', 'roundcube server path not set',OCP\Util::ERROR);
           $html_output = $html_output . $this -> inc("part.error.no-settings");
         }
       } else {
-        $html_output = $html_output . $this -> inc("part.error.no-settings");
+		OCP\Util::writeLog('roundcube', 'No valid user login data found.',OCP\Util::ERROR);
+      	if($enable_autologin){
+        	$html_output = $html_output . $this -> inc("part.error.autologin");      		
+      	} else {
+        	$html_output = $html_output . $this -> inc("part.error.no-settings");
+      	}
       }
     } else {
+	  OCP\Util::writeLog('roundcube', 'No user login data set',OCP\Util::ERROR);
       $html_output = $html_output . $this -> inc("part.error.wrong-auth");
     }
   } else {
-    $html_output = $html_output . $this -> inc("part.error.no-settings");
+	OCP\Util::writeLog('roundcube', 'No user id set',OCP\Util::ERROR);
+    if($enable_autologin){
+      $html_output = $html_output . $this -> inc("part.error.autologin");      		
+    } else {
+      $html_output = $html_output . $this -> inc("part.error.no-settings");
+    }
   }
 }
 // output formatted HTML
