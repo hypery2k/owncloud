@@ -11,15 +11,16 @@ tmp
 __MACOSX
 
 .idea/workspace.xml
-
 .idea/deployment.xml
-roundcube/target/*
-storage-charts/target/*
-webtest/target/*
-storage_charts/target/*
-webtest/logs/*
-webtest/build/*
 
+
+**/build/*
+**/target/*
 target/*
-roundcube/.buildpath
-roundcube/.settings/*
+**/.buildpath
+**/.settings/*
+**/.classpath
+
+webtest/logs/*
+
+webtest/.classpath
