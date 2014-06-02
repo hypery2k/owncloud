@@ -269,9 +269,10 @@ class OC_RoundCube_App {
     // TODO remove obsolete params
     $returnObject = new OC_Mail_Object();
 
-    // Create RC login object.
-    $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
+    $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', true);
+    $enableAutologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
+    // Create RC login object.
     $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 
     try {
@@ -301,7 +302,12 @@ class OC_RoundCube_App {
       OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a network connection exception to roundcube', OCP\Util::ERROR);
     } catch (OC_Mail_LoginException $ex_login) {
       $returnObject -> setErrorOccurred(true);
-      $returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_LOGIN);
+      if($enableAutologin){
+      	OCP\Util::writeLog('roundcube', 'Autologin is enabled. Seems that the owncloud and roundcube login details do not match', OCP\Util::ERROR);  
+      	$returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_AUTOLOGIN);    	
+      } else {
+      	$returnObject -> setErrorCode(OC_Mail_Object::ERROR_CODE_LOGIN);
+      }
       $returnObject -> setHtmlOutput('');
       $returnObject -> setErrorDetails("ERROR: Technical problem, " . $ex_login -> getMessage());
       OCP\Util::writeLog('roundcube', 'RoundCube can\'t login to roundcube due to a login exception to roundcube', OCP\Util::ERROR);
