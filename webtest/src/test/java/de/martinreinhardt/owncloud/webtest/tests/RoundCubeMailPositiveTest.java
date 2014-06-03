@@ -49,7 +49,7 @@ public class RoundCubeMailPositiveTest extends RoundCubeMockedMailTest {
 	}
 
 	@Test
-	public void test_roundcube_mail() throws AddressException,
+	public void test_roundcube_mail_without_errors() throws AddressException,
 			MessagingException, UserException {
 		runEmailTest();
 	}

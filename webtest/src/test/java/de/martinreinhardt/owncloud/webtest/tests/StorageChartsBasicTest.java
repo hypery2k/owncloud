@@ -32,7 +32,7 @@ public class StorageChartsBasicTest extends AbstractUITest {
 	public LoggedInUserSteps loggedIn;
 
 	@Test
-	public void view_webmail() {
+	public void view_download_charts() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
 		loggedIn.go_to_roundcube_view();

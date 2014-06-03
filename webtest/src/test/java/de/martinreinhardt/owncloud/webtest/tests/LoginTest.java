@@ -30,7 +30,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 public class LoginTest extends AbstractUITest {
 
 	@Test
-	public void trying_Login() {
+	public void test_oc_login() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
 	}

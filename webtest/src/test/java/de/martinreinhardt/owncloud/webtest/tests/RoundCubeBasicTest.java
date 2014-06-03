@@ -31,7 +31,7 @@ public class RoundCubeBasicTest extends AbstractUITest {
 	public LoggedInUserSteps loggedIn;
 
 	@Test
-	public void view_mails() {
+	public void test_iframe_integration() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
 		loggedIn.go_to_roundcube_view();
