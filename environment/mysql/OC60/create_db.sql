@@ -1046,6 +1046,8 @@ CREATE TABLE `oc6_users` (
 LOCK TABLES `oc6_users` WRITE;
 /*!40000 ALTER TABLE `oc6_users` DISABLE KEYS */;
 INSERT INTO `oc6_users` VALUES ('admin',NULL,'$2a$08$ppgj7UMJoLNEJHNWjKOlaOp/JO3TJ4/9VoOrhFZvsHmFe0Lm4MbDG');
+INSERT INTO `oc6_users` VALUES ('positive@roundcube.owncloud.org',NULL,'$2a$08$0b7DGj2Y6PS8lAfCuXBOd.H2cj83HX0jfZG2xy1ilnCSU54ZFgRZq');
+INSERT INTO `oc6_users` VALUES ('negative@roundcube.owncloud.org',NULL,'$2a$08$lkwE4UYlQ90A2b6cUNpgZOeTDRPCZrMEufih50Jeifg/dtOJ4J2MG');
 /*!40000 ALTER TABLE `oc6_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
