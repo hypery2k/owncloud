@@ -85,7 +85,7 @@ class OC_RoundCube_AuthHelper {
       OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
     } catch (Exception $e) {
       // We got an exception during login/refresh
-      OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error.' . $e,
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error during refresh.' . $e,
                          OCP\Util::DEBUG);
       return false;
     }

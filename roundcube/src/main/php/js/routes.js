@@ -3,6 +3,6 @@ $(document).ready(function(){
         var url = OC.Router.generate('roundcube_refresh');
         setInterval(function(){
             $.post(url);
-        }, 300000);
+        }, 30000);
     });
 });
