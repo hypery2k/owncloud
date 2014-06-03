@@ -24,14 +24,13 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 @RunWith(ThucydidesRunner.class)
 @Concurrent
 public class RoundCubeBasicTest extends AbstractUITest {
-
 	@Steps
 	public LoggedInUserSteps loggedIn;
 
 	@Test
-	public void view_download_charts() {
+	public void view_mails() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
-		loggedIn.go_to_storagecharts_view();
+		loggedIn.go_to_roundcube_view();
 	}
 }

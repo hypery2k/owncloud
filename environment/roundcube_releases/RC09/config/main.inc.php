@@ -78,7 +78,7 @@ $rcmail_config['smtp_debug'] = false;
 $rcmail_config['default_host'] = 'localhost';
 
 // TCP port used for IMAP connections
-$rcmail_config['default_port'] = 143;
+$rcmail_config['default_port'] = 3143;
 
 // IMAP AUTH type (DIGEST-MD5, CRAM-MD5, LOGIN, PLAIN or null to use
 // best server supported one)
