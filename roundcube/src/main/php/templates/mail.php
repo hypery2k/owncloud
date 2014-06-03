@@ -55,14 +55,18 @@ if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::INFO);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
-			OCP\Util::writeLog('roundcube', 'Used mail_username: ' + $mail_username, OCP\Util::DEBUG);
-			if ($mail_username != '') {
+			OCP\Util::writeLog('roundcube', 'Used mail_username: '.$mail_username, OCP\Util::DEBUG);
+			if (!$enable_autologin && ( $mail_username == '' || $mail_password == '')) {
+				OCP\Util::writeLog('roundcube', 'No valid user login data found.',OCP\Util::ERROR);
+				$html_output = $html_output . $this -> inc("part.error.no-settings");
+			}
+			else {
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
 					$mailAppReturn = OC_RoundCube_App::showMailFrame($rc_host, $rc_port, $maildir);
 					if ($mailAppReturn -> isErrorOccurred()) {
 						OCP\Util::writeLog('roundcube', 'Not rendering roundcube iframe view due to errors', OCP\Util::ERROR);
-						OCP\Util::writeLog('roundcube', 'Got the following error code: ' + $mailAppReturn -> getErrorCode(),OCP\Util::ERROR);
+						OCP\Util::writeLog('roundcube', 'Got the following error code: '.$mailAppReturn -> getErrorCode(),OCP\Util::ERROR);
 						switch ($mailAppReturn -> getErrorCode()) {
 							case OC_Mail_Object::ERROR_CODE_NETWORK :
 								$html_output = $this -> inc("part.error.error-settings");
@@ -99,13 +103,6 @@ if (!$table_exists) {
 
 				} else {
 					OCP\Util::writeLog('roundcube', 'roundcube server path not set',OCP\Util::ERROR);
-					$html_output = $html_output . $this -> inc("part.error.no-settings");
-				}
-			} else {
-				OCP\Util::writeLog('roundcube', 'No valid user login data found.',OCP\Util::ERROR);
-				if($enable_autologin){
-					$html_output = $html_output . $this -> inc("part.error.autologin");
-				} else {
 					$html_output = $html_output . $this -> inc("part.error.no-settings");
 				}
 			}
