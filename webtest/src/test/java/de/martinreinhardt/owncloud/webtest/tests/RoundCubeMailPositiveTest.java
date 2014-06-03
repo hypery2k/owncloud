@@ -7,6 +7,8 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
+import static org.junit.Assert.assertFalse;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -49,5 +51,7 @@ public class RoundCubeMailPositiveTest extends RoundCubeMockedMailTest {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("positive@roundcube.owncloud.org", "42");
 		loggedInuserSteps.go_to_roundcube_view();
+		assertFalse("There should be no error displayed.",
+				appSteps.is_showing_errors());
 	}
 }

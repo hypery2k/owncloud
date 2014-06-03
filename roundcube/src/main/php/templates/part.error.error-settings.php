@@ -1,4 +1,4 @@
-<div id="firstrun">
+<div id="errorMsg">
     <h1><?php echo $l->t("You have errors in your settings") ?></h1>
     <div>
         <small><?php echo $l->t('You can manage your admin settings here:') ?></small>

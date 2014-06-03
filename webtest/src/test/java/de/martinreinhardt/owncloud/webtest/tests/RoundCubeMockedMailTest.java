@@ -26,6 +26,7 @@ import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetupTest;
 
 import de.martinreinhardt.owncloud.webtest.steps.LoggedInUserSteps;
+import de.martinreinhardt.owncloud.webtest.steps.RoundCubeSteps;
 import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 
@@ -37,6 +38,9 @@ public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 
 	@Steps
 	protected LoggedInUserSteps loggedInuserSteps;
+
+	@Steps
+	protected RoundCubeSteps appSteps;
 
 	public void runEmailTest() throws AddressException, MessagingException,
 			UserException {

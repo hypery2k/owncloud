@@ -264,7 +264,7 @@ class OC_RoundCube_App {
    * @param roundcube password $ownPass
    *
    */
-  public static function showMailFrame($rcHost, $rcPort, $maildir, $ownUser = false, $ownPass = false) {
+  public static function showMailFrame($rcHost, $rcPort, $maildir) {
 
     // TODO remove obsolete params
     $returnObject = new OC_Mail_Object();

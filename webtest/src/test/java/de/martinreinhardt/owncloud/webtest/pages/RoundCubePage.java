@@ -8,44 +8,25 @@
 package de.martinreinhardt.owncloud.webtest.pages;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.annotations.Story;
-import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 
-@Story(RoundCube.Login.class)
-@WithTag("RoundCube")
 @DefaultUrl(UITestConstants.DEFAULT_URL)
 public class RoundCubePage extends AbstractPage {
 
-	@FindBy(id = "user")
-	private WebElement inputUsername;
-
-	@FindBy(id = "password")
-	private WebElement inputPassword;
-
-	@FindBy(id = "submit")
-	private WebElement submitLogin;
+	@FindBy(id = "errorMsg")
+	private WebElement errorMsg;
 
 	public RoundCubePage(final WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
 
-	public void enter_username(String keyword) {
-		input(inputUsername, keyword);
-	}
-
-	public void enter_password(String keyword) {
-		input(inputPassword, keyword);
-	}
-
-	public void do_login() {
-		click(submitLogin);
+	public boolean isErrorMessageDisplayed() {
+		return errorMsg.isDisplayed();
 	}
 }
