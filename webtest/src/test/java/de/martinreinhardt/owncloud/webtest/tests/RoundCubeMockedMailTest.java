@@ -19,11 +19,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.junit.annotations.Concurrent;
-import net.thucydides.junit.runners.ThucydidesRunner;
-
-import org.junit.Before;
-import org.junit.runner.RunWith;
 
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
@@ -38,15 +33,12 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  * @author mreinhardt
  * 
  */
-@RunWith(ThucydidesRunner.class)
-@Concurrent
 public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 
 	@Steps
 	protected LoggedInUserSteps loggedInuserSteps;
 
-	@Before
-	public void setup() throws AddressException, MessagingException,
+	public void runEmailTest() throws AddressException, MessagingException,
 			UserException {
 
 		GreenMail server = new GreenMail(ServerSetupTest.ALL);
@@ -69,7 +61,10 @@ public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 				userDtls.getUsername(), userDtls.getPassword());
 		user.deliver(msg);
 		assertEquals(1, server.getReceivedMessages().length);
+		executeTestStepsFrontend();
 	}
 
 	public abstract EmailUserDetails getEmailUserDetailsTest();
+
+	public abstract void executeTestStepsFrontend();
 }

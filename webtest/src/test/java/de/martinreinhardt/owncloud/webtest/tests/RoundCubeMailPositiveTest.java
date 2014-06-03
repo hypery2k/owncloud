@@ -7,18 +7,26 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import net.thucydides.core.annotations.Story;
 import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.icegreen.greenmail.user.UserException;
+
+import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 
 /**
  * @author mreinhardt
  * 
  */
+@Story(RoundCube.Login.class)
 @RunWith(ThucydidesRunner.class)
 @Concurrent
 public class RoundCubeMailPositiveTest extends RoundCubeMockedMailTest {
@@ -32,7 +40,12 @@ public class RoundCubeMailPositiveTest extends RoundCubeMockedMailTest {
 	}
 
 	@Test
-	public void view_download_charts() {
+	public void test_roundcube_mail() throws AddressException,
+			MessagingException, UserException {
+		runEmailTest();
+	}
+
+	public void executeTestStepsFrontend() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("positive@roundcube.owncloud.org", "42");
 		loggedInuserSteps.go_to_roundcube_view();
