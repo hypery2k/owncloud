@@ -52,6 +52,8 @@ if (!$table_exists) {
 	$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
 	$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
 
+	OCP\Util::writeLog('roundcube', 'Opening iframe for RC-host '.$rc_host.' with port '.$rc_port, OCP\Util::DEBUG);
+
 	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::INFO);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
@@ -61,6 +63,9 @@ if (!$table_exists) {
 				$html_output = $html_output . $this -> inc("part.error.no-settings");
 			}
 			else {
+				if($enable_autologin){
+					$mail_username = $mail_userdata['oc_user'];
+				}
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
 					$mailAppReturn = OC_RoundCube_App::showMailFrame($rc_host, $rc_port, $maildir);

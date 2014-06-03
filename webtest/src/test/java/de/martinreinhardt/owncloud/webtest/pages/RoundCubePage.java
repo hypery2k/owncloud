@@ -10,6 +10,7 @@ package de.martinreinhardt.owncloud.webtest.pages;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.findby.FindBy;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -22,11 +23,27 @@ public class RoundCubePage extends AbstractPage {
 	@FindBy(id = "errorMsg")
 	private WebElement errorMsg;
 
+	@FindBy(css = "#rcmrow1 > td.subject > a")
+	private WebElement firstEmail;
+
 	public RoundCubePage(final WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
 
+	public String getFirstMessageSubject() {
+		String result = null;
+		load_iFrame("roundcubeFrame");
+		clickOn(firstEmail);
+		result = firstEmail.getText();
+		return result;
+	}
+
 	public boolean isErrorMessageDisplayed() {
-		return errorMsg.isDisplayed();
+		boolean errorDisplayed = false;
+		try {
+			errorDisplayed = errorMsg.isDisplayed();
+		} catch (NoSuchElementException e) {
+		}
+		return errorDisplayed;
 	}
 }

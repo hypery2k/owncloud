@@ -32,6 +32,10 @@ public class RoundCubeSteps extends PortalUserSteps {
 		return onWebmailPage().isErrorMessageDisplayed();
 	}
 
+	public String get_subject_of_first_email() {
+		return onWebmailPage().getFirstMessageSubject();
+	}
+
 	private RoundCubePage onWebmailPage() {
 		return getPages().currentPageAt(RoundCubePage.class);
 	}

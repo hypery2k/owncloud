@@ -31,6 +31,17 @@ public class AbstractPage extends PageObject {
 	}
 
 	/**
+	 * Switches to the first iFrame in the webpage
+	 */
+	protected void load_iFrame(final String pFrameID) {
+		try {
+			super.getDriver().switchTo().frame(pFrameID);
+		} catch (Exception e) {
+			LOG.debug("Unable to switch to iframe", e);
+		}
+	}
+
+	/**
 	 * Waits for the ajax status loader to disappear
 	 */
 	public void wait_for_ajax_load() {

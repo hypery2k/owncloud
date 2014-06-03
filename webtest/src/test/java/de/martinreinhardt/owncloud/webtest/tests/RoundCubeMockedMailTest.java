@@ -36,6 +36,11 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  */
 public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 
+	/**
+	 * 
+	 */
+	protected static final String TEST_MAIL_SUBJECT = "RoundCube App";
+
 	@Steps
 	protected LoggedInUserSteps loggedInuserSteps;
 
@@ -51,7 +56,7 @@ public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 		EmailUserDetails userDtls = getEmailUserDetailsTest();
 
 		final MimeMessage msg = new MimeMessage((Session) null);
-		msg.setSubject("RoundCube App");
+		msg.setSubject(TEST_MAIL_SUBJECT);
 		// msg.setFrom("from@sender.com");
 		msg.setText("Some text here ...");
 		msg.setRecipient(RecipientType.TO,
