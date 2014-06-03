@@ -44,7 +44,7 @@ public class AbstractPage extends PageObject {
 	/**
 	 * Waits for the ajax status loader to disappear
 	 */
-	public void wait_for_ajax_load() {
+	public void wait_for_load() {
 		try {
 			waitFor(500).milliseconds();
 			// TODO implement
@@ -85,11 +85,11 @@ public class AbstractPage extends PageObject {
 	 */
 	public void click(WebElement pElement) {
 		LOG.info("Starting clicking element ");
-		wait_for_ajax_load();
+		wait_for_load();
 		// scroll to element
 		scrollTo(pElement);
 		element(pElement).click();
-		wait_for_ajax_load();
+		wait_for_load();
 		LOG.info("Clicking element done.");
 	}
 
@@ -101,7 +101,7 @@ public class AbstractPage extends PageObject {
 	 *            to enter
 	 */
 	public void input(WebElement pElement, String keyword) {
-		wait_for_ajax_load();
+		wait_for_load();
 		try {
 			LOG.info("click element ");
 			element(pElement).click();
@@ -109,7 +109,7 @@ public class AbstractPage extends PageObject {
 		}
 		LOG.info("Typing input of element ");
 		element(pElement).type(keyword);
-		wait_for_ajax_load();
+		wait_for_load();
 	}
 
 }
