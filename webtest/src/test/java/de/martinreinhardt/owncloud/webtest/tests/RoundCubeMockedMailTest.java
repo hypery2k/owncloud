@@ -50,27 +50,34 @@ public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 	public void runEmailTest() throws AddressException, MessagingException,
 			UserException {
 
-		GreenMail server = new GreenMail(ServerSetupTest.ALL);
-		server.start();
+		GreenMail server = null;
+		try {
+			server = new GreenMail(ServerSetupTest.ALL);
+			server.start();
 
-		EmailUserDetails userDtls = getEmailUserDetailsTest();
+			EmailUserDetails userDtls = getEmailUserDetailsTest();
 
-		final MimeMessage msg = new MimeMessage((Session) null);
-		msg.setSubject(TEST_MAIL_SUBJECT);
-		// msg.setFrom("from@sender.com");
-		msg.setText("Some text here ...");
-		msg.setRecipient(RecipientType.TO,
-				new InternetAddress(userDtls.getEmail()));
-		Properties props = new Properties();
-		props.put("mail.store.protocol", "imap");
-		props.put("mail.host", "localhost");
-		props.put("mail.imap.port", "3143");
+			final MimeMessage msg = new MimeMessage((Session) null);
+			msg.setSubject(TEST_MAIL_SUBJECT);
+			// msg.setFrom("from@sender.com");
+			msg.setText("Some text here ...");
+			msg.setRecipient(RecipientType.TO,
+					new InternetAddress(userDtls.getEmail()));
+			Properties props = new Properties();
+			props.put("mail.store.protocol", "imap");
+			props.put("mail.host", "localhost");
+			props.put("mail.imap.port", "3143");
 
-		GreenMailUser user = server.setUser(userDtls.getEmail(),
-				userDtls.getUsername(), userDtls.getPassword());
-		user.deliver(msg);
-		assertEquals(1, server.getReceivedMessages().length);
-		executeTestStepsFrontend();
+			GreenMailUser user = server.setUser(userDtls.getEmail(),
+					userDtls.getUsername(), userDtls.getPassword());
+			user.deliver(msg);
+			assertEquals(1, server.getReceivedMessages().length);
+			executeTestStepsFrontend();
+		} finally {
+			if (server != null) {
+				server.stop();
+			}
+		}
 	}
 
 	public abstract EmailUserDetails getEmailUserDetailsTest();
