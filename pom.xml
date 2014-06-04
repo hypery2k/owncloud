@@ -18,6 +18,19 @@
 		<plugins>
 
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>parse-version</id>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>${maven-site-plugin.version}</version>
@@ -124,6 +137,7 @@
 		<maven-release-plugin.version>2.5</maven-release-plugin.version>
 		<maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
 		<maven-site-plugin.version>3.3</maven-site-plugin.version>
+		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
 		<sql-maven-plugin.version>1.5</sql-maven-plugin.version>
 		<maven-pdf-plugin.version>1.2</maven-pdf-plugin.version>
