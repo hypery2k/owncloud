@@ -37,17 +37,20 @@
 					<skipDeploy>true</skipDeploy>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-phpunit</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
 		<!-- phpUnit for PHP 5 -->
 		<dependency>
-			<groupId>org.phpmaven</groupId>
-			<artifactId>maven-php-phpunit</artifactId>
-			<version>${maven-php.version}</version>
-			<type>jar</type>
-			<scope>test</scope>
+			<groupId>de.codename-php</groupId>
+			<artifactId>platform.phpunit</artifactId>
+			<version>3.7.19</version>
+			<type>phar</type>
 		</dependency>
 	</dependencies>
 
