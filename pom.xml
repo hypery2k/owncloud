@@ -130,6 +130,7 @@
 		<maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
 		<maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
 		<github-site-maven-plugin.version>0.9</github-site-maven-plugin.version>
+		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
 
 
 	</properties>
