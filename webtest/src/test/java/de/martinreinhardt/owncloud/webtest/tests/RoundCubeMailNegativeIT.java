@@ -30,7 +30,7 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  */
 @Story(RoundCube.Login.class)
 @RunWith(ThucydidesRunner.class)
-public class RoundCubeMailNegativeTest extends RoundCubeMockedMailTest {
+public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 
 	public EmailUserDetails getEmailUserDetailsTest() {
 		EmailUserDetails userDtls = new EmailUserDetails();

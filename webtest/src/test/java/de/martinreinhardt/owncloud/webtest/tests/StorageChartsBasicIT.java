@@ -24,7 +24,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  */
 @Story(StorageCharts.ViewStats.class)
 @RunWith(ThucydidesRunner.class)
-public class StorageChartsBasicTest extends AbstractUITest {
+public class StorageChartsBasicIT extends AbstractUITest {
 
 	@Steps
 	public LoggedInUserSteps loggedIn;

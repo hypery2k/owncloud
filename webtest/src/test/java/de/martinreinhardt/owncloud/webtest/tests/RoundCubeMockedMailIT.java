@@ -35,7 +35,7 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  * @author mreinhardt
  * 
  */
-public abstract class RoundCubeMockedMailTest extends AbstractUITest {
+public abstract class RoundCubeMockedMailIT extends AbstractUITest {
 
 	/**
 	 * 

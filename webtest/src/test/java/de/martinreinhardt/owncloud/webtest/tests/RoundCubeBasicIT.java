@@ -7,31 +7,31 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
+import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
-import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.martinreinhardt.owncloud.webtest.OwnCloud;
 import de.martinreinhardt.owncloud.webtest.RoundCube;
+import de.martinreinhardt.owncloud.webtest.steps.LoggedInUserSteps;
 import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 
 /**
  * @author mreinhardt
  * 
  */
-// @RunWith(ThucydidesParameterizedRunner.class)
-@Story(OwnCloud.Login.class)
+@Story(RoundCube.showMailView.class)
 @RunWith(ThucydidesRunner.class)
-// @UseTestDataFrom("src/test/resources/testdata/testdata_LoginTest_trying_Login_iFrame.csv")
-//@Concurrent
-public class LoginTest extends AbstractUITest {
+public class RoundCubeBasicIT extends AbstractUITest {
+	@Steps
+	public LoggedInUserSteps loggedIn;
 
 	@Test
-	public void test_oc_login() {
+	public void test_iframe_integration() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
+		loggedIn.go_to_roundcube_view();
 	}
 }
