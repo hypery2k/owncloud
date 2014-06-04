@@ -19,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
@@ -48,7 +49,7 @@ public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 	protected RoundCubeSteps appSteps;
 
 	public void runEmailTest() throws AddressException, MessagingException,
-			UserException {
+			UserException, TestError {
 
 		GreenMail server = null;
 		try {
@@ -82,5 +83,5 @@ public abstract class RoundCubeMockedMailTest extends AbstractUITest {
 
 	public abstract EmailUserDetails getEmailUserDetailsTest();
 
-	public abstract void executeTestStepsFrontend();
+	public abstract void executeTestStepsFrontend() throws TestError;
 }

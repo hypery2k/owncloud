@@ -12,8 +12,7 @@
 
 	<artifactId>roundcube</artifactId>
 	<packaging>php</packaging>
-
-	<version>2.2-SNAPSHOT</version>
+	<version>2.1-SNAPSHOT</version>
 
 	<build>
 		<plugins>

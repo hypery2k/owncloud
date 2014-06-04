@@ -9,7 +9,6 @@ package de.martinreinhardt.owncloud.webtest.tests;
 
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
-import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
@@ -25,7 +24,6 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  */
 @Story(RoundCube.showMailView.class)
 @RunWith(ThucydidesRunner.class)
-@Concurrent
 public class RoundCubeBasicTest extends AbstractUITest {
 	@Steps
 	public LoggedInUserSteps loggedIn;

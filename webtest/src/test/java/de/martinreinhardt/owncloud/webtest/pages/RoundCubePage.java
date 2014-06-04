@@ -9,6 +9,7 @@ package de.martinreinhardt.owncloud.webtest.pages;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.findby.FindBy;
+import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,9 @@ public class RoundCubePage extends AbstractPage {
 	@FindBy(id = "errorMsg")
 	private WebElement errorMsg;
 
+	@FindBy(id = "rcmloginuser")
+	private WebElement rcLogin;
+
 	@FindBy(css = "#rcmrow1 > td.subject > a")
 	private WebElement firstEmail;
 
@@ -40,21 +44,27 @@ public class RoundCubePage extends AbstractPage {
 
 	/**
 	 * Waits for the ajax status loader to disappear
+	 * 
+	 * @throws TestError
 	 */
-	private void wait_for_rc_load() {
+	private void wait_for_rc_load() throws TestError {
 		this.load_iFrame(ROUNDCUBE_FRAME);
 		try {
 			waitFor(500).milliseconds();
 			if (element(ajaxLoader).isCurrentlyVisible()) {
 				// wait for loader icon to disappear
 				element(ajaxLoader).waitUntilNotVisible();
+				if (isRcLoginDisplayed()) {
+					throw new TestError(
+							"Roundcube Login should not be visible!");
+				}
 				LOG.info("AJAX loader disappeared. Loading complete...");
 			}
-		} catch (Exception e) {
+		} catch (NoSuchElementException e) {
 		}
 	}
 
-	public String getFirstMessageSubject() {
+	public String getFirstMessageSubject() throws TestError {
 		wait_for_rc_load();
 		String result = null;
 		load_iFrame(ROUNDCUBE_FRAME);
@@ -63,7 +73,17 @@ public class RoundCubePage extends AbstractPage {
 		return result;
 	}
 
-	public boolean isErrorMessageDisplayed() {
+	public boolean isRcLoginDisplayed() throws TestError {
+		wait_for_rc_load();
+		boolean loginVisible = false;
+		try {
+			loginVisible = rcLogin.isDisplayed();
+		} catch (NoSuchElementException e) {
+		}
+		return loginVisible;
+	}
+
+	public boolean isErrorMessageDisplayed() throws TestError {
 		wait_for_rc_load();
 		boolean errorDisplayed = false;
 		try {
