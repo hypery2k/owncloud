@@ -4,6 +4,18 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://$MODULE_DIR$/roundcube/target/php-deps/PHPUnit/phpunit.phar" />
+          <root url="phar://$MODULE_DIR$/roundcube/target/roundcube-2.1-SNAPSHOT.phar" />
+        </CLASSES>
+        <SOURCES>
+          <root url="phar://$MODULE_DIR$/roundcube/target/php-deps/PHPUnit/phpunit.phar" />
+          <root url="phar://$MODULE_DIR$/roundcube/target/roundcube-2.1-SNAPSHOT.phar" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
 
