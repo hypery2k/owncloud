@@ -64,5 +64,6 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 		assertNotNull("Subject of first email shouldn't be empty", subject);
 		assertTrue("Subject of first email should be: " + TEST_MAIL_SUBJECT,
 				subject.equalsIgnoreCase(TEST_MAIL_SUBJECT));
+		appSteps.waitFor(1).minutes();
 	}
 }

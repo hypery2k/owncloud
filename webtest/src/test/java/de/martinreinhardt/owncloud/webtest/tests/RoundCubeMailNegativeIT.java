@@ -52,5 +52,6 @@ public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 		loggedInuserSteps.go_to_roundcube_view();
 		assertTrue("There should be an error displayed.",
 				appSteps.is_showing_errors());
+		appSteps.waitFor(1).minutes();
 	}
 }
