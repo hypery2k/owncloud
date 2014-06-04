@@ -26,10 +26,21 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>${maven-site-plugin.version}</version>
 				<configuration>
-					<!--<reportPlugins> <plugin> <groupId>org.phpmaven</groupId> <artifactId>maven-php-plugin</artifactId> 
-						<reportSets> <reportSet> <reports> <report>phpdocumentor</report> <report>phpunit-coverage</report> 
-						<report>phpunit</report> </reports> </reportSet> </reportSets> </plugin> 
-						</reportPlugins> -->
+					<reportPlugins>
+						<plugin>
+							<groupId>org.phpmaven</groupId>
+							<artifactId>maven-php-plugin</artifactId>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>phpdocumentor</report>
+										<report>phpunit-coverage</report>
+										<report>phpunit</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+					</reportPlugins>
 					<generateReports>true</generateReports>
 					<inputEncoding>UTF-8</inputEncoding>
 					<outputEncoding>UTF-8</outputEncoding>
@@ -64,10 +75,9 @@
 	<dependencies>
 		<!-- phpUnit for PHP 5 -->
 		<dependency>
-			<groupId>de.codename-php</groupId>
-			<artifactId>platform.phpunit</artifactId>
-			<version>3.7.19</version>
-			<type>phar</type>
+			<groupId>org.phpunit</groupId>
+			<artifactId>phpunit5</artifactId>
+			<version>${phpunit5.version}</version>
 		</dependency>
 	</dependencies>
 

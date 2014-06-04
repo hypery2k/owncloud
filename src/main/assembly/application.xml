@@ -6,6 +6,7 @@
 	<formats>
 		<format>zip</format>
 	</formats>
+	<baseDirectory>${artifactId}</baseDirectory>
 	<fileSets>
 		<fileSet>
 			<directory>src/main/php</directory>
