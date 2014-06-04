@@ -163,16 +163,14 @@ class OC_RoundCube_App {
 		return $data;
 	}
 
-	/**Use the pulic key of the respective user to encrypt the given
+	/**
+	 * Use the pulic key of the respective user to encrypt the given
 	 * email identity and store it in the data-base.
-	*
-	* @param[in] $ocUuser The OwnCloud user id
-	*
-	* @param[in] $emailUser The IMAP account Id
-	*
-	* @param[in] $emailPassword The IMAP credentials.
-	*
-	*/
+	 * @param The OwnCloud user id $ocUser
+	 * @param The IMAP account Id $emailUser
+	 * @param unknown $emailPassword
+	 * @return The IMAP credentials.|unknown
+	 */
 	public static function cryptEmailIdentity($ocUser, $emailUser, $emailPassword)
 	{
 		$mail_userdata_entries = OC_RoundCube_App::checkLoginData($ocUser);
@@ -274,13 +272,10 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function showMailFrame($rcHost, $rcPort, $maildir) {
-
-		// TODO remove obsolete params
 		$returnObject = new OC_Mail_Object();
 
 		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', true);
 		$enableAutologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
-
 		// Create RC login object.
 		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 
@@ -335,7 +330,6 @@ class OC_RoundCube_App {
 			$returnObject -> setErrorDetails("ERROR: Technical problem, " . $ex_login -> getMessage());
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->showMailFrame(): RoundCube can\'t login to roundcube due to a unkown exception to roundcube', OCP\Util::ERROR);
 		}
-
 		return $returnObject;
 
 	}
