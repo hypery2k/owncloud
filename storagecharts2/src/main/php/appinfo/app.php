@@ -21,30 +21,30 @@
 * 
 */
 
-OCP\App::checkAppEnabled('storage_charts');
+OCP\App::checkAppEnabled('storagecharts2');
 
-$l = new OC_L10N('storage_charts');
+$l = new OC_L10N('storagecharts2');
 
-OC::$CLASSPATH['OC_DLStCharts'] =  OC_App::getAppPath('storage_charts') . "/lib/db.class.php";
-OC::$CLASSPATH['OC_DLStChartsLoader'] =  OC_App::getAppPath('storage_charts') . "/lib/loader.class.php";
+OC::$CLASSPATH['OC_DLStCharts'] =  OC_App::getAppPath('storagecharts2') . "/lib/db.class.php";
+OC::$CLASSPATH['OC_DLStChartsLoader'] =  OC_App::getAppPath('storagecharts2') . "/lib/loader.class.php";
 
 //if(OC_Group::inGroup(OCP\User::getUser(), 'admin')){
 	OCP\App::register(Array(
 		'order' => 60,
-		'id' => 'storage_charts',
+		'id' => 'storagecharts2',
 		'name' => 'Storage Charts'
 	));
 	
 	OCP\App::addNavigationEntry(array(
-		'id' => 'storage_charts',
+		'id' => 'storagecharts2',
 		'order' => 60,
-		'href' => OCP\Util::linkTo('storage_charts', 'charts.php'),
-		'icon' => OCP\Util::imagePath('storage_charts', 'chart.png'),
+		'href' => OCP\Util::linkTo('storagecharts2', 'charts.php'),
+		'icon' => OCP\Util::imagePath('storagecharts2', 'chart.png'),
 		'name' => $l->t('DL Charts')
 	));
 	
-	OCP\App::registerPersonal('storage_charts','settings');
-//}elseif(OCP\User::isLoggedIn() && $_GET['app'] == 'storage_charts'){
+	OCP\App::registerPersonal('storagecharts2','settings');
+//}elseif(OCP\User::isLoggedIn() && $_GET['app'] == 'storagecharts2'){
 //	die($l->t('Permission denied.'));
 //}
 
@@ -56,11 +56,11 @@ if(OCP\User::getUser() && strlen($data_dir) != 0){
 	// workaround to detect OC version
 	// OC 5
 	if (6 > @reset(OCP\Util::getVersion())) {
-	  	OCP\Util::writeLog('storage_charts', 'Running on OwnCloud 5', OCP\Util::DEBUG);				  
+	  	OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud 5', OCP\Util::DEBUG);				  
 		$used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
 	  	// OC 6
 	} else {
-		OCP\Util::writeLog('storage_charts', 'Running on OwnCloud 6', OCP\Util::DEBUG);		
+		OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud 6', OCP\Util::DEBUG);		
 		$used = OC_DLStCharts::getTotalDataSize("datadirectory", OC::$SERVERROOT.'/data');
 	}
 	$total = OC_DLStCharts::getTotalDataSize($data_dir) + $fs->free_space();

@@ -10,7 +10,7 @@
 
 	<modules>
 		<module>roundcube</module>
-		<module>storage_charts</module>
+		<module>storagecharts2</module>
 		<module>webtest</module>
 	</modules>
 

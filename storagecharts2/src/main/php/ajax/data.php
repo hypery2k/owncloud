@@ -22,9 +22,9 @@
 */
 
 OCP\JSON::checkLoggedIn();
-OCP\JSON::checkAppEnabled('storage_charts');
+OCP\JSON::checkAppEnabled('storagecharts2');
 
-$l = new OC_L10N('storage_charts');
+$l = new OC_L10N('storagecharts2');
 
 // Update and save the new configuration
 if(is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus'))){

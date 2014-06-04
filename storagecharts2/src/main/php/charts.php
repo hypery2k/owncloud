@@ -22,22 +22,25 @@
 */
 
 OCP\User::checkLoggedIn();
-OCP\App::checkAppEnabled('storage_charts');
+OCP\App::checkAppEnabled('storagecharts2');
 
-$tmpl = new OCP\Template('storage_charts', 'settings.tpl');
+$tmpl = new OCP\Template('storagecharts2', 'charts.tpl', 'user');
 
-if(isset($_POST['storage_charts_disp']) && count($_POST['storage_charts_disp']) <= 3){
-	$c = $_POST['storage_charts_disp'];
-	$c_disp = Array('cpie_rfsus'=>0,'clines_usse'=>0,'chisto_us'=>0);
-	foreach(array_keys($c_disp) as $chart){
-		if(in_array($chart, $c)){
-			$c_disp[$chart] = 1;
-		}
-	}
-	OC_DLStCharts::setUConfValue('c_disp', serialize($c_disp));
-	$tmpl->assign('stc_save_ok', TRUE);
+// Get data for all users if admin or just for the current user
+$displays = OC_DLStCharts::getUConfValue('c_disp', Array('uc_val' => 'a:3:{s:10:"cpie_rfsus";i:1;s:11:"clines_usse";i:1;s:9:"chisto_us";i:1;}'));
+$displays = unserialize($displays['uc_val']);
+$tmpl->assign('c_disp', $displays);
+
+$sc_sort = OC_DLStCharts::getUConfValue('sc_sort', Array('uc_val' => 'a:3:{i:0;s:10:"cpie_rfsus";i:1;s:11:"clines_usse";i:2;s:9:"chisto_us";}'));
+$tmpl->assign('sc_sort', unserialize($sc_sort['uc_val']));
+
+if($displays['clines_usse']){
+	$hu_size = OC_DLStCharts::getUConfValue('hu_size', Array('uc_val' => 3));
+	$tmpl->assign('hu_size', $hu_size['uc_val']);
+}
+if($displays['chisto_us']){
+	$hu_size_hus = OC_DLStCharts::getUConfValue('hu_size_hus', Array('uc_val' => 3));
+	$tmpl->assign('hu_size_hus', $hu_size_hus['uc_val']);
 }
 
-$displays = OC_DLStCharts::getUConfValue('c_disp', Array('uc_val' => 'a:3:{s:10:"cpie_rfsus";i:1;s:11:"clines_usse";i:1;s:9:"chisto_us";i:1;}'));
-$tmpl->assign('displays', unserialize($displays['uc_val']));
-return $tmpl->fetchPage();
+$tmpl->printPage();

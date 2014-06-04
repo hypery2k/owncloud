@@ -22,7 +22,7 @@
 */
 
 /**
- * This class load charts for storage_charts. 
+ * This class load charts for storagecharts2. 
  */
 class OC_DLStChartsLoader {
 	
