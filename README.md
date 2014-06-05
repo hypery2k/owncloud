@@ -24,6 +24,8 @@ see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for deta
 ### Roundcube
 Embedd roundcube interface in owncloud
 
+![RoundCube App](https://github.com/hypery2k/owncloud/raw/master/src/site/images/roundcube_screenshot.png)
+
 #### Requirements:
 * OwnCloud 5.0+  (tested with 5.0 - 6.0.0a)
 * Mailserver with IMAP-Support
