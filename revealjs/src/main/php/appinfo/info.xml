@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<info>
+	<id>revealjs</id>
+	<name>RevealJS Application</name>
+	<description>A reveal.js app for ownCloud</description>
+	<version>1.0</version>
+	<licence>AGPL</licence>
+	<author>Raghu Nayyar and Frank Karlitschek and Martin Reinhardt</author>
+	<require>5</require>
+</info>

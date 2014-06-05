@@ -9,6 +9,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>revealjs</module>
 		<module>roundcube</module>
 		<module>storagecharts2</module>
 		<module>webtest</module>

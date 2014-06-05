@@ -105,6 +105,7 @@ DIR_OC_CUR=$DIR_WWW/$DB_TYPE/$OC_VERSION
 DIR_RC_CUR=$DIR_WWW/$DB_TYPE/$RC_VERSION
 DIR_OC_APPS=$DIR_OC_CUR/apps
 DIR_OC_DATA=$DIR_OC_CUR/data
+DIR_OC_APP_RJ=$DIR_OC_APPS/revealjs
 DIR_OC_APP_RC=$DIR_OC_APPS/roundcube
 DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
 
@@ -135,6 +136,7 @@ cd $DIR_OC_DEV
 echo "  ==> copy app folder"
 cp -r $DIR_OC_DEV/roundcube/target/classes/* $DIR_OC_APP_RC
 cp -r $DIR_OC_DEV/storagecharts2/target/classes/* $DIR_OC_APP_SC
+cp -r $DIR_OC_DEV/revealjs/target/classes/* $DIR_OC_APP_RJ
 
 echo "  ==> Directory listing for app-folder of roundcube:"
 ls -lisah $DIR_OC_APP_RC*
