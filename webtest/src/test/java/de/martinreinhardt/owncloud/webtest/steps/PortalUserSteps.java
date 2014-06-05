@@ -7,6 +7,7 @@
  */
 package de.martinreinhardt.owncloud.webtest.steps;
 
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import de.martinreinhardt.owncloud.webtest.pages.LoginPage;
 import de.martinreinhardt.owncloud.webtest.util.AbstractSteps;
@@ -16,7 +17,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractSteps;
  * 
  */
 public class PortalUserSteps extends AbstractSteps {
-	
+
 	/**
 	 * Serial ID
 	 */
@@ -29,6 +30,7 @@ public class PortalUserSteps extends AbstractSteps {
 		super(pages);
 	}
 
+	@Step
 	public void enter_login_area() {
 		// TODO back always
 		// onPortalPage().go_to_login_page();

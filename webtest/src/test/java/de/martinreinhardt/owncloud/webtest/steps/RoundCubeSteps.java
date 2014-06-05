@@ -7,6 +7,7 @@
  */
 package de.martinreinhardt.owncloud.webtest.steps;
 
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 import de.martinreinhardt.owncloud.webtest.pages.RoundCubePage;
@@ -29,10 +30,12 @@ public class RoundCubeSteps extends PortalUserSteps {
 		super(pages);
 	}
 
+	@Step
 	public boolean is_showing_errors() throws TestError {
 		return onWebmailPage().isErrorMessageDisplayed();
 	}
 
+	@Step
 	public String get_subject_of_first_email() throws TestError {
 		return onWebmailPage().getFirstMessageSubject();
 	}
