@@ -26,6 +26,9 @@ Embedd roundcube interface in owncloud
 
 ![RoundCube App](https://github.com/hypery2k/owncloud/raw/master/src/site/images/roundcube_screenshot.png)
 
+### StorageCharts
+* reenable StorageCharts App for OwnCloud 6 
+
 #### Requirements:
 * OwnCloud 5.0+  (tested with 5.0 - 6.0.0a)
 * Mailserver with IMAP-Support
@@ -33,8 +36,11 @@ Embedd roundcube interface in owncloud
 
 
 ##Planned
-### StorageCharts
-* reenable StorageCharts App for OwnCloud 6 
+
+
+### RevealJS
+* Viewer
+* Online-Editor
 
 ### LDAP Profile Editor
 * Edit LDAP user profile including password change

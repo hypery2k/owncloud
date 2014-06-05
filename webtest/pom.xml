@@ -65,6 +65,15 @@
 					<skip>${skipTests}</skip>
 					<argLine>-Xmx1024m</argLine>
 				</configuration>
+				<executions>
+					<execution>
+						<id>thucydides-reports</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
