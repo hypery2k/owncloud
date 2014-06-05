@@ -27,6 +27,7 @@ import com.icegreen.greenmail.user.UserException;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
+import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 
 /**
  * @author mreinhardt
@@ -64,8 +65,9 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 		String subject = appSteps.get_subject_of_first_email();
 		LOG.info("Got the following subject: " + subject);
 		assertNotNull("Subject of first email shouldn't be empty", subject);
-		assertTrue("Subject of first email should be: " + TEST_MAIL_SUBJECT,
-				subject.equalsIgnoreCase(TEST_MAIL_SUBJECT));
+		assertTrue("Subject of first email should be: "
+				+ MockedImapServer.TEST_MAIL_SUBJECT,
+				subject.equalsIgnoreCase(MockedImapServer.TEST_MAIL_SUBJECT));
 		appSteps.waitFor(1).minutes();
 	}
 }
