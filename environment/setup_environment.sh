@@ -118,6 +118,7 @@ mkdir -p $DIR_RC_CUR/temp
 mkdir -p $DIR_OC_APPS
 mkdir -p $DIR_OC_DATA
 mkdir -p $DIR_OC_APP_RC
+mkdir -p $DIR_OC_APP_RJ
 mkdir -p $DIR_OC_APP_SC
 
 
@@ -148,7 +149,7 @@ echo
 
 echo "  ==> Setting up config"
 # copy htaccess
-cp $DIR_OC_DEV/environment/owncloud_releases/$OC_VERSION/.htaccess ${DIR_OC_CUR}/.htaccess
+#cp $DIR_OC_DEV/environment/owncloud_releases/$OC_VERSION/.htaccess ${DIR_OC_CUR}/.htaccess
 
 # copy settings template
 cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
