@@ -63,8 +63,9 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 		String subjectFirst = appSteps.get_subject_of_first_email();
 		LOG.info("Got the following subject: " + subjectFirst);
 		assertNotNull("Subject of first email shouldn't be empty", subjectFirst);
-		assertTrue("Subject of first email should be: " + MockedImapServer.TEST_MAIL_SUBJECT,
-				subjectFirst.equalsIgnoreCase(MockedImapServer.TEST_MAIL_SUBJECT));
+		assertTrue("Subject of first email should be: "
+				+ MockedImapServer.TEST_MAIL_SUBJECT,
+				subjectFirst.contains(MockedImapServer.TEST_MAIL_SUBJECT));
 		appSteps.waitFor(6).minutes();
 		assertFalse("There should be no error displayed.",
 				appSteps.is_showing_errors());
@@ -72,8 +73,9 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 		LOG.info("Got the following subject: " + subjectAfterWait);
 		assertNotNull("Subject of first email shouldn't be empty",
 				subjectAfterWait);
-		assertTrue("Subject of first email should be: " + MockedImapServer.TEST_MAIL_SUBJECT,
-				subjectAfterWait.equalsIgnoreCase(MockedImapServer.TEST_MAIL_SUBJECT));
+		assertTrue("Subject of first email should be: "
+				+ MockedImapServer.TEST_MAIL_SUBJECT,
+				subjectAfterWait.contains(MockedImapServer.TEST_MAIL_SUBJECT));
 
 	}
 }
