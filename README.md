@@ -4,7 +4,7 @@ Wiki: https://github.com/hypery2k/owncloud/wiki
 
 Current Build Status:
 
-[!BuildStatus](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud)
+[![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_build)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_build/)
 
 In this repo you'll find apps and enhancements for owncloud.
 
