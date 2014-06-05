@@ -1,6 +1,6 @@
 Some Apps for owncloud
 ========
-Wiki: https://github.com/hypery2k/owncloud/wiki
+ [Wiki](https://github.com/hypery2k/owncloud/wiki)
 
 Current Build Status:
 
@@ -15,6 +15,10 @@ Or via PayPal:
 <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2SAK2NYWB8QA2">
 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"/>
 </img></a>
+
+## Development
+
+see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
 
 ## Currently released
 ### Roundcube
