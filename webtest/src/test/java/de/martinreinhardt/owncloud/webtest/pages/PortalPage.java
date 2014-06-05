@@ -27,7 +27,7 @@ public class PortalPage extends AbstractPage {
 	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='roundcube_index']/a/img")
 	private WebElement roundcubeButton;
 
-	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='storage_charts']/a/img")
+	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='storagecharts2']/a/img")
 	private WebElement storageChartsButton;
 
 	/**
