@@ -30,6 +30,26 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${maven-eclipse-plugin.version}</version>
+				<configuration>
+					<additionalBuildcommands>
+						<buildcommand>
+							org.eclipse.wst.validation.validationbuilder
+						</buildcommand>
+						<buildcommand>
+							org.eclipse.dltk.core.scriptbuilder
+						</buildcommand>
+					</additionalBuildcommands>
+					<additionalProjectnatures>
+						<projectnature>
+							org.eclipse.php.core.PHPNature
+						</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>${maven-site-plugin.version}</version>
 				<configuration>
