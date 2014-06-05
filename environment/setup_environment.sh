@@ -112,6 +112,8 @@ DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
 mkdir -p $DIR_WWW/$DB_TYPE
 mkdir -p $DIR_OC_CUR
 mkdir -p $DIR_RC_CUR
+mkdir -p $DIR_RC_CUR/logs
+mkdir -p $DIR_RC_CUR/temp
 mkdir -p $DIR_OC_APPS
 mkdir -p $DIR_OC_DATA
 mkdir -p $DIR_OC_APP_RC
