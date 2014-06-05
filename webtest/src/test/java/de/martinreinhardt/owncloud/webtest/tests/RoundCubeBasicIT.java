@@ -9,6 +9,7 @@ package de.martinreinhardt.owncloud.webtest.tests;
 
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithTag;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
@@ -22,7 +23,8 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  * @author mreinhardt
  * 
  */
-@Story(RoundCube.showMailView.class)
+@Story(RoundCube.Login.class)
+@WithTag(type = "app", value = "RoundCube")
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeBasicIT extends AbstractUITest {
 	@Steps

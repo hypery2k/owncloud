@@ -10,6 +10,7 @@ package de.martinreinhardt.owncloud.webtest.tests;
 import static org.junit.Assert.assertTrue;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithTag;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
@@ -25,6 +26,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  * 
  */
 @Story(StorageCharts.ViewStats.class)
+@WithTag(type = "app", value = "StorageCharts")
 @RunWith(ThucydidesRunner.class)
 public class StorageChartsBasicIT extends AbstractUITest {
 

@@ -16,7 +16,11 @@ import net.thucydides.core.annotations.Feature;
 public class RoundCube {
 
 	@Feature
-	public class showMailView {
+	public class ShowMailView {
+	}
+
+	@Feature
+	public class RefreshSession {
 	}
 
 	@Feature

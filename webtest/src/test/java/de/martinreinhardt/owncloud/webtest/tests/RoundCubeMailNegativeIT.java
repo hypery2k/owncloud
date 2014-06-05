@@ -13,6 +13,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
@@ -28,7 +29,8 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  * @author mreinhardt
  * 
  */
-@Story(RoundCube.Login.class)
+@Story(RoundCube.ShowMailView.class)
+@WithTag(type = "app", value = "RoundCube")
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 
