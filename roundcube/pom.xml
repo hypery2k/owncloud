@@ -53,7 +53,7 @@
 							<reportSets>
 								<reportSet>
 									<reports>
-										<report>phpdocumentor</report>
+										<!-- <report>phpdocumentor</report> -->
 										<report>phpunit-coverage</report>
 										<report>phpunit</report>
 									</reports>
