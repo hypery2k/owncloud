@@ -137,8 +137,8 @@ class OC_RoundCube_App {
 				return false;
 			}
 		}
+		// save key attribute in session
 		$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
-
 		return $privKey;
 	}
 
@@ -270,14 +270,14 @@ class OC_RoundCube_App {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Successfully refreshed the RC session.', OCP\Util::INFO);
 			return true;
 		} else {
-			// login expired, we are doing a new login
+			// login expired, we are
 			if (isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN])) {
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Login seems expired. Trying a new login.', OCP\Util::INFO);
 				$emailUserCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN];
 				$emailPasswordCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD];
-				$privKey=self::getPrivateKey($ocUser,false);
-				$rcLogin =self::decryptMyEntry($emailUserCrypted,$privKey);
-				$rcPassword =self::decryptMyEntry($emailPasswordCrypted,$privKey);
+				$privKey = self::getPrivateKey($ocUser,false);
+				$rcLogin = self::decryptMyEntry($emailUserCrypted,$privKey);
+				$rcPassword = self::decryptMyEntry($emailPasswordCrypted,$privKey);
 				self::login($rcHost, $rcPort, $maildir, $rcLogin, $rcPassword);
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): New login done.', OCP\Util::INFO);
 			} else{

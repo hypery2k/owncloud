@@ -33,18 +33,19 @@ if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'DB table entries not created ...', OCP\Util::INFO);
 	$html_output = $html_output . $this -> inc("part.error.db");
 } else {
+	$ocUser = OCP\User::getUser();
+	$privKey = self::getPrivateKey($ocUser,false);
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	// TODO create dropdown list
 	$mail_userdata = $mail_userdata_entries[0];
+
 	//
 	// Nope. Already logged in at the start. Then starting to support
 	// multiple accounts, a re-login with other credentials than the
 	// default ID could be provided.
 	//
-	//$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
-	//$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
-	$mail_username = $mail_userdata['mail_user'];
-	$mail_password = $mail_userdata['mail_password'];
+	$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
+	$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
 
 	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 	$enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
@@ -63,8 +64,12 @@ if (!$table_exists) {
 				$html_output = $html_output . $this -> inc("part.error.no-settings");
 			}
 			else {
+				// with autologin oc user = rc user
 				if($enable_autologin){
-					$mail_username = $mail_userdata['oc_user'];
+					$mail_username = $ocUser;
+				} else{
+					$emailUserCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN];
+					$mail_username = self::decryptMyEntry($emailUserCrypted,$privKey);
 				}
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
