@@ -26,6 +26,13 @@
  * connects to the roundcube installation via the roundcube API
  */
 class OC_RoundCube_App {
+
+	const SESSION_ATTR_RCPRIVKEY = 'OC\\ROUNDCUBE\\privateKey';
+
+	const SESSION_ATTR_RCLOGIN = 'OC\\ROUNDCUBE\\login';
+
+	const SESSION_ATTR_RCPASSWORD = 'OC\\ROUNDCUBE\\password';
+
 	public $mailData = '';
 
 	/**
@@ -111,8 +118,8 @@ class OC_RoundCube_App {
 	public static function getPrivateKey($user, $password = false)
 	{
 		if ($user == false && $password == false &&
-		isset($_SESSION['OC\\ROUNDCUBE\\privateKey'])) {
-			return $_SESSION['OC\\ROUNDCUBE\\privateKey'];
+		isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY])) {
+			return $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
 		} else if ($user == false) {
 			return false;
 		}
@@ -130,7 +137,7 @@ class OC_RoundCube_App {
 				return false;
 			}
 		}
-		$_SESSION['OC\\ROUNDCUBE\\privateKey'] = $privKey;
+		$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
 
 		return $privKey;
 	}
@@ -216,7 +223,7 @@ class OC_RoundCube_App {
 		}
 	}
 
-	public static function login($rcHost, $rcPort, $maildir, $ownUser, $ownPass)
+	public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword)
 	{
 		// Create RC login object.
 		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
@@ -228,11 +235,16 @@ class OC_RoundCube_App {
 			$rcl -> logout();
 			$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 		}
-		if ($rcl -> login($ownUser, $ownPass)) {
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): '.$ownUser.' successfully logged into roundcube ', OCP\Util::INFO);
+		if ($rcl -> login($pLogin, $pPassword)) {
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): '.$pLogin.' successfully logged into roundcube ', OCP\Util::INFO);
+			// save login data encrypted for later usage
+			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($pLogin, $pubKey);
+			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($pPassword, $pubKey);
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN] = $emailUserCrypted;
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD] = $emailPasswordCrypted;
 		} else {
 			// If the login fails, display an error message in the loggs
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): '.$ownUser.': RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): '.$pLogin.': RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);
 		}
 	}
 
@@ -243,8 +255,10 @@ class OC_RoundCube_App {
 	 * @param context path of roundcube$maildir
 	 * @return true if session refresh was successfull, otherwise false
 	 */
-	public static function refresh($rcHost, $rcPort, $maildir)
-	{
+	public static function refresh($rcHost, $rcPort, $maildir){
+
+		$ocUser = OCP\User::getUser();
+
 		// Create RC login object.
 		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
 
@@ -256,8 +270,20 @@ class OC_RoundCube_App {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Successfully refreshed the RC session.', OCP\Util::INFO);
 			return true;
 		} else {
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Failed to refresh the RC session.', OCP\Util::ERROR);
-			return false;
+			// login expired, we are doing a new login
+			if (isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN])) {
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Login seems expired. Trying a new login.', OCP\Util::INFO);
+				$emailUserCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN];
+				$emailPasswordCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD];
+				$privKey=self::getPrivateKey($ocUser,false);
+				$rcLogin =self::decryptMyEntry($emailUserCrypted,$privKey);
+				$rcPassword =self::decryptMyEntry($emailPasswordCrypted,$privKey);
+				self::login($rcHost, $rcPort, $maildir, $rcLogin, $rcPassword);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): New login done.', OCP\Util::INFO);
+			} else{
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Failed to refresh the RC session.', OCP\Util::ERROR);
+				return false;
+			}
 		}
 	}
 
