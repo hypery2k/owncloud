@@ -34,7 +34,7 @@ if (!$table_exists) {
 	$html_output = $html_output . $this -> inc("part.error.db");
 } else {
 	$ocUser = OCP\User::getUser();
-	$privKey = self::getPrivateKey($ocUser,false);
+	$privKey = OC_RoundCube_App::getPrivateKey($ocUser,false);
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	// TODO create dropdown list
 	$mail_userdata = $mail_userdata_entries[0];
@@ -69,7 +69,7 @@ if (!$table_exists) {
 					$mail_username = $ocUser;
 				} else{
 					$emailUserCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN];
-					$mail_username = self::decryptMyEntry($emailUserCrypted,$privKey);
+					$mail_username = OC_RoundCube_App::decryptMyEntry($emailUserCrypted,$privKey);
 				}
 				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
