@@ -46,6 +46,8 @@ public class MockedImapServer {
 		final MimeMessage msg = new MimeMessage((Session) null);
 		msg.setSubject(TEST_MAIL_SUBJECT + " " + pPrefix);
 		msg.setFrom(new InternetAddress(TEST_MAIL_SENDER));
+		String message = "<div style=\"color:red;\">Some text here ..</div>";
+		msg.setContent(message, "text/html; charset=utf-8");
 		msg.setText("Some text here ...");
 		msg.setRecipient(RecipientType.TO, new InternetAddress(
 				pEmailUserDetails.getEmail()));
