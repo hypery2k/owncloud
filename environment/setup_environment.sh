@@ -121,8 +121,17 @@ mkdir -p $DIR_OC_APP_RC
 mkdir -p $DIR_OC_APP_RJ
 mkdir -p $DIR_OC_APP_SC
 
+case $OC_VERSION in
+  OC_LATEST)        
+    echo "  ==> Preparing clone of owncloud GIT"
+    git clone https://github.com/owncloud/core $DIR_OC_CUR  
+    cp -rp owncloud_releases/$OC_VERSION/config/* $DIR_OC_CUR/config   
+    ;;  
+  *)  
+  	cp -rp owncloud_releases/$OC_VERSION/* $DIR_OC_CUR
+    ;;
+esac
 
-cp -rp owncloud_releases/$OC_VERSION/* $DIR_OC_CUR
 echo "  ==> Directory listing for owncloud:"
 ls -lisah $DIR_OC_CUR*
 
