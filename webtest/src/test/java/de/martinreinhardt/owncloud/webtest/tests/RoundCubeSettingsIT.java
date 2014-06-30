@@ -44,7 +44,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 	}
 
 	@Test
-	public void test_roundcube_mail_without_errors() throws AddressException,
+	public void test_roundcube_mail_without_autologin() throws AddressException,
 			MessagingException, UserException, TestError {
 		runEmailTest();
 	}

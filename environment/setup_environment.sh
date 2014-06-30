@@ -109,8 +109,19 @@ DIR_OC_APP_RJ=$DIR_OC_APPS/revealjs
 DIR_OC_APP_RC=$DIR_OC_APPS/roundcube
 DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
 
+case $OC_VERSION in
+  OC_LATEST)        
+    echo "  ==> Preparing clone of owncloud GIT" 
+    git clone https://github.com/owncloud/core $DIR_OC_CUR  
+    cp -rp owncloud_releases/$OC_VERSION/config/* $DIR_OC_CUR/config   
+    ;;  
+  *)  
+  	mkdir -p $DIR_OC_CUR
+  	cp -rp owncloud_releases/$OC_VERSION/* $DIR_OC_CUR
+    ;;
+esac
+
 #create all needed directories
-mkdir -p $DIR_WWW/$DB_TYPE
 mkdir -p $DIR_OC_CUR
 mkdir -p $DIR_RC_CUR
 mkdir -p $DIR_RC_CUR/logs
@@ -120,18 +131,6 @@ mkdir -p $DIR_OC_DATA
 mkdir -p $DIR_OC_APP_RC
 mkdir -p $DIR_OC_APP_RJ
 mkdir -p $DIR_OC_APP_SC
-
-case $OC_VERSION in
-  OC_LATEST)        
-    echo "  ==> Preparing clone of owncloud GIT"
-    rm -r $DIR_OC_CUR  
-    git clone https://github.com/owncloud/core $DIR_OC_CUR  
-    cp -rp owncloud_releases/$OC_VERSION/config/* $DIR_OC_CUR/config   
-    ;;  
-  *)  
-  	cp -rp owncloud_releases/$OC_VERSION/* $DIR_OC_CUR
-    ;;
-esac
 
 echo "  ==> Directory listing for owncloud:"
 ls -lisah $DIR_OC_CUR*
