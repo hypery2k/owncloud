@@ -44,8 +44,9 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 	}
 
 	@Test
-	public void test_roundcube_mail_without_autologin() throws AddressException,
-			MessagingException, UserException, TestError {
+	public void test_roundcube_mail_without_autologin()
+			throws AddressException, MessagingException, UserException,
+			TestError {
 		runEmailTest();
 	}
 
@@ -58,5 +59,13 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
 		// TODO add user login steps
+
+		// clear
+		endUserLogin.do_login("admin", "password");
+		loggedInuserSteps.go_to_adminsettings_view();
+		adminSteps.go_to_roundcube_advancedsettings();
+		adminSteps.toggle_roundcube_autologin();
+		adminSteps.apply_roundcube_settings();
+		loggedInuserSteps.logout();
 	}
 }
