@@ -124,6 +124,7 @@ mkdir -p $DIR_OC_APP_SC
 case $OC_VERSION in
   OC_LATEST)        
     echo "  ==> Preparing clone of owncloud GIT"
+    rm -r $DIR_OC_CUR  
     git clone https://github.com/owncloud/core $DIR_OC_CUR  
     cp -rp owncloud_releases/$OC_VERSION/config/* $DIR_OC_CUR/config   
     ;;  
