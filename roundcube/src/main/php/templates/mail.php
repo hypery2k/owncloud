@@ -44,8 +44,8 @@ if (!$table_exists) {
 	// multiple accounts, a re-login with other credentials than the
 	// default ID could be provided.
 	//
-	$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user']);
-	$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password']);
+	$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
+	$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 
 	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 	$enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
