@@ -30,6 +30,15 @@ public class PortalPage extends AbstractPage {
 	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='storagecharts2']/a/img")
 	private WebElement storageChartsButton;
 
+	@FindBy(id = "settings")
+	private WebElement settingsDropdownButton;
+
+	@FindBy(linkText = "Administration")
+	private WebElement adminSettingsDropdownButton;
+
+	@FindBy(id = "logout")
+	private WebElement logoutButton;
+
 	/**
 	 * @param pWebDriver
 	 */
@@ -45,4 +54,17 @@ public class PortalPage extends AbstractPage {
 		click(storageChartsButton);
 	}
 
+	public void open_settings_dropdown() {
+		click(settingsDropdownButton);
+	}
+
+	public void go_to_admin_settings() {
+		open_settings_dropdown();
+		click(adminSettingsDropdownButton);
+	}
+
+	public void do_logout() {
+		open_settings_dropdown();
+		click(logoutButton);
+	}
 }

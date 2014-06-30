@@ -41,6 +41,16 @@ public class LoggedInUserSteps extends PortalUserSteps {
 		onPortalPage().go_to_storage_charts_app();
 	}
 
+	@Step
+	public void go_to_adminsettings_view() {
+		onPortalPage().go_to_admin_settings();
+	}
+
+	@Step
+	public void logout() {
+		onPortalPage().do_logout();
+	}
+
 	private PortalPage onPortalPage() {
 		return getPages().currentPageAt(PortalPage.class);
 	}
