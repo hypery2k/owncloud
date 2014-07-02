@@ -34,3 +34,7 @@ storagecharts2/.project
 revealjs/.project
 
 .idea/OwnCloudApps.iml
+
+.idea/dataSources.ids
+
+.idea/dataSources.xml
