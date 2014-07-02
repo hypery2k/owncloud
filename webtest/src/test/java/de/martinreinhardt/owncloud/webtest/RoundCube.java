@@ -20,8 +20,13 @@ public class RoundCube {
 	}
 
 	@Feature
+	public class AutoLogin {
+	}
+
+	@Feature
 	public class RefreshSession {
 	}
+
 
 	@Feature
 	public class Login {

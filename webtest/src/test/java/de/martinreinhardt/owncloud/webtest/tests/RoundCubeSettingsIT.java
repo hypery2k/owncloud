@@ -11,13 +11,18 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
+import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.icegreen.greenmail.user.UserException;
 
+import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.steps.AdminSteps;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
@@ -26,11 +31,14 @@ import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
  * @author mreinhardt
  * 
  */
+@Story(RoundCube.AutoLogin.class)
+@WithTag(type = "app", value = "RoundCube")
+@RunWith(ThucydidesRunner.class)
 public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 
 	// Logger
 	protected static final Logger LOG = Logger
-			.getLogger(RoundCubeMailPositiveIT.class);
+			.getLogger(RoundCubeSettingsIT.class);
 
 	@Steps
 	private AdminSteps adminSteps;
