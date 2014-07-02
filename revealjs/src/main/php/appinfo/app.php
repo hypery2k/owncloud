@@ -21,7 +21,7 @@
  * 
  */
 
-OCP\Util::addStyle('reveal','style');
+OCP\Util::addStyle('revealjs','style');
 
 OCP\App::register(array('order' => 70, 'id' => 'revealjs', 'name' => 'RevealJS'));
 
