@@ -58,9 +58,9 @@ class Storage {
 
                     <meta name="apple-mobile-web-app-capable" content="yes" />
                     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-                    <link href="'.\OCP\Util::linkToAbsolute('reveal', 'css/player.css').'" rel="stylesheet" />
-                    <link href="'.\OCP\Util::linkToAbsolute('reveal', 'css/reset.css').'" rel="stylesheet" />
-                    <link href="'.\OCP\Util::linkToAbsolute('reveal', 'css/print.css').'" rel="stylesheet" />
+                    <link href="'.\OCP\Util::linkToAbsolute('revealjs', 'css/player.css').'" rel="stylesheet" />
+                    <link href="'.\OCP\Util::linkToAbsolute('revealjs', 'css/reset.css').'" rel="stylesheet" />
+                    <link href="'.\OCP\Util::linkToAbsolute('revealjs', 'css/print.css').'" rel="stylesheet" />
                 </head>
 
         <body>	
@@ -76,8 +76,8 @@ class Storage {
 	public static function showFooter() {
 			
 		echo('
-                    <script src="'.\OCP\Util::linkToAbsolute('reveal', 'js/reveal.js').'"></script>
-                    <script src="'.\OCP\Util::linkToAbsolute('reveal', 'js/head.min.js').'"></script>
+                    <script src="'.\OCP\Util::linkToAbsolute('revealjs', 'js/reveal.js').'"></script>
+                    <script src="'.\OCP\Util::linkToAbsolute('revealjs', 'js/head.min.js').'"></script>
                         <script>
 
                             Reveal.initialize({

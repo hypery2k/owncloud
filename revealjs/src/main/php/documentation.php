@@ -24,8 +24,8 @@
 require_once 'lib/reveal.php';
 
 OCP\User::checkLoggedIn();
-OCP\JSON::checkAppEnabled('reveal');
-OCP\App::setActiveNavigationEntry( 'reveal_index' );
+OCP\JSON::checkAppEnabled('revealjs');
+OCP\App::setActiveNavigationEntry( 'revealjs_index' );
 
-$tmpl = new OCP\Template('reveal', 'documentation', 'user');
+$tmpl = new OCP\Template('revealjs', 'documentation', 'user');
 $tmpl->printPage();

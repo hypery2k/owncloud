@@ -25,7 +25,7 @@ require_once 'lib/reveal.php';
 
 // Check if we are a user
 OCP\User::checkLoggedIn();
-OCP\JSON::checkAppEnabled('reveal');
+OCP\JSON::checkAppEnabled('revealjs');
 
 $filename = OCP\Util::sanitizeHTML($_GET['file']);
 $title = OCP\Util::sanitizeHTML($_GET['name']);

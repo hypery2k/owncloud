@@ -24,13 +24,13 @@
 require_once 'lib/reveal.php';
 
 OCP\User::checkLoggedIn();
-OCP\App::checkAppEnabled('reveal');
-OCP\Util::addStyle( 'reveal', 'style' );
-OCP\App::setActiveNavigationEntry( 'reveal_index' );
+OCP\App::checkAppEnabled('revealjs');
+OCP\Util::addStyle( 'revealjs', 'style' );
+OCP\App::setActiveNavigationEntry( 'revealjs_index' );
 
 
 $list=\OCA_reveal\Storage::getPresentations();
 
-$tmpl = new OCP\Template('reveal', 'presentations', 'user');
+$tmpl = new OCP\Template('revealjs', 'presentations', 'user');
 $tmpl->assign('list', $list);
 $tmpl->printPage();

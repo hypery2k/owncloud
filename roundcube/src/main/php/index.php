@@ -26,6 +26,7 @@
 // Check if we are a user
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('roundcube');
+OCP\App::checkAppEnabled('roundcube');
 
 
 // Check if we are a user

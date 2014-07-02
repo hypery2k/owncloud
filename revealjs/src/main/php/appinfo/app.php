@@ -23,12 +23,12 @@
 
 OCP\Util::addStyle('reveal','style');
 
-OCP\App::register(array('order' => 70, 'id' => 'reveal', 'name' => 'Reveal'));
+OCP\App::register(array('order' => 70, 'id' => 'revealjs', 'name' => 'RevealJS'));
 
 OCP\App::addNavigationEntry( array( 
 	'id' => 'reveal_index',
 	'order' => 80,
-	'href' => OCP\Util::linkTo( 'reveal', 'index.php' ),
-	'icon' => OCP\Util::imagePath( 'reveal', 'impress.png' ),
-	'name' => 'Reveal'
+	'href' => OCP\Util::linkTo( 'revealjs', 'index.php' ),
+	'icon' => OCP\Util::imagePath( 'revealjs', 'impress.png' ),
+	'name' => 'RevealJS'
 ));
