@@ -9,6 +9,7 @@
 
 	<description>
 		Integrates existing roundcube into OwnCloud, check the instructions below.
+		The app needs the bookmarks application to be enabled.
 	</description>
 
     <documentation>
