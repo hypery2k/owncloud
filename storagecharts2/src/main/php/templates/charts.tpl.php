@@ -1,30 +1,30 @@
 <?php
 
 /**
-* ownCloud - DjazzLab Storage Charts plugin
-*
-* @author Xavier Beurois
-* @copyright 2012 Xavier Beurois www.djazz-lab.net
-* 
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-* License as published by the Free Software Foundation; either 
-* version 3 of the License, or any later version.
-* 
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-*  
-* You should have received a copy of the GNU Lesser General Public 
-* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* JS minified by http://fmarcia.info/jsmin/test.html
-* 
-*/
+ * OwnCloud - Storage Charts plugin
+ *
+ * @author Martin Reinhardt and Xavier Beurois
+ * @copyright 2012 Xavier Beurois www.djazz-lab.net and Martin Reinhardt contact@martinreinhardt-online.de
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * JS minified by http://fmarcia.info/jsmin/test.html
+ *
+ */
 
 OCP\Util::addStyle('storagecharts2', 'styles');
-OCP\Util::addScript('storagecharts2', 'highCharts-2.2.1/highcharts.min');
+OCP\Util::addScript('storagecharts2', 'highcharts.min');
 OCP\Util::addScript('3rdparty','chosen/chosen.jquery.min');
 OCP\Util::addStyle('3rdparty','chosen');
 OCP\Util::addScript('storagecharts2', 'units.min');
@@ -50,7 +50,8 @@ OCP\Util::addScript('storagecharts2', 'units.min');
 
 <div id="storagecharts2">
 	<div class="personalblock topblock titleblock">
-		DjazzLab Storage Charts<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?></span>
+		DjazzLab Storage Charts<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?>
+		</span>
 	</div>
 </div>
 <div id="stc_frame">
@@ -64,14 +65,25 @@ OCP\Util::addScript('storagecharts2', 'units.min');
 				$sc_sort_title = 'Monthly Used Space Evolution';
 			}
 			if($_['c_disp'][$sc_sort]){ ?>
-			<div id="<?php print($sc_sort); ?>" class="personalblock">
-				<h3><img src="<?php print(OCP\Util::imagePath('storagecharts2', 'move.png')); ?>" /><?php print($l->t($sc_sort_title).' '.$l->t('for')); ?> "<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getUser()); ?>"</h3>
-				<div id="<?php print(substr($sc_sort, 1)); ?>" style="max-width:100%;height:400px;margin:0 auto"></div>
-				<script type="text/javascript">$(document).ready(function(){<?php print(OC_DLStChartsLoader::loadChart($sc_sort, $l)); ?>});</script>
-			</div>
-			<?php }
+		<div id="<?php print($sc_sort); ?>" class="personalblock">
+			<h3>
+				<img
+					src="<?php print(OCP\Util::imagePath('storagecharts2', 'move.png')); ?>" />
+				<?php print($l->t($sc_sort_title).' '.$l->t('for')); ?>
+				"
+				<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getUser()); ?>
+				"
+			</h3>
+			<div id="<?php print(substr($sc_sort, 1)); ?>"
+				style="max-width: 100%; height: 400px; margin: 0 auto"></div>
+			<script type="text/javascript">$(document).ready(function(){<?php print(OC_DLStChartsLoader::loadChart($sc_sort, $l)); ?>});</script>
+		</div>
+		<?php }
 		} ?>
 	</div>
-	<?php if($_['c_disp']['clines_usse']){print('<script type="text/javascript">$(document).ready(function(){getLinesUsseUnitsSelect('.$_['hu_size'].');});</script>');}
-	if($_['c_disp']['chisto_us']){print('<script type="text/javascript">$(document).ready(function(){getHistoUsUnitsSelect(' . $_['hu_size_hus'] . ');});</script>');} ?>
+	<?php if($_['c_disp']['clines_usse']){
+		print('<script type="text/javascript">$(document).ready(function(){getLinesUsseUnitsSelect('.$_['hu_size'].');});</script>');
+	}
+	if($_['c_disp']['chisto_us']){
+print('<script type="text/javascript">$(document).ready(function(){getHistoUsUnitsSelect(' . $_['hu_size_hus'] . ');});</script>');} ?>
 </div>
