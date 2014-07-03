@@ -33,7 +33,7 @@ public class PortalPage extends AbstractPage {
 	@FindBy(id = "settings")
 	private WebElement settingsDropdownButton;
 
-	@FindBy(partialLinkText="Admin")
+	@FindBy(partialLinkText="admin")
 	private WebElement adminSettingsDropdownButton;
 
 	@FindBy(id = "logout")

@@ -85,5 +85,6 @@ OCP\Util::addScript('storagecharts2', 'units.min');
 		print('<script type="text/javascript">$(document).ready(function(){getLinesUsseUnitsSelect('.$_['hu_size'].');});</script>');
 	}
 	if($_['c_disp']['chisto_us']){
-print('<script type="text/javascript">$(document).ready(function(){getHistoUsUnitsSelect(' . $_['hu_size_hus'] . ');});</script>');} ?>
+print('<script type="text/javascript">$(document).ready(function(){getHistoUsUnitsSelect(' . $_['hu_size_hus'] . ');});</script>');
+} ?>
 </div>

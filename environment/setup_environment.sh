@@ -111,8 +111,10 @@ DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
 
 case $OC_VERSION in
   OC_LATEST)        
-    echo "  ==> Preparing clone of owncloud GIT" 
-    git clone https://github.com/owncloud/core $DIR_OC_CUR  
+    echo "  ==> Preparing download of latest development master" 
+    wget https://download.owncloud.org/community/daily/owncloud-daily-master.tar.bz2 --no-check-certificate 
+    bzip2 -cd owncloud-daily-master.tar.bz2 | tar xvf -
+    cp -rp owncloud/* DIR_OC_CUR  
     cp -rp owncloud_releases/$OC_VERSION/config/* $DIR_OC_CUR/config   
     ;;  
   *)  
