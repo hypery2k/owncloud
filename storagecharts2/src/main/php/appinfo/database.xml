@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <database>
-	 <name>*dbname*</name>
-	 <create>true</create>
-	 <overwrite>false</overwrite>
-	 <charset>utf8</charset>
-	 <table>
+	<name>*dbname*</name>
+	<create>true</create>
+	<overwrite>false</overwrite>
+	<charset>utf8</charset>
+	<table>
 		<name>*dbprefix*storagecharts2</name>
 		<declaration>
 			<field>
@@ -48,8 +48,8 @@
 			</field>
 			<index>
 				<name>stc_pk</name>
-			    <primary>true</primary>
-			    <field>
+				<primary>true</primary>
+				<field>
 					<name>stc_id</name>
 					<sorting>ascending</sorting>
 				</field>
@@ -88,8 +88,8 @@
 			</field>
 			<index>
 				<name>uc_pk</name>
-			    <primary>true</primary>
-			    <field>
+				<primary>true</primary>
+				<field>
 					<name>uc_id</name>
 					<sorting>ascending</sorting>
 				</field>

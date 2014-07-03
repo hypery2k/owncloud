@@ -44,9 +44,6 @@ if(OC_User::isAdminUser(OCP\User::getUser())){
 	));
 
 	OCP\App::registerPersonal('storagecharts2','settings');
-	//}elseif(OCP\User::isLoggedIn() && $_GET['app'] == 'storagecharts2'){
-	//	die($l->t('Permission denied.'));
-	//}
 
 	// Get storage value for logged in user
 	$data_dir = OCP\Config::getSystemValue('datadirectory', '');

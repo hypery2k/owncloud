@@ -46,7 +46,7 @@
 		<?php } ?>
 		<input type="submit" value="<?php print($l->t('Save')); ?>" /><span
 			style="color: #00A220;"><?php if(isset($_['stc_save_ok'])){
-				print($l->t('Save OK'));} ?>
-		</span>
+				print($l->t('Save OK'));
+			} ?> </span>
 	</fieldset>
 </form>
