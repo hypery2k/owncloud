@@ -5,7 +5,7 @@
 	 <overwrite>false</overwrite>
 	 <charset>utf8</charset>
 	 <table>
-		<name>*dbprefix*dlstcharts</name>
+		<name>*dbprefix*storagecharts2</name>
 		<declaration>
 			<field>
 				<name>stc_id</name>
@@ -57,7 +57,7 @@
 		</declaration>
 	</table>
 	<table>
-		<name>*dbprefix*dlstcharts_uconf</name>
+		<name>*dbprefix*storagecharts2_uconf</name>
 		<declaration>
 			<field>
 				<name>uc_id</name>
