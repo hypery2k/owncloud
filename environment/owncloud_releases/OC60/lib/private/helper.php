@@ -274,6 +274,32 @@ class OC_Helper {
 	}
 
 	/**
+	 * @brief Make a php file size
+	 * @param int $bytes file size in bytes
+	 * @return string a php parseable file size
+	 *
+	 * Makes 2048 to 2k and 2^41 to 2048G
+	 */
+	public static function phpFileSize($bytes) {
+		if ($bytes < 0) {
+			return "?";
+		}
+		if ($bytes < 1024) {
+			return $bytes . "B";
+		}
+		$bytes = round($bytes / 1024, 1);
+		if ($bytes < 1024) {
+			return $bytes . "K";
+		}
+		$bytes = round($bytes / 1024, 1);
+		if ($bytes < 1024) {
+			return $bytes . "M";
+		}
+		$bytes = round($bytes / 1024, 1);
+		return $bytes . "G";
+	}
+
+	/**
 	 * @brief Make a computer file size
 	 * @param string $str file size in a fancy format
 	 * @return int a file size in bytes
@@ -690,9 +716,21 @@ class OC_Helper {
 	 * @return bool
 	 */
 	public static function issubdirectory($sub, $parent) {
-		if (strpos(realpath($sub), realpath($parent)) === 0) {
+		$realpathSub = realpath($sub);
+		$realpathParent = realpath($parent);
+
+		// realpath() may return false in case the directory does not exist
+		// since we can not be sure how different PHP versions may behave here
+		// we do an additional check whether realpath returned false
+		if($realpathSub === false ||  $realpathParent === false) {
+			return false;
+		}
+
+		// Check whether $sub is a subdirectory of $parent
+		if (strpos($realpathSub, $realpathParent) === 0) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -865,6 +903,7 @@ class OC_Helper {
 		if ($used < 0) {
 			$used = 0;
 		}
+
 		$free = \OC\Files\Filesystem::free_space($path);
 		if ($free >= 0) {
 			$total = $free + $used;

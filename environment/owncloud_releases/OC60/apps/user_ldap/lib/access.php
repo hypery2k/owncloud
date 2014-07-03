@@ -638,7 +638,7 @@ class Access extends LDAPUtility {
 
 		$sqlAdjustment = '';
 		$dbtype = \OCP\Config::getSystemValue('dbtype');
-		if($dbtype === 'mysql') {
+		if($dbtype === 'mysql' || $dbtype == 'oci') {
 			$sqlAdjustment = 'FROM DUAL';
 		}
 
@@ -721,6 +721,18 @@ class Access extends LDAPUtility {
 	 */
 	public function searchGroups($filter, $attr = null, $limit = null, $offset = null) {
 		return $this->search($filter, $this->connection->ldapBaseGroups, $attr, $limit, $offset);
+	}
+
+	/**
+	 * returns the number of available groups
+	 * @param string $filter the LDAP search filter
+	 * @param string[] $attr optional
+	 * @param int|null $limit
+	 * @param int|null $offset
+	 * @return int|bool
+	 */
+	public function countGroups($filter, $attr = array('dn'), $limit = null, $offset = null) {
+		return $this->count($filter, $this->connection->ldapBaseGroups, $attr, $limit, $offset);
 	}
 
 	/**
@@ -854,7 +866,7 @@ class Access extends LDAPUtility {
 	private function countEntriesInSearchResults($searchResults, $limit,
 																&$hasHitLimit) {
 		$cr = $this->connection->getConnectionResource();
-		$count = 0;
+		$counter = 0;
 
 		foreach($searchResults as $res) {
 			$count = intval($this->ldap->countEntries($cr, $res));
@@ -1016,11 +1028,11 @@ class Access extends LDAPUtility {
 	}
 
 	/**
-	 * @brief combines the input filters with AND
+	 * combines the input filters with OR
 	 * @param $filters array, the filters to connect
 	 * @returns the combined filter
 	 *
-	 * Combines Filter arguments with AND
+	 * Combines Filter arguments with OR
 	 */
 	public function combineFilterWithOr($filters) {
 		return $this->combineFilter($filters, '|');

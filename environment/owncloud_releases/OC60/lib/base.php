@@ -369,9 +369,17 @@ class OC {
 		//set the session object to a dummy session so code relying on the session existing still works
 		self::$session = new \OC\Session\Memory('');
 
+		// Let the session name be changed in the initSession Hook
+		$sessionName = OC_Util::getInstanceId();
+
 		try {
-			// set the session name to the instance id - which is unique
-			self::$session = new \OC\Session\Internal(OC_Util::getInstanceId());
+			// Allow session apps to create a custom session object
+			$useCustomSession = false;
+			OC_Hook::emit('OC', 'initSession', array('session' => &self::$session, 'sessionName' => &$sessionName, 'useCustomSession' => &$useCustomSession));
+			if(!$useCustomSession) {
+				// set the session name to the instance id - which is unique
+				self::$session = new \OC\Session\Internal($sessionName);
+			}
 			// if session cant be started break with http 500 error
 		} catch (Exception $e) {
 			//show the user a detailed error page
@@ -536,6 +544,7 @@ class OC {
 		self::$server = new \OC\Server();
 
 		self::initTemplateEngine();
+		OC_App::loadApps(array('session'));
 		if (!self::$CLI) {
 			self::initSession();
 		} else {
@@ -808,13 +817,19 @@ class OC {
 		self::handleLogin();
 	}
 
+	/**
+	 * @deprecated This function will be removed in ownCloud 8 - use proper routing instead
+	 * @param $param
+	 * @return bool Whether the file has been found
+	 */
 	public static function loadAppScriptFile($param) {
 		OC_App::loadApps();
 		$app = $param['app'];
 		$file = $param['file'];
 		$app_path = OC_App::getAppPath($app);
-		if (OC_App::isEnabled($app) && $app_path !== false) {
-			$file = $app_path . '/' . $file;
+		$file = $app_path . '/' . $file;
+
+		if (OC_App::isEnabled($app) && $app_path !== false && OC_Helper::issubdirectory($file, $app_path)) {
 			unset($app, $app_path);
 			if (file_exists($file)) {
 				require_once $file;
@@ -825,13 +840,18 @@ class OC {
 		return false;
 	}
 
+	/**
+	 * @deprecated This function is removed since ownCloud 7
+	 * @param $param
+	 */
 	public static function loadCSSFile($param) {
 		$app = $param['app'];
 		$file = $param['file'];
 		$app_path = OC_App::getAppPath($app);
-		if (file_exists($app_path . '/' . $file)) {
-			$app_web_path = OC_App::getAppWebPath($app);
-			$filepath = $app_web_path . '/' . $file;
+		$app_web_path = OC_App::getAppWebPath($app);
+		$filepath = $app_web_path . '/' . $file;
+
+		if (file_exists($app_path . '/' . $file) && OC_Helper::issubdirectory($app_path . '/' . $file, $app_path)) {
 			$minimizer = new OC_Minimizer_CSS();
 			$info = array($app_path, $app_web_path, $file);
 			$minimizer->output(array($info), $filepath);

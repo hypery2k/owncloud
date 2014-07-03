@@ -127,12 +127,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#download-extract-and-copy-owncloud-to-your-web-server">Download, extract and copy ownCloud to Your Web Server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set-the-directory-permissions">Set the Directory Permissions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#web-server-configuration">Web Server Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#follow-the-install-wizard">Follow the Install Wizard</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#note">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-wizard">Install Wizard</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="installation_others.html">PageKite Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation_others.html#open-wrt">Open Wrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_wizard.html">Installation Wizard</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
@@ -171,13 +171,13 @@ is required.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This tutorial assumes you have terminal access to the machine you want
-to install owncloud on. Although this is not an absolute requirement,
+to install ownCloud on. Although this is not an absolute requirement,
 installation without it is highly likely to require contacting your
 hoster (e.g. for installing required modules).</p>
 </div>
 <p>To run ownCloud, your web server must have the following installed:</p>
 <ul class="simple">
-<li>PHP (&gt;= 5.3.3 minimum, 5.4 or higher recommended)</li>
+<li>PHP (&gt;= 5.3.8 minimum, 5.4 or higher recommended)</li>
 <li>PHP module ctype</li>
 <li>PHP module dom</li>
 <li>PHP module GD</li>
@@ -638,11 +638,16 @@ server {
 
 }</pre>
 </div>
-<p>To enable SSL support:
--  Remove the server block containing the redirect
--  Change <strong>listen 443 ssl</strong> to <strong>listen 80;</strong>
--  Remove <strong>ssl_certificate</strong> and <strong>ssl_certificate_key</strong>.
--  Remove <strong>fastcgi_params HTTPS on;</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use ownCloud without SSL/TLS support, but we strongly encourage you not to do that:</p>
+</div>
+<ul class="simple">
+<li>Remove the server block containing the redirect</li>
+<li>Change <strong>listen 443 ssl</strong> to <strong>listen 80;</strong></li>
+<li>Remove <strong>ssl_certificate</strong> and <strong>ssl_certificate_key</strong>.</li>
+<li>Remove <strong>fastcgi_params HTTPS on;</strong></li>
+</ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you want to effectively increase maximum upload size you will also
@@ -733,91 +738,22 @@ WebDAV from MacOS will also need to add <tt class="docutils literal"><span class
 <p>See <a class="reference internal" href="installation_windows.html"><em>Windows 7 and Windows Server 2008</em></a> for further instructions.</p>
 </div>
 </div>
-<div class="section" id="follow-the-install-wizard">
-<h2>Follow the Install Wizard<a class="headerlink" href="#follow-the-install-wizard" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-wizard">
+<h2>Install Wizard<a class="headerlink" href="#install-wizard" title="Permalink to this headline">¶</a></h2>
+<p>The last thing to do is to click through the installation wizard.</p>
+<p>Here are some guidelines for the values to enter there if following the
+Ubuntu-Apache-MySQL walk-through:</p>
 <ul class="simple">
-<li>Open your web browser</li>
-<li>Navigate to your ownCloud instance.<ul>
-<li>If you are installing ownCloud on the same machine as you are accessing the
-install wizard from, the url will be <a class="reference external" href="https://localhost/owncloud">https://localhost/owncloud</a></li>
-<li>If you are installing ownCloud on a different machine, you&#8217;ll have to access
-it by its hostname or IP address, e.g. <a class="reference external" href="https://example.com/owncloud">https://example.com/owncloud</a></li>
-<li>If you are using a self-signed certificate, you will be presented with a
-security warning about the issuer of the certificate not being trusted which
-you can ignore.</li>
-</ul>
-</li>
-<li>You will be presented with the setup screen</li>
-<li>Enter username and password for the administrative user account</li>
-<li>Expand Advanced options to choose a data folder and the database system</li>
-<li>If you are not using Apache as the web server, please set the data directory
-to a location outside of the document root.</li>
-<li>If following the Ubuntu-Apache-MySQL walk-through:<ul>
-<li>choose MySQL as Database backend (you might not be presented with any other
+<li>Make sure to click the &#8220;Advanced&#8221; Button to see the database settings</li>
+<li>Choose MySQL as Database backend (you might not be presented with any other
 choice if you haven&#8217;t installed any other database systems).</li>
 <li>As Database host, enter <tt class="docutils literal"><span class="pre">localhost</span></tt>.</li>
 <li>As Database user enter <tt class="docutils literal"><span class="pre">root</span></tt>.</li>
-<li>As Database password, enter the password you entered during installation of
-the MySQL server package.</li>
-<li>As Database name, enter an arbitrary name as you see fit<ul>
-<li>Beware that there are restrictions as to what characters a database name
-may or may not contain, see the
-<a class="reference external" href="http://dev.mysql.com/doc/refman/5.5/en/identifiers.html">MySQL Schema Object Names documentation</a> for details);</li>
-<li>Make sure to choose a name under which no database exists yet</li>
+<li>As Database password, enter the password you entered during installation of the
+MySQL server package.</li>
+<li>As Database name, enter an arbitrary name as you see fit</li>
 </ul>
-</li>
-<li>ownCloud will use the provided credentials and create its own user with
-permissions only on its own database.</li>
-</ul>
-</li>
-<li>In general, you have the following choices regarding the database:<ul>
-<li>For basic installs we recommend SQLite as it is easy to setup (ownCloud will do
-it for you). The performance when using sqlite is however inferior to the two
-other options.</li>
-<li>For larger installs you should use MySQL or PostgreSQL.</li>
-<li>Note that you will only be able to choose among the php database connectors
-which are actually installed on the system (see package requirements above).</li>
-<li>Further, it is not easily possible to migrate to another database system
-once you have set up your ownCloud to use a specific one. So make sure to
-carefully consider which database system to use.</li>
-<li>When using MySQL or PostgreSQL you have two options  regarding the database
-name and user account you specify:<ul>
-<li>You can specify either an admin/root user, and the name of a database
-which does not yet exist. This lets ownCloud create its own database; it
-will also create a database user account with restricted rights (with the
-same username as you specified for the administrative user, plus an
-<tt class="docutils literal"><span class="pre">oc_</span></tt> prefix) and will use that for all subsequent database access.</li>
-<li>You can enter the name of an existing database and the username/password
-of a user with restricted permissions<ul>
-<li>You can create such a user yourself e.g. via phpmyadmin.</li>
-<li>This user shouldn&#8217;t have permission to create a database.</li>
-<li>It should have full permissions on the (existing) database with the
-name you specify.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Press &#8220;Finish Setup&#8221;</li>
-<li>ownCloud will set up your cloud according to the given settings</li>
-<li>When its finished, it will log you in as administrative user and present the
-&#8220;Welcome to ownCloud&#8221; screen.</li>
-</ul>
-</div>
-<div class="section" id="note">
-<h2>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
-<p>When the initial ownCloud configuration is performed, ownCloud will take the URL used to access it and insert that
-the config.php file under the ‘trusted_domains’ header.</p>
-<p>Users will only be able to log into ownCloud when the addressed URL is as stated in the ‘trusted_domans’  header
-in the config.php file.</p>
-<p>In the event that a load balancer is in place, as long as it sends the correct X-Forwarded-Host header, there will
-be no issues.</p>
-<p>It should be noted that the loopback address, 127.0.0.1, is white labeled and therefore users on the ownCloud
-server who access ownCloud with the loopback will successfully login.
-In the event that an improper URL is used, the following error will appear:</p>
-<img alt="../_images/untrusted-domain.png" src="../_images/untrusted-domain.png" />
-<p>For configuration examples, refer to the config.php document.</p>
+<p>Continue by following the <a class="reference internal" href="installation_wizard.html"><em>Installation Wizard</em></a>.</p>
 </div>
 </div>
 

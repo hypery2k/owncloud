@@ -133,6 +133,7 @@
 <li class="toctree-l2"><a class="reference internal" href="installation_source.html">Manual Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation_others.html">PageKite Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation_others.html#open-wrt">Open Wrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_wizard.html">Installation Wizard</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
@@ -299,7 +300,7 @@ Automatically button.</li>
 <li>Select the modify security settings box on the next page, and enter a
 password you will remember. You will need this password when you configure
 ownCloud.</li>
-<li>Uncheck <strong>enable</strong> root access from remote machines” for security reasons.</li>
+<li>Uncheck “enable root access from remote machines” for security reasons.</li>
 <li>Click execute, and wait while the instance is created and launched.</li>
 <li>Click Finish when this is all complete.</li>
 </ol>
@@ -337,24 +338,11 @@ your installation directory if you selected something different).</li>
 button “to change permissions, click edit”.</li>
 <li>Select the “users” user from the list, and check the box “write”.</li>
 <li>Apply these settings and close out.</li>
-<li>Now open your browser and go to <a class="reference external" href="http://localhost/owncloud">http://localhost/owncloud</a> (or localhost if it
-is installed in the root www directory). This should bring up the ownCloud
-configuration page.</li>
-<li>At this page, you enter your desired ownCloud user name and password for the
-administrator, and expand the little arrow.</li>
-<li>Select MySQL as the database, and enter your MySQL database user name,
+</ol>
+<p>Continue by following the <a class="reference internal" href="installation_wizard.html"><em>Installation Wizard</em></a>.
+Select MySQL as the database, and enter your MySQL database user name,
 password and desired instance name – use the user name and password you setup
-for MySQL earlier in step 3, and pick any name for the database instance.</li>
-</ol>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The ownCloud admin password and the MySQL password CANNOT be the same
-in any way.</p>
-</div>
-<ol class="arabic simple" start="11">
-<li>Click next, and ownCloud should have you logged in as the admin user, and
-you can get started exploring ownCloud, creating other users and more!</li>
-</ol>
+during MySQL installation, and pick any name for the database instance.</p>
 </div>
 <div class="section" id="ensure-proper-http-verb-handling">
 <h2>Ensure Proper HTTP-Verb handling<a class="headerlink" href="#ensure-proper-http-verb-handling" title="Permalink to this headline">¶</a></h2>

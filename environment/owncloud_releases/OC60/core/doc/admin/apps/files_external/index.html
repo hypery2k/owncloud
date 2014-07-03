@@ -161,6 +161,11 @@ The external storage devices serves as a secondary storage device within ownClou
 <p>The ownCloud Admin has the ability to create such a mount.
 In addition, the ownCloud Admin may decide to provide the end user the ability to create the mount.
 The mounts may be created on a per-user, per group, or all user basis.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using <tt class="docutils literal"><span class="pre">$user</span></tt> in any option gets replaced by the current user. This can be used e.g to
+specify users&#8217; own paths easily by just writing <tt class="docutils literal"><span class="pre">/home/$user/</span></tt>.</p>
+</div>
 <div class="section" id="supported-mounts">
 <h2>Supported mounts<a class="headerlink" href="#supported-mounts" title="Permalink to this headline">¶</a></h2>
 <p>The following lists the supported storage types.</p>

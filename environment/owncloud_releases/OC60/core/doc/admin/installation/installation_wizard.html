@@ -1,0 +1,274 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation Wizard &mdash; ownCloud Administrators Manual 6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 6.0 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title="Configuration" href="../configuration/index.html" />
+    <link rel="prev" title="PageKite Configuration" href="installation_others.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 6.0 Admin Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_appliance.html">Appliances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_linux.html">Linux Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_macos.html">Mac OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_windows.html">Windows 7 and Windows Server 2008</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_ucs.html">Univention Corporate Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_source.html">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_others.html">PageKite Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation_others.html#open-wrt">Open Wrt</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Installation Wizard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#required-settings">Required Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-options">Advanced Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#finish-installation">Finish Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#note">Note</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cron/index.html">Driving Events with Cron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quota/index.html">Quota Calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing_api/index.html">Sharing API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">The Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="installation-wizard">
+<h1>Installation Wizard<a class="headerlink" href="#installation-wizard" title="Permalink to this headline">¶</a></h1>
+<p>When ownCloud prerequisites are fulfilled and all ownCloud files are installed
+on the server, the last thing left to do for finishing the installation is
+running the Installation Wizard.</p>
+<ul class="simple">
+<li>Open your web browser</li>
+<li>Navigate to your ownCloud instance.<ul>
+<li>If you are installing ownCloud on the same machine as you are accessing the
+install wizard from, the url will be <a class="reference external" href="https://localhost/owncloud">https://localhost/owncloud</a></li>
+<li>If you are installing ownCloud on a different machine, you&#8217;ll have to access
+it by its hostname or IP address, e.g. <a class="reference external" href="https://example.com/owncloud">https://example.com/owncloud</a></li>
+<li>Please take notice of the note at the end of the site if you&#8217;re accessing
+your ownCloud instance via a different IP address or host name during setup
+than your users are going to use later on (or if your ownCloud instance
+should be accessible via more than one host name or IP address).</li>
+<li>If you are using a self-signed certificate, you will be presented with a
+security warning about the issuer of the certificate not being trusted which
+you can ignore.</li>
+</ul>
+</li>
+<li>You will be presented with the setup screen:</li>
+</ul>
+<img alt="../_images/install-wizard.png" src="../_images/install-wizard.png" />
+<div class="section" id="required-settings">
+<h2>Required Settings<a class="headerlink" href="#required-settings" title="Permalink to this headline">¶</a></h2>
+<p>Under &#8220;create an admin account&#8221; you are requested to enter a username and
+password for the administrative user account. You can choose any username and
+password as you see fit, just make sure to remember it, you will need it later
+whenever you want to configure something for your ownCloud instance.</p>
+</div>
+<div class="section" id="advanced-options">
+<h2>Advanced Options<a class="headerlink" href="#advanced-options" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Advanced settings are available for configuring a different database or data
+directory than the default ones.</li>
+<li>If you are not using Apache as the web server, it is highly
+recommended to configure the data directory to a location outside of
+the document root. Otherwise all user data is potentially publicly
+visible!</li>
+<li>Show these additional options by clicking on &#8220;Advanced&#8221;:</li>
+</ul>
+<img alt="../_images/install-wizard-advanced.png" src="../_images/install-wizard-advanced.png" />
+<div class="section" id="database-choice">
+<h3>Database choice<a class="headerlink" href="#database-choice" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>For a guideline on which database system to choose, and on pointers how to
+set them up for being available for php/ownCloud, see
+<a class="reference internal" href="../configuration/configuration_database.html"><em>MySQL/Postgres/SQLite Support</em></a></li>
+<li>Note that you will only be able to choose among the php database connectors
+which are actually installed on the system.</li>
+<li>It is not easily possible to migrate to another database system once you have
+set up your ownCloud to use a specific one. So make sure to carefully
+consider which database system to use.</li>
+<li>When using MySQL or PostgreSQL you have two options regarding the database
+name and user account you specify:<ul>
+<li>You can specify either an admin/root user, and the name of a database
+which does not yet exist. This lets ownCloud create its own database; it
+will also create a database user account with restricted rights (with the
+same username as you specified for the administrative user, plus an
+<tt class="docutils literal"><span class="pre">oc_</span></tt> prefix) and will use that for all subsequent database access.<ul>
+<li>Beware that there are restrictions as to what characters a database name
+may or may not contain, see the
+<a class="reference external" href="http://dev.mysql.com/doc/refman/5.5/en/identifiers.html">MySQL Schema Object Names documentation</a> for details);</li>
+<li>Make sure to choose a name under which no database exists yet</li>
+<li>ownCloud will use the provided credentials and create its own user with
+permissions only on its own database.</li>
+</ul>
+</li>
+<li>You can enter the name of an existing database and the username/password
+of a user with permissions restricted to this one database only<ul>
+<li>You can create such a user yourself, e.g. via phpmyadmin.</li>
+<li>This user shouldn&#8217;t have permission to create a database.</li>
+<li>It should have full permissions on the (existing) database with the
+name you specify.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="finish-installation">
+<h2>Finish Installation<a class="headerlink" href="#finish-installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Once you&#8217;ve entered all settings, press &#8220;Finish Setup&#8221;</li>
+<li>ownCloud will set up your cloud according to the given settings</li>
+<li>When its finished, it will log you in as administrative user and present the
+&#8220;Welcome to ownCloud&#8221; screen.</li>
+</ul>
+</div>
+<div class="section" id="note">
+<h2>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
+<p>ownCloud will take the URL used to access the Installation Wizard and insert
+that into the config.php file for the ‘trusted_domains’ setting.</p>
+<p>Users will only be able to log into ownCloud when they are using a domain name
+listed in the ‘trusted_domans’ setting.</p>
+<p>In the event that a load balancer is in place, there will be no issues, as long
+as it sends the correct X-Forwarded-Host header.</p>
+<p>It should be noted that the loopback address, 127.0.0.1, is whitelisted and
+therefore users on the ownCloud server who access ownCloud with the loopback
+will successfully login. In the event that an improper URL is used, the
+following error will appear:</p>
+<img alt="../_images/untrusted-domain.png" src="../_images/untrusted-domain.png" />
+<p>For configuration examples, refer to the <tt class="file docutils literal"><span class="pre">config/config.sample.php</span></tt>
+document.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

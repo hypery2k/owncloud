@@ -167,21 +167,35 @@
 						
   <div class="section" id="mysql-postgres-sqlite-support">
 <h1>MySQL/Postgres/SQLite Support<a class="headerlink" href="#mysql-postgres-sqlite-support" title="Permalink to this headline">¶</a></h1>
-<p>ownCloud requires a database where administrative data will be held. Four different database types are currently
-supported, <a class="reference external" href="http://www.mysql.com/">MySQL</a>, <a class="reference external" href="https://mariadb.org/">MariaDB</a>, <a class="reference external" href="http://www.sqlite.org/">SQLite</a>,
-and <a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a>. MySQL or MariaDB are the recommended database engines. By default
-SQLite is chosen because it is a file based database with the least administrative overhead.</p>
+<p>ownCloud requires a database where administrative data will be held. Four
+different database types are currently supported,
+<a class="reference external" href="http://www.mysql.com/">MySQL</a> / <a class="reference external" href="https://mariadb.org/">MariaDB</a>,
+<a class="reference external" href="http://www.sqlite.org/">SQLite</a>, <a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a>
+and <a class="reference external" href="http://www.oracle.com/">Oracle</a>. MySQL or MariaDB are the recommended
+database engines. By default SQLite is chosen because it is a file based
+database with the least administrative overhead.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Because SQLite handles multiple users very badly SQLite is only recommended for single user ownCloud installations</p>
+<p class="last">Because SQLite handles multiple users very badly SQLite is only
+recommended for single user ownCloud installations.</p>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>If you decide to use MySQL, MariaDB, or PostgreSQL you need to install and set-up the
-database first. These steps will not be covered by this description as they are easy to find elsewhere.</p>
+<p>If you decide to use MySQL / MariaDB, PostgreSQL or Oracle, you need to install
+and set up the server software first. These steps will not be covered by this
+description as they are easy to find elsewhere.</p>
 </div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For setting up ownCloud to use any of these databases, use the
+<a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a>.
+You usually don&#8217;t need to edit the respective values in the
+<tt class="file docutils literal"><span class="pre">config/config.php</span></tt>, just in special cases e.g. if you want to
+connect your ownCloud instance to a database created by a previous
+installation of ownCloud.</p>
+</div>
 <div class="section" id="mysql-mariadb-database">
 <h3>MySQL/MariaDB Database<a class="headerlink" href="#mysql-mariadb-database" title="Permalink to this headline">¶</a></h3>
 <p>If you decide to use a MySQL or MariaDB database make sure that you have installed and
@@ -226,8 +240,11 @@ when you login for the first time.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">quit</span>
 </pre></div>
 </div>
-<p>In the ownCloud configuration you need to set the hostname on which the
-database is running and a valid username and password to access it.</p>
+<p>An ownCloud instance configured with MySQL would contain the hostname on which
+the database is running, a valid username and password to access it, and the
+name of the database. The <tt class="file docutils literal"><span class="pre">config/config.php</span></tt> as created by the
+<a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> would therefore contain entries like
+this:</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
 
   <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;mysql&quot;</span><span class="p">,</span>
@@ -235,7 +252,7 @@ database is running and a valid username and password to access it.</p>
   <span class="s2">&quot;dbuser&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dbpassword&quot;</span>    <span class="o">=&gt;</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dbhost&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;oc_&quot;</span><span class="p">,</span>
 </pre></div>
 </div>
 </div>
@@ -251,10 +268,11 @@ enabled the SQLite extension in PHP. The PHP configuration in <tt class="file do
 <p>It is not necessary to create a database and a database user in advance
 because this will automatically be done by ownCloud when you login for the
 first time.</p>
-<p>In the ownCloud configuration in <tt class="file docutils literal"><span class="pre">config/config.php</span></tt> you need to set at least the <strong>datadirectory</strong> parameter to
-the directory where your data and database should be stored. Note that for the PDO SQLite driver this directory must
-be writable (this is recommended for ownCloud anyway).  No authentication is required to access the database therefore
-most of the default parameters could be taken as is:</p>
+<p>An ownCloud instance configured to use sqlite only needs to contain the
+reference to a writable data directory (which is required for successful
+operation of ownCloud in general anyway). The <tt class="file docutils literal"><span class="pre">config/config.php</span></tt> as
+created by the <a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> could therefore contain
+entries like this:</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
 
   <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;sqlite&quot;</span><span class="p">,</span>
@@ -263,7 +281,7 @@ most of the default parameters could be taken as is:</p>
   <span class="s2">&quot;dbpassword&quot;</span>    <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dbhost&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;datadirectory&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;/www/htdocs/owncloud/data&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datadirectory&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;/var/www/html/owncloud/data&quot;</span><span class="p">,</span>
 </pre></div>
 </div>
 </div>
@@ -302,10 +320,11 @@ ownCloud when you login for the first time.</p>
 <p>You can quit the prompt by entering:</p>
 <div class="highlight-python"><pre>\q</pre>
 </div>
-<p>In the ownCloud configuration you need to set the hostname on which the
-database is running and a valid username (and sometimes a password) to
-access it. If the database has been installed on the same server as
-ownCloud a password is very often not required to access the database.</p>
+<p>An ownCloud instance configured with PostgreSQL would contain the hostname on
+which the database is running, a valid username and password to access it, and
+the name of the database. The <tt class="file docutils literal"><span class="pre">config/config.php</span></tt> as created by the
+<a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> would therefore contain entries like
+this:</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
 
   <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;pgsql&quot;</span><span class="p">,</span>
@@ -313,7 +332,7 @@ ownCloud a password is very often not required to access the database.</p>
   <span class="s2">&quot;dbuser&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dbpassword&quot;</span>    <span class="o">=&gt;</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dbhost&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dbtableprefix&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;oc_&quot;</span><span class="p">,</span>
 </pre></div>
 </div>
 </div>
@@ -366,10 +385,11 @@ The database tables will be created by ownCloud when you login for the first tim
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">exit</span>
 </pre></div>
 </div>
-<p>In the ownCloud configuration you need to set the hostname on which the
-database is running and a valid username and password to
-access it. If the database has been installed on the same server as
-ownCloud to config file could look like this:</p>
+<p>An ownCloud instance configured with Oracle would contain the hostname on which
+the database is running, a valid username and password to access it, and the
+name of the database. The <tt class="file docutils literal"><span class="pre">config/config.php</span></tt> as created by the
+<a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> would therefore contain entries like
+this:</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
 
   <span class="s2">&quot;dbtype&quot;</span>        <span class="o">=&gt;</span> <span class="s2">&quot;oci&quot;</span><span class="p">,</span>
@@ -381,16 +401,18 @@ ownCloud to config file could look like this:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This example assumes you are running an Oracle Express Edition on <tt class="docutils literal"><span class="pre">localhost</span></tt>. The <tt class="docutils literal"><span class="pre">dbname</span></tt> is the name</p>
+<p class="last">This example assumes you are running an Oracle Express Edition on
+<tt class="docutils literal"><span class="pre">localhost</span></tt>. The <tt class="docutils literal"><span class="pre">dbname</span></tt> is the name of the Oracle instance.
+For Oracle Express Edition it is always <tt class="docutils literal"><span class="pre">XE</span></tt>.</p>
 </div>
-<p>of the Oracle instance. For Oracle Express Edition it is always <tt class="docutils literal"><span class="pre">XE</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="trouble-shooting">
 <h2>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="how-can-i-find-out-if-my-mysql-postgresql-server-is-reachable">
-<h3>How can I find out if my MySQL/PostgreSQL  server is reachable?<a class="headerlink" href="#how-can-i-find-out-if-my-mysql-postgresql-server-is-reachable" title="Permalink to this headline">¶</a></h3>
-<p>Use the ping command to check the server availability:</p>
+<h3>How can I find out if my MySQL/PostgreSQL server is reachable?<a class="headerlink" href="#how-can-i-find-out-if-my-mysql-postgresql-server-is-reachable" title="Permalink to this headline">¶</a></h3>
+<p>To check the server&#8217;s network availability, use the ping command on
+the server&#8217;s host name (db.server.com in this example):</p>
 <div class="highlight-python"><pre>ping db.server.dom</pre>
 </div>
 <div class="highlight-python"><pre>PING db.server.dom (ip-address) 56(84) bytes of data.
@@ -398,6 +420,8 @@ ownCloud to config file could look like this:</p>
 64 bytes from your-server.local.lan (192.168.1.10): icmp_req=2 ttl=64 time=0.055 ms
 64 bytes from your-server.local.lan (192.168.1.10): icmp_req=3 ttl=64 time=0.062 ms</pre>
 </div>
+<p>For a more detailed check whether the access to the database server software
+itself works correctly, see the next question.</p>
 </div>
 <div class="section" id="how-can-i-find-out-if-a-created-user-can-access-a-database">
 <h3>How can I find out if a created user can access a database?<a class="headerlink" href="#how-can-i-find-out-if-a-created-user-can-access-a-database" title="Permalink to this headline">¶</a></h3>
@@ -412,8 +436,14 @@ SQLite 3.7.15.1 2012-12-19 20:39:10 6b85b767d0ff7975146156a99ad673f2c1a23318
 sqlite&gt; .quit</pre>
 </div>
 <p><strong>MySQL</strong>:</p>
+<p>Assuming the database server is installed on the same sytem you&#8217;re running,
+the command from, use:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mysql</span> <span class="o">-</span><span class="n">uUSERNAME</span> <span class="o">-</span><span class="n">p</span>
 </pre></div>
+</div>
+<p>To acess a MySQL installation on a different machine, add the -h option with
+the respective host name:</p>
+<div class="highlight-python"><pre>mysql -uUSERNAME -p -h HOSTNAME</pre>
 </div>
 <div class="highlight-python"><pre>mysql&gt; SHOW VARIABLES LIKE "version";
 +---------------+--------+
@@ -425,8 +455,14 @@ sqlite&gt; .quit</pre>
 mysql&gt; quit</pre>
 </div>
 <p><strong>PostgreSQL</strong>:</p>
+<p>Assuming the database server is installed on the same sytem you&#8217;re running
+the command from, use:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">psql</span> <span class="o">-</span><span class="n">Uusername</span> <span class="o">-</span><span class="n">downcloud</span>
 </pre></div>
+</div>
+<p>To acess a MySQL installation on a different machine, add the -h option with
+the respective host name:</p>
+<div class="highlight-python"><pre>psql -Uusername -downcloud -h HOSTNAME</pre>
 </div>
 <div class="highlight-python"><pre>postgres=# SELECT version();
 PostgreSQL 8.4.12 on i686-pc-linux-gnu, compiled by GCC gcc (GCC) 4.1.3 20080704 (prerelease), 32-bit
@@ -434,6 +470,7 @@ PostgreSQL 8.4.12 on i686-pc-linux-gnu, compiled by GCC gcc (GCC) 4.1.3 20080704
 postgres=# \q</pre>
 </div>
 <p><strong>Oracle</strong>:</p>
+<p>On the machine where your Oracle database is installed, type:</p>
 <div class="highlight-python"><pre>sqlplus username</pre>
 </div>
 <div class="highlight-python"><pre>SQL&gt; select * from v$version;
