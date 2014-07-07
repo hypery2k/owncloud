@@ -33,7 +33,10 @@ public class PortalPage extends AbstractPage {
 	@FindBy(id = "settings")
 	private WebElement settingsDropdownButton;
 
-	@FindBy(partialLinkText="admin")
+	@FindBy(xpath="//ul[@id='settings']/div/li[2]/a")
+	private WebElement userSettingsDropdownButton;
+
+	@FindBy(xpath="//ul[@id='settings']/div/li[3]/a")
 	private WebElement adminSettingsDropdownButton;
 
 	@FindBy(id = "logout")
@@ -61,6 +64,11 @@ public class PortalPage extends AbstractPage {
 	public void go_to_admin_settings() {
 		open_settings_dropdown();
 		click(adminSettingsDropdownButton);
+	}
+
+	public void go_to_user_settings() {
+		open_settings_dropdown();
+		click(userSettingsDropdownButton);
 	}
 
 	public void do_logout() {
