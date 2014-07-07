@@ -50,8 +50,7 @@ OCP\Util::addScript('storagecharts2', 'units.min');
 
 <div id="storagecharts2">
 	<div class="personalblock topblock titleblock">
-		DjazzLab Storage Charts<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?>
-		</span>
+		<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?></span>
 	</div>
 </div>
 <div id="stc_frame">
@@ -70,9 +69,7 @@ OCP\Util::addScript('storagecharts2', 'units.min');
 				<img
 					src="<?php print(OCP\Util::imagePath('storagecharts2', 'move.png')); ?>" />
 				<?php print($l->t($sc_sort_title).' '.$l->t('for')); ?>
-				"
-				<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getUser()); ?>
-				"
+				"<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getDisplayName()); ?>"
 			</h3>
 			<div id="<?php print(substr($sc_sort, 1)); ?>"
 				style="max-width: 100%; height: 400px; margin: 0 auto"></div>

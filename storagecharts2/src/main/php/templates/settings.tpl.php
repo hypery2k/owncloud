@@ -25,7 +25,8 @@
 <form id="storagecharts2" method="POST"
 	action="<?php print(OC_Helper::linkTo('settings','personal.php')); ?>">
 	<fieldset class="personalblock">
-		<strong>DjazzLab Storage Charts</strong><span
+		<strong>Storage Charts 2</strong>
+		<span
 			style="margin-left: 10px; color: #BBB; font-style: italic;"><?php print($l->t('Uncheck charts you do not want to display')); ?>
 		</span>
 		<?php foreach($_['displays'] as $chart => $is_enable){
