@@ -38,15 +38,15 @@ class OC_RoundCube_DB_Util {
 
     } catch (Exception $e) {
       // We got an exception == table not found
-      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exists.', OCP\Util::DEBUG);
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exists.'.$e->getMessage(), OCP\Util::DEBUG);
       return false;
     }
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
-    if ($result instanceof PDOStatementWrapper) {
+    if ($result instanceof OC_DB_StatementWrapper) {
       OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' exists.', OCP\Util::DEBUG);
       return true;
     } else {
-      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exits.', OCP\Util::DEBUG);
+      OCP\Util::writeLog('roundcube', 'OC_RoundCube_DB_Util.class.php: ' . 'Table ' . $table . ' does not exist.', OCP\Util::DEBUG);
       return false;
     }
 

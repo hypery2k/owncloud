@@ -34,7 +34,8 @@ if (!OCP\User::isLoggedIn()) {
 // Load our style
 OCP\Util::addStyle('roundcube', 'base');
 // add neede JS
-OCP\Util::addScript('', 'jquery-1.7.2.min');
+//OCP\Util::addScript('', 'jquery-1.7.2.min');
+OCP\Util::addScript('core', 'jquery-showpassword');
 OCP\Util::addScript('roundcube', 'jquery.plugins');
 OCP\Util::addScript('roundcube', 'mail');
 OCP\Util::addScript('roundcube', 'modernizr');

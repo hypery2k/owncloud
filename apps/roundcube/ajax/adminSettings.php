@@ -8,38 +8,28 @@ OCP\JSON::checkAppEnabled('roundcube');
 OCP\JSON::callCheck();
 $l = new OC_L10N('roundcube');
 
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noDebug', 'rcHost');
+$params = array(
+  'maildir' => true,
+  'removeHeaderNav' => 'checkbox',
+  'removeControlNav' => 'checkbox',
+  'autoLogin' => 'checkbox',
+  'noDebug' => 'checkbox',
+  'rcHost' => function ($value) { return strlen($value) > 3; }
+  );
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
-  foreach ($params as $param) {
+  foreach ($params as $param => $constraint) {
     if (isset($_POST[$param])) {
-      if ($param === 'removeHeaderNav') {
-        OCP\Config::setAppValue('roundcube', 'removeHeaderNav', true);
+      if ($constraint === 'checkbox') {
+        OCP\Config::setAppValue('roundcube', $param, true);
+      } else if ($constraint === true) {
+        OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
+      } else if (is_callable($constraint) &&
+                 call_user_func($constraint, $_POST[$param])) {
+        OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
       }
-      if ($param === 'removeControlNav') {
-        OCP\Config::setAppValue('roundcube', 'removeControlNav', true);
-      }
-      if ($param === 'autoLogin') {
-        OCP\Config::setAppValue('roundcube', 'autoLogin', true);
-      } else {
-        if ($param === 'rcHost') {
-          if (strlen($_POST[$param]) > 3) {
-            OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
-          }
-        } else {
-          OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
-        }
-      }
-    } else {
-      if ($param === 'removeHeaderNav') {
-        OCP\Config::setAppValue('roundcube', 'removeHeaderNav', false);
-      }
-      if ($param === 'removeControlNav') {
-        OCP\Config::setAppValue('roundcube', 'removeControlNav', false);
-      }
-      if ($param === 'autoLogin') {
-        OCP\Config::setAppValue('roundcube', 'autoLogin', false);
-      }
+    } else if ($constraint == 'checkbox') {
+      OCP\Config::setAppValue('roundcube', $param, false);
     }
   }
 } else {
@@ -47,7 +37,7 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
   return false;
 }
 
-OCP\JSON::success(array('data' => array( 'message' => $l->t('Application settings successfully stored.') )));
+OCP\JSON::success(array('data' => array( 'message' => $l->t('Application settings successfully stored.').print_r($_POST, true) )));
 return true;
 
 ?>
