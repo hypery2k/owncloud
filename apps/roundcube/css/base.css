@@ -1,8 +1,11 @@
 #roundcube_container {
-	position: fixed;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 #roundcubeFrame {
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 /* This only works with JavaScript,
  if it's not present, don't show loader */

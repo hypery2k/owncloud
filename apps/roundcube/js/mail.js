@@ -10,14 +10,14 @@ $('#roundcubeFrame').ready(function() {
 		if (rc.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
-		fillWindow($('#roundcube_container'));
+		//fillWindow($('#roundcube_container'));
 		rc.iframe_loaded();
 	});
 	$('#roundcubeFrame').load(function() {
 		if (rc.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
-		fillWindow($('#roundcube_container'));
+		//fillWindow($('#roundcube_container'));
 		rc.iframe_loaded();
 	});
 	// check if the control menu from roundcube was disabled
