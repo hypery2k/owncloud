@@ -13,7 +13,7 @@
   position:absolute!important;
   height:14px;
   width:24px;
-  background-image:url("%webroot%/core/img/actions/toggle.png");
+  background-image:url("../../../core/img/actions/toggle.png");
   background-repeat:no-repeat;
   ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
   filter:alpha(opacity=30);

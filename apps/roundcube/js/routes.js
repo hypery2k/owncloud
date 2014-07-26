@@ -1,8 +1,7 @@
+
 $(document).ready(function(){
-//    OC.Router.registerLoadedCallback(function(){
-//        var url = OC.Router.generate('roundcuberefresh');
-//        setInterval(function(){
-//            $.post(url);
-//        }, 300000);
-//    });
+    var url = OC.generateUrl('roundcuberefresh');
+    setInterval(function(){
+        $.post(url);
+    }, 300000);
 });
