@@ -3,6 +3,41 @@
 var rc = document.rc || {};
 
 /**
+ * Fills height of window. (more precise than height: 100%;)
+ *
+ * I know, these have been deprecated ...
+ */
+rc.fillHeight = function(selector) {
+	if (selector.length === 0) {
+		return;
+	}
+	var height = parseFloat($(window).height())-selector.offset().top;
+	selector.css('height', height + 'px');
+	if(selector.outerHeight() > selector.height()){
+		selector.css('height', height-(selector.outerHeight()-selector.height()) + 'px');
+	}
+	console.warn("This function is deprecated! Use CSS instead");
+}
+
+/**
+ * Fills height and width of window. (more precise than height: 100%; or width: 100%;)
+ *
+ * I know, these have been deprecated ...
+ */
+rc.fillWindow = function(selector) {
+	if (selector.length === 0) {
+		return;
+	}
+	rc.fillHeight(selector);
+	var width = parseFloat($(window).width())-selector.offset().left;
+	selector.css('width', width + 'px');
+	if(selector.outerWidth() > selector.width()){
+		selector.css('width', width-(selector.outerWidth()-selector.width()) + 'px');
+	}
+	console.warn("This function is deprecated! Use CSS instead");
+}
+
+/**
  * init js function during frame load
  */
 $('#roundcubeFrame').ready(function() {
@@ -10,14 +45,14 @@ $('#roundcubeFrame').ready(function() {
 		if (rc.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
-		//fillWindow($('#roundcube_container'));
+		rc.fillWindow($('#roundcube_container'));
 		rc.iframe_loaded();
 	});
 	$('#roundcubeFrame').load(function() {
 		if (rc.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
-		//fillWindow($('#roundcube_container'));
+		rc.fillWindow($('#roundcube_container'));
 		rc.iframe_loaded();
 	});
 	// check if the control menu from roundcube was disabled
