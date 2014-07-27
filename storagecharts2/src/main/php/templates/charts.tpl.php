@@ -26,7 +26,7 @@
 OCP\Util::addStyle('storagecharts2', 'styles');
 OCP\Util::addScript('storagecharts2', 'highcharts.min');
 OCP\Util::addScript('3rdparty','chosen/chosen.jquery.min');
-OCP\Util::addStyle('3rdparty','chosen');
+OCP\Util::addStyle('3rdparty','chosen/chosen');
 OCP\Util::addScript('storagecharts2', 'units.min');
 
 ?>
