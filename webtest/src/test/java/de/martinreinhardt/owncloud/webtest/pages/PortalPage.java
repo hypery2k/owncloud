@@ -24,20 +24,23 @@ import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 @DefaultUrl(UITestConstants.DEFAULT_URL)
 public class PortalPage extends AbstractPage {
 
-	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='roundcube_index']/a/img")
+	// OC7 app menu
+	@FindBy(xpath = "//a[@class='menutoggle']")
+	private WebElement appMenu;
+
+	@FindBy(xpath = "//*[@data-id='roundcube_index']/a/img")
 	private WebElement roundcubeButton;
 
-	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='storagecharts2']/a/img")
+	@FindBy(xpath = "//*[@data-id='storagecharts2']/a/img")
 	private WebElement storageChartsButton;
 
-
-	@FindBy(xpath="//*[@id='settings']/span")
+	@FindBy(xpath = "//*[@id='settings']/span")
 	private WebElement settingsDropdownButton;
 
-	@FindBy(xpath="//*[@id='settings']/div/li[2]/a")
+	@FindBy(xpath = "//*[@id='settings']/div/li[2]/a")
 	private WebElement userSettingsDropdownButton;
 
-	@FindBy(xpath="//*[@id='settings']/div/li[3]/a")
+	@FindBy(xpath = "//*[@id='settings']/div/li[3]/a")
 	private WebElement adminSettingsDropdownButton;
 
 	@FindBy(id = "logout")
@@ -51,10 +54,18 @@ public class PortalPage extends AbstractPage {
 	}
 
 	public void go_to_roundcube_app() {
+		try {
+			click(appMenu);
+		} catch (Exception e) {
+		}
 		click(roundcubeButton);
 	}
 
 	public void go_to_storage_charts_app() {
+		try {
+			click(appMenu);
+		} catch (Exception e) {
+		}
 		click(storageChartsButton);
 	}
 
