@@ -8,7 +8,7 @@ $(document).ready(function() {
 		});
 		// starting with OC7 OC.Router was removed
 	} else {
-		var url = OC.generateUrl('roundcube_refresh');
+                var url = OC.generateUrl('apps/roundcube/'+'refresh');
 		setInterval(function() {
 			$.post(url);
 		}, 30000);
