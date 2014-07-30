@@ -43,7 +43,6 @@ public class RoundCubePage extends AbstractPage {
 
 	public RoundCubePage(final WebDriver pWebDriver) {
 		super(pWebDriver);
-		open();
 	}
 
 	/**
