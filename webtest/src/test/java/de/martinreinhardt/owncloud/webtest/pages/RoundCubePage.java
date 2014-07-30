@@ -18,7 +18,7 @@ import org.openqa.selenium.WebElement;
 import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 
-@DefaultUrl(RoundCubePage.URL_RC_APP)
+@DefaultUrl(UITestConstants.DEFAULT_URL)
 public class RoundCubePage extends AbstractPage {
 
 	/**
@@ -26,8 +26,7 @@ public class RoundCubePage extends AbstractPage {
 	 */
 	private static final String ROUNDCUBE_FRAME = "roundcubeFrame";
 
-	public static final String URL_RC_APP = UITestConstants.DEFAULT_URL
-			+ "index.php/apps/roundcube";
+	public static final String URL_RC_APP = "index.php/apps/roundcube";
 
 	@FindBy(id = "errorMsg")
 	private WebElement errorMsg;
