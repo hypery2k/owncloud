@@ -109,12 +109,23 @@ class OC_RoundCube_App {
 	}
 
 
+	/**
+	 * Get users public key
+	 * @param user $user
+	 * @return public key
+	 */
 	public static function getPublicKey($user)
 	{
 		$pubKey = \OCP\Config::getUserValue($user, 'roundcube', 'publicSSLKey', false);
 		return $pubKey;
 	}
 
+	/**
+	 * Get private key for user
+	 * @param user $user
+	 * @param password to use $password
+	 * @return private key|boolean
+	 */
 	public static function getPrivateKey($user, $password = false)
 	{
 		if ($user == false && $password == false &&
@@ -143,10 +154,10 @@ class OC_RoundCube_App {
 	}
 
 	/**
-	 * @brief own cryptfunction
+	 * encrypt data ssl
 	 * @param object to encrypt $entry
-	 * @returns encrypted entry
-	 *
+	 * @param public key $pubKey
+	 * @return boolean|unknown
 	 */
 	public static function cryptMyEntry($entry, $pubKey) {
 		if (openssl_public_encrypt($entry, $entry, $pubKey) === false) {
@@ -157,10 +168,10 @@ class OC_RoundCube_App {
 	}
 
 	/**
-	 * @brief own cryptfunction
-	 * @param object to encrypt $hex
-	 * @returns decrypted entry
-	 *
+	 * decrypt ssl-encrypted data
+	 * @param data to encrypt $data
+	 * @param private key $privKey
+	 * @return void|unknown
 	 */
 	public static function decryptMyEntry($data, $privKey) {
 		$data = base64_decode($data);
@@ -206,8 +217,8 @@ class OC_RoundCube_App {
 
 	/**
 	 * Logs the current user out from roundcube
-	 * @param roundcube server address
-	 * @param roundcube server port
+	 * @param roundcube server address $rcHost
+	 * @param roundcube server port $rcPort
 	 * @param path to roundcube installation, Note: The first parameter is the URL-path of the RC inst
 	 * NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
 	 * @param roundcube usernam $user
@@ -223,6 +234,15 @@ class OC_RoundCube_App {
 		}
 	}
 
+	/**
+	 * Login to roundcube host
+	 *
+	 * @param roundcube host to use $rcHost
+	 * @param port of the roundcube server $rcPort
+	 * @param context path of roundcube $maildir
+	 * @param login to be used $pLogin
+	 * @param password to be used $pPassword
+	 */
 	public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword)
 	{
 		// Create RC login object.
@@ -230,7 +250,7 @@ class OC_RoundCube_App {
 		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 
 		// Try to login
-		OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $ownUser, OCP\Util::DEBUG);
+		OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $pLogin, OCP\Util::DEBUG);
 		if ($rcl -> isLoggedIn()) {
 			$rcl -> logout();
 			$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
@@ -247,7 +267,7 @@ class OC_RoundCube_App {
 	 * Try to refresh roundcube session
 	 * @param roundcube host to use $rcHost
 	 * @param port of the roundcube server $rcPort
-	 * @param context path of roundcube$maildir
+	 * @param context path of roundcube $maildir
 	 * @return true if session refresh was successfull, otherwise false
 	 */
 	public static function refresh($rcHost, $rcPort, $maildir){
@@ -285,11 +305,10 @@ class OC_RoundCube_App {
 	/**
 	 *
 	 * @brief showing up roundcube iFrame
-	 * @param roundcube username $ownUser
+	 * @param roundcube host $rcHost
+	 * @param roundcube port $rcPort
 	 * @param path to roundcube installation, Note: The first parameter is the URL-path of the RC inst
 	 * NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
-	 * @param roundcube username $ownUser
-	 * @param roundcube password $ownPass
 	 *
 	 */
 	public static function showMailFrame($rcHost, $rcPort, $maildir) {
