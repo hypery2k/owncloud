@@ -30,7 +30,8 @@ public class PortalPage extends AbstractPage {
 	@FindBy(xpath = "//ul[@id='apps']/div/li[@data-id='storagecharts2']/a/img")
 	private WebElement storageChartsButton;
 
-	@FindBy(id = "settings")
+
+	@FindBy(xpath="//ul[@id='settings']/span")
 	private WebElement settingsDropdownButton;
 
 	@FindBy(xpath="//ul[@id='settings']/div/li[2]/a")
