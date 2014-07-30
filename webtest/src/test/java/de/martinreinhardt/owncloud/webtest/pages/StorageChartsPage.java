@@ -17,8 +17,11 @@ import org.openqa.selenium.WebElement;
 import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 
-@DefaultUrl(UITestConstants.DEFAULT_URL)
+@DefaultUrl(StorageChartsPage.URL_SC_APP)
 public class StorageChartsPage extends AbstractPage {
+
+	public static final String URL_SC_APP = UITestConstants.DEFAULT_URL
+			+ "index.php/apps/storagecharts2/charts.php";
 
 	@FindBy(id = "storagecharts2")
 	private WebElement chartsDiv;
