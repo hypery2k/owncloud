@@ -22,6 +22,17 @@
 class OC_RoundCube_AuthHelper {
 
 	/**
+	 * @param @params array with a mutable array inside, for
+	 * storing the variable-value pairs.
+	 **/
+	public static function jsLoadHook($params) {
+		$jsAssign = &$params['array'];
+
+		$refresh = OCP\Config::getAppValue('roundcube', 'rcRefreshInterval', 240000);
+		$jsAssign['rc'] = 'document.rc || {};'."\n".'rc.refreshInterval = '.$refresh;
+	}
+
+	/**
 	 * Login into roundcube server
 	 * @param $params userdata
 	 * @return true if login was succesfull otherwise false
@@ -150,3 +161,4 @@ class OC_RoundCube_AuthHelper {
 	}
 }
 ?>
+

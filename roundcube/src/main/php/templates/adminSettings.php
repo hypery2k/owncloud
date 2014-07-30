@@ -53,6 +53,14 @@
       </label>
       <input type="text" id="rcPort" name="rcPort" value="<?php echo $_['rcPort']; ?>">
       <br>
+      <label for="rcRefreshInterval" title="<?php echo $l->t('This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the session life-time of your RoundCube install (refer to the Roundcube documentation, please).'); ?>">
+        <?php echo $l -> t('Refresh interval for the Roundcube-session in seconds'); ?>
+        <input type="text" id="rcRefreshInterval" name="rcRefreshInterval" value="<?php echo $_['rcRefreshInterval']; ?>">
+      </label>
+      <input type="checkbox" name="rcNoCronRefresh" id="rcNoCronRefresh"
+                   <?php if ($_['rcNoCronRefresh']) echo ' checked'; ?>>
+            <label title="<?php echo $l->t('Checking this box will disable the cron-job which should periodically refresh the Roundcube session. If you do not have a real cron-daemon running (see Cron-section on this page) then the cron-job is probably quite useless and unreliable and so it might be safe to disable it (YMMV).'); ?>" for="rcNoCronRefresh"><?php echo $l->t('Disable Cron session-refresh'); ?></label>
+      <br>
     </fieldset>
     <input id="rcAdminSubmit" type="submit" value="Save" />
     <span id="adminmail_update_message"></span>

@@ -11,7 +11,15 @@ OCP\JSON::callCheck();
 
 $l = new OC_L10N('roundcube');
 
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort');
+$params = array('maildir',
+                'removeHeaderNav',
+                'removeControlNav',
+                'autoLogin',
+                'enableDebug',
+                'rcHost',
+                'rcPort',
+                'rcRefreshInterval',
+                'rcNoCronRefresh');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
   foreach ($params as $param) {
@@ -35,6 +43,16 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
             $maildir .= '/';
           }
           OCP\Config::setAppValue('roundcube', $param, $maildir);
+        } else if ($param == 'rcRefreshInterval') {
+          $refresh = trim($_POST[$param]);
+          if (!is_numeric($refresh)) {
+            OC_JSON::error(array(
+                             "data" => array(
+                               "message" => $l->t("Refresh interval '%s' is not a number.",
+                                                  array($refresh)) )));
+            return false;
+          }
+          OCP\Config::setAppValue('roundcube', $param, $refresh);
         } else {
           OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
         }
@@ -50,6 +68,9 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
         OCP\Config::setAppValue('roundcube', 'autoLogin', false);
       }
       if ($param === 'enableDebug') {
+        OCP\Config::setAppValue('roundcube', 'enableDebug', false);
+      }
+      if ($param === 'rcNoCronRefresh') {
         OCP\Config::setAppValue('roundcube', 'enableDebug', false);
       }
     }

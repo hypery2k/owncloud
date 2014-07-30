@@ -27,7 +27,7 @@ OCP\User::checkAdminUser();
 OCP\Util::addScript('roundcube', 'adminSettings');
 
 // fill template
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval', 'rcNoCronRefresh');
 
 $tmpl = new OCP\Template('roundcube', 'adminSettings');
 foreach ($params as $param) {
