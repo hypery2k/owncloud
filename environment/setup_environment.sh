@@ -4,7 +4,7 @@
 #
 # author Martin Reinhardt
 #
-# usage -o OC50 -r RC07 -d mysql or --oc_version OC50 --rc_version RC07 --db_type mysql --db_name oc_testing --db_user root --db_password password --workspace /tmp
+# usage -o OC70 -r RC10 -d mysql or --oc_version OC70 --rc_version RC10 --db_type mysql --db_name oc_testing --db_user root --db_password password --workspace /tmp
 
 DIR_WWW=/var/www/oc_testing
 
@@ -96,81 +96,81 @@ echo
 echo "  ==> Preparing owncloud setup"
 
 echo "  ==> Directory listing of web testing folder:"
-ls -lisah $DIR_WWW/$DB_TYPE/*
+ls -lisah ${DIR_WWW}/{${DB_TYPE}}/*
 
 # clean up first
-rm -r $DIR_WWW/$DB_TYPE/*
+rm -r ${DIR_WWW}/${DB_TYPE}/*
 
-DIR_OC_CUR=$DIR_WWW/$DB_TYPE/$OC_VERSION
-DIR_RC_CUR=$DIR_WWW/$DB_TYPE/$RC_VERSION
-DIR_OC_APPS=$DIR_OC_CUR/apps
-DIR_OC_DATA=$DIR_OC_CUR/data
+DIR_OC_CUR=${DIR_WWW}/${DB_TYPE}/${OC_VERSION}
+DIR_RC_CUR=${DIR_WWW}/${DB_TYPE}/${RC_VERSION}
+DIR_OC_APPS=${DIR_OC_CUR}/apps
+DIR_OC_DATA=${DIR_OC_CUR}/data
 DIR_OC_APP_RJ=$DIR_OC_APPS/revealjs
 DIR_OC_APP_RC=$DIR_OC_APPS/roundcube
 DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
 
-case $OC_VERSION in
+case ${OC_VERSION} in
   OC_LATEST)        
     echo "  ==> Preparing download of latest development master" 
     wget https://download.owncloud.org/community/daily/owncloud-daily-master.tar.bz2 --no-check-certificate 
     bzip2 -cd owncloud-daily-master.tar.bz2 | tar xvf -
-    cp -rp owncloud/* DIR_OC_CUR  
-    cp -rp owncloud_releases/$OC_VERSION/config/* $DIR_OC_CUR/config   
+    cp -rp owncloud/*  ${DIR_OC_CUR}  
+    cp -rp owncloud_releases/${OC_VERSION}/config/* ${DIR_OC_CUR}/config   
     ;;  
   *)  
-  	mkdir -p $DIR_OC_CUR
-  	cp -rp owncloud_releases/$OC_VERSION/* $DIR_OC_CUR
+  	mkdir -p ${DIR_OC_CUR}
+  	cp -rp owncloud_releases/${OC_VERSION}/* ${DIR_OC_CUR}
     ;;
 esac
 
 #create all needed directories
-mkdir -p $DIR_OC_CUR
-mkdir -p $DIR_RC_CUR
-mkdir -p $DIR_RC_CUR/logs
-mkdir -p $DIR_RC_CUR/temp
-mkdir -p $DIR_OC_APPS
-mkdir -p $DIR_OC_DATA
-mkdir -p $DIR_OC_APP_RC
-mkdir -p $DIR_OC_APP_RJ
-mkdir -p $DIR_OC_APP_SC
+mkdir -p ${DIR_OC_CUR}
+mkdir -p ${DIR_RC_CUR}
+mkdir -p ${DIR_RC_CUR}/logs
+mkdir -p ${DIR_RC_CUR}/temp
+mkdir -p ${DIR_OC_APPS}
+mkdir -p ${DIR_OC_DATA}
+mkdir -p ${DIR_OC_APP_RC}
+mkdir -p ${DIR_OC_APP_RJ}
+mkdir -p ${DIR_OC_APP_SC}
 
 echo "  ==> Directory listing for owncloud:"
-ls -lisah $DIR_OC_CUR*
+ls -lisah ${DIR_OC_CUR}*
 
-cp -rp roundcube_releases/$RC_VERSION/* $DIR_RC_CUR
+cp -rp roundcube_releases/${RC_VERSION}/* ${DIR_RC_CUR}
 echo "  ==> Directory listing for roundcube:"
-ls -lisah $DIR_RC_CUR*
+ls -lisah ${DIR_RC_CUR}*
 
 # prepare roundcube app
 # TODO testdata in db
 
-cd $DIR_OC_DEV
+cd ${DIR_OC_DEV}
 echo "  ==> copy app folder"
-cp -r $DIR_OC_DEV/roundcube/target/classes/* $DIR_OC_APP_RC
-cp -r $DIR_OC_DEV/storagecharts2/target/classes/* $DIR_OC_APP_SC
-cp -r $DIR_OC_DEV/revealjs/target/classes/* $DIR_OC_APP_RJ
+cp -r ${DIR_OC_DEV}/roundcube/target/classes/* ${DIR_OC_APP_RC}
+cp -r ${DIR_OC_DEV}/storagecharts2/target/classes/* ${DIR_OC_APP_SC}
+cp -r ${DIR_OC_DEV}/revealjs/target/classes/* ${DIR_OC_APP_RJ}
 
 echo "  ==> Directory listing for app-folder of roundcube:"
-ls -lisah $DIR_OC_APP_RC*
+ls -lisah ${DIR_OC_APP_RC}*
 echo
 echo "  ==> Directory listing for app-folder of storage-charts:"
-ls -lisah $DIR_OC_APP_SC*
+ls -lisah ${DIR_OC_APP_SC}*
 echo
 
 
 echo "  ==> Setting up config"
 # copy htaccess
-#cp $DIR_OC_DEV/environment/owncloud_releases/$OC_VERSION/.htaccess ${DIR_OC_CUR}/.htaccess
+#cp ${DIR_OC_DEV}/environment/owncloud_releases/${OC_VERSION}/.htaccess ${DIR_OC_CUR}/.htaccess
 
 # copy settings template
 cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
 chown -R www-data ${DIR_OC_CUR}/config
-touch $DIR_OC_DATA/.ocdata
+touch ${DIR_OC_DATA}/.ocdata
 
 echo "  ==> Setting up Directory rights"
-chmod -R 777 $DIR_WWW
-chown -R www-data $DIR_WWW/$DB_TYPE/
-chmod -R 770 $DIR_OC_DATA
+chmod -R 777 ${DIR_WWW}
+chown -R www-data ${DIR_WWW}/${DB_TYPE}/
+chmod -R 770 ${DIR_OC_DATA}
 chmod -R 770 ${DIR_OC_CUR}/config/
 chmod 770 ${DIR_OC_CUR}/config/
 
@@ -184,25 +184,25 @@ AWK=$(which awk)
 GREP=$(which grep)
 
 
-case $DB_TYPE in
+case ${DB_TYPE} in
   sqllite)        
     echo "  ==> Preparing SQLite DB"
     ;;
   mysql)        
     echo "  ==> Preparing MySQL DB"    
 	# clean up first
-	TABLES=$($MYSQL -u$DB_USER -p$DB_PASS $DB_NAME -e 'show tables' | $AWK '{ print $1}' | $GREP -v '^Tables' )
+	TABLES=$($MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} -e 'show tables' | $AWK '{ print $1}' | $GREP -v '^Tables' )
 	for t in $TABLES
 	do
 		echo "    Deleting $t table from $MDB database..."
-		$MYSQL -u$DB_USER -p$DB_PASS $DB_NAME -e "drop table $t;"
+		$MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} -e "drop table $t;"
 	done
 	echo "  ==> Setting up MySQL DB"  
 	echo "  	owncloud:  "
-    $MYSQL -u$DB_USER -p$DB_PASS $DB_NAME < $DIR_OC_DEV/environment/mysql/$OC_VERSION/create_db.sql
-    $MYSQL -u$DB_USER -p$DB_PASS $DB_NAME -e "INSERT INTO oc_testing.oc6_appconfig (appid,configkey,configvalue) VALUES('roundcube','maildir','/oc_testing/mysql/$RC_VERSION/');"
+    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < ${DIR_OC_DEV}/environment/mysql/${OC_VERSION}/create_db.sql
+    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} -e "INSERT INTO oc_testing.oc6_appconfig (appid,configkey,configvalue) VALUES('roundcube','maildir','/oc_testing/mysql/${RC_VERSION}/');"
 	echo "  	roundcube:  "
-    $MYSQL -u$DB_USER -p$DB_PASS $DB_NAME < $DIR_OC_DEV/environment/mysql/$RC_VERSION/create_db.sql
+    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < ${DIR_OC_DEV}/environment/mysql/${RC_VERSION}/create_db.sql
     ;;
 esac
 

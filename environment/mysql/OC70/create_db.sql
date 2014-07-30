@@ -1091,7 +1091,7 @@ CREATE TABLE `oc7_storages` (
 
 LOCK TABLES `oc7_storages` WRITE;
 /*!40000 ALTER TABLE `oc7_storages` DISABLE KEYS */;
-INSERT INTO `oc7_storages` VALUES ('home::admin',1),('home::negative@roundcube.owncloud.org',2),('home::positive@roundcube.owncloud.org',4),('local::/var/www/oc_testing/mysql/OC60/data/',3);
+INSERT INTO `oc7_storages` VALUES ('home::admin',1),('home::negative@roundcube.owncloud.org',2),('home::positive@roundcube.owncloud.org',4),('local::/var/www/oc_testing/mysql/OC70/data/',3);
 /*!40000 ALTER TABLE `oc7_storages` ENABLE KEYS */;
 UNLOCK TABLES;
 
