@@ -32,13 +32,13 @@ class OC_DLStCharts {
 	 * @param $total total users used space
 	 */
 	public static function update($used, $total){
-		$query = OCP\DB::prepare("SELECT stc_id FROM *PREFIX*storagecharts2 WHERE oc_uid = ? AND stc_dayts = ?");
+		$query = OCP\DB::prepare("SELECT stc_id FROM *PREFIX*storagecharts2 WHERE oc_uid = ? AND stc_day = ?");
 		$result = $query->execute(Array(OCP\User::getUser(), mktime(0,0,0)))->fetchRow();
 		if($result){
 			$query = OCP\DB::prepare("UPDATE *PREFIX*storagecharts2 SET stc_used = ?, stc_total = ? WHERE stc_id = ?");
 			$query->execute(Array($used, $total, $result['stc_id']));
 		}else{
-			$query = OCP\DB::prepare("INSERT INTO *PREFIX*storagecharts2 (oc_uid,stc_month,stc_dayts,stc_used,stc_total) VALUES (?,?,?,?,?)");
+			$query = OCP\DB::prepare("INSERT INTO *PREFIX*storagecharts2 (oc_uid,stc_month,stc_day,stc_used,stc_total) VALUES (?,?,?,?,?)");
 			$query->execute(Array(OCP\User::getUser(), date('Ym'), mktime(0,0,0), $used, $total));
 		}
 	}
@@ -76,10 +76,10 @@ class OC_DLStCharts {
 	 */
 	public static function getPieFreeUsedSpaceRatio(){
 		if(OC_Group::inGroup(OCP\User::getUser(), 'admin')){
-			$query = OCP\DB::prepare("SELECT stc_id, stc_dayts, oc_uid FROM (SELECT * FROM *PREFIX*storagecharts2 ORDER BY stc_dayts DESC) last GROUP BY oc_uid, stc_id, stc_dayts");
+			$query = OCP\DB::prepare("SELECT stc_id, stc_day, oc_uid FROM (SELECT * FROM *PREFIX*storagecharts2 ORDER BY stc_day DESC) last GROUP BY oc_uid, stc_id, stc_day");
 			$results = $query->execute()->fetchAll();
 		}else{
-			$query = OCP\DB::prepare("SELECT stc_id, MAX(stc_dayts) as stc_dayts FROM *PREFIX*storagecharts2 WHERE oc_uid = ?");
+			$query = OCP\DB::prepare("SELECT stc_id, MAX(stc_day) as stc_day FROM *PREFIX*storagecharts2 WHERE oc_uid = ?");
 			$results = $query->execute(Array(OCP\User::getUser()))->fetchAll();
 		}
 
@@ -213,14 +213,14 @@ class OC_DLStCharts {
 
 		$return = Array();
 		foreach($dates as $kd => $date){
-			$query = OCP\DB::prepare("SELECT stc_used FROM *PREFIX*storagecharts2 WHERE oc_uid = ? AND stc_dayts = ?");
+			$query = OCP\DB::prepare("SELECT stc_used FROM *PREFIX*storagecharts2 WHERE oc_uid = ? AND stc_day = ?");
 			$result = $query->execute(Array($user, $date))->fetchAll();
 				
 			if(count($result) > 0){
 				$return[] = $result[0]['stc_used'];
 			}else{
 				if($kd == 0){
-					$query = OCP\DB::prepare("SELECT stc_used FROM *PREFIX*storagecharts2 WHERE oc_uid = ? AND stc_dayts < ? ORDER BY stc_dayts DESC");
+					$query = OCP\DB::prepare("SELECT stc_used FROM *PREFIX*storagecharts2 WHERE oc_uid = ? AND stc_day < ? ORDER BY stc_day DESC");
 					$result = $query->execute(Array($user, $date))->fetchAll();
 						
 					if(count($result) > 0){
