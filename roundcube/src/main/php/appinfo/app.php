@@ -51,7 +51,7 @@ OCP\App::addNavigationEntry(array(
     'id' => 'roundcube_index',
     'order' => 10,
     'href' => OCP\Util::linkTo('roundcube', 'index.php'),
-    'icon' => OCP\Util::imagePath('roundcube', 'mail.png'),
+    'icon' => OCP\Util::imagePath('roundcube', 'mail.svg'),
     'name' => $l -> t('Webmail')
     ));
 ?>
