@@ -237,11 +237,6 @@ class OC_RoundCube_App {
 		}
 		if ($rcl -> login($pLogin, $pPassword)) {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): '.$pLogin.' successfully logged into roundcube ', OCP\Util::INFO);
-			// save login data encrypted for later usage
-			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($pLogin, $pubKey);
-			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($pPassword, $pubKey);
-			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN] = $emailUserCrypted;
-			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD] = $emailPasswordCrypted;
 		} else {
 			// If the login fails, display an error message in the loggs
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): '.$pLogin.': RoundCube can\'t login to roundcube due to a login error to roundcube', OCP\Util::ERROR);

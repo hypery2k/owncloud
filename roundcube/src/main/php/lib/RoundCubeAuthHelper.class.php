@@ -54,6 +54,15 @@ class OC_RoundCube_AuthHelper {
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 			}
+				
+			// save login data encrypted for later usage
+			$pubKey =  OC_RoundCube_App::getPublicKey($ocuser);
+			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($pLogin, $pubKey);
+			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($pPassword, $pubKey);
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN] = $emailUserCrypted;
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD] = $emailPasswordCrypted;
+				
+			// login
 			OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
 			return true;
 		} catch (Exception $e) {
