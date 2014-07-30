@@ -1,9 +1,16 @@
-<form id="rcMailAdminPrefs" action="#" method="post">
+<?php
+
+$ocVersion = $_['ocVersion'];
+$cfgClass = $ocVersion >= 7 ? 'section' : 'personalblock';
+
+?>
+
+<form id="rcMailAdminPrefs" action="#" method="post" class="<?php echo $cfgClass; ?>">
   <!-- Prevent CSRF attacks-->
   <input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
   <input type="hidden" name="appname" value="roundcube">
   
-  <div id="roundcube" class="personalblock">
+  <div id="roundcube" class="<?php echo $cfgClass; ?>">
     <legend><strong><?php echo $l -> t('RoundCube Settings'); ?></strong></legend>
 
     <ul>
@@ -66,4 +73,3 @@
     <span id="adminmail_update_message"></span>
   </div>
 </form>
-

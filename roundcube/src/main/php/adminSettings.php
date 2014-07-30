@@ -35,5 +35,9 @@ foreach ($params as $param) {
   $tmpl -> assign($param, $value);
 }
 
+// workaround to detect OC version
+$ocVersion = @reset(OCP\Util::getVersion());
+$tmpl->assign('ocVersion', $ocVersion);
+
 return $tmpl -> fetchPage();
 ?>
