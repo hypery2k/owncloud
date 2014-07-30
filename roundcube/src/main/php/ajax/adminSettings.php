@@ -29,6 +29,12 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
           if (strlen($_POST[$param]) > 3) {
             OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
           }
+        } else if ($param === 'maildir') {
+          $maildir =  $_POST[$param];
+          if (substr($maildir, -1) != '/') {
+            $maildir .= '/';
+          }
+          OCP\Config::setAppValue('roundcube', $param, $maildir);
         } else {
           OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
         }
@@ -42,6 +48,9 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
       }
       if ($param === 'autoLogin') {
         OCP\Config::setAppValue('roundcube', 'autoLogin', false);
+      }
+      if ($param === 'enableDebug') {
+        OCP\Config::setAppValue('roundcube', 'enableDebug', false);
       }
     }
   }
