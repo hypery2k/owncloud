@@ -1,9 +1,9 @@
--- OwnCloud 6.0.4 database setup
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
+-- OwnCloud 7.0.0 database setup
+-- MySQL dump 10.13  Distrib 5.5.38, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: oc_testing
 -- ------------------------------------------------------
--- Server version	5.5.37-0ubuntu0.12.04.1-log
+-- Server version	5.5.38-0ubuntu0.12.04.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,18 +27,21 @@ CREATE TABLE `oc7_activity` (
   `activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` int(11) NOT NULL DEFAULT '0',
   `priority` int(11) NOT NULL DEFAULT '0',
-  `type` int(11) NOT NULL DEFAULT '0',
-  `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `affecteduser` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `app` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `subjectparams` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `messageparams` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `file` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`activity_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `type` varchar(255) COLLATE utf8_bin NOT NULL,
+  `user` varchar(64) COLLATE utf8_bin NOT NULL,
+  `affecteduser` varchar(64) COLLATE utf8_bin NOT NULL,
+  `app` varchar(255) COLLATE utf8_bin NOT NULL,
+  `subject` varchar(255) COLLATE utf8_bin NOT NULL,
+  `subjectparams` varchar(255) COLLATE utf8_bin NOT NULL,
+  `message` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `messageparams` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `file` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`activity_id`),
+  KEY `activity_user_time` (`affecteduser`,`timestamp`),
+  KEY `activity_filter_by` (`affecteduser`,`user`,`timestamp`),
+  KEY `activity_filter_app` (`affecteduser`,`app`,`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,6 +54,38 @@ LOCK TABLES `oc7_activity` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `oc7_activity_mq`
+--
+
+DROP TABLE IF EXISTS `oc7_activity_mq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oc7_activity_mq` (
+  `mail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amq_timestamp` int(11) NOT NULL DEFAULT '0',
+  `amq_latest_send` int(11) NOT NULL DEFAULT '0',
+  `amq_type` varchar(255) COLLATE utf8_bin NOT NULL,
+  `amq_affecteduser` varchar(64) COLLATE utf8_bin NOT NULL,
+  `amq_appid` varchar(255) COLLATE utf8_bin NOT NULL,
+  `amq_subject` varchar(255) COLLATE utf8_bin NOT NULL,
+  `amq_subjectparams` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`mail_id`),
+  KEY `amp_user` (`amq_affecteduser`),
+  KEY `amp_latest_send_time` (`amq_latest_send`),
+  KEY `amp_timestamp_time` (`amq_timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oc7_activity_mq`
+--
+
+LOCK TABLES `oc7_activity_mq` WRITE;
+/*!40000 ALTER TABLE `oc7_activity_mq` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oc7_activity_mq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `oc7_appconfig`
 --
 
@@ -58,12 +93,13 @@ DROP TABLE IF EXISTS `oc7_appconfig`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_appconfig` (
-  `appid` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `configkey` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `configvalue` longtext COLLATE utf8_unicode_ci,
+  `appid` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `configkey` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `configvalue` longtext COLLATE utf8_bin,
   PRIMARY KEY (`appid`,`configkey`),
-  KEY `appconfig_config_key_index` (`configkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `appconfig_config_key_index` (`configkey`),
+  KEY `appconfig_appid_key` (`appid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,8 +108,62 @@ CREATE TABLE `oc7_appconfig` (
 
 LOCK TABLES `oc7_appconfig` WRITE;
 /*!40000 ALTER TABLE `oc7_appconfig` DISABLE KEYS */;
-INSERT INTO `oc7_appconfig` VALUES ('activity','enabled','yes'),('activity','installed_version','1.1.2'),('activity','types','filesystem'),('backgroundjob','lastjob','2'),('bookmarks','enabled','yes'),('bookmarks','installed_version','0.3'),('bookmarks','types',''),('calendar','enabled','yes'),('calendar','installed_version','0.6.3'),('calendar','types',''),('contacts','enabled','yes'),('contacts','installed_version','0.3'),('contacts','types',''),('core','global_cache_gc_lastrun','1404376530'),('core','installedat','1401291989.8355'),('core','lastupdatedat','1404375962'),('core','lastupdateResult','{\"version\":{},\"versionstring\":{},\"url\":{},\"web\":{}}'),('core','public_caldav','calendar/share.php'),('core','public_calendar','calendar/share.php'),('core','public_documents','documents/public.php'),('core','public_files','files_sharing/public.php'),('core','public_gallery','gallery/public.php'),('core','public_webdav','files_sharing/public.php'),('core','remote_caldav','calendar/appinfo/remote.php'),('core','remote_calendar','calendar/appinfo/remote.php'),('core','remote_carddav','contacts/appinfo/remote.php'),('core','remote_contacts','contacts/appinfo/remote.php'),('core','remote_core.css','/core/minimizer.php'),('core','remote_core.js','/core/minimizer.php'),('core','remote_files','files/appinfo/remote.php'),('core','remote_filesync','files/appinfo/filesync.php'),('core','remote_webdav','files/appinfo/remote.php'),('documents','enabled','yes'),('documents','installed_version','0.8.1'),('documents','types',''),('files','backgroundwatcher_previous_file','22'),('files','backgroundwatcher_previous_folder','24'),('files','enabled','yes'),('files','installed_version','1.1.7'),('files','types','filesystem'),('files_pdfviewer','enabled','yes'),('files_pdfviewer','installed_version','0.3'),('files_pdfviewer','types',''),('files_sharing','enabled','yes'),('files_sharing','installed_version','0.3.5'),('files_sharing','types','filesystem'),('files_texteditor','enabled','yes'),('files_texteditor','installed_version','0.3'),('files_texteditor','types',''),('files_trashbin','enabled','yes'),('files_trashbin','installed_version','0.5'),('files_trashbin','types','filesystem'),('files_versions','enabled','yes'),('files_versions','installed_version','1.0.3'),('files_versions','types','filesystem'),('files_videoviewer','enabled','yes'),('files_videoviewer','installed_version','0.1.2'),('files_videoviewer','types',''),('firstrunwizard','enabled','yes'),('firstrunwizard','installed_version','1.0'),('firstrunwizard','types',''),('gallery','enabled','yes'),('gallery','installed_version','0.5.3'),('gallery','types','filesystem'),('revealjs','enabled','yes'),('revealjs','installed_version','2.4.1'),('revealjs','types',''),('roundcube','autoLogin','1'),('roundcube','enabled','yes'),('roundcube','installed_version','2.4.1'),('roundcube','maildir','/oc_testing/mysql/RC10/'),('roundcube','types',''),('search_lucene','enabled','yes'),('search_lucene','installed_version','0.5.2'),('search_lucene','types','filesystem'),('storagecharts2','enabled','yes'),('storagecharts2','installed_version','2.4.1'),('storagecharts2','types',''),('updater','enabled','yes'),('updater','installed_version','0.3'),('updater','types','');
+INSERT INTO `oc7_appconfig` VALUES ('activity','enabled','yes'),('activity','installed_version','1.1.23'),('activity','ocsid','166038'),('activity','types','filesystem'),('backgroundjob','lastjob','4'),('bookmarks','enabled','yes'),('bookmarks','installed_version','0.4'),('bookmarks','ocsid','166042'),('bookmarks','types',''),('calendar','enabled','yes'),('calendar','installed_version','0.6.4'),('calendar','ocsid','166043'),('calendar','types',''),('contacts','enabled','yes'),('contacts','installed_version','0.3.0.17'),('contacts','ocsid','166044'),('contacts','types',''),('core','global_cache_gc_lastrun','1404376530'),('core','installedat','1401291989.8355'),('core','lastcron','1406713012'),('core','lastupdateResult','{\"version\":{},\"versionstring\":{},\"url\":{},\"web\":{}}'),('core','lastupdatedat','0'),('core','public_caldav','calendar/share.php'),('core','public_calendar','calendar/share.php'),('core','public_documents','documents/public.php'),('core','public_files','files_sharing/public.php'),('core','public_gallery','gallery/public.php'),('core','public_webdav','files_sharing/publicwebdav.php'),('core','remote_caldav','calendar/appinfo/remote.php'),('core','remote_calendar','calendar/appinfo/remote.php'),('core','remote_carddav','contacts/appinfo/remote.php'),('core','remote_contacts','contacts/appinfo/remote.php'),('core','remote_core.css','/core/minimizer.php'),('core','remote_core.js','/core/minimizer.php'),('core','remote_files','files/appinfo/remote.php'),('core','remote_filesync','files/appinfo/filesync.php'),('core','remote_webdav','files/appinfo/remote.php'),('documents','enabled','yes'),('documents','installed_version','0.8.2'),('documents','ocsid','166045'),('documents','types',''),('files','backgroundwatcher_previous_file','22'),('files','backgroundwatcher_previous_folder','24'),('files','enabled','yes'),('files','installed_version','1.1.9'),('files','types','filesystem'),('files_pdfviewer','enabled','yes'),('files_pdfviewer','installed_version','0.5'),('files_pdfviewer','ocsid','166049'),('files_pdfviewer','types',''),('files_sharing','enabled','yes'),('files_sharing','installed_version','0.5.3'),('files_sharing','ocsid','166050'),('files_sharing','types','filesystem'),('files_texteditor','enabled','yes'),('files_texteditor','installed_version','0.4'),('files_texteditor','ocsid','166051'),('files_texteditor','types',''),('files_trashbin','enabled','yes'),('files_trashbin','installed_version','0.6.2'),('files_trashbin','ocsid','166052'),('files_trashbin','types','filesystem'),('files_versions','enabled','yes'),('files_versions','installed_version','1.0.5'),('files_versions','ocsid','166053'),('files_versions','types','filesystem'),('files_videoviewer','enabled','yes'),('files_videoviewer','installed_version','0.1.3'),('files_videoviewer','ocsid','166054'),('files_videoviewer','types',''),('firstrunwizard','enabled','yes'),('firstrunwizard','installed_version','1.1'),('firstrunwizard','ocsid','166055'),('firstrunwizard','types',''),('gallery','enabled','yes'),('gallery','installed_version','0.5.4'),('gallery','ocsid','166056'),('gallery','types','filesystem'),('revealjs','enabled','yes'),('revealjs','installed_version','2.4.1'),('revealjs','types',''),('roundcube','autoLogin','1'),('roundcube','enabled','yes'),('roundcube','installed_version','2.4.1'),('roundcube','maildir','/oc_testing/mysql/RC10/'),('roundcube','types',''),('search_lucene','enabled','yes'),('search_lucene','installed_version','0.5.3'),('search_lucene','ocsid','166057'),('search_lucene','types','filesystem'),('storagecharts2','enabled','yes'),('storagecharts2','installed_version','2.4.1'),('storagecharts2','types',''),('updater','enabled','yes'),('updater','installed_version','0.4'),('updater','ocsid','166059'),('updater','types','');
 /*!40000 ALTER TABLE `oc7_appconfig` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `oc7_bookmarks`
+--
+
+DROP TABLE IF EXISTS `oc7_bookmarks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oc7_bookmarks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(4096) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `title` varchar(140) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user_id` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `description` varchar(4096) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `public` smallint(6) DEFAULT '0',
+  `added` int(10) unsigned DEFAULT '0',
+  `lastmodified` int(10) unsigned DEFAULT '0',
+  `clickcount` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oc7_bookmarks`
+--
+
+LOCK TABLES `oc7_bookmarks` WRITE;
+/*!40000 ALTER TABLE `oc7_bookmarks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oc7_bookmarks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `oc7_bookmarks_tags`
+--
+
+DROP TABLE IF EXISTS `oc7_bookmarks_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oc7_bookmarks_tags` (
+  `bookmark_id` bigint(20) DEFAULT NULL,
+  `tag` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  UNIQUE KEY `bookmark_tag` (`bookmark_id`,`tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oc7_bookmarks_tags`
+--
+
+LOCK TABLES `oc7_bookmarks_tags` WRITE;
+/*!40000 ALTER TABLE `oc7_bookmarks_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oc7_bookmarks_tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -85,17 +175,17 @@ DROP TABLE IF EXISTS `oc7_clndr_calendars`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_clndr_calendars` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `displayname` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userid` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `displayname` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `uri` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   `ctag` int(10) unsigned NOT NULL DEFAULT '0',
   `calendarorder` int(10) unsigned NOT NULL DEFAULT '0',
-  `calendarcolor` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `timezone` longtext COLLATE utf8_unicode_ci,
-  `components` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `calendarcolor` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `timezone` longtext COLLATE utf8_bin,
+  `components` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,16 +208,16 @@ DROP TABLE IF EXISTS `oc7_clndr_objects`;
 CREATE TABLE `oc7_clndr_objects` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `calendarid` int(10) unsigned NOT NULL DEFAULT '0',
-  `objecttype` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `objecttype` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `startdate` datetime DEFAULT '1970-01-01 00:00:00',
   `enddate` datetime DEFAULT '1970-01-01 00:00:00',
   `repeating` int(11) DEFAULT '0',
-  `summary` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `calendardata` longtext COLLATE utf8_unicode_ci,
-  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `summary` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `calendardata` longtext COLLATE utf8_bin,
+  `uri` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `lastmodified` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,13 +263,13 @@ DROP TABLE IF EXISTS `oc7_clndr_share_calendar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_clndr_share_calendar` (
-  `owner` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `share` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `sharetype` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8_bin NOT NULL,
+  `share` varchar(255) COLLATE utf8_bin NOT NULL,
+  `sharetype` varchar(6) COLLATE utf8_bin NOT NULL,
   `calendarid` bigint(20) unsigned NOT NULL DEFAULT '0',
   `permissions` smallint(6) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,12 +289,12 @@ DROP TABLE IF EXISTS `oc7_clndr_share_event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_clndr_share_event` (
-  `owner` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `share` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `sharetype` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8_bin NOT NULL,
+  `share` varchar(255) COLLATE utf8_bin NOT NULL,
+  `sharetype` varchar(6) COLLATE utf8_bin NOT NULL,
   `eventid` bigint(20) unsigned NOT NULL DEFAULT '0',
   `permissions` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,14 +315,15 @@ DROP TABLE IF EXISTS `oc7_contacts_addressbooks`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_contacts_addressbooks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `displayname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `uri` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userid` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `displayname` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `uri` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `ctag` int(10) unsigned NOT NULL DEFAULT '1',
   `active` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `c_addressbook_userid_index` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,12 +346,13 @@ DROP TABLE IF EXISTS `oc7_contacts_cards`;
 CREATE TABLE `oc7_contacts_cards` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `addressbookid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fullname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `carddata` longtext COLLATE utf8_unicode_ci,
-  `uri` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fullname` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `carddata` longtext COLLATE utf8_bin,
+  `uri` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   `lastmodified` int(10) unsigned DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `c_addressbookid_index` (`addressbookid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,15 +373,16 @@ DROP TABLE IF EXISTS `oc7_contacts_cards_properties`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_contacts_cards_properties` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `userid` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   `contactid` int(10) unsigned NOT NULL DEFAULT '0',
-  `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `preferred` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `cp_name_index` (`name`),
-  KEY `cp_value_index` (`value`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `cp_value_index` (`value`),
+  KEY `cp_contactid_index` (`contactid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,13 +403,13 @@ DROP TABLE IF EXISTS `oc7_dlstcharts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_dlstcharts` (
   `stc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oc_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `oc_uid` varchar(64) COLLATE utf8_bin NOT NULL,
   `stc_month` bigint(20) NOT NULL,
   `stc_dayts` bigint(20) NOT NULL,
   `stc_used` bigint(20) NOT NULL,
   `stc_total` bigint(20) NOT NULL,
   PRIMARY KEY (`stc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,11 +430,11 @@ DROP TABLE IF EXISTS `oc7_dlstcharts_uconf`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_dlstcharts_uconf` (
   `uc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oc_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `uc_key` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `uc_val` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `oc_uid` varchar(64) COLLATE utf8_bin NOT NULL,
+  `uc_key` varchar(64) COLLATE utf8_bin NOT NULL,
+  `uc_val` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`uc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,11 +454,11 @@ DROP TABLE IF EXISTS `oc7_documents_invite`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_documents_invite` (
-  `es_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `es_id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Related editing session id',
+  `uid` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `status` smallint(6) DEFAULT '0',
   `sent_on` int(10) unsigned DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,16 +478,16 @@ DROP TABLE IF EXISTS `oc7_documents_member`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_documents_member` (
-  `member_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `es_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `color` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL,
+  `member_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique per user and session',
+  `es_id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Related editing session id',
+  `uid` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `color` varchar(32) COLLATE utf8_bin DEFAULT NULL,
+  `last_activity` int(10) unsigned DEFAULT NULL,
   `is_guest` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `token` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `token` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `status` smallint(5) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`member_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,13 +507,13 @@ DROP TABLE IF EXISTS `oc7_documents_op`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_documents_op` (
-  `seq` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `es_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `member` int(10) unsigned NOT NULL DEFAULT '1',
-  `opspec` longtext COLLATE utf8_unicode_ci,
+  `seq` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Sequence number',
+  `es_id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Editing session id',
+  `member` int(10) unsigned NOT NULL DEFAULT '1' COMMENT 'User and time specific',
+  `opspec` longtext COLLATE utf8_bin COMMENT 'json-string',
   PRIMARY KEY (`seq`),
   UNIQUE KEY `documents_op_eis_idx` (`es_id`,`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,13 +533,13 @@ DROP TABLE IF EXISTS `oc7_documents_revisions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_documents_revisions` (
-  `es_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `seq_head` int(10) unsigned NOT NULL,
-  `member_id` int(10) unsigned NOT NULL,
-  `file_id` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
-  `save_hash` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `es_id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Related editing session id',
+  `seq_head` int(10) unsigned NOT NULL COMMENT 'Sequence head number',
+  `member_id` int(10) unsigned NOT NULL COMMENT 'the member that saved the revision',
+  `file_id` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT 'Relative to storage e.g. /welcome.odt',
+  `save_hash` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'used to lookup revision in documents folder of member, eg hash.odt',
   UNIQUE KEY `documents_rev_eis_idx` (`es_id`,`seq_head`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,13 +559,13 @@ DROP TABLE IF EXISTS `oc7_documents_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_documents_session` (
-  `es_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `genesis_url` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
-  `genesis_hash` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `file_id` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
-  `owner` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `es_id` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Editing session id',
+  `genesis_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT 'Relative to owner documents storage /welcome.odt',
+  `genesis_hash` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'To be sure the genesis did not change',
+  `file_id` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT 'Relative to storage e.g. /welcome.odt',
+  `owner` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'oC user who created the session',
   PRIMARY KEY (`es_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -492,13 +585,13 @@ DROP TABLE IF EXISTS `oc7_file_map`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_file_map` (
-  `logic_path` varchar(512) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `logic_path_hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `physic_path` varchar(512) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `physic_path_hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `logic_path` varchar(512) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `logic_path_hash` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `physic_path` varchar(512) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `physic_path_hash` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`logic_path_hash`),
   UNIQUE KEY `file_map_pp_index` (`physic_path_hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -520,10 +613,10 @@ DROP TABLE IF EXISTS `oc7_filecache`;
 CREATE TABLE `oc7_filecache` (
   `fileid` int(11) NOT NULL AUTO_INCREMENT,
   `storage` int(11) NOT NULL DEFAULT '0',
-  `path` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `path_hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `path` varchar(4000) COLLATE utf8_bin DEFAULT NULL,
+  `path_hash` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
   `parent` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `mimetype` int(11) NOT NULL DEFAULT '0',
   `mimepart` int(11) NOT NULL DEFAULT '0',
   `size` bigint(20) NOT NULL DEFAULT '0',
@@ -531,13 +624,15 @@ CREATE TABLE `oc7_filecache` (
   `storage_mtime` int(11) NOT NULL DEFAULT '0',
   `encrypted` int(11) NOT NULL DEFAULT '0',
   `unencrypted_size` bigint(20) NOT NULL DEFAULT '0',
-  `etag` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `etag` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `permissions` int(11) DEFAULT '0',
   PRIMARY KEY (`fileid`),
   UNIQUE KEY `fs_storage_path_hash` (`storage`,`path_hash`),
   KEY `fs_parent_name_hash` (`parent`,`name`),
   KEY `fs_storage_mimetype` (`storage`,`mimetype`),
-  KEY `fs_storage_mimepart` (`storage`,`mimepart`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `fs_storage_mimepart` (`storage`,`mimepart`),
+  KEY `fs_storage_size` (`storage`,`size`,`fileid`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,7 +641,7 @@ CREATE TABLE `oc7_filecache` (
 
 LOCK TABLES `oc7_filecache` WRITE;
 /*!40000 ALTER TABLE `oc7_filecache` DISABLE KEYS */;
-INSERT INTO `oc7_filecache` VALUES (1,1,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,0,1404376121,1401291998,0,0,'53b51439c822b'),(12,2,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,1573838,1404375964,1404375961,0,0,'53b5139ce3c91'),(13,2,'files','45b963397aa40d4a0063e0d85e4fe7a1',12,'files',2,1,6040581,1404375964,1404375961,0,0,'53b5139d09954'),(14,2,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',13,'photos',2,1,678556,1404375964,1404375961,0,0,'53b5139d4f65f'),(16,2,'files/documents','2d30f25cef1a92db784bc537e8bf128d',13,'documents',2,1,23383,1404375964,1404375961,0,0,'53b5139d3872e'),(17,2,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',13,'ownCloudUserManual.pdf',4,3,1573838,1404375961,1404375961,0,0,'53b513997d2e6'),(18,2,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',16,'example.odt',5,3,23383,1404375961,1404375961,0,0,'53b5139c4227b'),(20,2,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',14,'paris.jpg',9,8,228761,1404375961,1404375961,0,0,'53b5139ca65bb'),(21,2,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',14,'san francisco.jpg',9,8,216071,1404375961,1404375961,0,0,'53b5139ca6a00'),(22,2,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',14,'squirrel.jpg',9,8,233724,1404375961,1404375961,0,0,'53b5139ca6d2c'),(23,4,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,6040581,1404376039,1404376039,0,0,'53b5145457a27'),(24,4,'files','45b963397aa40d4a0063e0d85e4fe7a1',23,'files',2,1,6040581,1404376042,1404376039,0,0,'53b513ea8ccc3'),(25,4,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',24,'photos',2,1,678556,1404376042,1404376039,0,0,'53b513eacc24d'),(26,4,'files/music','1f8cfec283cd675038bb95b599fdc75a',24,'music',2,1,3764804,1404376042,1404376039,0,0,'53b513eab7b04'),(27,4,'files/documents','2d30f25cef1a92db784bc537e8bf128d',24,'documents',2,1,23383,1404376042,1404376039,0,0,'53b513eaa1338'),(29,4,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',27,'example.odt',5,3,23383,1404376039,1404376039,0,0,'53b513e9617b2'),(30,4,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',26,'projekteva-letitrain.mp3',7,6,3764804,1404376039,1404376039,0,0,'53b513e9d5850'),(31,4,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',25,'paris.jpg',9,8,228761,1404376039,1404376039,0,0,'53b513ea3d651'),(32,4,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',25,'san francisco.jpg',9,8,216071,1404376039,1404376039,0,0,'53b513ea3dabf'),(33,4,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',25,'squirrel.jpg',9,8,233724,1404376039,1404376039,0,0,'53b513ea3de6b'),(34,1,'files','45b963397aa40d4a0063e0d85e4fe7a1',1,'files',2,1,6040581,1404376121,1404376118,0,0,'53b51439dae11'),(35,1,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',34,'photos',2,1,678556,1404376121,1404376118,0,0,'53b5143a48fc7'),(36,1,'files/music','1f8cfec283cd675038bb95b599fdc75a',34,'music',2,1,3764804,1404376121,1404376118,0,0,'53b5143a20560'),(37,1,'files/documents','2d30f25cef1a92db784bc537e8bf128d',34,'documents',2,1,23383,1404376121,1404376118,0,0,'53b5143a0157f'),(38,1,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',34,'ownCloudUserManual.pdf',4,3,1573838,1404376118,1404376118,0,0,'53b51436713a1'),(39,1,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',37,'example.odt',5,3,23383,1404376118,1404376118,0,0,'53b51438e706f'),(40,1,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',36,'projekteva-letitrain.mp3',7,6,3764804,1404376118,1404376118,0,0,'53b514393e36c'),(41,1,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',35,'paris.jpg',9,8,228761,1404376118,1404376118,0,0,'53b5143985b55'),(42,1,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',35,'san francisco.jpg',9,8,216071,1404376118,1404376118,0,0,'53b5143985fab'),(43,1,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',35,'squirrel.jpg',9,8,233724,1404376118,1404376118,0,0,'53b5143986392'),(44,2,'files/music','1f8cfec283cd675038bb95b599fdc75a',13,'music',2,1,3764804,1404375964,1404375961,0,0,'53b5139d205ba'),(45,2,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',44,'projekteva-letitrain.mp3',7,6,3764804,1404375961,1404375961,0,0,'53b5139b84b89'),(46,4,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',24,'ownCloudUserManual.pdf',4,3,1573838,1404376039,1404376039,0,0,'53b513e79afa3');
+INSERT INTO `oc7_filecache` VALUES (1,1,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,0,1404376121,1401291998,0,0,'53b51439c822b',0),(12,2,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,1573838,1404375964,1404375961,0,0,'53b5139ce3c91',0),(13,2,'files','45b963397aa40d4a0063e0d85e4fe7a1',12,'files',2,1,6040581,1404375964,1404375961,0,0,'53b5139d09954',0),(14,2,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',13,'photos',2,1,678556,1404375964,1404375961,0,0,'53b5139d4f65f',0),(16,2,'files/documents','2d30f25cef1a92db784bc537e8bf128d',13,'documents',2,1,23383,1404375964,1404375961,0,0,'53b5139d3872e',0),(17,2,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',13,'ownCloudUserManual.pdf',4,3,1573838,1404375961,1404375961,0,0,'53b513997d2e6',0),(18,2,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',16,'example.odt',5,3,23383,1404375961,1404375961,0,0,'53b5139c4227b',0),(20,2,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',14,'paris.jpg',9,8,228761,1404375961,1404375961,0,0,'53b5139ca65bb',0),(21,2,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',14,'san francisco.jpg',9,8,216071,1404375961,1404375961,0,0,'53b5139ca6a00',0),(22,2,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',14,'squirrel.jpg',9,8,233724,1404375961,1404375961,0,0,'53b5139ca6d2c',0),(23,4,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,6040581,1404376039,1404376039,0,0,'53b5145457a27',0),(24,4,'files','45b963397aa40d4a0063e0d85e4fe7a1',23,'files',2,1,6040581,1404376042,1404376039,0,0,'53b513ea8ccc3',0),(25,4,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',24,'photos',2,1,678556,1404376042,1404376039,0,0,'53b513eacc24d',0),(26,4,'files/music','1f8cfec283cd675038bb95b599fdc75a',24,'music',2,1,3764804,1404376042,1404376039,0,0,'53b513eab7b04',0),(27,4,'files/documents','2d30f25cef1a92db784bc537e8bf128d',24,'documents',2,1,23383,1404376042,1404376039,0,0,'53b513eaa1338',0),(29,4,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',27,'example.odt',5,3,23383,1404376039,1404376039,0,0,'53b513e9617b2',0),(30,4,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',26,'projekteva-letitrain.mp3',7,6,3764804,1404376039,1404376039,0,0,'53b513e9d5850',0),(31,4,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',25,'paris.jpg',9,8,228761,1404376039,1404376039,0,0,'53b513ea3d651',0),(32,4,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',25,'san francisco.jpg',9,8,216071,1404376039,1404376039,0,0,'53b513ea3dabf',0),(33,4,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',25,'squirrel.jpg',9,8,233724,1404376039,1404376039,0,0,'53b513ea3de6b',0),(34,1,'files','45b963397aa40d4a0063e0d85e4fe7a1',1,'files',2,1,6040581,1404376121,1404376118,0,0,'53b51439dae11',0),(35,1,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',34,'photos',2,1,678556,1404376121,1404376118,0,0,'53b5143a48fc7',0),(36,1,'files/music','1f8cfec283cd675038bb95b599fdc75a',34,'music',2,1,3764804,1404376121,1404376118,0,0,'53b5143a20560',0),(37,1,'files/documents','2d30f25cef1a92db784bc537e8bf128d',34,'documents',2,1,23383,1404376121,1404376118,0,0,'53b5143a0157f',0),(38,1,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',34,'ownCloudUserManual.pdf',4,3,1573838,1404376118,1404376118,0,0,'53b51436713a1',0),(39,1,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',37,'example.odt',5,3,23383,1404376118,1404376118,0,0,'53b51438e706f',0),(40,1,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',36,'projekteva-letitrain.mp3',7,6,3764804,1404376118,1404376118,0,0,'53b514393e36c',0),(41,1,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',35,'paris.jpg',9,8,228761,1404376118,1404376118,0,0,'53b5143985b55',0),(42,1,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',35,'san francisco.jpg',9,8,216071,1404376118,1404376118,0,0,'53b5143985fab',0),(43,1,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',35,'squirrel.jpg',9,8,233724,1404376118,1404376118,0,0,'53b5143986392',0),(44,2,'files/music','1f8cfec283cd675038bb95b599fdc75a',13,'music',2,1,3764804,1404375964,1404375961,0,0,'53b5139d205ba',0),(45,2,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',44,'projekteva-letitrain.mp3',7,6,3764804,1404375961,1404375961,0,0,'53b5139b84b89',0),(46,4,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',24,'ownCloudUserManual.pdf',4,3,1573838,1404376039,1404376039,0,0,'53b513e79afa3',0);
 /*!40000 ALTER TABLE `oc7_filecache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,16 +653,18 @@ DROP TABLE IF EXISTS `oc7_files_trash`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_files_trash` (
-  `id` varchar(250) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `user` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `timestamp` varchar(12) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `location` varchar(512) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `type` varchar(4) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `mime` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `id` varchar(250) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `timestamp` varchar(12) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `location` varchar(512) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `type` varchar(4) COLLATE utf8_bin DEFAULT NULL,
+  `mime` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `auto_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`auto_id`),
   KEY `id_index` (`id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `user_index` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -580,50 +677,6 @@ LOCK TABLES `oc7_files_trash` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `oc7_files_trashsize`
---
-
-DROP TABLE IF EXISTS `oc7_files_trashsize`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `oc7_files_trashsize` (
-  `user` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `size` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `oc7_files_trashsize`
---
-
-LOCK TABLES `oc7_files_trashsize` WRITE;
-/*!40000 ALTER TABLE `oc7_files_trashsize` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oc7_files_trashsize` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `oc7_files_versions`
---
-
-DROP TABLE IF EXISTS `oc7_files_versions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `oc7_files_versions` (
-  `user` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `size` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `oc7_files_versions`
---
-
-LOCK TABLES `oc7_files_versions` WRITE;
-/*!40000 ALTER TABLE `oc7_files_versions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oc7_files_versions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `oc7_gallery_sharing`
 --
 
@@ -631,10 +684,10 @@ DROP TABLE IF EXISTS `oc7_gallery_sharing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_gallery_sharing` (
-  `token` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8_bin NOT NULL,
   `gallery_id` int(11) NOT NULL DEFAULT '0',
   `recursive` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -654,11 +707,11 @@ DROP TABLE IF EXISTS `oc7_group_admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_group_admin` (
-  `gid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `gid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `uid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`gid`,`uid`),
   KEY `group_admin_uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -678,10 +731,10 @@ DROP TABLE IF EXISTS `oc7_group_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_group_user` (
-  `gid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `gid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `uid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`gid`,`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -702,9 +755,9 @@ DROP TABLE IF EXISTS `oc7_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_groups` (
-  `gid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `gid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -726,12 +779,12 @@ DROP TABLE IF EXISTS `oc7_jobs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_jobs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `class` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `argument` varchar(256) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `class` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `argument` varchar(256) COLLATE utf8_bin NOT NULL DEFAULT '',
   `last_run` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `job_class_index` (`class`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -740,7 +793,7 @@ CREATE TABLE `oc7_jobs` (
 
 LOCK TABLES `oc7_jobs` WRITE;
 /*!40000 ALTER TABLE `oc7_jobs` DISABLE KEYS */;
-INSERT INTO `oc7_jobs` VALUES (1,'OC\\Cache\\FileGlobalGC','null',1404376530),(2,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"\\\\OC\\\\Files\\\\Cache\\\\BackgroundWatcher\",\"checkNext\"]',1404376533),(3,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"OC_RoundCube_AuthHelper\",\"refresh\"]',1404376523);
+INSERT INTO `oc7_jobs` VALUES (1,'OC\\Cache\\FileGlobalGC','null',1404376530),(2,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"\\\\OC\\\\Files\\\\Cache\\\\BackgroundWatcher\",\"checkNext\"]',1404376533),(3,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"OC_RoundCube_AuthHelper\",\"refresh\"]',1406713007),(4,'OCA\\Activity\\BackgroundJob\\EmailNotification','null',1406713011);
 /*!40000 ALTER TABLE `oc7_jobs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -753,16 +806,16 @@ DROP TABLE IF EXISTS `oc7_locks`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_locks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `owner` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userid` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `owner` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `timeout` int(10) unsigned DEFAULT NULL,
   `created` bigint(20) DEFAULT NULL,
-  `token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `token` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `scope` smallint(6) DEFAULT NULL,
   `depth` smallint(6) DEFAULT NULL,
-  `uri` longtext COLLATE utf8_unicode_ci,
+  `uri` longtext COLLATE utf8_bin,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -783,10 +836,10 @@ DROP TABLE IF EXISTS `oc7_lucene_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_lucene_status` (
   `fileid` int(11) NOT NULL DEFAULT '0',
-  `status` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(1) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`fileid`),
   KEY `status_index` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -807,10 +860,10 @@ DROP TABLE IF EXISTS `oc7_mimetypes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_mimetypes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `mimetype` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mimetype_id_index` (`mimetype`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -819,7 +872,7 @@ CREATE TABLE `oc7_mimetypes` (
 
 LOCK TABLES `oc7_mimetypes` WRITE;
 /*!40000 ALTER TABLE `oc7_mimetypes` DISABLE KEYS */;
-INSERT INTO `oc7_mimetypes` VALUES (3,'application'),(4,'application/pdf'),(5,'application/vnd.oasis.opendocument.text'),(6,'audio'),(7,'audio/mpeg'),(1,'httpd'),(2,'httpd/unix-directory'),(8,'image'),(9,'image/jpeg');
+INSERT INTO `oc7_mimetypes` VALUES (3,'application'),(4,'application/pdf'),(5,'application/vnd.oasis.opendocument.text'),(12,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),(11,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),(10,'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),(6,'audio'),(7,'audio/mpeg'),(1,'httpd'),(2,'httpd/unix-directory'),(8,'image'),(9,'image/jpeg');
 /*!40000 ALTER TABLE `oc7_mimetypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -832,10 +885,10 @@ DROP TABLE IF EXISTS `oc7_permissions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_permissions` (
   `fileid` int(11) NOT NULL DEFAULT '0',
-  `user` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `permissions` int(11) NOT NULL DEFAULT '0',
   KEY `id_user_index` (`fileid`,`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -856,11 +909,11 @@ DROP TABLE IF EXISTS `oc7_pictures_images_cache`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_pictures_images_cache` (
-  `uid_owner` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `path` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `uid_owner` varchar(64) COLLATE utf8_bin NOT NULL,
+  `path` varchar(256) COLLATE utf8_bin NOT NULL,
   `width` int(11) NOT NULL,
   `height` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -880,12 +933,12 @@ DROP TABLE IF EXISTS `oc7_preferences`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_preferences` (
-  `userid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `appid` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `configkey` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `configvalue` longtext COLLATE utf8_unicode_ci,
+  `userid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `appid` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `configkey` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `configvalue` longtext COLLATE utf8_bin,
   PRIMARY KEY (`userid`,`appid`,`configkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -907,12 +960,12 @@ DROP TABLE IF EXISTS `oc7_privatedata`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_privatedata` (
   `keyid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `app` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `user` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `app` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `key` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `value` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`keyid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -933,13 +986,13 @@ DROP TABLE IF EXISTS `oc7_properties`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `propertypath` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `propertyname` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `propertyvalue` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `userid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `propertypath` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `propertyname` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `propertyvalue` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `property_index` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -960,11 +1013,11 @@ DROP TABLE IF EXISTS `oc7_roundcube`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_roundcube` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `oc_user` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `mail_user` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `mail_password` varchar(4096) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `oc_user` varchar(4096) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `mail_user` varchar(4096) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `mail_password` varchar(4096) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -987,25 +1040,25 @@ DROP TABLE IF EXISTS `oc7_share`;
 CREATE TABLE `oc7_share` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `share_type` smallint(6) NOT NULL DEFAULT '0',
-  `share_with` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `uid_owner` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `share_with` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `uid_owner` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
   `parent` int(11) DEFAULT NULL,
-  `item_type` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `item_source` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `item_target` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item_type` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `item_source` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `item_target` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `file_source` int(11) DEFAULT NULL,
-  `file_target` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `file_target` varchar(512) COLLATE utf8_bin DEFAULT NULL,
   `permissions` smallint(6) NOT NULL DEFAULT '0',
   `stime` bigint(20) NOT NULL DEFAULT '0',
   `accepted` smallint(6) NOT NULL DEFAULT '0',
   `expiration` datetime DEFAULT NULL,
-  `token` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `token` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `mail_send` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `item_share_type_index` (`item_type`,`share_type`),
   KEY `file_source_index` (`file_source`),
   KEY `token_index` (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1018,6 +1071,38 @@ LOCK TABLES `oc7_share` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `oc7_share_external`
+--
+
+DROP TABLE IF EXISTS `oc7_share_external`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oc7_share_external` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `remote` varchar(512) COLLATE utf8_bin NOT NULL COMMENT 'Url of the remove owncloud instance',
+  `share_token` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Public share token',
+  `password` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Optional password for the public share',
+  `name` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Original name on the remote server',
+  `owner` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'User that owns the public share on the remote server',
+  `user` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Local user which added the external share',
+  `mountpoint` varchar(4000) COLLATE utf8_bin NOT NULL COMMENT 'Full path where the share is mounted',
+  `mountpoint_hash` varchar(32) COLLATE utf8_bin NOT NULL COMMENT 'md5 hash of the mountpoint',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sh_external_mp` (`user`,`mountpoint_hash`),
+  KEY `sh_external_user` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oc7_share_external`
+--
+
+LOCK TABLES `oc7_share_external` WRITE;
+/*!40000 ALTER TABLE `oc7_share_external` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oc7_share_external` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `oc7_storagecharts2`
 --
 
@@ -1026,13 +1111,13 @@ DROP TABLE IF EXISTS `oc7_storagecharts2`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_storagecharts2` (
   `stc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oc_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `oc_uid` varchar(64) COLLATE utf8_bin NOT NULL,
   `stc_month` bigint(20) NOT NULL,
   `stc_dayts` bigint(20) NOT NULL,
   `stc_used` bigint(20) NOT NULL,
   `stc_total` bigint(20) NOT NULL,
   PRIMARY KEY (`stc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1054,11 +1139,11 @@ DROP TABLE IF EXISTS `oc7_storagecharts2_uconf`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_storagecharts2_uconf` (
   `uc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oc_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `uc_key` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `uc_val` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `oc_uid` varchar(64) COLLATE utf8_bin NOT NULL,
+  `uc_key` varchar(64) COLLATE utf8_bin NOT NULL,
+  `uc_val` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`uc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1078,11 +1163,11 @@ DROP TABLE IF EXISTS `oc7_storages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_storages` (
-  `id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `numeric_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`numeric_id`),
   UNIQUE KEY `storages_id_index` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1103,11 +1188,11 @@ DROP TABLE IF EXISTS `oc7_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_users` (
-  `uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `displayname` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `uid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `displayname` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1129,14 +1214,14 @@ DROP TABLE IF EXISTS `oc7_vcategory`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc7_vcategory` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `type` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `category` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `uid` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `type` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `category` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `uid_index` (`uid`),
   KEY `type_index` (`type`),
   KEY `category_index` (`category`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1159,10 +1244,10 @@ DROP TABLE IF EXISTS `oc7_vcategory_to_object`;
 CREATE TABLE `oc7_vcategory_to_object` (
   `objid` int(10) unsigned NOT NULL DEFAULT '0',
   `categoryid` int(10) unsigned NOT NULL DEFAULT '0',
-  `type` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `type` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`categoryid`,`objid`,`type`),
   KEY `vcategory_objectd_index` (`objid`,`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1191,5 +1276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-07  9:22:11
-
+-- Dump completed on 2014-07-30 11:37:55
