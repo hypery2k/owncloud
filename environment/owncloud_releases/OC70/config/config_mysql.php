@@ -6,12 +6,12 @@ $CONFIG = array (
   'dbuser' => 'oc_testing',
   'dbpassword' => 'password',
   'datadirectory' => '/var/www/oc_testing/mysql/OC70/data',
-  'trusted_domains' =>
+  'trusted_domains' => 
   array (
     0 => 'cloud01.martinreinhardt-online.de',
   ),
   'dbtype' => 'mysql',
-  'version' => '6.0.4.1',
+  'version' => '7.0.0.8',
   'debug' => 'true',
   'loglevel' => '0',
   'maxZipInputSize' => '524288000',
