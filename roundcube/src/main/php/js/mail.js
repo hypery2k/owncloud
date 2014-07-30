@@ -215,6 +215,9 @@ rc.iframe_loaded = function() {
 };
 
 /*
- * Local Variables: *** js-indent-level: 8 *** End: ***
+ * Local Variables: ***
+ * js-indent-level: 8 ***
+ * indent-tabs-mode: t ***
+ * End: ***
  */
 

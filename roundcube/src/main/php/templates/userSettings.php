@@ -20,6 +20,9 @@
  *
  */
 
+$ocVersion = $_['ocVersion'];
+$cfgClass = $ocVersion >= 7 ? 'section' : 'personalblock';
+
 $table_exists = OC_RoundCube_DB_Util::tableExists();
 
 if (!$table_exists) {
@@ -32,7 +35,7 @@ $mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
     <!-- Prevent CSRF attacks-->
   <input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
   <input type="hidden" name="appname" value="roundcube">
-  <fieldset class="personalblock" id="roundcube">
+  <fieldset class="<?php echo $cfgClass; ?>" id="roundcube">
   <h2><?php p($l->t('RoundCube Mailaccount')); ?></h2>
     <p>
 <?php

@@ -39,14 +39,16 @@ if (!OCP\User::isLoggedIn()) {
 OCP\Util::addStyle('roundcube', 'base');
 
 // workaround to detect OC version
+$ocVersion = @reset(OCP\Util::getVersion());
+
 // OC 5
-if (6 > @reset(OCP\Util::getVersion())) {
+if ($ocVersion < 6) {
   OCP\Util::writeLog('roundcube', 'Running on OwnCloud 5', OCP\Util::DEBUG);
   // add neede JS
   OCP\Util::addScript('', 'jquery-1.7.2.min');
   // OC 6
 } else {
-  OCP\Util::writeLog('roundcube', 'Running on OwnCloud 6', OCP\Util::DEBUG);
+  OCP\Util::writeLog('roundcube', 'Running on OwnCloud '.$ocVersion, OCP\Util::DEBUG);
   // add neede JS
   OCP\Util::addScript('', 'jquery-1.10.0.min');
 }
