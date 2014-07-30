@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<info>
+	<id>templateeditor</id>
+	<name>Mail Template Editor</name>
+	<description>Allows administrators to edit the mail templates in the administrator settings.</description>
+	<licence>AGPL</licence>
+	<author>Jörn Dreyer</author>
+	<requiremin>7</requiremin>
+	<shipped>true</shipped>
+	<default_enable/>
+</info>

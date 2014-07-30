@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<info>
+		<id>activity</id>
+		<name>Activity</name>
+		<description>Provides an activity feed showing your file changes and other interesting things going on in your ownCloud.</description>
+		<licence>AGPL</licence>
+		<author>Frank Karlitschek</author>
+		<shipped>true</shipped>
+		<default_enable/>
+		<require>4.9</require>
+		<types>
+				<filesystem/>
+		</types>
+		<ocsid>166038</ocsid>
+</info>

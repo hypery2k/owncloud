@@ -1,0 +1,20 @@
+{
+    "name": "isoft/mssql-bundle",
+    "description": "Driver for work with MsSQL server",
+    "authors": [
+        {
+            "name": "Realestate"
+        },
+        {
+            "name": "Vitaly Zhloba",
+            "email": "vitaly.zhloba@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Realestate\\MssqlBundle": ""
+        }
+    },
+    "target-dir": "Realestate/MssqlBundle"
+}
