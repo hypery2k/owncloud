@@ -197,8 +197,7 @@ case ${DB_TYPE} in
 	echo "  ==> Setting up MySQL DB"  
 	echo "  	owncloud:  "
     $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < ${DIR_OC_DEV}/environment/mysql/${OC_VERSION}/create_db.sql
-    //$MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} -e "INSERT INTO oc_testing.oc6_appconfig (appid,configkey,configvalue) VALUES('roundcube','maildir','/oc_testing/mysql/${RC_VERSION}/');"
-	echo "  	roundcube:  "
+   	echo "  	roundcube:  "
     $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < ${DIR_OC_DEV}/environment/mysql/${RC_VERSION}/create_db.sql
     ;;
 esac
