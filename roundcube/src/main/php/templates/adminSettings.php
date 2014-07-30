@@ -7,8 +7,8 @@
     <legend><strong><?php echo $l -> t('RoundCube Settings'); ?></strong></legend>
 
     <ul>
-      <li><a href="#roundcube-1"><?php echo $l -> t('Basic settings'); ?></a></li>
-      <li><a href="#roundcube-2"><?php echo $l -> t('Advanced settings'); ?></a></li>
+      <li><a id="rcBasicSettings" href="#roundcube-1"><?php echo $l -> t('Basic settings'); ?></a></li>
+      <li><a id="rcAdvancedSettings" href="#roundcube-2"><?php echo $l -> t('Advanced settings'); ?></a></li>
     </ul>
     
     <fieldset id="roundcube-1">
@@ -17,7 +17,7 @@
             <?php echo $l -> t('Absolute path to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, just absolute paths to the same domain owncloud is running.'); ?>
         </label>
         <br/>
-        <input type="text" id="maildir" name="maildir" value="<?php echo $_['maildir']; ?>"
+        <input type="text" id="maildir" name="maildir" style="width:400px;" value="<?php echo $_['maildir']; ?>"
                onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"  />
       </p>
     </fieldset>

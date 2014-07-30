@@ -24,7 +24,7 @@ import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 @DefaultUrl(UITestConstants.DEFAULT_URL)
 public class AdminSettingsPage extends AbstractPage {
 
-	@FindBy(id = "ui-id-8")
+	@FindBy(id = "rcAdvancedSettings")
 	private WebElement roundcubeAdvancedPanel;
 
 	@FindBy(id = "autoLogin")
