@@ -3,7 +3,7 @@
 //update from old app version
 
 $installedVersion = OCP\Config::getAppValue('storagecharts2', 'installed_version');
-if (version_compare($installedVersion, '2.4', '<')) {
+if (version_compare($installedVersion, '2.5.0', '<')) {
 	try {
 		$sql1 = 'ALTER TABLE `*PREFIX*storagecharts2` CHANGE COLUMN `stc_month` `stc_month` FLOAT NOT NULL DEFAULT 0';
 		$args = array(1);
