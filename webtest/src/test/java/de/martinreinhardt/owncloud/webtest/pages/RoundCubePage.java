@@ -26,8 +26,6 @@ public class RoundCubePage extends AbstractPage {
 	 */
 	private static final String ROUNDCUBE_FRAME = "roundcubeFrame";
 
-	public static final String URL_RC_APP = "index.php/apps/roundcube";
-
 	@FindBy(id = "errorMsg")
 	private WebElement errorMsg;
 

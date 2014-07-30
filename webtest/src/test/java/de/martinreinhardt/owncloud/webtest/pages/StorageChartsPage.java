@@ -20,8 +20,6 @@ import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 @DefaultUrl(UITestConstants.DEFAULT_URL)
 public class StorageChartsPage extends AbstractPage {
 
-	public static final String URL_SC_APP = "index.php/apps/storagecharts2/charts.php";
-
 	@FindBy(id = "storagecharts2")
 	private WebElement chartsDiv;
 
