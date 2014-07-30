@@ -5,7 +5,7 @@ $CONFIG = array (
   'dbtableprefix' => 'oc6_',
   'dbuser' => 'oc_testing',
   'dbpassword' => 'password',
-  'datadirectory' => '/var/www/oc_testing/mysql/OC60/data',
+  'datadirectory' => '/var/www/oc_testing/mysql/owncloud/data',
   'trusted_domains' =>
   array (
     0 => 'cloud01.martinreinhardt-online.de',

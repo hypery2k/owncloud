@@ -95,14 +95,11 @@ echo
 # SETUP OWNCLOUD
 echo "  ==> Preparing owncloud setup"
 
-echo "  ==> Directory listing of web testing folder:"
-ls -lisah ${DIR_WWW}/{${DB_TYPE}}/*
-
 # clean up first
 rm -r ${DIR_WWW}/${DB_TYPE}/*
 
-DIR_OC_CUR=${DIR_WWW}/${DB_TYPE}/${OC_VERSION}
-DIR_RC_CUR=${DIR_WWW}/${DB_TYPE}/${RC_VERSION}
+DIR_OC_CUR=${DIR_WWW}/${DB_TYPE}/owncloud
+DIR_RC_CUR=${DIR_WWW}/${DB_TYPE}/roundcube
 DIR_OC_APPS=${DIR_OC_CUR}/apps
 DIR_OC_DATA=${DIR_OC_CUR}/data
 DIR_OC_APP_RJ=$DIR_OC_APPS/revealjs
