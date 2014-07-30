@@ -67,9 +67,9 @@ class OC_RoundCube_AuthHelper {
 			}
 				
 			// save login data encrypted for later usage
-			$pubKey =  OC_RoundCube_App::getPublicKey($ocuser);
-			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($pLogin, $pubKey);
-			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($pPassword, $pubKey);
+			$pubKey =  OC_RoundCube_App::getPublicKey($username);
+			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($mail_username, $pubKey);
+			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($mail_password, $pubKey);
 			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN] = $emailUserCrypted;
 			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD] = $emailPasswordCrypted;
 				
