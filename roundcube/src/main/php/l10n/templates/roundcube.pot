@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud roundcube 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-01-03 04:07-0800\n"
+"POT-Creation-Date: 2014-07-30 21:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,92 +17,130 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ajax/adminSettings.php:49 ajax/userSettings.php:30
+#: ajax/adminSettings.php:51
+#, php-format
+msgid "Refresh interval '%s' is not a number."
+msgstr ""
+
+#: ajax/adminSettings.php:84 ajax/userSettings.php:31
 msgid "Not submitted for us."
 msgstr ""
 
-#: ajax/adminSettings.php:53
+#: ajax/adminSettings.php:88
 msgid "Application settings successfully stored."
 msgstr ""
 
-#: ajax/userSettings.php:26
+#: ajax/userSettings.php:27
 msgid "Unable to store email credentials in the data-base."
 msgstr ""
 
-#: ajax/userSettings.php:34
+#: ajax/userSettings.php:35
 msgid "Email-user credentials successfully stored."
 msgstr ""
 
-#: appinfo/app.php:50
+#: appinfo/app.php:55
 msgid "Webmail"
 msgstr ""
 
-#: templates/adminSettings.php:7
+#: templates/adminSettings.php:14
 msgid "RoundCube Settings"
 msgstr ""
 
-#: templates/adminSettings.php:10
+#: templates/adminSettings.php:17
 msgid "Basic settings"
 msgstr ""
 
-#: templates/adminSettings.php:11
+#: templates/adminSettings.php:18
 msgid "Advanced settings"
 msgstr ""
 
-#: templates/adminSettings.php:16
+#: templates/adminSettings.php:24
 msgid ""
 "Absolute path to roundcube installation, e.g. If you have http://example.com/"
 "roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, "
 "just absolute paths to the same domain owncloud is running."
 msgstr ""
 
-#: templates/adminSettings.php:27
+#: templates/adminSettings.php:36
 msgid ""
 "Remove RoundCube control navigation menu items with currently logged in user "
 "information"
 msgstr ""
 
-#: templates/adminSettings.php:27
+#: templates/adminSettings.php:36
 msgid "Remove information bar on top of page"
 msgstr ""
 
-#: templates/adminSettings.php:31
+#: templates/adminSettings.php:40
 msgid ""
 "Removes the buttons for different sections (mail, adressbook, settings) "
 "within the RoundCube mail application"
 msgstr ""
 
-#: templates/adminSettings.php:31
+#: templates/adminSettings.php:40
 msgid "Remove RoundCube header navigation menu items"
 msgstr ""
 
-#: templates/adminSettings.php:37
+#: templates/adminSettings.php:46
 msgid ""
 "Enable autologin for users, which reuse the login data from OC for RoundCube."
 msgstr ""
 
-#: templates/adminSettings.php:37
+#: templates/adminSettings.php:46
 msgid "Enable autologin for users"
 msgstr ""
 
-#: templates/adminSettings.php:41
+#: templates/adminSettings.php:50
 msgid "Enable debug messages. RC tends to bloat the log-files."
 msgstr ""
 
-#: templates/adminSettings.php:41
+#: templates/adminSettings.php:50
 msgid "Enable debug logging"
 msgstr ""
 
-#: templates/adminSettings.php:45
+#: templates/adminSettings.php:54
 msgid ""
-"Overwritte roundcube server hostname if not the same as owncloud, e.g. for "
+"Overwrite roundcube server hostname if not the same as owncloud, e.g. for "
 "(sub)domains which resides on the same server, e.g rc.domain.tld But keep in "
 "mind that due to iFrame security constraints it will be only working on the "
 "same server, see HTML/JS same-origin policies"
 msgstr ""
 
-#: templates/mail.php:87
+#: templates/adminSettings.php:59
+msgid ""
+"Overwrite roundcube server port (If not specified, ports 80/443 are used for "
+"HTTP/S)"
+msgstr ""
+
+#: templates/adminSettings.php:63
+msgid ""
+"This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the "
+"session life-time of your RoundCube install (refer to the Roundcube "
+"documentation, please)."
+msgstr ""
+
+#: templates/adminSettings.php:64
+msgid "Refresh interval for the Roundcube-session in seconds"
+msgstr ""
+
+#: templates/adminSettings.php:69
+msgid ""
+"Checking this box will disable the cron-job which should periodically "
+"refresh the Roundcube session. If you do not have a real cron-daemon running "
+"(see Cron-section on this page) then the cron-job is probably quite useless "
+"and unreliable and so it might be safe to disable it (YMMV)."
+msgstr ""
+
+#: templates/adminSettings.php:69
+msgid "Disable Cron session-refresh"
+msgstr ""
+
+#: templates/mail.php:101
 msgid "Logged in as "
+msgstr ""
+
+#: templates/part.error.autologin.php:2
+msgid "Auto-Login is not working. Please contact you're administrator"
 msgstr ""
 
 #: templates/part.error.db.php:2
@@ -142,22 +180,28 @@ msgid ""
 "username and password."
 msgstr ""
 
-#: templates/userSettings.php:36
+#: templates/userSettings.php:39
 msgid "RoundCube Mailaccount"
 msgstr ""
 
-#: templates/userSettings.php:49
+#: templates/userSettings.php:56
 msgid "Email Login Name"
 msgstr ""
 
-#: templates/userSettings.php:54
+#: templates/userSettings.php:61
 msgid "Email Password"
 msgstr ""
 
-#: templates/userSettings.php:57
+#: templates/userSettings.php:64
 msgid "show"
 msgstr ""
 
-#: templates/userSettings.php:62
+#: templates/userSettings.php:66
 msgid "Change Email Identity"
+msgstr ""
+
+#: templates/userSettings.php:73
+msgid ""
+"Autologin for users activated. OwnCloud user data will be used for login in "
+"roundcube"
 msgstr ""
