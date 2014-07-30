@@ -37,10 +37,10 @@ public class PortalPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id='settings']/span")
 	private WebElement settingsDropdownButton;
 
-	@FindBy(xpath = "//*[@id='settings']/div/li[2]/a")
+	@FindBy(xpath = "//*[@id='settings']//li[2]/a")
 	private WebElement userSettingsDropdownButton;
 
-	@FindBy(xpath = "//*[@id='settings']/div/li[3]/a")
+	@FindBy(xpath = "//*[@id='settings']//li[3]/a")
 	private WebElement adminSettingsDropdownButton;
 
 	@FindBy(id = "logout")
