@@ -45,14 +45,17 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
           OCP\Config::setAppValue('roundcube', $param, $maildir);
         } else if ($param == 'rcRefreshInterval') {
           $refresh = trim($_POST[$param]);
-          if (!is_numeric($refresh)) {
+          if ($refresh == '') {
+            OC_Appconfig::deleteKey('roundcube', $param);
+          } else if (!is_numeric($refresh)) {
             OC_JSON::error(array(
                              "data" => array(
                                "message" => $l->t("Refresh interval '%s' is not a number.",
                                                   array($refresh)) )));
             return false;
+          } else {
+            OCP\Config::setAppValue('roundcube', $param, $refresh);
           }
-          OCP\Config::setAppValue('roundcube', $param, $refresh);
         } else {
           OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
         }
