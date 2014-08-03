@@ -430,13 +430,20 @@ class OC_RoundCube_Login {
 		$fp = fopen($url, 'rb', false, $context);
 
 		if (!$fp) {
-			$this -> addDebug("sendRequest", "Network connection failed on fsockopen. Please check your path for roundcube.");
+			$this -> addDebug("sendRequest", "Network connection failed on fopen(). Please check your path for roundcube.");
 			throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 		} else {
 
 			// Read response and set received cookies
 			$response    = stream_get_contents($fp);
 			fclose($fp);
+
+                        // Check for success. $http_response_header may not be set on failurex
+			if ($response === false) {
+				$this -> addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube.");
+				throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
+			}
+
 			$responseHdr = $http_response_header;
 
 			$this->authHeaders = array();
