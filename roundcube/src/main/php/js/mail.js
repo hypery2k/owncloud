@@ -60,7 +60,7 @@ $('#roundcubeFrame').ready(function() {
 	}
 
 	// slide in roundcube nice with timeout to let iframe load
-	$("#loader").fadeOut(2500, function() {
+	$("#roundcubeLoader").fadeOut(2500, function() {
 		$(window).resize();
 		$('#roundcubeFrame').show();
 		rc.iframe_loaded();

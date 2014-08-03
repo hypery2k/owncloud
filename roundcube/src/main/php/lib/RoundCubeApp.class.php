@@ -335,7 +335,7 @@ class OC_RoundCube_App {
 			$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
 			// create iFrame begin
-			$returnObject -> appendHtmlOutput('<img src="' . $loader_image . '" id="loader">');
+			$returnObject -> appendHtmlOutput('<img src="' . $loader_image . '" id="roundcubeLoader">');
 			$returnObject -> appendHtmlOutput('<iframe src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame"  name="roundcube" width="100%" style="display:none;">  </iframe>');
 			$returnObject -> appendHtmlOutput('<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>');
 			$returnObject -> appendHtmlOutput('<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>');
