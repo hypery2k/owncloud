@@ -22,9 +22,14 @@ import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 public class RoundCubePage extends AbstractPage {
 
 	/**
-	 * 
+	 * iframe id
 	 */
 	private static final String ROUNDCUBE_FRAME = "roundcubeFrame";
+
+	/**
+	 * reference id of loader item
+	 */
+	private static final String ROUNDCUBE_LOADER = "roundcubeLoader";
 
 	@FindBy(id = "errorMsg")
 	private WebElement errorMsg;
@@ -35,7 +40,7 @@ public class RoundCubePage extends AbstractPage {
 	@FindBy(css = "#rcmrow1 > td.subject > a")
 	private WebElement firstEmail;
 
-	@FindBy(id = "loader")
+	@FindBy(id = ROUNDCUBE_LOADER)
 	private WebElement ajaxLoader;
 
 	public RoundCubePage(final WebDriver pWebDriver) {
