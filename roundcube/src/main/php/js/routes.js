@@ -10,7 +10,7 @@ $(document).ready(function() {
 	} else {
                 var url = OC.generateUrl('apps/roundcube/'+'refresh');
 		setInterval(function() {
-			$.post(url+":interval:"+Roundcube.refreshInterval+":");
+			$.post(url);
 		}, Roundcube.refreshInterval*1000);
 	}
 });
