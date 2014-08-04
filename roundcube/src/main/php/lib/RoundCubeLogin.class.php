@@ -522,4 +522,3 @@ class OC_RoundCube_Login {
 	}
 
 }
-?>
