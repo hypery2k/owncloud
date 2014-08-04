@@ -51,7 +51,7 @@ if ($ocVersion < 6) {
   OCP\Util::writeLog('roundcube', 'Running on OwnCloud '.$ocVersion, OCP\Util::DEBUG);
   // add neede JS
   // Don't, already included, and a second include breaks jquery-migrate.
-  // OCP\Util::addScript('', 'jquery-1.10.0.min');
+  OCP\Util::addScript('', 'jquery-1.10.0.min');
 }
 OCP\Util::addScript('roundcube', 'jquery.plugins');
 OCP\Util::addScript('roundcube', 'mail');
