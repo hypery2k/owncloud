@@ -160,4 +160,3 @@ class OC_RoundCube_AuthHelper {
 		}
 	}
 }
-?>
