@@ -1,16 +1,16 @@
 // declare namespace
 
-var rc = document.rc || {};
+var Roundcube = Roundcube || {};
 
 /**
  * Fills height and width of window. (more precise than height: 100%; or width:
  * 100%;)
  */
-rc.fillWindow = function(selector) {
+Roundcube.fillWindow = function(selector) {
 	if (selector.length === 0) {
 		return;
 	}
-	rc.fillHeight(selector);
+	Roundcube.fillHeight(selector);
 	var width = parseFloat($(window).width()) - selector.offset().left;
 	selector.css('width', width + 'px');
 	if (selector.outerWidth() > selector.width()) {
@@ -23,7 +23,7 @@ rc.fillWindow = function(selector) {
 /**
  * Fills height of window. (more precise than height: 100%;)
  */
-rc.fillHeight = function(selector) {
+Roundcube.fillHeight = function(selector) {
 	if (selector.length === 0) {
 		return;
 	}
@@ -41,18 +41,18 @@ rc.fillHeight = function(selector) {
  */
 $('#roundcubeFrame').ready(function() {
 	$(window).resize(function() {
-		if (rc.logdebug) {
+		if (Roundcube.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
-		rc.fillWindow($('#roundcube_container'));
-		rc.iframe_loaded();
+		Roundcube.fillWindow($('#roundcube_container'));
+		Roundcube.iframe_loaded();
 	});
 	$('#roundcubeFrame').load(function() {
-		if (rc.logdebug) {
+		if (Roundcube.logdebug) {
 			console.log("Starting roundcube container resize ...");
 		}
-		rc.fillWindow($('#roundcube_container'));
-		rc.iframe_loaded();
+		Roundcube.fillWindow($('#roundcube_container'));
+		Roundcube.iframe_loaded();
 	});
 	// check if the control menu from roundcube was disabled
 	if ($('#disable_control_nav').val() === '1') {
@@ -63,14 +63,14 @@ $('#roundcubeFrame').ready(function() {
 	$("#roundcubeLoader").fadeOut(2500, function() {
 		$(window).resize();
 		$('#roundcubeFrame').show();
-		rc.iframe_loaded();
+		Roundcube.iframe_loaded();
 	});
 });
 
 /**
  * callback js function during after iframe loaded completly
  */
-rc.iframe_loaded = function() {
+Roundcube.iframe_loaded = function() {
 
 	var mainscreen = $('#roundcubeFrame').contents().find('#mainscreen');
 	// remove header line, includes about line and

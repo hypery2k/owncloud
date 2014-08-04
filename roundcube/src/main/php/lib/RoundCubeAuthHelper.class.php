@@ -29,7 +29,7 @@ class OC_RoundCube_AuthHelper {
 		$jsAssign = &$params['array'];
 
 		$refresh = OCP\Config::getAppValue('roundcube', 'rcRefreshInterval', 240);
-		$jsAssign['rc'] = 'document.rc || {};'."\n".'rc.refreshInterval = '.$refresh;
+		$jsAssign['Roundcube'] = 'Roundcube || {};'."\n".'Roundcube.refreshInterval = '.$refresh;
 	}
 
 	/**
