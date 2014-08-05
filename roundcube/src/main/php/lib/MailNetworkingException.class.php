@@ -26,4 +26,3 @@
  */
 class OC_Mail_NetworkingException extends Exception {
 }
-?>

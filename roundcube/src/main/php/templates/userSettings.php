@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ownCloud - roundcube mail plugin
  *
@@ -77,4 +78,3 @@ if(!$enable_auto_login){
 </form>
 <?php
 }
-?>

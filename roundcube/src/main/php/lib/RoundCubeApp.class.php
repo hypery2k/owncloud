@@ -375,4 +375,3 @@ class OC_RoundCube_App {
 	}
 
 }
-?>

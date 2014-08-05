@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ownCloud - roundcube mail plugin
  *
@@ -131,4 +132,3 @@ if (!$table_exists) {
 }
 // output formatted HTML
 echo $html_output;
-?>

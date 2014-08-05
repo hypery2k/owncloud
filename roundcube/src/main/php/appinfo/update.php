@@ -16,5 +16,3 @@ if (version_compare($installedVersion, '2.2', '<')) {
 	}
 
 }
-
-?>

@@ -90,5 +90,3 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Application settings successfully stored.') )));
 return true;
-
-?>

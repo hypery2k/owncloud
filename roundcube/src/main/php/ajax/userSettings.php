@@ -34,5 +34,3 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Email-user credentials successfully stored.') )));
 return true;
-
-?>

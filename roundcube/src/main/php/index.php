@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ownCloud - roundcube mail plugin
  *

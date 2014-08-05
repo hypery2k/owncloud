@@ -27,4 +27,3 @@
  */
 class OC_Mail_RC_InstallNotFoundException extends Exception {
 }
-?>

@@ -54,4 +54,3 @@ OCP\App::addNavigationEntry(array(
     'icon' => OCP\Util::imagePath('roundcube', 'mail.svg'),
     'name' => $l -> t('Webmail')
     ));
-?>

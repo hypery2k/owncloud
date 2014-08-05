@@ -114,4 +114,3 @@ class OC_Mail_Object {
   }
 
 }
-?>

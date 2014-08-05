@@ -40,4 +40,3 @@ $ocVersion = @reset(OCP\Util::getVersion());
 $tmpl->assign('ocVersion', $ocVersion);
 
 return $tmpl -> fetchPage();
-?>

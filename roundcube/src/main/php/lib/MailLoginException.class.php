@@ -27,4 +27,3 @@
  */
 class OC_Mail_LoginException extends Exception {
 }
-?>
