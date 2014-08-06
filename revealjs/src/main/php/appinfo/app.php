@@ -23,6 +23,8 @@
 
 OCP\Util::addStyle('revealjs','style');
 
+
+//TODO deprecated
 OCP\App::register(array('order' => 70, 'id' => 'revealjs', 'name' => 'RevealJS'));
 
 OCP\App::addNavigationEntry( array( 

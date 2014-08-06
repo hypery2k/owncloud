@@ -1,7 +1,7 @@
 <?php
 
 require_once 'lib/RoundCubeDBUtil.class.php';
-require_once 'mocks.php';
+require_once 'mocks_ocp.php';
 
 class RoundCubeDBUtilTest extends PHPUnit_Framework_TestCase
 {
@@ -15,5 +15,4 @@ class RoundCubeDBUtilTest extends PHPUnit_Framework_TestCase
 
 	}
 }
-?>
 
