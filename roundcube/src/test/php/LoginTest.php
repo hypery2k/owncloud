@@ -21,26 +21,15 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 
 
 	protected function setUp() {
-		$GLOBALS["http_response_header"]='';
 	}
 
 
 
 	public function testConnectionError(){
 
-		$fp = '';
-		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
-				array('openUrlConnection','closeUrlConnection') ,
-				array('localhost','443','mail')
-		);
-		$mockedRcLogin->expects($this->any())
-		->method('openUrlConnection')
-		->will($this->returnValue($fp));
-		$mockedRcLogin->expects($this->any())
-		->method('closeUrlConnection')
-		->will($this->returnValue($fp));
+		$rcLogin = new OC_RoundCube_Login('localhost','443','mail');
 		try {
-			$mockedRcLogin -> login("user","password");
+			$rcLogin -> login("user","password");
 		}
 		catch (OC_Mail_NetworkingException $expected) {
 			return;
@@ -50,21 +39,19 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testUnkownResponse(){
-		$fp = 'any';
-		$mockedResponse=false;
+		$header=array('');
+		$content=false;
+		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
-		->will($this->returnValue($fp));
+		->will($this->returnValue($responseObj));
 		$mockedRcLogin->expects($this->any())
 		->method('closeUrlConnection')
-		->will($this->returnValue($fp));
-		$mockedRcLogin->expects($this->any())
-		->method('getConnectionData')
-		->will($this->returnValue($mockedResponse));
+		->will($this->returnValue($responseObj));
 		try {
 			$mockedRcLogin -> login("user","password");
 		}
@@ -77,26 +64,19 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testUnkownLoginState1(){
-		$http_response_header=array('');
-
-		$fp = 'any';
-		$mockedResponse='';
+		$header=array('');
+		$content='';
+		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
-		->will($this->returnValue($fp));
+		->will($this->returnValue($responseObj));
 		$mockedRcLogin->expects($this->any())
 		->method('closeUrlConnection')
-		->will($this->returnValue($fp));
-		$mockedRcLogin->expects($this->any())
-		->method('getConnectionData')
-		->will($this->returnValue($mockedResponse));
-		$mockedRcLogin->expects($this->any())
-		->method('getResponseHeader')
-		->will($this->returnValue($http_response_header));
+		->will($this->returnValue($responseObj));
 		try {
 			$mockedRcLogin -> login("user","password");
 		}
@@ -110,27 +90,19 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 	 * Unkown location
 	 */
 	public function testUnkownLoginState2(){
-		$http_response_header=array('HTTP/1.1 200 OK',		
-		'path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
-
-		$fp = 'any';
-		$mockedResponse=' <div id="message"';
+		$header=array('HTTP/1.1 200 OK','path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
+		$content=' <div id="message"';
+		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
-		->will($this->returnValue($fp));
+		->will($this->returnValue($responseObj));
 		$mockedRcLogin->expects($this->any())
 		->method('closeUrlConnection')
-		->will($this->returnValue($fp));
-		$mockedRcLogin->expects($this->any())
-		->method('getConnectionData')
-		->will($this->returnValue($mockedResponse));
-		$mockedRcLogin->expects($this->any())
-		->method('getResponseHeader')
-		->will($this->returnValue($http_response_header));
+		->will($this->returnValue($responseObj));
 		try {
 		$mockedRcLogin -> login("user","password");		
 		}
@@ -144,25 +116,18 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$http_response_header=array('HTTP/1.1 200 OK',
 				'Location: .\/?_task=mail',
 				'path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
-
-		$fp = 'any';
 		$mockedResponse=' <div id="message"';
+		$responseObj= new Response($http_response_header,$mockedResponse);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
-		->will($this->returnValue($fp));
+		->will($this->returnValue($responseObj));
 		$mockedRcLogin->expects($this->any())
 		->method('closeUrlConnection')
-		->will($this->returnValue($fp));
-		$mockedRcLogin->expects($this->any())
-		->method('getConnectionData')
-		->will($this->returnValue($mockedResponse));
-		$mockedRcLogin->expects($this->any())
-		->method('getResponseHeader')
-		->will($this->returnValue($http_response_header));
+		->will($this->returnValue($responseObj));
 		$mockedRcLogin -> login("user","password");
 
 	}

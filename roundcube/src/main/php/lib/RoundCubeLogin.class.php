@@ -148,6 +148,8 @@ class OC_RoundCube_Login {
 	 */
 	private $lastToken;
 
+	private $rcUrlResource;
+
 	/**
 	 * Debugging can be enabled by setting the second argument
 	 * in the constructor to TRUE.
@@ -428,16 +430,16 @@ class OC_RoundCube_Login {
 				'header' => $header,
 				'content' => $postData)));
 
-		$fp = $this -> openUrlConnection($url, $context);
+		$responsObj = $this -> openUrlConnection($url, $context);
 
-		if (!$fp) {
+		if (!$responsObj) {
 			$this -> addDebug("sendRequest", "Network connection failed on fopen(). Please check your path for roundcube with url ".$url." on host". $this->rcHost);
 			throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 		} else {
 
 			// Read response and set received cookies
-			$response = $this -> getConnectionData($fp);
-			$this -> closeUrlConnection($fp);
+			$response =  $responsObj -> getContent();
+			$this -> closeUrlConnection();
 
 			// Check for success. $http_response_header may not be set on failures
 			if ($response === false) {
@@ -445,7 +447,7 @@ class OC_RoundCube_Login {
 				throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 			}
 
-			$responseHdr = $this -> getResponseHeader();
+			$responseHdr = $responsObj -> getHeader();
 
 			$this->authHeaders = array();
 			foreach($responseHdr as $header) {
@@ -486,46 +488,41 @@ class OC_RoundCube_Login {
 				// override previous token (if this one exists!)
 			}
 
-			$this->addDebug("sendRequest", "Header received: " . print_r($this -> getResponseHeader(), true) . "\nResponse was" . $response);
+			$this->addDebug("sendRequest", "Header received: " . print_r($responseHdr, true) . "\nResponse was" . $response);
 
 			$this->emitAuthHeaders();
 		}
 		return $response;
 	}
 
-
-	/**
-	 * Get connection data
-	 * @param resource $pFP filepointer
-	 */
-	function getConnectionData($pFP){
-		return stream_get_contents($pFP);
-	}
-
-	/**
-	 * Get HTTP response
-	 * @return unknown
-	 */
-	function getResponseHeader(){
-		return $http_response_header;
-	}
-
 	/**
 	 * open url connection
 	 * @param string $pURL to use
 	 * @param resource $pContext resource contect
+	 * @return response object
 	 */
 	function 	openUrlConnection($pURL,$pContext){
-		return fopen($pURL, 'rb', false, $pContext);
+		$response = false;
+		try {
+			$this->$urlResource = fopen($pURL, 'rb', false, $pContext);
+			if($this->$urlResource){
+				$respons = new Response($http_response_header,stream_get_contents($this->$urlResource));
+			}
+		}
+		catch(Exception $e){
+			$this->addDebug("openUrlConnection", "URL (url:".$pURL." open failed: ", $e);
+		}
+		return $response;
 	}
 
 
 	/**
-	 * close url connection
-	 * @param resource $pFP filepointer
+	 * close current url connection
 	 */
-	function 	closeUrlConnection($pFP){
-		fclose($pFP);
+	function 	closeUrlConnection(){
+		if(isset($this->$urlResource)){
+			fclose($this->$urlResource);
+		}
 	}
 
 	/**
@@ -557,4 +554,37 @@ class OC_RoundCube_Login {
 		OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . print_r($this -> debugStack) . ' ', OCP\Util::ERROR);
 	}
 
+}
+
+/**
+ * Simple response wrapper class
+ * @author mreinhardt
+ *
+ */
+class Response{
+
+	private $responseHeaders;
+
+	private $content;
+
+	public function __construct($pHeader, $pContent){
+		$this -> responseHeaders = $pHeader;
+		$this -> content = $pContent;
+	}
+
+	/**
+	 *
+	 * @return http response header ($http_response_header)
+	 */
+	public function getHeader(){
+		return $this -> responseHeaders;
+	}
+
+	/**
+	 *
+	 * @return response content
+	 */
+	public function getContent(){
+		return $this -> content;
+	}
 }
