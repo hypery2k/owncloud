@@ -427,7 +427,8 @@ class OC_RoundCube_Login {
 				'method' => $method,
 				'header' => $header,
 				'content' => $postData)));
-		$fp = fopen($url, 'rb', false, $context);
+
+		$fp = $this -> openUrlConnection($url, $context);
 
 		if (!$fp) {
 			$this -> addDebug("sendRequest", "Network connection failed on fopen(). Please check your path for roundcube with url ".$url." on host". $this->rcHost);
@@ -435,16 +436,16 @@ class OC_RoundCube_Login {
 		} else {
 
 			// Read response and set received cookies
-			$response = stream_get_contents($fp);
-			fclose($fp);
+			$response = $this -> getConnectionData($fp);
+			$this -> closeUrlConnection($fp);
 
-            // Check for success. $http_response_header may not be set on failures
+			// Check for success. $http_response_header may not be set on failures
 			if ($response === false) {
 				$this -> addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url ".$url." on host". $this->rcHost);
 				throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 			}
 
-			$responseHdr = $http_response_header;
+			$responseHdr = $this -> getResponseHeader();
 
 			$this->authHeaders = array();
 			foreach($responseHdr as $header) {
@@ -485,11 +486,46 @@ class OC_RoundCube_Login {
 				// override previous token (if this one exists!)
 			}
 
-			$this -> addDebug("sendRequest", "Header received: " . print_r($http_response_header, true) . "\nResponse was" . $response);
+			$this->addDebug("sendRequest", "Header received: " . print_r($this -> getResponseHeader(), true) . "\nResponse was" . $response);
 
 			$this->emitAuthHeaders();
 		}
 		return $response;
+	}
+
+
+	/**
+	 * Get connection data
+	 * @param resource $pFP filepointer
+	 */
+	function getConnectionData($pFP){
+		return stream_get_contents($pFP);
+	}
+
+	/**
+	 * Get HTTP response
+	 * @return unknown
+	 */
+	function getResponseHeader(){
+		return $http_response_header;
+	}
+
+	/**
+	 * open url connection
+	 * @param string $pURL to use
+	 * @param resource $pContext resource contect
+	 */
+	function 	openUrlConnection($pURL,$pContext){
+		return fopen($pURL, 'rb', false, $pContext);
+	}
+
+
+	/**
+	 * close url connection
+	 * @param resource $pFP filepointer
+	 */
+	function 	closeUrlConnection($pFP){
+		fclose($pFP);
 	}
 
 	/**
