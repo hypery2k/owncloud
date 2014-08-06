@@ -506,7 +506,7 @@ class OC_RoundCube_Login {
 		try {
 			$this -> urlResource = fopen($pURL, 'rb', false, $pContext);
 			if($this -> urlResource){
-				$response = new Response($http_response_header,stream_get_contents($this->$urlResource));
+				$response = new Response($http_response_header,stream_get_contents($this->urlResource));
 			}
 		}
 		catch(Exception $e){
