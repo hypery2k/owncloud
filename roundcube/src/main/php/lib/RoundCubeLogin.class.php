@@ -504,9 +504,9 @@ class OC_RoundCube_Login {
 	function 	openUrlConnection($pURL,$pContext){
 		$response = false;
 		try {
-			$this->$urlResource = fopen($pURL, 'rb', false, $pContext);
-			if($this->$urlResource){
-				$respons = new Response($http_response_header,stream_get_contents($this->$urlResource));
+			$this -> urlResource = fopen($pURL, 'rb', false, $pContext);
+			if($this -> urlResource){
+				$response = new Response($http_response_header,stream_get_contents($this->$urlResource));
 			}
 		}
 		catch(Exception $e){
@@ -520,8 +520,8 @@ class OC_RoundCube_Login {
 	 * close current url connection
 	 */
 	function 	closeUrlConnection(){
-		if(isset($this->$urlResource)){
-			fclose($this->$urlResource);
+		if(isset($this -> urlResource)){
+			fclose($this -> urlResource);
 		}
 	}
 

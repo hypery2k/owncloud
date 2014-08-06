@@ -17,14 +17,14 @@ class AppTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Start http server instance in background.
 	 * @return Mock_Http_Server
-	 */
+	 *
 	public function start()
 	{
 		shell_exec('cd '.$this->getBinDir().';nohup ./httpd -p '.$this->getPort().' -w '.$this->getWebDir().' -P '.$this->getPidFile().' > /dev/null 2>&1 < /dev/null &');
 		usleep(300000);
 		return $this;
 	}
-
+	*/
 	protected function setUp() {
 	}
 
