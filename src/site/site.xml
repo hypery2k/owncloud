@@ -1,24 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="owncloud_apps">
-	<bannerRight>
-		<name>OwnCloud</name>
+<project name="OwnCloud Apps">
+	<bannerLeft>
+		<name>OwnCloud - Apps</name>
 		<href>index.html</href>
-	</bannerRight>
+	</bannerLeft>
 	<skin>
 		<groupId>lt.velykis.maven.skins</groupId>
 		<artifactId>reflow-maven-skin</artifactId>
 		<version>1.1.0</version>
 	</skin>
 	<custom>
-		<fluidoSkin>
-			<sideBarEnabled>true</sideBarEnabled>
-		</fluidoSkin>
+		<reflowSkin>
+			<!-- Make this to 'false' for local development, i.e. file:// URLs -->
+			<protocolRelativeURLs>false</protocolRelativeURLs>
+			<smoothScroll>true</smoothScroll>
+			<theme>default</theme>
+			<highlightJs>true</highlightJs>
+			<highlightJsTheme>github</highlightJsTheme>
+			<brand>
+				<name>OwnCloud Apps</name>
+				<href>https://martinreinhardt-online.de/dev/docs/maven/owncloud-apps/
+				</href>
+			</brand>
+			<toc>top</toc>
+			<topNav>About|Maven documentation|Download|Contribute</topNav>
+			<bottomNav>
+				<column>Main</column>
+				<column>Download</column>
+			</bottomNav>
+			<bottomDescription><![CDATA[<span class="color-highlight">OwnCloud Apps</span> is a repository of usefull apps for OwnCloud by <span class="color-highlight">Martin Reinhardt</span>]]>
+			</bottomDescription>
+		</reflowSkin>
+		<!-- Disable source highlighting for Maven reports -->
+		<source-repository>
+			<highlightJs>false</highlightJs>
+		</source-repository>
+		<issue-tracking>
+			<highlightJs>false</highlightJs>
+			<toc>false</toc>
+		</issue-tracking>
+		<license>
+			<highlightJs>false</highlightJs>
+			<toc>false</toc>
+		</license>
+		<!-- Disable ToC for some Maven reports -->
+		<project-info>
+			<toc>false</toc>
+		</project-info>
+		<github-report>
+			<toc>false</toc>
+		</github-report>
+		<dependencies>
+			<tocTopMax>4</tocTopMax>
+		</dependencies>
 	</custom>
-	<poweredBy>
-		<logo name="Built By Maven" href="http://maven.apache.org"
-			img="http://maven.apache.org/images/logos/maven-feather.png" />
-	</poweredBy>
 	<body>
-		<menu ref="reports" />
+
+		<breadcrumbs>
+			<item name="Home" href="/" />
+		</breadcrumbs>
+		<menu name="About">
+			<item name="Project Info" ref="reports" />
+			<item name="Continous Integration" href="ci.html" />
+			<item name="Apps" ref="modules" />
+		</menu>
+		<menu name="Maven documentation" ref="reports" inherit="bottom" />
+		<menu name="Download">
+			<item name="Download" href="download.html" />
+			<item name="License" href="license.html" />
+		</menu>
+		<menu name="Contribute" inherit="bottom">
+			<item name="Issues" target="_blank"
+				href="http://github.com/hypery2k/owncloud/issues/" />
+			<item name="Fork on GitHub" target="_blank"
+				href="http://github.com/hypery2k/owncloud/" />
+			<item name="Donate"
+				href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;amp;hosted_button_id=2SAK2NYWB8QA2" />
+		</menu>
 	</body>
 </project>

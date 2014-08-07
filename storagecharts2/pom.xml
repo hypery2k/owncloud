@@ -11,6 +11,7 @@
 	</parent>
 
 	<artifactId>storagecharts2</artifactId>
+	<name>Owncloud App - StorageCharts 2</name>
 	<packaging>php</packaging>
 
 	<build>

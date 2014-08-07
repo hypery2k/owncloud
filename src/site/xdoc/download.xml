@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Continous Integration</title>
+  </properties>
+  <body>
+    <section name="Download">
+      <a target="_blank" href="http://github.com/hypery2k/owncloud/releases/latest">Latest release</a>
+      <br></br>
+      <a target="_blank" href="http://github.com/hypery2k/owncloud/releases">All releases</a>
+    </section>
+  </body>
+</document>

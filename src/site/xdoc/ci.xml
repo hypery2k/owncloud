@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>CI</title>
+  </properties>
+  <body>
+    <section name="Download">
+      <a target="_blank" href="https://martinreinhardt-online.de/jenkins/job/OwnCloud/">Nightly build</a>
+      <br></br>
+      <a target="_blank" href="https://martinreinhardt-online.de/jenkins/job/OwnCloud_integration_tests/">Test matrix</a>
+    </section>
+  </body>
+</document>

@@ -6,6 +6,7 @@
 	<groupId>de.martinreinhardt-online.owncloud</groupId>
 	<artifactId>owncloud-parent-pom</artifactId>
 	<version>2.5.1-SNAPSHOT</version>
+	<name>OwnCloud Apps</name>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -36,7 +37,7 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>${maven-site-plugin.version}</version>
 				<configuration>
-					<generateReports>false</generateReports>
+					<generateReports>true</generateReports>
 					<inputEncoding>UTF-8</inputEncoding>
 					<outputEncoding>UTF-8</outputEncoding>
 					<!-- Site deployment done using GitHub site plugin <skipDeploy>true</skipDeploy> -->
@@ -54,29 +55,6 @@
 						<version>1.7</version>
 					</dependency>
 				</dependencies>
-			</plugin>
-			<plugin>
-				<!-- GitHub site plug-in for deployment to GitHub pages -->
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>${github-site-maven-plugin.version}</version>
-				<configuration>
-					<message>Creating site for ${project.artifactId},
-						${project.version}
-					</message>
-					<!-- this does the trick to place every module in the correct subfolder -->
-					<path>${project.distributionManagement.site.url}</path>
-					<merge>true</merge>
-				</configuration>
-				<executions>
-					<execution>
-						<id>github-site</id>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<phase>site-deploy</phase>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 
@@ -108,8 +86,7 @@
 	<properties>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8
-		</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 
 		<!-- java settings version -->
@@ -142,17 +119,14 @@
 		<maven-release-plugin.version>2.5</maven-release-plugin.version>
 		<maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
 		<maven-site-plugin.version>3.3</maven-site-plugin.version>
-		<build-helper-maven-plugin.version>1.8
-		</build-helper-maven-plugin.version>
+		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
 		<sql-maven-plugin.version>1.5</sql-maven-plugin.version>
 		<maven-pdf-plugin.version>1.2</maven-pdf-plugin.version>
 		<maven-project-info-reports-plugin.version>2.7
 		</maven-project-info-reports-plugin.version>
-		<maven-surefire-report-plugin.version>2.12
-		</maven-surefire-report-plugin.version>
-		<github-site-maven-plugin.version>0.9
-		</github-site-maven-plugin.version>
+		<maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
+		<github-site-maven-plugin.version>0.9</github-site-maven-plugin.version>
 		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
 
 
@@ -246,11 +220,15 @@
 	</repositories>
 
 	<distributionManagement>
-		<site>
+		<!-- <site>
 			<id>${site.deploy.id}</id>
 			<name>Deployment through GitHub's site deployment plugin</name>
 			<url>${site.deploy.url}</url>
-		</site>
+		</site>-->
+		 <site>
+       <id>${project.artifactId}-site</id>
+        <url>https://martinreinhardt-online.de/dev/docs/maven/owncloud-apps/${project.baseUri}</url>
+     </site>
 	</distributionManagement>
 
 	<scm>

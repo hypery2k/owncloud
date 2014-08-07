@@ -11,9 +11,8 @@
 	</parent>
 
 	<artifactId>webtest</artifactId>
-	<name>Owncloud Web Tests</name>
+	<name>OwnCloud Apps - Web Tests</name>
 	<packaging>jar</packaging>
-
 
 	<build>
 		<plugins>
