@@ -36,13 +36,13 @@
 			</field>
 			<field>
 				<name>stc_used</name>
-				<type>real</type>
+				<type>float</type>
 				<notnull>true</notnull>
 				<length>30</length>
 			</field>
 			<field>
 				<name>stc_total</name>
-				<type>real</type>
+				<type>float</type>
 				<notnull>true</notnull>
 				<length>30</length>
 			</field>
