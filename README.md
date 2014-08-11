@@ -1,5 +1,9 @@
 Some Apps for owncloud
 ========
+
+If anybody wants to stand in for the development of the app, feel free to use my code The upcoming release 2.5.1 of roundcube and storage charts 2 will be the last release. It takes to much time and money supporting this kind of development.
+
+========
  [Wiki](https://github.com/hypery2k/owncloud/wiki)
 
 Current Build Status:
