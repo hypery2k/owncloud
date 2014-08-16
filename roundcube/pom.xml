@@ -46,15 +46,27 @@
 						</goals>
 					</execution>
 
-					<!-- 3. Run karma tests -->
+					<!-- 3. Install bower componets -->
+					<execution>
+						<id>bower</id>
+						<goals>
+							<goal>grunt</goal>
+						</goals>
+						<configuration>
+							<arguments>bower:install</arguments>
+						</configuration>
+					</execution>
+
+					<!-- 4. Run karma tests -->
 					<execution>
 						<id>javascript tests</id>
 						<goals>
 							<goal>karma</goal>
 						</goals>
+						<phase>test</phase>
+						<!-- <phase>integration-test</phase> -->
 						<configuration>
-							<karmaConfPath>src/test/webapp/karma.conf.ci.js
-							</karmaConfPath>
+							<karmaConfPath>src/test/webapp/karma.conf.ci.js</karmaConfPath>
 						</configuration>
 					</execution>
 				</executions>
