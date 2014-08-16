@@ -37,7 +37,7 @@ OCP\Util::connectHook('\OCP\Config', 'js', 'OC_RoundCube_AuthHelper', 'jsLoadHoo
 
 // probably no longer needed, now that we use routes ...
 if (!OCP\Config::getAppValue('roundcube', 'rcNoCronRefresh', false)) {
-  OCP\BackgroundJob::AddRegularTask('OC_RoundCube_AuthHelper', 'refresh');
+	OCP\BackgroundJob::AddRegularTask('OC_RoundCube_AuthHelper', 'refresh');
 }
 
 // Add global JS routines; this one triggers an RC session refresh by
@@ -48,9 +48,9 @@ OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
 
 OCP\App::addNavigationEntry(array(
-    'id' => 'roundcube_index',
-    'order' => 10,
-    'href' => OCP\Util::linkTo('roundcube', 'index.php'),
-    'icon' => OCP\Util::imagePath('roundcube', 'mail.svg'),
-    'name' => $l -> t('Webmail')
-    ));
+'id' => 'roundcube_index',
+'order' => 10,
+'href' => OCP\Util::linkTo('roundcube', 'index.php'),
+'icon' => OCP\Util::imagePath('roundcube', 'mail.svg'),
+'name' => $l -> t('Webmail')
+));

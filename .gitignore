@@ -20,9 +20,14 @@ target/*
 **/.buildpath
 **/.settings/*
 **/.classpath
+*.log
 webtest/logs/*
 webtest/.classpath
 .idea/OwnCloudApps.iml
 .idea/dataSources.ids
 .idea/dataSources.xml
 .settings/org.eclipse.core.resources.prefs
+roundcube/node/*
+roundcube/node_modules/*
+roundcube/bower_components/*
+
