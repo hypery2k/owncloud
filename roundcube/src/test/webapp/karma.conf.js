@@ -47,12 +47,11 @@ module.exports = function(config) {
 
     // the default configuration
     junitReporter: {
-      outputFile: 'test-results.xml',
+      outputFile: '../../../target/karma-test-results.xml',
       suite: ''
     },
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: false,
-    plugins: ['karma-jasmine','karma-phantomjs-launcher']
   });
 };
