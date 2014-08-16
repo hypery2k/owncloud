@@ -41,7 +41,7 @@ if (!OCP\Config::getAppValue('roundcube', 'rcNoCronRefresh', false)) {
 }
 
 // Add global JS routines; this one triggers an RC session refresh by
-// periodically calling the refresh-script vi js setInterval()
+// periodically calling the refresh-script via js setInterval()
 OCP\Util::addScript('roundcube', 'routes');
 
 OCP\App::registerAdmin('roundcube', 'adminSettings');

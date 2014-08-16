@@ -14,7 +14,6 @@ Roundcube.fillWindow = function(selector) {
   if (selector.outerWidth() > selector.width()) {
     selector.css('width', width - (selector.outerWidth() - selector.width()) + 'px');
   }
-  console.warn("This function is deprecated! Use CSS instead");
 }
 
 /**
@@ -29,13 +28,19 @@ Roundcube.fillHeight = function(selector) {
   if (selector.outerHeight() > selector.height()) {
     selector.css('height', height - (selector.outerHeight() - selector.height()) + 'px');
   }
-  console.warn("This function is deprecated! Use CSS instead");
 }
 
 /**
  * init js function during frame load
  */
 $('#roundcubeFrame').ready(function() {
+  Roundcube.iFrameReady();
+});
+
+/**
+ * Js functions called if iframe loaded
+ */
+Roundcube.iFrameReady = function(selector) {
   $(window).resize(function() {
     if (Roundcube.logdebug) {
       console.log("Starting roundcube container resize ...");
@@ -61,7 +66,7 @@ $('#roundcubeFrame').ready(function() {
     $('#roundcubeFrame').show();
     Roundcube.iframe_loaded();
   });
-});
+}
 
 /**
  * callback js function during after iframe loaded completly
