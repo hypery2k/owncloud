@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	// enable tabs on settings page
-	$('#roundcube').tabs();
+  if ($('#roundcube')) {
+    // enable tabs on settings page
+    $('#roundcube').tabs();
+  }
 });
-

@@ -4,20 +4,26 @@ rc.logdebug = false; // always as false committed, otherwise errors in internet 
 // dirty fix for JS errors
 monthNames = undefined;
 $.fn.extend({
-    showPassword: function (c) {
+  showPassword : function(c) {
 
-        return this.each(function () {
-            $checkbox = $($input.data('typetoggle'));
+    return this.each(function() {
+      $checkbox = $($input.data('typetoggle'));
 
-            $input.bind('keyup', function () {
-                update($input, $clone)
-            });
-        });
-    }
+      $input.bind('keyup', function() {
+	update($input, $clone)
+      });
+    });
+  }
 });
-$.fn.extend({inFieldLabels: function (d) {
-}});
-$.fn.extend({tipsy: function (e) {
-}});
-$.fn.extend({avatar: function (f) {
-}});
+$.fn.extend({
+  inFieldLabels : function(d) {
+  }
+});
+$.fn.extend({
+  tipsy : function(e) {
+  }
+});
+$.fn.extend({
+  avatar : function(f) {
+  }
+});
