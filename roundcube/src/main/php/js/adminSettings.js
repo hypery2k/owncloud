@@ -16,7 +16,7 @@ Roundcube.adminSettingsUI = function() {
     var post = $('#rcMailAdminPrefs').serialize();
 
     // Ajax foobar
-    $.post(OC.filePathP('roundcube', 'ajax', 'adminSettings.php'), post, function(data) {
+    $.post(OC.filePath('roundcube', 'ajax', 'adminSettings.php'), post, function(data) {
       if (data.status == 'success') {
 	$('#adminmail_update_message').html(data.data.message);
 	$('#adminmail_update_message').show();
