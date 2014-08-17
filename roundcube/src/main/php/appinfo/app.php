@@ -33,6 +33,7 @@ OC::$CLASSPATH['OC_RoundCube_AuthHelper'] = OC_App::getAppPath('roundcube') . '/
 OCP\Util::connectHook('OC_User', 'post_login', 'OC_RoundCube_AuthHelper', 'login');
 OCP\Util::connectHook('OC_User', 'logout', 'OC_RoundCube_AuthHelper', 'logout');
 OCP\Util::connectHook('OC_User', 'post_setPassword', 'OC_RoundCube_AuthHelper', 'changePasswordListener');
+// set refresh interval in JS namespace
 OCP\Util::connectHook('\OCP\Config', 'js', 'OC_RoundCube_AuthHelper', 'jsLoadHook');
 
 // probably no longer needed, now that we use routes ...
