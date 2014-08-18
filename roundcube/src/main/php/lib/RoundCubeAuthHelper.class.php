@@ -140,17 +140,19 @@ class OC_RoundCube_AuthHelper {
 		$password = $params['password'];
 
 		// Try to fetch from session
-		$oldPrivKey = OC_RoundCube_App::getPrivateKey(false, false);
-		$privKey    = OC_RoundCube_App::generateKeyPair($username, $password);
+		$oldPrivKey = OC_RoundCube_App::getPrivateKey($username, false);
+                // Take the chance to alter the priv/pubkey pair
+		OC_RoundCube_App::generateKeyPair($username, $password);
+                $privKey = OC_RoundCube_App::getPrivateKey($username, $password);
+                $pubKey  = OC_RoundCube_App::getPublicKey($username);
 		if ($oldPrivKey !== false) {
 			// Fetch credentials from data-base
 			$mail_userdata_entries = OC_RoundCube_App::checkLoginData($username);
 			foreach ($mail_userdata_entries as $mail_userdata) {
-				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
-				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
+				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $oldPrivKey);
+				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $oldPrivKey);
 
 				$myID = $mail_userdata['id'];
-				$pubKey =  OC_RoundCube_App::getPublicKey($ocuser);
 				$mail_username = OC_RoundCube_App::cryptMyEntry($mail_username, $pubKey);
 				$mail_password = OC_RoundCube_App::cryptMyEntry($mail_password, $pubKey);
 
@@ -159,6 +161,9 @@ class OC_RoundCube_AuthHelper {
 				OCP\Util::DEBUG);
 				$result = $stmt -> execute(array($mail_username, $mail_password, $myID));
 			}
-		}
+		} else {
+                        OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->changePasswordListener():' . 'No private key for ' . $username,
+                                           OCP\Util::DEBUG);
+                }
 	}
 }
