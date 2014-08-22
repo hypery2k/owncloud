@@ -32,9 +32,15 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
       }
       if ($param === 'autoLogin') {
         OCP\Config::setAppValue('roundcube', 'autoLogin', true);
+      }
+      if ($param === 'enableDebug') {
+        OCP\Config::setAppValue('roundcube', 'enableDebug', true);
+      }
+      if ($param === 'rcNoCronRefresh') {
+        OCP\Config::setAppValue('roundcube', 'rcNoCronRefresh', true);
       } else {
         if ($param === 'rcHost') {
-          if (strlen($_POST[$param]) > 3) {
+          if ($_POST[$param] == '' || strlen($_POST[$param]) > 3) {
             OCP\Config::setAppValue('roundcube', $param, $_POST[$param]);
           }
         } else if ($param === 'maildir') {
@@ -74,7 +80,7 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
         OCP\Config::setAppValue('roundcube', 'enableDebug', false);
       }
       if ($param === 'rcNoCronRefresh') {
-        OCP\Config::setAppValue('roundcube', 'enableDebug', false);
+        OCP\Config::setAppValue('roundcube', 'rcNoCronRefresh', false);
       }
     }
   }
