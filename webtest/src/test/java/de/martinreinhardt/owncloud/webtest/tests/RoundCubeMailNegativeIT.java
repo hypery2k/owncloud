@@ -7,9 +7,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -25,6 +22,7 @@ import com.icegreen.greenmail.user.UserException;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
+
 /**
  * @author mreinhardt
  * 
@@ -43,17 +41,15 @@ public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 	}
 
 	@Test
-	public void test_roundcube_mail_with_errors() throws AddressException,
-			MessagingException, UserException, TestError {
+	public void test_roundcube_mail_with_errors() throws AddressException, MessagingException, UserException, TestError {
 		runEmailTest();
 	}
 
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		endUserLogin.do_login("negative@roundcube.owncloud.org", "42");
+		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(), getEmailUserDetailsTest().getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
-		assertThat("There should be an error displayed.",
-				appSteps.is_showing_errors());
+		appSteps.is_showing_errors();
 		appSteps.waitFor(1).minutes();
 	}
 }

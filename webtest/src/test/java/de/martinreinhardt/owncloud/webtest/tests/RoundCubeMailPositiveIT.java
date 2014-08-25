@@ -20,12 +20,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.icegreen.greenmail.user.UserException;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
-import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 
 /**
  * @author mreinhardt
@@ -37,8 +34,7 @@ import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 
 	// Logger
-	protected static final Logger LOG = Logger
-			.getLogger(RoundCubeMailPositiveIT.class);
+	protected static final Logger LOG = Logger.getLogger(RoundCubeMailPositiveIT.class);
 
 	public EmailUserDetails getEmailUserDetailsTest() {
 		EmailUserDetails userDtls = new EmailUserDetails();
@@ -49,24 +45,18 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 	}
 
 	@Test
-	public void test_roundcube_mail_without_errors() throws AddressException,
-			MessagingException, UserException, TestError {
+	public void test_roundcube_mail_without_errors() throws AddressException, MessagingException, UserException,
+			TestError {
 		runEmailTest();
 	}
 
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		endUserLogin.do_login("positive@roundcube.owncloud.org", "42");
+		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(), getEmailUserDetailsTest().getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
-		assertThat("There should be no error displayed.",
-				appSteps.is_showing_errors(), is(not(true)));
-		String subject = appSteps.get_subject_of_first_email();
-		LOG.info("Got the following subject: " + subject);
-		assertThat("Subject of first email shouldn't be empty", subject,
-				not(isEmptyString()));
-		assertThat("Subject of first email should be: "
-				+ MockedImapServer.TEST_MAIL_SUBJECT, subject,
-				containsString(MockedImapServer.TEST_MAIL_SUBJECT));
+		appSteps.is_not_showing_errors();
+		appSteps.message_should_have_a_valid_subject();
 		appSteps.waitFor(1).minutes();
+		appSteps.is_not_showing_errors();
 	}
 }

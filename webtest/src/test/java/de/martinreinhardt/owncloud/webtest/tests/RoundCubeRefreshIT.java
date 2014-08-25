@@ -7,9 +7,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -25,7 +22,6 @@ import com.icegreen.greenmail.user.UserException;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
-import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 
 /**
  * @author mreinhardt
@@ -45,8 +41,7 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 	}
 
 	@Test
-	public void test_roundcube_mail_refresh() throws AddressException,
-			MessagingException, UserException, TestError {
+	public void test_roundcube_mail_refresh() throws AddressException, MessagingException, UserException, TestError {
 		runEmailTest();
 	}
 
@@ -55,28 +50,13 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 	 */
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(),
-				getEmailUserDetailsTest().getPassword());
+		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(), getEmailUserDetailsTest().getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
-		assertThat("There should be no error displayed.",
-				appSteps.is_not_showing_errors());
-		String subjectFirst = appSteps.get_subject_of_first_email();
-		LOG.info("Got the following subject: " + subjectFirst);
-		assertThat("Subject of first email shouldn't be empty", subjectFirst,
-				notNullValue());
-		assertThat("Subject of first email should be: "
-				+ MockedImapServer.TEST_MAIL_SUBJECT,
-				subjectFirst.contains(MockedImapServer.TEST_MAIL_SUBJECT));
+		appSteps.is_not_showing_errors();
+		appSteps.message_should_have_a_valid_subject();
 		appSteps.waitFor(6).minutes();
-		assertThat("There should be no error displayed.",
-				appSteps.is_not_showing_errors());
-		String subjectAfterWait = appSteps.get_subject_of_first_email();
-		LOG.info("Got the following subject: " + subjectAfterWait);
-		assertThat("Subject of first email shouldn't be empty",
-				subjectAfterWait, notNullValue());
-		assertThat("Subject of first email should be: "
-				+ MockedImapServer.TEST_MAIL_SUBJECT,
-				subjectAfterWait.contains(MockedImapServer.TEST_MAIL_SUBJECT));
+		appSteps.is_not_showing_errors();
+		appSteps.message_should_have_a_valid_subject();
 
 	}
 }

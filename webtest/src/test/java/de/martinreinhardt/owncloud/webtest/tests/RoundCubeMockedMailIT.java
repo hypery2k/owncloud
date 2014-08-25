@@ -34,8 +34,7 @@ public abstract class RoundCubeMockedMailIT extends AbstractUITest {
 	@Steps
 	protected RoundCubeSteps appSteps;
 
-	public void runEmailTest() throws AddressException, MessagingException,
-			UserException, TestError {
+	public void runEmailTest() throws AddressException, MessagingException, UserException, TestError {
 
 		GreenMail server = null;
 		try {

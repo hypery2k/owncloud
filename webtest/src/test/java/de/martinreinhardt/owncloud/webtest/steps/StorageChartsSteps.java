@@ -7,6 +7,7 @@
  */
 package de.martinreinhardt.owncloud.webtest.steps;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import de.martinreinhardt.owncloud.webtest.pages.StorageChartsPage;
@@ -30,8 +31,9 @@ public class StorageChartsSteps extends PortalUserSteps {
 	}
 
 	@Step
-	public boolean is_stats_visible() {
-		return onStorageChartsPage().isDlChartsDisplayed();
+	public void is_stats_visible() {
+		boolean statsVisible = onStorageChartsPage().isDlChartsDisplayed();
+		assertThat("No downloads stats are visible", statsVisible);
 	}
 
 	private StorageChartsPage onStorageChartsPage() {

@@ -3,8 +3,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -34,8 +32,7 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 
 	// Logger
-	protected static final Logger LOG = Logger
-			.getLogger(RoundCubeSettingsIT.class);
+	protected static final Logger LOG = Logger.getLogger(RoundCubeSettingsIT.class);
 
 	@Steps
 	private AdminSteps adminSteps;
@@ -49,8 +46,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 	}
 
 	@Test
-	public void test_roundcube_mail_without_autologin()
-			throws AddressException, MessagingException, UserException,
+	public void test_roundcube_mail_without_autologin() throws AddressException, MessagingException, UserException,
 			TestError {
 		runEmailTest();
 	}
@@ -63,13 +59,11 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		adminSteps.toggle_roundcube_autologin();
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
+		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(), getEmailUserDetailsTest().getPassword());
 		// TODO add user login steps
-
-		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(),
-				getEmailUserDetailsTest().getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
-		assertThat("There should be an error displayed.",
-				appSteps.is_showing_errors());
+		appSteps.is_showing_errors();
+		loggedInuserSteps.logout();
 
 		// clear
 		endUserLogin.do_login("admin", "password");
