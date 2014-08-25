@@ -36,6 +36,16 @@ public class RoundCubeSteps extends PortalUserSteps {
 	}
 
 	@Step
+	public boolean is_not_showing_errors() throws TestError {
+		return !onWebmailPage().isErrorMessageDisplayed();
+	}
+
+	@Step
+	public boolean is_page_loaded() throws TestError {
+		return onWebmailPage().isShowingRcFrame();
+	}
+
+	@Step
 	public String get_subject_of_first_email() throws TestError {
 		return onWebmailPage().getFirstMessageSubject();
 	}

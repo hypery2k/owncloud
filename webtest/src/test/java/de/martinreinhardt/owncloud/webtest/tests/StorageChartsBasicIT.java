@@ -7,7 +7,8 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
@@ -41,6 +42,6 @@ public class StorageChartsBasicIT extends AbstractUITest {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
 		loggedIn.go_to_storagecharts_view();
-		assertTrue("No downloads stats are visible", dlSteps.is_stats_visible());
+		assertThat("No downloads stats are visible", dlSteps.is_stats_visible());
 	}
 }

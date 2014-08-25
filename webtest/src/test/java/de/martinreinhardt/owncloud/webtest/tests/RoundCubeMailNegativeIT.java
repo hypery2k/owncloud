@@ -7,7 +7,8 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -24,7 +25,6 @@ import com.icegreen.greenmail.user.UserException;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
-
 /**
  * @author mreinhardt
  * 
@@ -52,7 +52,7 @@ public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("negative@roundcube.owncloud.org", "42");
 		loggedInuserSteps.go_to_roundcube_view();
-		assertTrue("There should be an error displayed.",
+		assertThat("There should be an error displayed.",
 				appSteps.is_showing_errors());
 		appSteps.waitFor(1).minutes();
 	}

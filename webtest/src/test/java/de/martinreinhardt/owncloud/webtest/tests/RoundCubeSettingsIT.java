@@ -3,9 +3,7 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -25,7 +23,6 @@ import com.icegreen.greenmail.user.UserException;
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.steps.AdminSteps;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
-import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 
 /**
  * @author mreinhardt
@@ -67,6 +64,12 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
 		// TODO add user login steps
+
+		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(),
+				getEmailUserDetailsTest().getPassword());
+		loggedInuserSteps.go_to_roundcube_view();
+		assertThat("There should be an error displayed.",
+				appSteps.is_showing_errors());
 
 		// clear
 		endUserLogin.do_login("admin", "password");

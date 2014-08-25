@@ -31,6 +31,9 @@ public class RoundCubePage extends AbstractPage {
 	 */
 	private static final String ROUNDCUBE_LOADER = "roundcubeLoader";
 
+	@FindBy(id = ROUNDCUBE_FRAME)
+	private WebElement rcFrame;
+
 	@FindBy(id = "errorMsg")
 	private WebElement errorMsg;
 
@@ -96,5 +99,15 @@ public class RoundCubePage extends AbstractPage {
 		} catch (NoSuchElementException e) {
 		}
 		return errorDisplayed;
+	}
+
+	public boolean isShowingRcFrame() throws TestError {
+		wait_for_rc_load();
+		boolean frameLoaderd = false;
+		try {
+			frameLoaderd = rcFrame.isDisplayed();
+		} catch (NoSuchElementException e) {
+		}
+		return frameLoaderd;
 	}
 }

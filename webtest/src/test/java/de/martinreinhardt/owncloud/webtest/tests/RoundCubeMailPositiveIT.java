@@ -7,10 +7,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -24,6 +20,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.icegreen.greenmail.user.UserException;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
@@ -60,14 +58,15 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("positive@roundcube.owncloud.org", "42");
 		loggedInuserSteps.go_to_roundcube_view();
-		assertFalse("There should be no error displayed.",
-				appSteps.is_showing_errors());
+		assertThat("There should be no error displayed.",
+				appSteps.is_showing_errors(), is(not(true)));
 		String subject = appSteps.get_subject_of_first_email();
 		LOG.info("Got the following subject: " + subject);
-		assertNotNull("Subject of first email shouldn't be empty", subject);
-		assertTrue("Subject of first email should be: "
-				+ MockedImapServer.TEST_MAIL_SUBJECT,
-				subject.contains(MockedImapServer.TEST_MAIL_SUBJECT));
+		assertThat("Subject of first email shouldn't be empty", subject,
+				not(isEmptyString()));
+		assertThat("Subject of first email should be: "
+				+ MockedImapServer.TEST_MAIL_SUBJECT, subject,
+				containsString(MockedImapServer.TEST_MAIL_SUBJECT));
 		appSteps.waitFor(1).minutes();
 	}
 }
