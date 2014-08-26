@@ -7,8 +7,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.util;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -24,11 +22,14 @@ import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetupTest;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+
 /**
  * @author mreinhardt
  * 
  */
-public class MockedImapServer {
+public class MockedImapServer extends AbstractUITest {
 
 	/**
 	 * 
@@ -40,21 +41,19 @@ public class MockedImapServer {
 	 */
 	public static final String TEST_MAIL_SENDER = "sender@roundcube.owncloud.org";
 
-	public static MimeMessage getMockMessage(final String pPrefix,
-			final EmailUserDetails pEmailUserDetails) throws AddressException,
-			MessagingException {
+	public MimeMessage getMockMessage(final String pPrefix, final EmailUserDetails pEmailUserDetails)
+			throws AddressException, MessagingException {
 		final MimeMessage msg = new MimeMessage((Session) null);
 		msg.setSubject(TEST_MAIL_SUBJECT + " " + pPrefix);
 		msg.setFrom(new InternetAddress(TEST_MAIL_SENDER));
 		String message = "<div style=\"color:red;\">Some text here ..</div>";
 		msg.setContent(message, "text/html; charset=utf-8");
 		msg.setText("Some text here ...");
-		msg.setRecipient(RecipientType.TO, new InternetAddress(
-				pEmailUserDetails.getEmail()));
+		msg.setRecipient(RecipientType.TO, new InternetAddress(pEmailUserDetails.getEmail()));
 		return msg;
 	}
 
-	public static EmailUserDetails getPositiveEmailUserDetailsTest() {
+	public EmailUserDetails getPositiveEmailUserDetailsTest() {
 		EmailUserDetails userDtls = new EmailUserDetails();
 		userDtls.setEmail("positive@roundcube.owncloud.org");
 		userDtls.setUsername("positive@roundcube.owncloud.org");
@@ -62,38 +61,36 @@ public class MockedImapServer {
 		return userDtls;
 	}
 
-	public static GreenMail initTestServer(final int pNumberOfMessages,
-			final EmailUserDetails pEmailUserDetails) throws AddressException,
-			MessagingException, UserException {
+	public GreenMail initTestServer(final int pNumberOfMessages) throws AddressException, MessagingException,
+			UserException {
 		GreenMail server = null;
 		server = new GreenMail(ServerSetupTest.ALL);
 		server.start();
 
-		GreenMailUser user = server.setUser(pEmailUserDetails.getEmail(),
-				pEmailUserDetails.getUsername(),
-				pEmailUserDetails.getPassword());
+		GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
+				getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest().getPassword());
 
 		for (int i = 1; i < pNumberOfMessages; i++) {
-			MimeMessage msg = getMockMessage(Integer.toString(i),
-					pEmailUserDetails);
+			MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
 			user.deliver(msg);
 		}
 		Properties props = new Properties();
 		props.put("mail.store.protocol", "imap");
 		props.put("mail.host", "localhost");
 		props.put("mail.imap.port", "3143");
-		assertTrue(server.getReceivedMessages().length > 0);
+		assertThat("", server.getReceivedMessages(), arrayWithSize(10));
 		return server;
 
 	}
 
-	public static void main(String[] args) throws AddressException,
-			MessagingException, UserException {
+	public static void main(String[] args) throws AddressException, MessagingException, UserException {
 		GreenMail server = null;
 		try {
 
-			EmailUserDetails userDtls = getPositiveEmailUserDetailsTest();
-			server = initTestServer(10, userDtls);
+			MockedImapServer imapMock = new MockedImapServer();
+
+			EmailUserDetails userDtls = imapMock.getPositiveEmailUserDetailsTest();
+			server = imapMock.initTestServer(10);
 
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Mocked imap is running.");

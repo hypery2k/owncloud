@@ -32,14 +32,6 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 
-	public EmailUserDetails getEmailUserDetailsTest() {
-		EmailUserDetails userDtls = new EmailUserDetails();
-		userDtls.setEmail("positive@roundcube.owncloud.org");
-		userDtls.setUsername("positive@roundcube.owncloud.org");
-		userDtls.setPassword("42");
-		return userDtls;
-	}
-
 	@Test
 	public void test_roundcube_mail_refresh() throws AddressException, MessagingException, UserException, TestError {
 		runEmailTest();
@@ -50,7 +42,8 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 	 */
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(), getEmailUserDetailsTest().getPassword());
+		EmailUserDetails user = getPositiveEmailUserDetailsTest();
+		endUserLogin.do_login(user.getUsername(), user.getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
 		appSteps.is_not_showing_errors();
 		appSteps.message_should_have_a_valid_subject();

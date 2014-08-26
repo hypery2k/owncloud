@@ -18,15 +18,13 @@ import com.icegreen.greenmail.util.GreenMail;
 
 import de.martinreinhardt.owncloud.webtest.steps.LoggedInUserSteps;
 import de.martinreinhardt.owncloud.webtest.steps.RoundCubeSteps;
-import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
-import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 
 /**
  * @author mreinhardt
  * 
  */
-public abstract class RoundCubeMockedMailIT extends AbstractUITest {
+public abstract class RoundCubeMockedMailIT extends MockedImapServer {
 
 	@Steps
 	protected LoggedInUserSteps loggedInuserSteps;
@@ -38,9 +36,7 @@ public abstract class RoundCubeMockedMailIT extends AbstractUITest {
 
 		GreenMail server = null;
 		try {
-
-			EmailUserDetails userDtls = getEmailUserDetailsTest();
-			server = MockedImapServer.initTestServer(10, userDtls);
+			server = initTestServer(10);
 			executeTestStepsFrontend();
 		} finally {
 			if (server != null) {
@@ -48,8 +44,6 @@ public abstract class RoundCubeMockedMailIT extends AbstractUITest {
 			}
 		}
 	}
-
-	public abstract EmailUserDetails getEmailUserDetailsTest();
 
 	public abstract void executeTestStepsFrontend() throws TestError;
 }

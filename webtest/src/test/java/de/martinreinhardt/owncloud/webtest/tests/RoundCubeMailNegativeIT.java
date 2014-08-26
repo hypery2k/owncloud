@@ -21,7 +21,6 @@ import org.junit.runner.RunWith;
 import com.icegreen.greenmail.user.UserException;
 
 import de.martinreinhardt.owncloud.webtest.RoundCube;
-import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 
 /**
  * @author mreinhardt
@@ -32,14 +31,6 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 
-	public EmailUserDetails getEmailUserDetailsTest() {
-		EmailUserDetails userDtls = new EmailUserDetails();
-		userDtls.setEmail("negative@roundcube.owncloud.org");
-		userDtls.setUsername("negative");
-		userDtls.setPassword("42");
-		return userDtls;
-	}
-
 	@Test
 	public void test_roundcube_mail_with_errors() throws AddressException, MessagingException, UserException, TestError {
 		runEmailTest();
@@ -47,7 +38,7 @@ public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		endUserLogin.do_login(getEmailUserDetailsTest().getUsername(), getEmailUserDetailsTest().getPassword());
+		endUserLogin.do_login("negative@roundcube.owncloud.org", "42");
 		loggedInuserSteps.go_to_roundcube_view();
 		appSteps.is_showing_errors();
 		appSteps.waitFor(1).minutes();

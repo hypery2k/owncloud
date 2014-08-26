@@ -8,8 +8,6 @@
 package de.martinreinhardt.owncloud.webtest.steps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
@@ -38,13 +36,13 @@ public class RoundCubeSteps extends PortalUserSteps {
 	@Step
 	public void is_showing_errors() throws TestError {
 		boolean errorMsgVisible = onWebmailPage().isErrorMessageDisplayed();
-		assertThat("There should be an error displayed.", errorMsgVisible, is(true));
+		assertThat("There should be an error displayed.", errorMsgVisible);
 	}
 
 	@Step
 	public void is_not_showing_errors() throws TestError {
 		boolean errorMsgVisible = onWebmailPage().isErrorMessageDisplayed();
-		assertThat("There should be an error displayed.", errorMsgVisible, is(not(true)));
+		assertThat("There should be no error displayed.", !errorMsgVisible);
 
 	}
 
