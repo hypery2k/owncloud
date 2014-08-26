@@ -20,7 +20,10 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
   if ($result) {
     // update login credentials
     $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-    $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+    $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+    if ($rc_host == '') {
+      $rc_host = OC_Request::serverHost();
+    }
     $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
     OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $_POST['mail_username'], $_POST['mail_password']);
   } else {

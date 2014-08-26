@@ -51,7 +51,10 @@ if (!$table_exists) {
 	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 	$enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
-	$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', OC_Request::serverHost());
+	$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+        if ($rc_host == '') {
+		$rc_host = OC_Request::serverHost();
+        }
 	$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
 
 	OCP\Util::writeLog('roundcube', 'Opening iframe for RC-host '.$rc_host.' with port '.$rc_port, OCP\Util::DEBUG);
