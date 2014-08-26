@@ -29,19 +29,19 @@ public class RoundCubeSteps extends PortalUserSteps {
 	/**
 	 * @param pages
 	 */
-	public RoundCubeSteps(Pages pages) {
+	public RoundCubeSteps(final Pages pages) {
 		super(pages);
 	}
 
 	@Step
 	public void is_showing_errors() throws TestError {
-		boolean errorMsgVisible = onWebmailPage().isErrorMessageDisplayed();
+		final boolean errorMsgVisible = onWebmailPage().isErrorMessageDisplayed();
 		assertThat("There should be an error displayed.", errorMsgVisible);
 	}
 
 	@Step
 	public void is_not_showing_errors() throws TestError {
-		boolean errorMsgVisible = onWebmailPage().isErrorMessageDisplayed();
+		final boolean errorMsgVisible = onWebmailPage().isErrorMessageDisplayed();
 		assertThat("There should be no error displayed.", !errorMsgVisible);
 
 	}
@@ -58,7 +58,7 @@ public class RoundCubeSteps extends PortalUserSteps {
 
 	@Step
 	public void message_should_have_a_valid_subject() throws TestError {
-		String subject = onWebmailPage().getFirstMessageSubject();
+		final String subject = onWebmailPage().getFirstMessageSubject();
 		LOG.info("Got the following subject: " + subject);
 		assertThat("Subject of first email shouldn't be empty", subject, notNullValue());
 		assertThat("Subject of first email should be: " + MockedImapServer.TEST_MAIL_SUBJECT,

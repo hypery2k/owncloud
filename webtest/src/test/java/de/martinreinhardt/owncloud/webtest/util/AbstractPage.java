@@ -36,7 +36,7 @@ public class AbstractPage extends PageObject {
 	protected void load_iFrame(final String pFrameID) {
 		try {
 			super.getDriver().switchTo().frame(pFrameID);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			LOG.debug("Unable to switch to iframe", e);
 		}
 	}
@@ -58,7 +58,7 @@ public class AbstractPage extends PageObject {
 			// element(ajaxLoader).waitUntilNotVisible();
 			// LOG.info("AJAX loader disappeared. Loading complete...");
 			// }
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 	}
 
@@ -69,10 +69,10 @@ public class AbstractPage extends PageObject {
 	 * 
 	 * @param pElement
 	 */
-	public void scrollTo(WebElement pElement) {
+	public void scrollTo(final WebElement pElement) {
 		LOG.info("Starting scrolling to element ");
 		// scroll to element
-		Coordinates coordinate = ((Locatable) pElement).getCoordinates();
+		final Coordinates coordinate = ((Locatable) pElement).getCoordinates();
 		coordinate.onPage();
 		coordinate.inViewPort();
 		LOG.info("Scrolling to element done.");
@@ -83,7 +83,7 @@ public class AbstractPage extends PageObject {
 	 * 
 	 * @param pElement
 	 */
-	public void click(WebElement pElement) {
+	public void click(final WebElement pElement) {
 		LOG.info("Starting clicking element ");
 		wait_for_load();
 		// scroll to element
@@ -100,12 +100,12 @@ public class AbstractPage extends PageObject {
 	 * @param keyword
 	 *            to enter
 	 */
-	public void input(WebElement pElement, String keyword) {
+	public void input(final WebElement pElement, final String keyword) {
 		wait_for_load();
 		try {
 			LOG.info("click element ");
 			element(pElement).click();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 		LOG.info("Typing input of element ");
 		element(pElement).type(keyword);

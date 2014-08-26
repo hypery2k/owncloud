@@ -36,7 +36,7 @@ public class AdminSettingsPage extends AbstractPage {
 	/**
 	 * @param pWebDriver
 	 */
-	public AdminSettingsPage(WebDriver pWebDriver) {
+	public AdminSettingsPage(final WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
 

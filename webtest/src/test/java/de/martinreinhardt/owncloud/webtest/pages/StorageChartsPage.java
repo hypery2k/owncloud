@@ -31,7 +31,7 @@ public class StorageChartsPage extends AbstractPage {
 		boolean loginVisible = false;
 		try {
 			loginVisible = chartsDiv.isDisplayed();
-		} catch (NoSuchElementException e) {
+		} catch (final NoSuchElementException e) {
 		}
 		return loginVisible;
 	}

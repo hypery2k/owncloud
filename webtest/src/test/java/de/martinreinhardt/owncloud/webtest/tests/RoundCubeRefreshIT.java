@@ -40,9 +40,10 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 	/**
 	 * Check if roundcube session get's refreshed
 	 */
+	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		EmailUserDetails user = getPositiveEmailUserDetailsTest();
+		final EmailUserDetails user = getPositiveEmailUserDetailsTest();
 		endUserLogin.do_login(user.getUsername(), user.getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
 		appSteps.is_not_showing_errors();

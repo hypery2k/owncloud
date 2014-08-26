@@ -63,12 +63,11 @@ public class RoundCubePage extends AbstractPage {
 				// wait for loader icon to disappear
 				element(ajaxLoader).waitUntilNotVisible();
 				if (isRcLoginDisplayed()) {
-					throw new TestError(
-							"Roundcube Login should not be visible!");
+					throw new TestError("Roundcube Login should not be visible!");
 				}
 				LOG.info("AJAX loader disappeared. Loading complete...");
 			}
-		} catch (NoSuchElementException e) {
+		} catch (final NoSuchElementException e) {
 		}
 	}
 
@@ -86,7 +85,7 @@ public class RoundCubePage extends AbstractPage {
 		boolean loginVisible = false;
 		try {
 			loginVisible = rcLogin.isDisplayed();
-		} catch (NoSuchElementException e) {
+		} catch (final NoSuchElementException e) {
 		}
 		return loginVisible;
 	}
@@ -96,7 +95,7 @@ public class RoundCubePage extends AbstractPage {
 		boolean errorDisplayed = false;
 		try {
 			errorDisplayed = errorMsg.isDisplayed();
-		} catch (NoSuchElementException e) {
+		} catch (final NoSuchElementException e) {
 		}
 		return errorDisplayed;
 	}
@@ -106,7 +105,7 @@ public class RoundCubePage extends AbstractPage {
 		boolean frameLoaderd = false;
 		try {
 			frameLoaderd = rcFrame.isDisplayed();
-		} catch (NoSuchElementException e) {
+		} catch (final NoSuchElementException e) {
 		}
 		return frameLoaderd;
 	}

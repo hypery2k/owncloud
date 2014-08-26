@@ -41,6 +41,7 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 		runEmailTest();
 	}
 
+	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login(getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest()

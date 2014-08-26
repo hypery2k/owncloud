@@ -25,7 +25,7 @@ public class LoggedInUserSteps extends PortalUserSteps {
 	/**
 	 * @param pages
 	 */
-	public LoggedInUserSteps(Pages pages) {
+	public LoggedInUserSteps(final Pages pages) {
 		super(pages);
 	}
 

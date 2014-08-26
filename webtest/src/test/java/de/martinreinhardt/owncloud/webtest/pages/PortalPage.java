@@ -49,14 +49,14 @@ public class PortalPage extends AbstractPage {
 	/**
 	 * @param pWebDriver
 	 */
-	public PortalPage(WebDriver pWebDriver) {
+	public PortalPage(final WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
 
 	public void go_to_roundcube_app() {
 		try {
 			click(appMenu);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 		click(roundcubeButton);
 	}
@@ -64,7 +64,7 @@ public class PortalPage extends AbstractPage {
 	public void go_to_storage_charts_app() {
 		try {
 			click(appMenu);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 		click(storageChartsButton);
 	}

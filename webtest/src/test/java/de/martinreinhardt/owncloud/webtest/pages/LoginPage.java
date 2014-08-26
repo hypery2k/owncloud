@@ -37,11 +37,11 @@ public class LoginPage extends AbstractPage {
 		super(pWebDriver);
 	}
 
-	public void enter_username(String keyword) {
+	public void enter_username(final String keyword) {
 		input(inputUsername, keyword);
 	}
 
-	public void enter_password(String keyword) {
+	public void enter_password(final String keyword) {
 		input(inputPassword, keyword);
 	}
 

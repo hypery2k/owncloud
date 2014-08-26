@@ -36,6 +36,7 @@ public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 		runEmailTest();
 	}
 
+	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("negative@roundcube.owncloud.org", "42");

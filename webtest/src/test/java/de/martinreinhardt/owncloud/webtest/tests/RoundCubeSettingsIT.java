@@ -43,6 +43,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		runEmailTest();
 	}
 
+	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
@@ -51,7 +52,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		adminSteps.toggle_roundcube_autologin();
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
-		EmailUserDetails user = getPositiveEmailUserDetailsTest();
+		final EmailUserDetails user = getPositiveEmailUserDetailsTest();
 		endUserLogin.do_login(user.getUsername(), user.getPassword());
 		// TODO add user login steps
 		loggedInuserSteps.go_to_roundcube_view();

@@ -26,13 +26,13 @@ public class StorageChartsSteps extends PortalUserSteps {
 	/**
 	 * @param pages
 	 */
-	public StorageChartsSteps(Pages pages) {
+	public StorageChartsSteps(final Pages pages) {
 		super(pages);
 	}
 
 	@Step
 	public void is_stats_visible() {
-		boolean statsVisible = onStorageChartsPage().isDlChartsDisplayed();
+		final boolean statsVisible = onStorageChartsPage().isDlChartsDisplayed();
 		assertThat("No downloads stats are visible", statsVisible);
 	}
 

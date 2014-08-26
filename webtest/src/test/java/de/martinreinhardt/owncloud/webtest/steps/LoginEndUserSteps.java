@@ -30,7 +30,7 @@ public class LoginEndUserSteps extends PortalUserSteps {
 	/**
 	 * @param pages
 	 */
-	public LoginEndUserSteps(Pages pages) {
+	public LoginEndUserSteps(final Pages pages) {
 		super(pages);
 	}
 
@@ -44,19 +44,19 @@ public class LoginEndUserSteps extends PortalUserSteps {
 	}
 
 	@StepGroup
-	public void do_login(String pUsername, String pPassword) {
+	public void do_login(final String pUsername, final String pPassword) {
 		enter_name(pUsername);
 		enter_password(pPassword);
 		login();
 	}
 
 	@Step
-	public void enter_name(String username) {
+	public void enter_name(final String username) {
 		onLoginPage().enter_username(username);
 	}
 
 	@Step
-	public void enter_password(String password) {
+	public void enter_password(final String password) {
 		onLoginPage().enter_password(password);
 	}
 
@@ -82,7 +82,7 @@ public class LoginEndUserSteps extends PortalUserSteps {
 	 * @param username
 	 *            the username to set
 	 */
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -97,7 +97,7 @@ public class LoginEndUserSteps extends PortalUserSteps {
 	 * @param password
 	 *            the password to set
 	 */
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 

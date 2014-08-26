@@ -25,7 +25,7 @@ public class AdminSteps extends PortalUserSteps {
 	/**
 	 * @param pages
 	 */
-	public AdminSteps(Pages pages) {
+	public AdminSteps(final Pages pages) {
 		super(pages);
 	}
 

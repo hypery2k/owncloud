@@ -8,14 +8,12 @@
 package de.martinreinhardt.owncloud.webtest.tests;
 
 import net.thucydides.core.annotations.Story;
-import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import de.martinreinhardt.owncloud.webtest.OwnCloud;
-import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 
 /**
@@ -26,7 +24,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 @Story(OwnCloud.Login.class)
 @RunWith(ThucydidesRunner.class)
 // @UseTestDataFrom("src/test/resources/testdata/testdata_LoginTest_trying_Login_iFrame.csv")
-//@Concurrent
+// @Concurrent
 public class LoginIT extends AbstractUITest {
 
 	@Test

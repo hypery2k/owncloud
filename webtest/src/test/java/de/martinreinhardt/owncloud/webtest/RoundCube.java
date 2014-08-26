@@ -27,7 +27,6 @@ public class RoundCube {
 	public class RefreshSession {
 	}
 
-
 	@Feature
 	public class Login {
 	}

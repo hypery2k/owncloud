@@ -10,7 +10,6 @@ package de.martinreinhardt.owncloud.webtest.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import de.martinreinhardt.owncloud.webtest.pages.LoginPage;
-import de.martinreinhardt.owncloud.webtest.pages.PortalPage;
 import de.martinreinhardt.owncloud.webtest.util.AbstractSteps;
 
 /**
@@ -27,7 +26,7 @@ public class PortalUserSteps extends AbstractSteps {
 	/**
 	 * @param pages
 	 */
-	public PortalUserSteps(Pages pages) {
+	public PortalUserSteps(final Pages pages) {
 		super(pages);
 	}
 

@@ -46,7 +46,7 @@ public class MockedImapServer extends AbstractUITest {
 		final MimeMessage msg = new MimeMessage((Session) null);
 		msg.setSubject(TEST_MAIL_SUBJECT + " " + pPrefix);
 		msg.setFrom(new InternetAddress(TEST_MAIL_SENDER));
-		String message = "<div style=\"color:red;\">Some text here ..</div>";
+		final String message = "<div style=\"color:red;\">Some text here ..</div>";
 		msg.setContent(message, "text/html; charset=utf-8");
 		msg.setText("Some text here ...");
 		msg.setRecipient(RecipientType.TO, new InternetAddress(pEmailUserDetails.getEmail()));
@@ -54,7 +54,7 @@ public class MockedImapServer extends AbstractUITest {
 	}
 
 	public EmailUserDetails getPositiveEmailUserDetailsTest() {
-		EmailUserDetails userDtls = new EmailUserDetails();
+		final EmailUserDetails userDtls = new EmailUserDetails();
 		userDtls.setEmail("positive@roundcube.owncloud.org");
 		userDtls.setUsername("positive@roundcube.owncloud.org");
 		userDtls.setPassword("42");
@@ -67,14 +67,14 @@ public class MockedImapServer extends AbstractUITest {
 		server = new GreenMail(ServerSetupTest.ALL);
 		server.start();
 
-		GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
+		final GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
 				getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest().getPassword());
 
 		for (int i = 1; i < pNumberOfMessages; i++) {
-			MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
+			final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
 			user.deliver(msg);
 		}
-		Properties props = new Properties();
+		final Properties props = new Properties();
 		props.put("mail.store.protocol", "imap");
 		props.put("mail.host", "localhost");
 		props.put("mail.imap.port", "3143");
@@ -83,16 +83,16 @@ public class MockedImapServer extends AbstractUITest {
 
 	}
 
-	public static void main(String[] args) throws AddressException, MessagingException, UserException {
+	public static void main(final String[] args) throws AddressException, MessagingException, UserException {
 		GreenMail server = null;
 		try {
 
-			MockedImapServer imapMock = new MockedImapServer();
+			final MockedImapServer imapMock = new MockedImapServer();
 
-			EmailUserDetails userDtls = imapMock.getPositiveEmailUserDetailsTest();
+			final EmailUserDetails userDtls = imapMock.getPositiveEmailUserDetailsTest();
 			server = imapMock.initTestServer(10);
 
-			Scanner scanner = new Scanner(System.in);
+			final Scanner scanner = new Scanner(System.in);
 			System.out.println("Mocked imap is running.");
 			System.out.println("   IMAP Port: 3143");
 			System.out.println("   Email:     " + userDtls.getEmail());

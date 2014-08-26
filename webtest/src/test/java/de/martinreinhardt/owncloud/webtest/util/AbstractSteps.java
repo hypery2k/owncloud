@@ -31,7 +31,7 @@ public class AbstractSteps extends ScenarioSteps {
 	/**
 	 * @param pages
 	 */
-	public AbstractSteps(Pages pages) {
+	public AbstractSteps(final Pages pages) {
 		super(pages);
 	}
 
