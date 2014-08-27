@@ -1,0 +1,99 @@
+
+<div id="userSettings">
+
+	<div id="roundcube"
+		class="personalblock ui-tabs ui-widget ui-widget-content ui-corner-all">
+		<legend>
+			<strong>RoundCube Einstellungen</strong>
+		</legend>
+
+		<ul
+			class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"
+			role="tablist">
+			<li class="ui-state-default ui-corner-top" role="tab" tabindex="-1"
+				aria-controls="roundcube-1" aria-labelledby="rcBasicSettings"
+				aria-selected="false"><a id="rcBasicSettings"
+				href="#roundcube-1" class="ui-tabs-anchor" role="presentation"
+				tabindex="-1">Grundeinstellungen</a></li>
+			<li
+				class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"
+				role="tab" tabindex="0" aria-controls="roundcube-2"
+				aria-labelledby="rcAdvancedSettings" aria-selected="true"><a
+				id="rcAdvancedSettings" href="#roundcube-2" class="ui-tabs-anchor"
+				role="presentation" tabindex="-1">Erweiterte Einstellungen</a></li>
+		</ul>
+
+		<fieldset id="roundcube-1" aria-labelledby="rcBasicSettings"
+			class="ui-tabs-panel ui-widget-content ui-corner-bottom"
+			role="tabpanel" aria-expanded="false" aria-hidden="true"
+			style="display: none;">
+			<p>
+				<label for="maildir"> Absoluter Pfad zu der bestehenden
+					Roundcube Installation, z.B. bei https://owncloud.com/roundcube
+					wäre das /roundcube/. Es funktionieren nur absolute Pfadangaben,
+					die sich auf diesselbe Domain beziehen wie die, auf der Owncloud
+					läuft. </label> <br> <input type="text" id="maildir" name="maildir"
+					style="width: 400px;" value="/oc_testing/mysql/roundcube/"
+					onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}"
+					original-title="">
+			</p>
+		</fieldset>
+		<fieldset id="roundcube-2" aria-labelledby="rcAdvancedSettings"
+			class="ui-tabs-panel ui-widget-content ui-corner-bottom"
+			role="tabpanel" aria-expanded="true" aria-hidden="false"
+			style="display: block;">
+			<table>
+				<tbody>
+					<tr>
+						<td><input type="checkbox" name="removeControlNav"
+							id="removeControlNav" original-title=""> <label
+							title="RoundCube Navigationselemente mit aktuellen Nutzerinformationen ausblenden ( "
+							angemeldet="" als="" ")"="" for="removeControlNav">Entfernen
+								der Informationsleiste im oberen Seitenbereich</label></td>
+						<td><input type="checkbox" name="removeHeaderNav"
+							id="removeHeaderNav" original-title=""> <label
+							title="Entferne Buttons für die verschiedenen Bereiche (Mail,Adressbuch,Einstellungen) innerhalb der RoundCube Anwendung"
+							for="removeHeaderNav">Navigationsleiste ausblenden</label></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="autoLogin" id="autoLogin"
+							original-title=""> <label
+							title="Autologin für Nutzer aktivieren, um die Nutzerdaten von OC für Roundcube wieder zu nutzen."
+							for="autoLogin">Autologin für Nutzer aktivieren</label></td>
+						<td><input type="checkbox" name="enableDebug"
+							id="enableDebug" original-title=""> <label
+							title="Aktiviert Debugging. Das führt zu großen Logdateien!"
+							for="enableDebug">Aktiviert Debugging für das Logging</label></td>
+					</tr>
+				</tbody>
+			</table>
+			<label for="rcHost"> Überschreibe roundcube server Hostnamen,
+				wenn es nicht derselber wie Owncloud ist, z.B. (Sub)domänen wie
+				rc.domain.tld. Das funktioniert aber nur innerhalb desselben Servers
+				aufgrund von iFrame-Beschränkungen, siehe HTML/JS same-origin
+				Policy. </label> <input type="text" id="rcHost" name="rcHost" value=""
+				original-title=""> <br> <label for="rcPort">
+				Explizite Angabe des RoundCube Server-Port. Die Voreinstellung ist
+				80/443 für HTTP resp. HTTPS. Fall Sie unsicher sind, lassen Sie das
+				Feld leer </label> <input type="text" id="rcPort" name="rcPort" value=""
+				original-title=""> <br> <label for="rcRefreshInterval"
+				title="RoundCube Session-Refresh-Intervall. Der Wert sollte ``geringfügig'' unterhalb der Hälfte der eingestellten Session-Life-Time der RoundCube-Instanz sein (z.B. 60 Sekunden weniger als die Hälfte). Bitte lesen Sie die diesbezügliche Dokumentation der RoundCube Web-Applikation.">
+				Session-Refresh Intervall für RoundCube <input type="text"
+				id="rcRefreshInterval" name="rcRefreshInterval" value=""
+				original-title="">
+			</label> <input type="checkbox" name="rcNoCronRefresh" id="rcNoCronRefresh"
+				original-title=""> <label
+				title="Wenn Sie diesen Schalter aktivieren deaktivieren Sie den Cron-Job, der
+``periodisch'' die RoundCube PHP-Session erneuert. Falls Sie
+allerdings keinen ``echten'' Cron-Daemon benutzen (siehe
+Cron-Abschnitt auf dieser Seiter), ist der Refresh-Cronjob vermutlich
+ziemlich nutzlos und unzuverlässig. Insofern mag es sinnvoll sein, das
+``Häkchen'' zu setzen (bitte einfach selbst ausprobieren)."
+				for="rcNoCronRefresh">Cron-Job Session-Refresh deaktivieren</label>
+			<br>
+		</fieldset>
+		<input id="rcAdminSubmit" type="submit" value="Save" original-title="">
+		<span id="adminmail_update_message"></span>
+	</div>
+</div>
