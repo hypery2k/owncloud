@@ -51,7 +51,7 @@ module.exports = function(config) {
     // the default configuration
     junitReporter : {
       outputFile : '../../../target/karma-test-results.xml',
-      suite : 'roundcube - javascript unittests'
+      suite : 'revealjs - javascript unittests'
     },
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

@@ -1,0 +1,13 @@
+{
+  "name": "oc_revealjs",
+  "version": "2.5.1",
+  "repository": "git://github.com/hypery2k/owncloud",
+  "devDependencies": {
+    "jquery": "~2.1.1",
+    "jquery-ui": "~1.11.1"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "homepage": "https://github.com/hypery2k/owncloud"
+}

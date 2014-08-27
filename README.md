@@ -24,7 +24,23 @@ Or via PayPal:
 
 see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
 
+##
+To run all unit tests execute
+
+	mvn clean test
+
+To run only javascript test go to one module and execute
+
+	grunt test
+
+For javascript unit test debugging execute:
+
+	karma start src/test/webapp/karma.conf.js
+ 
+and point your browser to http://localhost:9080/
+
 ## Currently released
+
 ### Roundcube
 Embedd roundcube interface in owncloud
 

@@ -30,4 +30,9 @@ webtest/.classpath
 roundcube/node/*
 roundcube/node_modules/*
 roundcube/bower_components/*
-
+revealjs/node/*
+revealjs/node_modules/*
+revealjs/bower_components/*
+storagecharts2/node/*
+storagecharts2/node_modules/*
+storagecharts2/bower_components/*
