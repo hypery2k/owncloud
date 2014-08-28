@@ -32,16 +32,16 @@ public abstract class RoundCubeMockedMailIT extends MockedImapServer {
 	@Steps
 	protected RoundCubeSteps appSteps;
 
+	private static GreenMail SERVER_INSTANCE = null;
+
 	public void runEmailTest() throws AddressException, MessagingException, UserException, TestError {
 
-		GreenMail server = null;
 		try {
-			server = initTestServer(10);
+			if (SERVER_INSTANCE == null) {
+				SERVER_INSTANCE = initTestServer(10);
+			}
 			executeTestStepsFrontend();
 		} finally {
-			if (server != null) {
-				server.stop();
-			}
 		}
 	}
 
