@@ -63,22 +63,27 @@ public class MockedImapServer extends AbstractUITest {
 
 	public GreenMail initTestServer(final int pNumberOfMessages) throws AddressException, MessagingException,
 			UserException {
-		GreenMail server = null;
-		server = new GreenMail(ServerSetupTest.IMAP);
-		server.start();
-
-		final GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
-				getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest().getPassword());
-
-		for (int i = 1; i < pNumberOfMessages; i++) {
-			final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
-			user.deliver(msg);
-		}
 		final Properties props = new Properties();
 		props.put("mail.store.protocol", "imap");
 		props.put("mail.host", "localhost");
 		props.put("mail.imap.port", "3143");
-		assertThat("", server.getReceivedMessages(), arrayWithSize(pNumberOfMessages));
+		// start mocked IMAP
+		GreenMail server = null;
+		server = new GreenMail(ServerSetupTest.IMAP);
+		try {
+			server.start();
+
+			final GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
+					getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest().getPassword());
+
+			for (int i = 0; i < pNumberOfMessages; i++) {
+				final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
+				user.deliver(msg);
+			}
+			assertThat("", server.getReceivedMessages(), arrayWithSize(pNumberOfMessages));
+		} catch (Exception e) {
+			LOG.error("Error during mock start", e);
+		}
 		return server;
 
 	}
