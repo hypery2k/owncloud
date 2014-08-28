@@ -55,6 +55,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<thucydides.issue.tracker.url>https://github.com/hypery2k/owncloud/issues/{0}</thucydides.issue.tracker.url>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>net.thucydides.maven.plugins</groupId>
