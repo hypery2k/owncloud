@@ -63,7 +63,7 @@ if (!$table_exists) {
 						<input type="button" value="<?php p($l -> t('Update Email Identity')); ?>"
 							name="rc_usermail_update" id="rc_usermail_update" />
 						
-						<div class="statusmessage" id="rc_usermail_update_message">
+						<div class="statusmessage" id="rc_usermail_update_message" style="display:none">
 						</div>
 						
 						<div class="errormessage" id="rc_usermail_error_message" style="display:none">

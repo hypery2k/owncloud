@@ -23,8 +23,7 @@ Roundcube.userSettingsUI = function() {
     var password = $('#rc_mail_settings #rc_mail_password').val();
     var user = $('#rc_mail_settings #rc_mail_username').val();
 
-    $('div.statusmessage').hide();
-    $('span.statusmessage').hide();
+    $('#rc_mail_update_message').hide();
     $('#rc_mail_error_message').hide();
     $('#rc_mail_error_empty_message').hide();
     if (password != '' && user != '') {
