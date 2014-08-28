@@ -38,6 +38,6 @@
 "Please fill username and password fields" => "Bitte füllen Sie sowohl Nutzername, als auch Passwort aus",
 "General saving error occurred." => "Allgemeiner Speicherfehler bei den Einstellungen",
 "show" => "zeigen",
-"Change Email Identity" => "Zugangsdaten aktualisieren",
+"Update Email Identity" => "Zugangsdaten aktualisieren",
 "Autologin for users activated. OwnCloud user data will be used for login in roundcube" => "Das automatische Anmeldung ist aktiviert. Ihre OwnCloud\nBenutzer-Identität wird für die RoundCube Authentifizierung\nverwendet."
 );

@@ -32,7 +32,7 @@ if (!$table_exists) {
 } else {
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	?>
-	<form id="usermail" action="#" method="post">
+	<form id="rc_mail_settings" action="#" method="post">
 		<!-- Prevent CSRF attacks-->
 		<input type="hidden" name="requesttoken"
 			value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> 
@@ -53,23 +53,23 @@ if (!$table_exists) {
 				        $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 				        // TODO use template and add button for adding entries
 				        ?>
-						<input type="text" id="mail_username" name="mail_username"
+						<input type="text" id="rc_mail_username" name="rc_mail_username"
 							value="<?php echo $mail_username; ?>" placeholder="<?php p($l -> t('Email Login Name')); ?>" /> 
-						<input type="password" id="mail_password" name="mail_password"
-							placeholder="<?php p($l -> t('Email Password')); ?>" data-typetoggle="#mail_password_show" /> 
-						<input type="checkbox" id="mail_password_show" name="show" /> 
-						<label for="mail_password_show"><?php p($l -> t('show')); ?> 
+						<input type="password" id="rc_mail_password" name="rc_mail_password"
+							placeholder="<?php p($l -> t('Email Password')); ?>" data-typetoggle="rc_mail_password_show" /> 
+						<input type="checkbox" id="rc_mail_password_show" name="show" /> 
+						<label for="rc_mail_password_show"><?php p($l -> t('show')); ?> 
 						</label> 
-						<input type="button" value="<?php p($l -> t('Change Email Identity')); ?>"
-							name="usermail_update" id="usermail_update" />
+						<input type="button" value="<?php p($l -> t('Update Email Identity')); ?>"
+							name="rc_usermail_update" id="rc_usermail_update" />
 						
-						<div class="statusmessage" id="usermail_update_message">
+						<div class="statusmessage" id="rc_usermail_update_message">
 						</div>
 						
-						<div class="errormessage" id="usermail_error_message" style="display:none">
+						<div class="errormessage" id="rc_usermail_error_message" style="display:none">
 							<?php p($l -> t('General saving error occurred.')); ?>
 						</div>
-						<div class="erroremptymessage" id="usermail_error_empty_message" style="display:none">
+						<div class="errormessage" id="rc_usermail_error_empty_message" style="display:none">
 							<?php p($l -> t('Please fill username and password fields')); ?>
 						</div>
 						
