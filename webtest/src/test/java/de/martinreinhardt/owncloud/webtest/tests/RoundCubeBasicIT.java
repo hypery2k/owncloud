@@ -32,7 +32,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 	@WithTag(type = "Feature", value = "login"), 
 })
 //@formatter:on
-@Issues({ "202" })
+@Issues({ "#202" })
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeBasicIT extends AbstractUITest {
 	@Steps
