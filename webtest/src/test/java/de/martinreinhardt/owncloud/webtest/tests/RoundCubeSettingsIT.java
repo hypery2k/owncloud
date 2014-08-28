@@ -16,6 +16,8 @@ import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -53,8 +55,8 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		runEmailTest();
 	}
 
-	@Override
-	public void executeTestStepsFrontend() throws TestError {
+	@Before
+	public void setup() {
 		// disable autologin
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
@@ -63,14 +65,25 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		adminSteps.toggle_roundcube_autologin();
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
+	}
+
+	@Override
+	public void executeTestStepsFrontend() throws TestError {
 		// manual login as user
 		final EmailUserDetails user = getPositiveEmailUserDetailsTest();
 		endUserLogin.do_login(user.getUsername(), user.getPassword());
-		loggedInuserSteps.go_to_user_settings();
-		loggedInuserSteps.update_roundcube_login_and_save(user.getUsername(), user.getPassword());
-		loggedInuserSteps.go_to_roundcube_view();
-		rcSteps.is_not_showing_errors();
-		loggedInuserSteps.logout();
+		try {
+			loggedInuserSteps.go_to_user_settings();
+			loggedInuserSteps.update_roundcube_login_and_save(user.getUsername(), user.getPassword());
+			loggedInuserSteps.go_to_roundcube_view();
+			rcSteps.is_not_showing_errors();
+		} finally {
+			loggedInuserSteps.logout();
+		}
+	}
+
+	@After
+	public void reset() {
 		// enable autologin again
 		endUserLogin.do_login("admin", "password");
 		loggedInuserSteps.go_to_adminsettings_view();

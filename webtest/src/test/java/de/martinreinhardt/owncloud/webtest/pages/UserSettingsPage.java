@@ -12,6 +12,7 @@ import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.findby.FindBy;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -24,7 +25,9 @@ import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 @DefaultUrl(UITestConstants.DEFAULT_URL)
 public class UserSettingsPage extends AbstractPage {
 
-	@FindBy(id = "rcUsSettings")
+	private final static String RC_ID_STATUS_MSG = "rc_mail_update_message";
+
+	@FindBy(id = "rc_mail_settings")
 	private WebElement rcSettingsPanel;
 
 	@FindBy(id = "rc_mail_username")
@@ -35,6 +38,15 @@ public class UserSettingsPage extends AbstractPage {
 
 	@FindBy(id = "rc_usermail_update")
 	private WebElement rcSaveSettings;
+
+	@FindBy(id = RC_ID_STATUS_MSG)
+	private WebElement rcStatusMsg;
+
+	@FindBy(id = "_mail_error_message")
+	private WebElement rcErrorMsg;
+
+	@FindBy(id = "rc_mail_error_empty_message")
+	private WebElement rcEmptyErrorMsg;
 
 	/**
 	 * @param pWebDriver
@@ -54,5 +66,10 @@ public class UserSettingsPage extends AbstractPage {
 
 	public void save_roundcube_settings() {
 		click(rcSaveSettings);
+		waitForAnyRenderedElementOf(By.id(RC_ID_STATUS_MSG));
+	}
+
+	public boolean error_displayed() {
+		return rcErrorMsg.isDisplayed() || rcEmptyErrorMsg.isDisplayed();
 	}
 }
