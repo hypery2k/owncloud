@@ -12,6 +12,8 @@ import net.thucydides.core.pages.Pages;
 import de.martinreinhardt.owncloud.webtest.pages.LoginPage;
 import de.martinreinhardt.owncloud.webtest.util.AbstractSteps;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  * @author mreinhardt
  * 
@@ -32,6 +34,7 @@ public class PortalUserSteps extends AbstractSteps {
 
 	@Step
 	public void enter_login_area() {
+		assertThat("No login showing up", onLoginPage().login_form_visible());
 		// TODO back always
 		// onPortalPage().go_to_login_page();
 		// onLoginPage().

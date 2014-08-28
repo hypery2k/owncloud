@@ -45,6 +45,10 @@ public class LoginPage extends AbstractPage {
 		input(inputPassword, keyword);
 	}
 
+	public boolean login_form_visible() {
+		return inputUsername.isDisplayed() && inputPassword.isDisplayed() && submitLogin.isDisplayed();
+	}
+
 	public void do_login() {
 		click(submitLogin);
 	}

@@ -46,11 +46,11 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 		final EmailUserDetails user = getPositiveEmailUserDetailsTest();
 		endUserLogin.do_login(user.getUsername(), user.getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
-		appSteps.is_not_showing_errors();
-		appSteps.message_should_have_a_valid_subject();
-		appSteps.waitFor(6).minutes();
-		appSteps.is_not_showing_errors();
-		appSteps.message_should_have_a_valid_subject();
+		rcSteps.is_not_showing_errors();
+		rcSteps.message_should_have_a_valid_subject();
+		rcSteps.waitFor(6).minutes();
+		rcSteps.is_not_showing_errors();
+		rcSteps.message_should_have_a_valid_subject();
 
 	}
 }

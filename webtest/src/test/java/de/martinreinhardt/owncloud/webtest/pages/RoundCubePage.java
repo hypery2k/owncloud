@@ -15,11 +15,10 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 
 @DefaultUrl(UITestConstants.DEFAULT_URL)
-public class RoundCubePage extends AbstractPage {
+public class RoundCubePage extends PortalPage {
 
 	/**
 	 * iframe id

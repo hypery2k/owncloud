@@ -47,9 +47,9 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 		endUserLogin.do_login(getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest()
 				.getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
-		appSteps.is_not_showing_errors();
-		appSteps.message_should_have_a_valid_subject();
-		appSteps.waitFor(1).minutes();
-		appSteps.is_not_showing_errors();
+		rcSteps.is_not_showing_errors();
+		rcSteps.message_should_have_a_valid_subject();
+		rcSteps.waitFor(1).minutes();
+		rcSteps.is_not_showing_errors();
 	}
 }

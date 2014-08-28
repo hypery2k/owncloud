@@ -30,7 +30,7 @@ public abstract class RoundCubeMockedMailIT extends MockedImapServer {
 	protected LoggedInUserSteps loggedInuserSteps;
 
 	@Steps
-	protected RoundCubeSteps appSteps;
+	protected RoundCubeSteps rcSteps;
 
 	public void runEmailTest() throws AddressException, MessagingException, UserException, TestError {
 

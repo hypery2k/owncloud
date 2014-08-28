@@ -24,6 +24,10 @@ public class RoundCube {
 	}
 
 	@Feature
+	public class ManualLogin {
+	}
+
+	@Feature
 	public class RefreshSession {
 	}
 

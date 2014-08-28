@@ -10,6 +10,7 @@ package de.martinreinhardt.owncloud.webtest.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import de.martinreinhardt.owncloud.webtest.pages.PortalPage;
+import de.martinreinhardt.owncloud.webtest.pages.UserSettingsPage;
 
 /**
  * @author mreinhardt
@@ -47,6 +48,18 @@ public class LoggedInUserSteps extends PortalUserSteps {
 	}
 
 	@Step
+	public void go_to_user_settings() {
+		onPortalPage().go_to_user_settings();
+	}
+
+	@Step
+	public void update_roundcube_login_and_save(final String pLogin, final String pPassword) {
+		onUserSettingsPage().set_rc_credentials(pLogin, pPassword);
+		onUserSettingsPage().save_roundcube_settings();
+		// error check
+	}
+
+	@Step
 	public void logout() {
 		onPortalPage().do_logout();
 	}
@@ -55,6 +68,8 @@ public class LoggedInUserSteps extends PortalUserSteps {
 		return getPages().currentPageAt(PortalPage.class);
 	}
 
-	// GETTER AND SETTER
+	private UserSettingsPage onUserSettingsPage() {
+		return getPages().currentPageAt(UserSettingsPage.class);
+	}
 
 }
