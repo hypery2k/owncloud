@@ -25,6 +25,8 @@ Roundcube.userSettingsUI = function() {
 
     $('div.statusmessage').hide();
     $('span.statusmessage').hide();
+    $('#usermail_error_empty_message').hide();
+    $('#usermail_error_message').hide();
     if (password != '' && user != '') {
       // Serialize the data
       var post = $("#usermail").serialize();
@@ -34,14 +36,14 @@ Roundcube.userSettingsUI = function() {
 	  $('#usermail_update_message').html(data.data.message);
 	  $('#usermail_update_message').show();
 	} else {
-	  $('#usermail_update_message').html(data.data.message);
-	  $('#usermail_update_message').show();
+	  console.error("Couldn't update roundcube settings.");
+	  $('#usermail_error_message').show();
 	}
       }, 'json');
     } else {
-      $('#userkey #error').show();
+      console.error("Couldn't update roundcube settings due to empty");
+      $('#usermail_error_empty_message').show();
     }
-
   });
 }
 
