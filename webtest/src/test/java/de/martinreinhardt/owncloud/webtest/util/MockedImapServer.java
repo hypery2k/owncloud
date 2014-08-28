@@ -64,7 +64,7 @@ public class MockedImapServer extends AbstractUITest {
 	public GreenMail initTestServer(final int pNumberOfMessages) throws AddressException, MessagingException,
 			UserException {
 		GreenMail server = null;
-		server = new GreenMail(ServerSetupTest.ALL);
+		server = new GreenMail(ServerSetupTest.IMAP);
 		server.start();
 
 		final GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
@@ -78,7 +78,7 @@ public class MockedImapServer extends AbstractUITest {
 		props.put("mail.store.protocol", "imap");
 		props.put("mail.host", "localhost");
 		props.put("mail.imap.port", "3143");
-		assertThat("", server.getReceivedMessages(), arrayWithSize(10));
+		assertThat("", server.getReceivedMessages(), arrayWithSize(pNumberOfMessages));
 		return server;
 
 	}
