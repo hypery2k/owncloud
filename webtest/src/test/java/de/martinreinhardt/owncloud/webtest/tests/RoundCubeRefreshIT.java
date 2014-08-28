@@ -10,8 +10,10 @@ package de.martinreinhardt.owncloud.webtest.tests;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import net.thucydides.core.annotations.Issues;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
@@ -28,6 +30,14 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  * 
  */
 @Story(RoundCube.RefreshSession.class)
+//@formatter:off
+@WithTags({ 
+	@WithTag(type = "app", value = "RoundCube"), 
+	@WithTag(type = "Feature", value = "session refresh"),
+	@WithTag(type = "Feature", value = "login"), 
+})
+//@formatter:on
+@Issues({ "228", "#230", "#230", "#237", "#247", "#251" })
 @WithTag(type = "app", value = "RoundCube")
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {

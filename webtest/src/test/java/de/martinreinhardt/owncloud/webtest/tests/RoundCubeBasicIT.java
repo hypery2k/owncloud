@@ -7,9 +7,11 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
+import net.thucydides.core.annotations.Issues;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
@@ -24,7 +26,13 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  * 
  */
 @Story(RoundCube.Login.class)
-@WithTag(type = "app", value = "RoundCube")
+//@formatter:off
+@WithTags({ 
+	@WithTag(type = "app", value = "RoundCube"), 
+	@WithTag(type = "Feature", value = "login"), 
+})
+//@formatter:on
+@Issues({ "202" })
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeBasicIT extends AbstractUITest {
 	@Steps

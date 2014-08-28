@@ -24,7 +24,6 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 @Story(OwnCloud.Login.class)
 @RunWith(ThucydidesRunner.class)
 // @UseTestDataFrom("src/test/resources/testdata/testdata_LoginTest_trying_Login_iFrame.csv")
-// @Concurrent
 public class LoginIT extends AbstractUITest {
 
 	@Test

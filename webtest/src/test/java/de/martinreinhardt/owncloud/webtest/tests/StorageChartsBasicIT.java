@@ -7,9 +7,11 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
+import net.thucydides.core.annotations.Issues;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
@@ -25,7 +27,14 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  * 
  */
 @Story(StorageCharts.ViewStats.class)
-@WithTag(type = "app", value = "StorageCharts")
+//@formatter:off
+@WithTags({ 
+	@WithTag(type = "app", value = "StorageCharts"), 
+	@WithTag(type = "Feature", value = "use high charts"),
+	@WithTag(type = "Feature", value = "display stats"), 
+})
+//@formatter:on
+@Issues({ "228", "#230", "#230", "#237", "#247", "#251" })
 @RunWith(ThucydidesRunner.class)
 public class StorageChartsBasicIT extends AbstractUITest {
 

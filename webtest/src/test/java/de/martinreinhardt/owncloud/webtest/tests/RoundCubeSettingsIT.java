@@ -6,6 +6,7 @@ package de.martinreinhardt.owncloud.webtest.tests;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import net.thucydides.core.annotations.Issues;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
@@ -35,6 +36,7 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 	@WithTag(type = "Feature", value = "login"), 
 })
 //@formatter:on
+@Issues({ "205", "#209", "#213", "#259", "#263" })
 @RunWith(ThucydidesRunner.class)
 @Concurrent(threads = "1")
 public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
