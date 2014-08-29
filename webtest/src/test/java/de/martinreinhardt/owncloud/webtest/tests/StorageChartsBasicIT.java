@@ -7,7 +7,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
-import net.thucydides.core.annotations.Issues;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
@@ -34,7 +33,6 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 	@WithTag(type = "Feature", value = "display stats"), 
 })
 //@formatter:on
-@Issues({ "228", "#230", "#230", "#237", "#247", "#251" })
 @RunWith(ThucydidesRunner.class)
 public class StorageChartsBasicIT extends AbstractUITest {
 

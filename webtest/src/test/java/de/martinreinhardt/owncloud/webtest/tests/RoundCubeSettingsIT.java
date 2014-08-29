@@ -38,7 +38,7 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 	@WithTag(type = "Feature", value = "login"), 
 })
 //@formatter:on
-@Issues({ "205", "#209", "#213", "#259", "#263" })
+@Issues({ "#205", "#209", "#213", "#259", "#263" })
 @RunWith(ThucydidesRunner.class)
 @Concurrent(threads = "1")
 public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {

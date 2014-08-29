@@ -56,7 +56,7 @@ public class LoggedInUserSteps extends PortalUserSteps {
 	@Step
 	public void update_roundcube_login_and_save(final String pLogin, final String pPassword) {
 		onUserSettingsPage().set_rc_credentials(pLogin, pPassword);
-		onUserSettingsPage().save_roundcube_settings();
+		assertThat("No status message is displayed", onUserSettingsPage().save_roundcube_settings());
 		assertThat("No errors are displayed", !onUserSettingsPage().error_displayed());
 	}
 

@@ -64,9 +64,9 @@ public class UserSettingsPage extends AbstractPage {
 		input(rcPassword, pPassword);
 	}
 
-	public void save_roundcube_settings() {
+	public boolean save_roundcube_settings() {
 		click(rcSaveSettings);
-		waitForAnyRenderedElementOf(By.id(RC_ID_STATUS_MSG));
+		return rcStatusMsg.isDisplayed();
 	}
 
 	public boolean error_displayed() {
