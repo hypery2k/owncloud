@@ -1,0 +1,13 @@
+.statusmessage {
+	background-color: #DDDDFF;
+}
+.errormessage {
+	background-color: #FFDDDD;
+}
+.successmessage {
+	background-color: #DDFFDD;
+}
+.statusmessage,.errormessage,.successmessage{
+	display:none;
+	padding: 1;
+}

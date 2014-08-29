@@ -24,6 +24,7 @@
 // ensure that only admin user access this page
 OCP\User::checkAdminUser();
 
+OCP\Util::addStyle('roundcube', 'adminSettings');
 OCP\Util::addScript('roundcube', 'adminSettings');
 
 // fill template
