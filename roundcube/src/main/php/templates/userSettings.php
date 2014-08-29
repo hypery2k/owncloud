@@ -54,9 +54,6 @@ if (!$table_exists) {
 					value="<?php echo $mail_username; ?>" placeholder="<?php p($l -> t('Email Login Name')); ?>" /> 
 				<input type="password" id="rc_mail_password" name="rc_mail_password"
 					placeholder="<?php p($l -> t('Email Password')); ?>" data-typetoggle="rc_mail_password_show" /> 
-				<input type="checkbox" id="rc_mail_password_show" name="show" /> 
-				<label for="rc_mail_password_show"><?php p($l -> t('show')); ?> 
-				</label> 
 				<input type="button" value="<?php p($l -> t('Update Email Identity')); ?>" 
 						name="rc_usermail_update"  id="rc_usermail_update" />
 				
