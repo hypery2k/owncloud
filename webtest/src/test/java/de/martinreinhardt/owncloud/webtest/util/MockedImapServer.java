@@ -7,6 +7,9 @@
  */
 package de.martinreinhardt.owncloud.webtest.util;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.arrayWithSize;
+
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -21,9 +24,6 @@ import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetupTest;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 
 /**
  * @author mreinhardt
@@ -53,7 +53,7 @@ public class MockedImapServer extends AbstractUITest {
 		return msg;
 	}
 
-	public EmailUserDetails getPositiveEmailUserDetailsTest() {
+	public EmailUserDetails getPositiveEmailUserWhichIsAOcUser() {
 		final EmailUserDetails userDtls = new EmailUserDetails();
 		userDtls.setEmail("positive@roundcube.owncloud.org");
 		userDtls.setUsername("positive@roundcube.owncloud.org");
@@ -61,7 +61,7 @@ public class MockedImapServer extends AbstractUITest {
 		return userDtls;
 	}
 
-	public EmailUserDetails getPositive2EmailUserDetailsTest() {
+	public EmailUserDetails getPositiveEmailUserWhichIsNoOcUser() {
 		final EmailUserDetails userDtls = new EmailUserDetails();
 		userDtls.setEmail("positive2@roundcube.owncloud.org");
 		userDtls.setUsername("positive2@roundcube.owncloud.org");
@@ -81,14 +81,14 @@ public class MockedImapServer extends AbstractUITest {
 		try {
 			server.start();
 
-			final GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
-					getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest().getPassword());
+			final GreenMailUser user = server.setUser(getPositiveEmailUserWhichIsAOcUser().getEmail(),
+					getPositiveEmailUserWhichIsAOcUser().getUsername(), getPositiveEmailUserWhichIsAOcUser().getPassword());
 
-			final GreenMailUser user2 = server.setUser(getPositive2EmailUserDetailsTest().getEmail(),
-					getPositive2EmailUserDetailsTest().getUsername(), getPositive2EmailUserDetailsTest().getPassword());
+			final GreenMailUser user2 = server.setUser(getPositiveEmailUserWhichIsNoOcUser().getEmail(),
+					getPositiveEmailUserWhichIsNoOcUser().getUsername(), getPositiveEmailUserWhichIsNoOcUser().getPassword());
 
 			for (int i = 0; i < pNumberOfMessages; i++) {
-				final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
+				final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserWhichIsAOcUser());
 				user.deliver(msg);
 				user2.deliver(msg);
 			}
@@ -106,7 +106,7 @@ public class MockedImapServer extends AbstractUITest {
 
 			final MockedImapServer imapMock = new MockedImapServer();
 
-			final EmailUserDetails userDtls = imapMock.getPositiveEmailUserDetailsTest();
+			final EmailUserDetails userDtls = imapMock.getPositiveEmailUserWhichIsAOcUser();
 			server = imapMock.initTestServer(10);
 
 			final Scanner scanner = new Scanner(System.in);

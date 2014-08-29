@@ -53,7 +53,7 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		final EmailUserDetails user = getPositiveEmailUserDetailsTest();
+		final EmailUserDetails user = getPositiveEmailUserWhichIsAOcUser();
 		endUserLogin.do_login(user.getUsername(), user.getPassword());
 		loggedInuserSteps.go_to_roundcube_view();
 		rcSteps.is_not_showing_errors();
