@@ -78,7 +78,10 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 			loggedInuserSteps.update_roundcube_login_and_save(rcLogin.getUsername(), rcLogin.getPassword());
 			loggedInuserSteps.go_to_roundcube_view();
 			rcSteps.is_not_showing_errors();
-			rcSteps.waitFor(1).minutes();
+			rcSteps.message_should_have_a_valid_subject();
+			rcSteps.waitFor(20).seconds();
+			rcSteps.is_not_showing_errors();
+			loggedInuserSteps.go_to_user_settings();
 		} finally {
 			loggedInuserSteps.logout();
 		}
