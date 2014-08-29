@@ -1,0 +1,9 @@
+.adminmail_msg_status {
+	background-color: #DDDDFF;
+}
+.adminmail_msg_error {
+	background-color: #FFDDDD;
+}
+.adminmail_msg_success {
+	background-color: #DDFFDD;
+}
