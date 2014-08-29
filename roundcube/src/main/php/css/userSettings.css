@@ -26,9 +26,15 @@
 #rc_mail_password_show + label {
   margin-top:1em; margin-left:-3em;
 }
+.successmessage {
+  background-color: #DDFFDD;
+}
 .errormessage {
   background-color: #FFDDDD;
 }
 .statusmessage {
-  background-color: #DDFFDD;
+  background-color: #DDDDFF;
+}
+.successmessage,.errormessage,.statusmessage{
+  display:none;
 }

@@ -60,22 +60,23 @@ if (!$table_exists) {
 				<input type="button" value="<?php p($l -> t('Update Email Identity')); ?>" 
 						name="rc_usermail_update"  id="rc_usermail_update" />
 				
-				<div class="statusmessage" id="rc_mail_update_message" style="display:none">
+				<div id="rc_usermail_update_message" class="statusmessage">
+					<?php p($l->t('Saving...')); ?>
 				</div>
-				
-				<div class="errormessage" id="rc_mail_error_message" style="display:none">
+				<div id="rc_usermail_success_message" class="successmessage">
+				</div>
+				<div id="rc_usermail_error_message" class="errormessage">
 					<?php p($l -> t('General saving error occurred.')); ?>
 				</div>
-				<div class="errormessage" id="rc_mail_error_empty_message" style="display:none">
+				<div id="rc_usermail_error_empty_message" class="errormessage">
 					<?php p($l -> t('Please fill username and password fields')); ?>
 				</div>
-				
 				<?php
-		    	}
-			} else {
-			    p($l -> t('Autologin for users activated. OwnCloud user data will be used for login in roundcube'));
-			}
-			?>
+		   }
+		} else {
+		    p($l -> t('Autologin for users activated. OwnCloud user data will be used for login in roundcube'));
+		}
+		?>
 		</fieldset>
 	</form>
 	<?php
