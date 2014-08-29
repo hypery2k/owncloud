@@ -3,41 +3,17 @@ namespace OCP;
 
 
 class App {
-	/**
-	 * Adds an entry to the navigation
-	 * @param array containing the data
-	 * @return boolean
-	 *
-	 * This function adds a new entry to the navigation visible to users. $data
-	 * is an associative array.
-	 * The following keys are required:
-	 *   - id: unique id for this entry ('addressbook_index')
-	 *   - href: link to the page
-	 *   - name: Human readable name ('Addressbook')
-	 *
-	 * The following keys are optional:
-	 *   - icon: path to the icon of the app
-	 *   - order: integer, that influences the position of your application in
-	 *	 the navigation. Lower values come first.
-	 */
+
 	public static function addNavigationEntry( $data ) {
 	}
 
-
-	/**
-	 * Register a Configuration Screen that should appear in the personal settings section.
-	 * @param $app string appid
-	 * @param $page string page to be included
-	 */
 	public static function registerPersonal( $app, $page ) {
 	}
 
-	/**
-	 * Register a Configuration Screen that should appear in the Admin section.
-	 * @param $app string appid
-	 * @param $page string page to be included
-	 */
 	public static function registerAdmin( $app, $page ) {
+	}
+
+	public static function checkAppEnabled($app) {
 	}
 
 }
@@ -51,20 +27,41 @@ class DB{
 }
 
 class Config {
-	/**
-	 * Gets the config value
-	 * @param string $app app
-	 * @param string $key key
-	 * @param string $default = null, default value if the key does not exist
-	 * @return string the value or $default
-	 *
-	 * This function gets a value from the appconfig table. If the key does
-	 * not exist the default value will be returned
-	 */
+
+	public static $APPVALUE;
 	public static function getAppValue( $app, $key, $default = null ) {
-		return "";
+		if($default){
+			return $default;
+		} else{
+			return Config::$APPVALUE[$key];
+		}
 	}
 }
+
+class User{
+	public static $LOGGEDIN=true;
+	public static function checkLoggedIn() {
+		return User::$LOGGEDIN;
+	}
+
+	public static $USER;
+	public static function getUser() {
+		return User::$USER;
+	}
+}
+
+class JSON{
+	public static function checkLoggedIn() {
+		
+	}
+	public static function checkAppEnabled($app) {
+		
+	}
+	public static function callCheck() {
+		
+	}
+}
+
 
 class BackgroundJob{
 	public static function addRegularTask($klass, $method) {
@@ -87,38 +84,32 @@ class Util{
 		echo "\n";
 	}
 
-	/**
-	 * add a javascript file
-	 * @param string $application
-	 * @param string $file
-	 */
 	public static function addScript( $application, $file = null ) {
 
 	}
 
+	public static function addStyle( $application, $file = null ) {
+
+	}
 
 	public static function connectHook($pContext, $pHook,$pClass,$pMethod) {
 	}
 
-	/**
-	 * Creates an url to the given app and file
-	 * @param string $app app
-	 * @param string $file file
-	 * @param array $args array with param=>value, will be appended to the returned url
-	 * 	The value of $args will be urlencoded
-	 * @return string the url
-	 */
 	public static function linkTo( $app, $file, $args = array() ) {
 	}
 	
-
-	/**
-	 * Creates path to an image
-	 * @param string $app app
-	 * @param string $image image name
-	 * @return string the url
-	 */
 	public static function imagePath( $app, $image ) {
 	}
 
+}
+
+class Template{
+
+	public static function assign( $param, $value ) {
+	
+	}
+	
+	public static function fetchPage( $param, $value ) {
+	
+	}
 }
