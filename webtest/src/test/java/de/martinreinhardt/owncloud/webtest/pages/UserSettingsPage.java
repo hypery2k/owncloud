@@ -24,7 +24,7 @@ import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
 @DefaultUrl(UITestConstants.DEFAULT_URL)
 public class UserSettingsPage extends AbstractPage {
 
-	private final static String RC_ID_STATUS_MSG = "rc_mail_update_message";
+	private final static String RC_ID_STATUS_MSG = "rc_usermail_success_message";
 
 	@FindBy(id = "rc_mail_settings")
 	private WebElement rcSettingsPanel;
