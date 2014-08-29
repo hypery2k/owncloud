@@ -61,6 +61,14 @@ public class MockedImapServer extends AbstractUITest {
 		return userDtls;
 	}
 
+	public EmailUserDetails getPositive2EmailUserDetailsTest() {
+		final EmailUserDetails userDtls = new EmailUserDetails();
+		userDtls.setEmail("positive2@roundcube.owncloud.org");
+		userDtls.setUsername("positive2@roundcube.owncloud.org");
+		userDtls.setPassword("43");
+		return userDtls;
+	}
+
 	public GreenMail initTestServer(final int pNumberOfMessages) throws AddressException, MessagingException,
 			UserException {
 		final Properties props = new Properties();
@@ -76,11 +84,15 @@ public class MockedImapServer extends AbstractUITest {
 			final GreenMailUser user = server.setUser(getPositiveEmailUserDetailsTest().getEmail(),
 					getPositiveEmailUserDetailsTest().getUsername(), getPositiveEmailUserDetailsTest().getPassword());
 
+			final GreenMailUser user2 = server.setUser(getPositive2EmailUserDetailsTest().getEmail(),
+					getPositive2EmailUserDetailsTest().getUsername(), getPositive2EmailUserDetailsTest().getPassword());
+
 			for (int i = 0; i < pNumberOfMessages; i++) {
 				final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserDetailsTest());
 				user.deliver(msg);
+				user2.deliver(msg);
 			}
-			assertThat("", server.getReceivedMessages(), arrayWithSize(pNumberOfMessages));
+			assertThat("", server.getReceivedMessages(), arrayWithSize(pNumberOfMessages * 2));
 		} catch (Exception e) {
 			LOG.error("Error during mock start", e);
 		}

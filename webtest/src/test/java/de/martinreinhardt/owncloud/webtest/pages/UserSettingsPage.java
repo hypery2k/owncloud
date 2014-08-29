@@ -12,7 +12,6 @@ import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.findby.FindBy;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -70,6 +69,12 @@ public class UserSettingsPage extends AbstractPage {
 	}
 
 	public boolean error_displayed() {
-		return rcErrorMsg.isDisplayed() || rcEmptyErrorMsg.isDisplayed();
+		boolean errorDisplay = false;
+		try {
+			errorDisplay = rcErrorMsg.isDisplayed() || rcEmptyErrorMsg.isDisplayed();
+		} catch (Exception e) {
+
+		}
+		return errorDisplay;
 	}
 }

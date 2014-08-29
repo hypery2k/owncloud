@@ -70,7 +70,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		// manual login as user
-		final EmailUserDetails user = getPositiveEmailUserDetailsTest();
+		final EmailUserDetails user = getPositive2EmailUserDetailsTest();
 		endUserLogin.do_login(user.getUsername(), user.getPassword());
 		try {
 			loggedInuserSteps.go_to_user_settings();
