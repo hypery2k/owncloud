@@ -70,6 +70,8 @@ $cfgClass = $ocVersion >= 7 ? 'section' : 'personalblock';
       <br>
     </fieldset>
     <input id="rcAdminSubmit" type="submit" value="Save" />
-    <span id="adminmail_update_message"></span>
+    <div id="adminmail_update_message" class="statusmessage"><?php echo $l->t('Saving...'); ?></div>
+    <div id="adminmail_error_message" class="errormessage"></div>
+    <div id="adminmail_success_message" class="successmessage"></div>
   </div>
 </form>

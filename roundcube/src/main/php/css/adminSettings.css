@@ -1,9 +1,13 @@
-.adminmail_msg_status {
+.statusmessage {
 	background-color: #DDDDFF;
 }
-.adminmail_msg_error {
+.errormessage {
 	background-color: #FFDDDD;
 }
-.adminmail_msg_success {
+.successmessage {
 	background-color: #DDFFDD;
+}
+.statusmessage,.errormessage,.successmessage{
+	display:none;
+	padding: 1;
 }
