@@ -16,7 +16,7 @@ Roundcube.userSettingsUI = function() {
   // favor of the Ajax technology. Its just more handy and less
   // error-prone.
 
-  $("#rc_mail_update").click(function(event) {
+  $("#rc_usermail_update").click(function(event) {
     event.preventDefault();
 
     var self = $(this);
