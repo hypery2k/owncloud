@@ -37,7 +37,7 @@ public class AbstractPage extends PageObject {
 		try {
 			super.getDriver().switchTo().frame(pFrameID);
 		} catch (final Exception e) {
-			LOG.debug("Unable to switch to iframe", e);
+			LOG.debug("Unable to switch to iframe");
 		}
 	}
 

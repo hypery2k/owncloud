@@ -10,6 +10,9 @@ package de.martinreinhardt.owncloud.webtest.steps;
 import static org.hamcrest.MatcherAssert.assertThat;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
+
+import org.apache.log4j.Logger;
+
 import de.martinreinhardt.owncloud.webtest.pages.PortalPage;
 import de.martinreinhardt.owncloud.webtest.pages.UserSettingsPage;
 
@@ -24,6 +27,9 @@ public class LoggedInUserSteps extends PortalUserSteps {
 	 */
 	private static final long serialVersionUID = 1000463057264545156L;
 
+	// Logger
+	protected static final Logger LOG = Logger.getLogger(LoggedInUserSteps.class);
+
 	/**
 	 * @param pages
 	 */
@@ -35,22 +41,30 @@ public class LoggedInUserSteps extends PortalUserSteps {
 
 	@Step
 	public void go_to_roundcube_view() {
+		LOG.info("Going to rouncube page");
 		onPortalPage().go_to_roundcube_app();
+		LOG.info("Done going to rouncube page");
 	}
 
 	@Step
 	public void go_to_storagecharts_view() {
+		LOG.info("Going to storagecharts page");
 		onPortalPage().go_to_storage_charts_app();
+		LOG.info("Done going to storagecharts page");
 	}
 
 	@Step
 	public void go_to_adminsettings_view() {
+		LOG.info("Going to admin settings page");
 		onPortalPage().go_to_admin_settings();
+		LOG.info("Done going to admin settings page");
 	}
 
 	@Step
 	public void go_to_user_settings() {
+		LOG.info("Going to user settings page");
 		onPortalPage().go_to_user_settings();
+		LOG.info("Done going to user settings page");
 	}
 
 	@Step
@@ -62,7 +76,9 @@ public class LoggedInUserSteps extends PortalUserSteps {
 
 	@Step
 	public void logout() {
+		LOG.info("Starting logout");
 		onPortalPage().do_logout();
+		LOG.info("Logout done.");
 	}
 
 	private PortalPage onPortalPage() {
