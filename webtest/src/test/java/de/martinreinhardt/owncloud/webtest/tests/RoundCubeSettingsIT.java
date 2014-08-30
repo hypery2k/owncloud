@@ -69,6 +69,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 
 	@Override
 	public void executeTestStepsFrontend() throws TestError {
+		LOG.info("Starting manual login direct as roundcube user");
 		// manual login as user
 		final EmailUserDetails ocLogin = getPositiveEmailUserWhichIsAOcUser();
 		final EmailUserDetails rcLogin = getPositiveEmailUserWhichIsNoOcUser();
@@ -85,6 +86,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		} finally {
 			loggedInuserSteps.logout();
 		}
+		LOG.info("Done manual login direct as roundcube user");
 	}
 
 	@After
