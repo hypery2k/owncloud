@@ -36,8 +36,20 @@ public class AbstractPage extends PageObject {
 	protected void load_iFrame(final String pFrameID) {
 		try {
 			super.getDriver().switchTo().frame(pFrameID);
+			super.getDriver().switchTo().defaultContent();
 		} catch (final Exception e) {
 			LOG.debug("Unable to switch to iframe");
+		}
+	}
+
+	/**
+	 * Switches back to main document when a page contains frames
+	 */
+	protected void back_to_parent_document() {
+		try {
+			super.getDriver().switchTo().defaultContent();
+		} catch (final Exception e) {
+			LOG.debug("Unable to switch to main document");
 		}
 	}
 

@@ -76,6 +76,7 @@ public class RoundCubePage extends PortalPage {
 		load_iFrame(ROUNDCUBE_FRAME);
 		clickOn(firstEmail);
 		result = firstEmail.getText();
+		back_to_parent_document();
 		return result;
 	}
 
@@ -86,6 +87,7 @@ public class RoundCubePage extends PortalPage {
 			loginVisible = rcLogin.isDisplayed();
 		} catch (final NoSuchElementException e) {
 		}
+		back_to_parent_document();
 		return loginVisible;
 	}
 
@@ -96,6 +98,7 @@ public class RoundCubePage extends PortalPage {
 			errorDisplayed = errorMsg.isDisplayed();
 		} catch (final NoSuchElementException e) {
 		}
+		back_to_parent_document();
 		return errorDisplayed;
 	}
 
@@ -106,6 +109,7 @@ public class RoundCubePage extends PortalPage {
 			frameLoaderd = rcFrame.isDisplayed();
 		} catch (final NoSuchElementException e) {
 		}
+		back_to_parent_document();
 		return frameLoaderd;
 	}
 }
