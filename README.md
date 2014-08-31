@@ -8,7 +8,7 @@ If anybody wants to stand in for the development of the app, feel free to use my
 
 Current Build Status:
 
-[![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud)](https://martinreinhardt-online.de/jenkins/job/OwnCloud/)
+[![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/)
 
 In this repo you'll find apps and enhancements for owncloud.
 
