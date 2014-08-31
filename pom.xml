@@ -39,14 +39,8 @@
 					<generateReports>true</generateReports>
 					<inputEncoding>UTF-8</inputEncoding>
 					<outputEncoding>UTF-8</outputEncoding>
-					<!-- Site deployment done using GitHub site plugin <skipDeploy>true</skipDeploy> -->
-					<reportPlugins>
-						<plugin>
-							<groupId>net.thucydides.maven.plugins</groupId>
-							<artifactId>maven-thucydides-plugin</artifactId>
-							<version>${thucydides.version}</version>
-						</plugin>
-					</reportPlugins>
+					<!-- Site deployment done using GitHub site plugin -->
+					<skipDeploy>true</skipDeploy>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -157,8 +151,7 @@
 		<pluginRepository>
 			<id>bbe-releases</id>
 			<name>Mavento Release Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/releases/
-			</url>
+			<url>http://maven.bbe-consulting.de/content/repositories/releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -166,10 +159,21 @@
 		<pluginRepository>
 			<id>bbe-snapshots</id>
 			<name>Mavento Snapshot Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/snapshots/
-			</url>
+			<url>http://maven.bbe-consulting.de/content/repositories/snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>mare-nexus</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/public/</url>
+			<releases>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -179,6 +183,14 @@
 
 	<repositories>
 
+		<repository>
+			<id>mare-nexus</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/groups/owncloud/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 		<repository>
 			<id>central</id>
 			<name>Maven Repository</name>
@@ -190,8 +202,7 @@
 		<repository>
 			<id>bbe-releases</id>
 			<name>Mavento Release Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/releases/
-			</url>
+			<url>http://maven.bbe-consulting.de/content/repositories/releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -199,8 +210,7 @@
 		<repository>
 			<id>bbe-snapshots</id>
 			<name>Mavento Snapshot Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/snapshots/
-			</url>
+			<url>http://maven.bbe-consulting.de/content/repositories/snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -230,6 +240,19 @@
 			<url>https://martinreinhardt-online.de/dev/docs/maven/owncloud-apps/${project.baseUri}
 			</url>
 		</site>
+		<!-- Publish the versioned releases here -->
+		<repository>
+			<id>mare-nexus</id>
+			<name>Own Nexus Repository</name>
+			<url>dav:https://martinreinhardt-online.de/nexus/content/repositories/public/</url>
+		</repository>
+
+		<!-- Publish the versioned releases here -->
+		<snapshotRepository>
+			<id>mare-nexus</id>
+			<name>Own Nexus Repository</name>
+			<url>dav:https://martinreinhardt-online.de/nexus/content/repositories/public/</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<scm>

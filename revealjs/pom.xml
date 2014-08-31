@@ -95,12 +95,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>${maven-site-plugin.version}</version>
 				<configuration>
 					<reportPlugins>
 						<plugin>
 							<groupId>org.phpmaven</groupId>
 							<artifactId>maven-php-plugin</artifactId>
+							<version>${maven-php.version}</version>
 							<reportSets>
 								<reportSet>
 									<reports>
@@ -112,11 +112,6 @@
 							</reportSets>
 						</plugin>
 					</reportPlugins>
-					<generateReports>true</generateReports>
-					<inputEncoding>UTF-8</inputEncoding>
-					<outputEncoding>UTF-8</outputEncoding>
-					<!-- Site deployment done using GitHub site plugin -->
-					<skipDeploy>true</skipDeploy>
 				</configuration>
 			</plugin>
 			<plugin>
