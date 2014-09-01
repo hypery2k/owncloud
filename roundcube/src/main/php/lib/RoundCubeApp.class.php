@@ -80,7 +80,7 @@ class OC_RoundCube_App {
 	 *
 	 * @return array('privateKey', 'publicKey')
 	 */
-	public static function generateKeyPair($user, $pass = false)
+	public static function generateKeyPair($user, $password = false)
 	{
 		/* Create the private and public key */
 		$res = openssl_pkey_new();
