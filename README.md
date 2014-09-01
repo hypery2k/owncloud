@@ -19,26 +19,6 @@ Or via PayPal:
 <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2SAK2NYWB8QA2">
 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"/>
 </img></a>
-
-## Development
-
-see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
-
-##
-To run all unit tests execute
-
-	mvn clean test
-
-To run only javascript test go to one module and execute
-
-	grunt test
-
-For javascript unit test debugging execute:
-
-	karma start src/test/webapp/karma.conf.js
- 
-and point your browser to http://localhost:9080/
-
 ## Currently released
 
 ### Roundcube
@@ -54,6 +34,26 @@ Embedd roundcube interface in owncloud
 * Mailserver with IMAP-Support
 * Roundcube Webmailclient (tested with roundcubemail-0.7,0.8,0.9 and 1.0)
 
+
+## Development
+
+see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
+
+Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen
+
+To run all unit tests execute
+
+	```mvn clean test```
+
+To run only javascript test go to one module and execute
+
+	```grunt test```
+
+For javascript unit test debugging execute:
+
+	```karma start src/test/webapp/karma.conf.js```
+ 
+and point your browser to http://localhost:9080/
 
 ##Planned
 
