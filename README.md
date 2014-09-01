@@ -38,20 +38,21 @@ Embedd roundcube interface in owncloud
 ## Development
 
 see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
+A Maven-Site is also [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/site/).
 
 Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen
 
 To run all unit tests execute
 
-	```mvn clean test```
+```mvn clean test```
 
 To run only javascript test go to one module and execute
 
-	```grunt test```
+```grunt test```
 
 For javascript unit test debugging execute:
 
-	```karma start src/test/webapp/karma.conf.js```
+```karma start src/test/webapp/karma.conf.js```
  
 and point your browser to http://localhost:9080/
 
