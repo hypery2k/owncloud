@@ -23,7 +23,6 @@
 
 // Check if we are a user
 OCP\User::checkLoggedIn();
-//OCP\App::checkAppEnabled('bookmarks');
 OCP\App::checkAppEnabled('roundcube');
 
 OCP\Util::addStyle('roundcube', 'userSettings');
@@ -33,8 +32,8 @@ OCP\Util::addScript('roundcube', 'userSettings');
 $params = array();
 $tmpl = new OCP\Template('roundcube', 'userSettings');
 foreach ($params as $param) {
-  $value = OCP\Config::getAppValue('roundcube', $param, '');
-  $tmpl -> assign($param, $value);
+	$value = OCP\Config::getAppValue('roundcube', $param, '');
+	$tmpl -> assign($param, $value);
 }
 
 // workaround to detect OC version

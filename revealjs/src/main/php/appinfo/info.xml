@@ -2,9 +2,18 @@
 <info>
 	<id>revealjs</id>
 	<name>RevealJS Application</name>
-	<description>A reveal.js app for ownCloud</description>
-	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.buildNumber}</version>
 	<licence>AGPL</licence>
 	<author>Raghu Nayyar and Frank Karlitschek and Martin Reinhardt</author>
-	<require>5</require>
+	<require>5.0</require>
+	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.buildNumber}</version>
+
+	<description>
+		A reveal.js app for ownCloud
+	</description>
+
+	<documentation>
+		<admin>https://github.com/hypery2k/owncloud/wiki/Installation#revealjs</admin>
+	</documentation>
+
+	<website>https://github.com/hypery2k/owncloud</website>
 </info>

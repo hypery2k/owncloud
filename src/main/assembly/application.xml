@@ -12,4 +12,11 @@
 			<outputDirectory>/</outputDirectory>
 		</fileSet>
 	</fileSets>
+	<files>
+		<file>
+			<source>target/classes/appinfo/info.xml</source>
+			<outputDirectory>/appinfo</outputDirectory>
+			<filtered>true</filtered>
+		</file>
+	</files>
 </assembly>

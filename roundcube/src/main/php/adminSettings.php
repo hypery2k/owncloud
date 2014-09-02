@@ -32,8 +32,8 @@ $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', '
 
 $tmpl = new OCP\Template('roundcube', 'adminSettings');
 foreach ($params as $param) {
-  $value = OCP\Config::getAppValue('roundcube', $param, '');
-  $tmpl -> assign($param, $value);
+	$value = OCP\Config::getAppValue('roundcube', $param, '');
+	$tmpl -> assign($param, $value);
 }
 
 // workaround to detect OC version
