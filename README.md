@@ -4,17 +4,13 @@ Some Apps for owncloud
 If anybody wants to stand in for the development of the app, feel free to use my code The upcoming release 2.5.1 of roundcube and storage charts 2 will be the last release. It takes to much time and money supporting this kind of development.
 
 ========
- [Wiki](https://github.com/hypery2k/owncloud/wiki)
+Current Build Status: [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/)
 
-Current Build Status:
-
-[![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/)
-
-In this repo you'll find apps and enhancements for owncloud.
+In this repo you'll find apps and enhancements for owncloud. 
 
 <a href='http://www.pledgie.com/campaigns/23447'><img alt='Click here to lend your support to: Owncloud Apps and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/23447.png?skin_name=chrome' border='0' /></a>
 
-Or via PayPal:
+Or via PayPal: 
 
 <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2SAK2NYWB8QA2">
 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"/>
