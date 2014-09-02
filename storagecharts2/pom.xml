@@ -135,6 +135,9 @@
 					<descriptors>
 						<descriptor>src/main/assembly/application.xml</descriptor>
 					</descriptors>
+					<finalName>${artifactId}_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.buildNumber}
+					</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 			</plugin>
 		</plugins>
