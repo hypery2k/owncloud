@@ -58,7 +58,7 @@ public class RoundCubeRefreshIT extends RoundCubeMockedMailIT {
 		loggedInuserSteps.go_to_roundcube_view();
 		rcSteps.is_not_showing_errors();
 		rcSteps.message_should_have_a_valid_subject();
-		rcSteps.waitFor(6).minutes();
+		rcSteps.wait_on_app_page(6);
 		rcSteps.is_not_showing_errors();
 		rcSteps.message_should_have_a_valid_subject();
 

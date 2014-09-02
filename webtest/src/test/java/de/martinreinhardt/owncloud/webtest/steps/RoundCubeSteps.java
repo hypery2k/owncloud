@@ -57,6 +57,11 @@ public class RoundCubeSteps extends PortalUserSteps {
 	}
 
 	@Step
+	public void wait_on_app_page(final int pMinutes) throws TestError {
+		waitFor(pMinutes).minutes();
+	}
+
+	@Step
 	public void message_should_have_a_valid_subject() throws TestError {
 		final String subject = onWebmailPage().getFirstMessageSubject();
 		LOG.info("Got the following subject: " + subject);
