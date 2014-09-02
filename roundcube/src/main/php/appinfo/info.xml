@@ -5,7 +5,7 @@
 	<licence>AGPL</licence>
 	<author>Martin Reinhardt</author>
 	<require>5.0</require>
-	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.buildNumber}</version>
+	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${env.BUILD_NUMBER}</version>
 
 	<description>
 		Integrates existing roundcube into OwnCloud, check the instructions below.
