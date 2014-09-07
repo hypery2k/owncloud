@@ -15,21 +15,15 @@ Or via PayPal:
 <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2SAK2NYWB8QA2">
 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"/>
 </img></a>
-## Currently released
 
-### Roundcube
-Embedd roundcube interface in owncloud
+## Apps
 
-![RoundCube App](https://github.com/hypery2k/owncloud/raw/master/src/site/images/roundcube_screenshot.png)
+### Currently released
+* [Roundcube](roundcube/README.md)
+* [StorageCharts](storagecharts2/README.md)
 
-### StorageCharts
-* reenable StorageCharts App for OwnCloud 6 
-
-#### Requirements:
-* OwnCloud 5.0+  (tested with 5.0 - 7.0.0)
-* Mailserver with IMAP-Support
-* Roundcube Webmailclient (tested with roundcubemail-0.7,0.8,0.9 and 1.0)
-
+### In Development
+* [revealjs](revealjs/README.md)
 
 ## Development
 
@@ -51,14 +45,3 @@ For javascript unit test debugging execute:
 ```karma start src/test/webapp/karma.conf.js```
  
 and point your browser to http://localhost:9080/
-
-##Planned
-
-
-### RevealJS
-* Viewer
-* Online-Editor
-
-### LDAP Profile Editor
-* Edit LDAP user profile including password change
-* update picture

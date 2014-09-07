@@ -5,7 +5,8 @@
 	<licence>AGPL</licence>
 	<author>Raghu Nayyar and Frank Karlitschek and Martin Reinhardt</author>
 	<require>5.0</require>
-	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</version>
+	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${env.BUILD_NUMBER}
+	</version>
 
 	<description>
 		A reveal.js app for ownCloud
