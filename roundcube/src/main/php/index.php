@@ -23,7 +23,6 @@
 
 // Check if we are a user
 OCP\User::checkLoggedIn();
-//OCP\App::checkAppEnabled('bookmarks');
 OCP\App::checkAppEnabled('roundcube');
 
 
@@ -52,7 +51,7 @@ if ($ocVersion < 6) {
   // Don't, already included, and a second include breaks jquery-migrate.
   //OC_Util::addScript("jquery-1.10.0.min");
 }
-OCP\Util::addScript('roundcube', 'mail');
+OCP\Util::addScript('roundcube', 'tpl.mail');
 
 // add new navigation entry
 OCP\App::setActiveNavigationEntry("roundcube_index");

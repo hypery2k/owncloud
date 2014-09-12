@@ -30,7 +30,7 @@ OCP\Util::addScript('roundcube', 'adminSettings');
 // fill template
 $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval', 'rcNoCronRefresh');
 
-$tmpl = new OCP\Template('roundcube', 'adminSettings');
+$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings');
 foreach ($params as $param) {
 	$value = OCP\Config::getAppValue('roundcube', $param, '');
 	$tmpl -> assign($param, $value);

@@ -20,11 +20,11 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
+// Check if we are a user
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('storagecharts2');
 
-$tmpl = new OCP\Template('storagecharts2', 'settings.tpl');
+$tmpl = new OCP\Template('storagecharts2', 'tpl.settings');
 
 if(isset($_POST['storagecharts2_disp']) && count($_POST['storagecharts2_disp']) <= 3){
 	$c = $_POST['storagecharts2_disp'];
@@ -40,4 +40,8 @@ if(isset($_POST['storagecharts2_disp']) && count($_POST['storagecharts2_disp']) 
 
 $displays = OC_DLStCharts::getUConfValue('c_disp', Array('uc_val' => 'a:3:{s:10:"cpie_rfsus";i:1;s:11:"clines_usse";i:1;s:9:"chisto_us";i:1;}'));
 $tmpl->assign('displays', unserialize($displays['uc_val']));
+
+// workaround to detect OC version
+$ocVersion = @reset(OCP\Util::getVersion());
+$tmpl->assign('ocVersion', $ocVersion);
 return $tmpl->fetchPage();

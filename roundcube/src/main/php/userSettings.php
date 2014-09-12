@@ -30,7 +30,7 @@ OCP\Util::addScript('roundcube', 'userSettings');
 
 // fill template
 $params = array();
-$tmpl = new OCP\Template('roundcube', 'userSettings');
+$tmpl = new OCP\Template('roundcube', 'tpl.userSettings');
 foreach ($params as $param) {
 	$value = OCP\Config::getAppValue('roundcube', $param, '');
 	$tmpl -> assign($param, $value);

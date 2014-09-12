@@ -24,7 +24,7 @@
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('storagecharts2');
 
-$tmpl = new OCP\Template('storagecharts2', 'charts.tpl', 'user');
+$tmpl = new OCP\Template('storagecharts2', 'tpl.charts', 'user');
 
 // Get data for all users if admin or just for the current user
 $displays = OC_DLStCharts::getUConfValue('c_disp', Array('uc_val' => 'a:3:{s:10:"cpie_rfsus";i:1;s:11:"clines_usse";i:1;s:9:"chisto_us";i:1;}'));
