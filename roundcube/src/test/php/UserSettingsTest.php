@@ -25,7 +25,7 @@ class UserSettingsOC7Test extends PHPUnit_Framework_TestCase {
 		$cfgClass='';
 		$l=new OC_L10N('roundcube');
 		OCP\Config::$APPVALUE=array('autoLogin'  => true);
-		require_once("templates/userSettings.php");
+		require_once("templates/tpl.userSettings.php");
 	}
 
 	public function testWithoutAutologin(){
@@ -33,7 +33,7 @@ class UserSettingsOC7Test extends PHPUnit_Framework_TestCase {
 		$cfgClass='';
 		$l=new OC_L10N('roundcube');
 		OCP\Config::$APPVALUE=array('autoLogin'  => false);
-		require_once("templates/userSettings.php");
+		require_once("templates/tpl.userSettings.php");
 		$_POST=array('appname'  => 'roundcube');
 		$_POST=array('rc_mail_username'  => 'user');
 		$_POST=array('rc_mail_password'  => 'password');

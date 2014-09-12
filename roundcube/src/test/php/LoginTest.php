@@ -68,7 +68,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$content='';
 		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
-				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader') ,
+				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())
@@ -94,7 +94,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$content=' <div id="message"';
 		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
-				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader') ,
+				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())
@@ -104,7 +104,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		->method('closeUrlConnection')
 		->will($this->returnValue($responseObj));
 		try {
-		$mockedRcLogin -> login("user","password");		
+			$mockedRcLogin -> login("user","password");
 		}
 		catch (OC_Mail_LoginException $expected) {
 			return;
@@ -115,11 +115,29 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 	public function testSuccessfullLogin(){
 		$http_response_header=array('HTTP/1.1 200 OK',
 				'Location: .\/?_task=mail',
-				'path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		'path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
 		$mockedResponse=' <div id="message"';
 		$responseObj= new Response($http_response_header,$mockedResponse);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
-				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader') ,
+				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
 				array('localhost','443','mail')
 		);
 		$mockedRcLogin->expects($this->any())

@@ -292,8 +292,7 @@ class OC_RoundCube_Login {
 		}
 		$this->sendRequest($this->rcPath, $data);
 		// remove cookies
-		setcookie("roundcube_sessid","", time()-8000 , '/' );
-		setcookie("roundcube_sessauth","", time()-8000 , '/' );
+		$this->setRcCookies("","",true);
 		return !$this->isLoggedIn();
 	}
 
@@ -470,13 +469,28 @@ class OC_RoundCube_Login {
 				$this->lastToken = $m[1];
 				// override previous token (if this one exists!)
 			}
-			//$this->addDebug("sendRequest", "Header received: " . print_r($responseHdr, true) . "\nResponse was" . $response);
+			$this->addDebug("sendRequest", "Header received: " . print_r($responseHdr, true) . "\nResponse was" . $response);
 			$this->emitAuthHeaders();
 			// refresh cookies
-			setcookie("roundcube_sessid",$this->rcSessionID, time()+8000 , '/' ); 
-			setcookie("roundcube_sessauth",$this->rcSessionAuth, time()+8000 , '/' ); 
+			$this->setRcCookies($this->rcSessionID,$this->rcSessionAuth,false);
 		}
 		return $response;
+	}
+	
+	/**
+	 *  Set roundcube values to current value
+	 * @param sessionID to use $pSessionID
+	 * @param sessionauth to use $pSessionAuth
+	 * @param set to true if you want to reset the roundcube cookies $pReset
+	 */
+	function setRcCookies($pSessionID,$pSessionAuth,$pReset=false){
+		$cookieTtl = $pReset?time()-8000:time()+8000;
+		if ($this->rcSessionID) {
+			setcookie("roundcube_sessid",$pSessionID, $cookieTtl , '/' );
+		}
+		if ($this->rcSessionAuth) {
+			setcookie("roundcube_sessauth",$pSessionAuth, $cookieTtl , '/' );
+		}
 	}
 
 	/**
