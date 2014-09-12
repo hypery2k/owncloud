@@ -293,7 +293,8 @@ class OC_RoundCube_App {
 		// Create RC login object.
 		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 		try {
-			if (!$rcl->isLoggedIn()) {
+			$login = $rcl->isLoggedIn();
+			if (!$login) {
 				// If the login fails, display an error message in the loggs
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->showMailFrame(): Not logged in.', OCP\Util::ERROR);
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->showMailFrame(): Trying to refresh session.', OCP\Util::INFO);
@@ -307,6 +308,7 @@ class OC_RoundCube_App {
 			$disable_header_nav = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', 'false');
 			$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
+			$returnObject -> setDisplayName($login);
 			// create iFrame begin
 			$returnObject -> appendHtmlOutput('<img src="' . $loader_image . '" id="roundcubeLoader">');
 			$returnObject -> appendHtmlOutput('<iframe src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame"  name="roundcube" width="100%" style="display:none;">  </iframe>');

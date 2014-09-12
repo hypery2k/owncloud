@@ -147,6 +147,8 @@ class OC_RoundCube_Login {
 	 * @var string
 	 */
 	private $lastToken;
+	
+	private $login;
 
 	private $rcUrlResource;
 
@@ -224,6 +226,8 @@ class OC_RoundCube_Login {
 		if ($this->isLoggedIn()){
 			$this->logout();
 		}
+		
+		$login = $username;
 		// Try login
 		$data = array("_task" => "login",
 				"_action" => "login",
@@ -278,7 +282,7 @@ class OC_RoundCube_Login {
 			$this->addDebug("isLoggedIn", "Could unkown login status.");
 			throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
 		}
-		return ($this->rcLoginStatus > 0) ? true : false;
+		return ($this->rcLoginStatus > 0) ? $this->login : false;
 	}
 
 	/**

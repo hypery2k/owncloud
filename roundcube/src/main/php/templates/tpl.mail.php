@@ -52,9 +52,9 @@ if (!$table_exists) {
 	$enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 	$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
-        if ($rc_host == '') {
+	if ($rc_host == '') {
 		$rc_host = OC_Request::serverHost();
-        }
+	}
 	$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
 
 	OCP\Util::writeLog('roundcube', 'Opening iframe for RC-host '.$rc_host.' with port '.$rc_port, OCP\Util::DEBUG);
@@ -102,7 +102,7 @@ if (!$table_exists) {
 					} else {
 						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::INFO);
 						if (!$disable_control_nav) {
-							$html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") . $mail_username . "</div></div>";
+							$html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") .$mailAppReturn->getDisplayName . "</div></div>";
 						}
 						$html_output = $html_output . "<div id=\"notification\"></div>";
 						if (!$disable_control_nav) {

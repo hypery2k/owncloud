@@ -42,10 +42,13 @@ class OC_Mail_Object {
 
   private $htmlOutput;
 
+  private $displayName;
+
   public function __construct() {
     $this -> errorOccurred = false;
     $this -> errorDetails = '';
     $this -> htmlOutput = '';
+    $this -> $displayName = '';
   }
 
   /**
@@ -69,6 +72,21 @@ class OC_Mail_Object {
    */
   public function setHtmlOutput($html) {
     $this -> htmlOutput = $html;
+  }
+
+  /**
+   * return display name
+   */
+  public function getDisplayName() {
+    return $this -> $displayName;
+  }
+
+  /**
+   * set the display name
+   * @param the name to set $name
+   */
+  public function setDisplayName($name) {
+    $this -> $displayName = $name;
   }
 
   /**
