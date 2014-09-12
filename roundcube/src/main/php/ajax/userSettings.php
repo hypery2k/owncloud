@@ -23,11 +23,15 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 		if ($rc_host == '') {
 			$rc_host = OC_Request::serverHost();
 		}
-		$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
+		$params= array(
+				"uid" => $_POST['rc_mail_username'],
+				"password" => $_POST['rc_mail_password'],
+		);
 		// first logout
-		OC_RoundCube_App::logout($rc_host, $rc_port, $maildir, $_POST['rc_mail_username']);
 		// then login again
-		OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $_POST['rc_mail_username'], $_POST['rc_mail_password']);
+		OC_RoundCube_AuthHelper::logout($params);
+		// then login again
+		OC_RoundCube_AuthHelper::login($params);
 	} else {
 		OC_JSON::error(array("data" => array( "message" => $l->t("Unable to store email credentials in the data-base.") )));
 		return false;
