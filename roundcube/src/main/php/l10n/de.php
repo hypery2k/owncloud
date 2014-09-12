@@ -2,7 +2,7 @@
 "Not submitted for us." => "Nicht ans uns übermittelt.",
 "Application settings successfully stored." => "Anwendungseinstellungen wurden erfolgreich gespeichert",
 "Unable to store email credentials in the data-base." => "Emailzugangsdaten konnten nicht gespeichert werden",
-"Email-user credentials successfully stored." => "Emailzugangsdaten wurden erfolgreich gespeichert",
+"Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings." => "Emailzugangsdaten wurden erfolgreich gespeichert. Bitte melden Sie sich erneut in OwnCloud an, damit die Änderungen wirkskam werden.",
 "Webmail" => "Webmail",
 "RoundCube Settings" => "RoundCube Einstellungen",
 "Basic settings" => "Grundeinstellungen",

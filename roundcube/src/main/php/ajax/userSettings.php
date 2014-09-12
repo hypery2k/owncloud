@@ -41,5 +41,5 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 	return false;
 }
 
-OCP\JSON::success(array('data' => array( 'message' => $l->t('Email-user credentials successfully stored.') )));
+OCP\JSON::success(array('data' => array( 'message' => $l->t('Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings.') )));
 return true;
