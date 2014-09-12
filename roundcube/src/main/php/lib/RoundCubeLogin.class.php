@@ -273,9 +273,15 @@ class OC_RoundCube_Login {
 	 * @throws OC_Mail_LoginException
 	 */
 	public function isLoggedIn() {
+		// try login 2 two times
+		try {
+			$this -> updateLoginStatus();
+		} catch (Exception $e) {
+			$this -> addDebug("isLoggedIn", "First login attempt failed. Let's try once gain");
+		}
 		$this -> updateLoginStatus();
-
 		if (!$this -> rcLoginStatus){
+			$this -> addDebug("isLoggedIn", "Could unkown login status.");
 			throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
 		}
 		return ($this -> rcLoginStatus > 0) ? true : false;
@@ -398,19 +404,15 @@ class OC_RoundCube_Login {
 		} else {
 			$url .= $this->rcHost . $sep . $path;
 		}
-
 		$this -> addDebug('sendRequest',
 				'Trying to connect via "' . $method .
 				'" to URL "' . $url .
 				'" on host"' . $this->rcHost . '"');
-
 		// Load cookies and save them in a key/value array
 		$cookies = array();
-
 		foreach ($_COOKIE as $name => $value) {
 			$cookies[] = "$name=$value";
 		}
-
 		// Add roundcube session ID if available
 		if ((!isset($_COOKIE['roundcube_sessid']) || !$_COOKIE['roundcube_sessid']) && $this -> rcSessionID) {
 			// @formatter:off
@@ -423,20 +425,16 @@ class OC_RoundCube_Login {
 			// @formatter:on
 		}
 		$cookies = ($cookies) ? "Cookie: " . join("; ", $cookies) . "\r\n" : "";
-
 		$header = "Content-Type: application/x-www-form-urlencoded" . "\r\n" . "Content-Length: " . strlen($postData) . "\r\n" . $cookies;
 		$context = stream_context_create(array('http' => array(
 				'method' => $method,
 				'header' => $header,
 				'content' => $postData)));
-
 		$responsObj = $this -> openUrlConnection($url, $context);
-
 		if (!$responsObj) {
 			$this -> addDebug("sendRequest", "Network connection failed on fopen(). Please check your path for roundcube with url ".$url." on host". $this->rcHost);
 			throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 		} else {
-
 			// Read response and set received cookies
 			$response =  $responsObj -> getContent();
 			$this -> closeUrlConnection();
@@ -446,9 +444,7 @@ class OC_RoundCube_Login {
 				$this -> addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url ".$url." on host". $this->rcHost);
 				throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
 			}
-
 			$responseHdr = $responsObj -> getHeader();
-
 			$this->authHeaders = array();
 			foreach($responseHdr as $header) {
 				// Got session ID!
@@ -460,36 +456,27 @@ class OC_RoundCube_Login {
 					$this -> addDebug("sendRequest", "Got the following session ID " . $match[2]);
 					$this -> rcSessionID = $match[2];
 				}
-
 				// Got sessauth
 				if (preg_match('/^Set-Cookie:.+roundcube_sessauth=([^;]+);/i', $header, $match)) {
 					$this->authHeaders[] = $header;
 					$this->authHeaders[] = preg_replace('|path=([^;]+);|i', 'path='.\OC::$WEBROOT.'/;', $header);
-					// header($line, false);
-
 					$this -> addDebug("sendRequest", "New session auth: '$match[1]'.");
 					$this -> rcSessionAuth = $match[1];
 				}
-
 				// Location header
 				if (preg_match('/^Location\:.+/', $header)) {
 					$this->rcLocation = $header;
 				}
-
 			}
-
 			// Request token (since Roundcube 0.5.1)
 			if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
 				$this -> lastToken = $m[1];
 			}
-
 			if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
 				$this -> lastToken = $m[1];
 				// override previous token (if this one exists!)
 			}
-
 			$this->addDebug("sendRequest", "Header received: " . print_r($responseHdr, true) . "\nResponse was" . $response);
-
 			$this->emitAuthHeaders();
 		}
 		return $response;

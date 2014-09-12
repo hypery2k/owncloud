@@ -74,19 +74,19 @@ class OC_RoundCube_App {
 	}
 
 	/**
-	 * @brief Generate a private/public key pair.
+	 * Generate a private/public key pair.
 	 * @param $user User ID.
-	 * @param $password Passphrase
+	 * @param $passphrase Passphrase
 	 *
 	 * @return array('privateKey', 'publicKey')
 	 */
-	public static function generateKeyPair($user, $password = false)
+	public static function generateKeyPair($user, $passphrase)
 	{
 		/* Create the private and public key */
 		$res = openssl_pkey_new();
 
 		/* Extract the private key from $res to $privKey */
-		if (!openssl_pkey_export($res, $privKey, $password)) {
+		if (!openssl_pkey_export($res, $privKey, $passphrase)) {
 			return false;
 		}
 
@@ -111,7 +111,7 @@ class OC_RoundCube_App {
 
 	/**
 	 * Get users public key
-	 * @param user $user
+	 * @param $user user
 	 * @return public key
 	 */
 	public static function getPublicKey($user)
@@ -122,35 +122,25 @@ class OC_RoundCube_App {
 
 	/**
 	 * Get private key for user
-	 * @param user $user
-	 * @param password to use $password
+	 * @param $useruser $user
+	 * @param $passphrase to use
 	 * @return private key|boolean
 	 */
-	public static function getPrivateKey($user, $password = false)
+	public static function getPrivateKey($user, $passphrase = false)
 	{
-		if ($user == false && $password == false &&
-		isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY])) {
+		if (isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY])) {
 			return $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
-		} else if ($user == false) {
-			return false;
-		}
-
-		$privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', false);
-		if ($privKey === false) {
-			$result = self::generateKeyPair($user, $password);
-			$privKey = $result['privateKey'];
 		} else {
-			$privKey = openssl_pkey_get_private($privKey, $password);
-			if ($privKey === false) {
-				return false;
+			$privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', $passphrase);
+			// need to create key pair
+			if ($privKey === false && $passphrase != false) {
+				$result = self::generateKeyPair($user, $passphrase);
+				$privKey = $result['privateKey'];
 			}
-			if (openssl_pkey_export($privKey, $privKey) === false) {
-				return false;
-			}
+			// save key attribute in session
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
+			return $privKey;
 		}
-		// save key attribute in session
-		$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
-		return $privKey;
 	}
 
 	/**
