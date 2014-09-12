@@ -44,7 +44,7 @@ public class MockedImapServer extends AbstractUITest {
 	public MimeMessage getMockMessage(final String pPrefix, final EmailUserDetails pEmailUserDetails)
 			throws AddressException, MessagingException {
 		final MimeMessage msg = new MimeMessage((Session) null);
-		msg.setSubject(TEST_MAIL_SUBJECT + " " + pPrefix);
+		msg.setSubject(TEST_MAIL_SUBJECT + " " + pPrefix + " " + pEmailUserDetails.getUsername());
 		msg.setFrom(new InternetAddress(TEST_MAIL_SENDER));
 		final String message = "<div style=\"color:red;\">Some text here ..</div>";
 		msg.setContent(message, "text/html; charset=utf-8");
@@ -82,10 +82,12 @@ public class MockedImapServer extends AbstractUITest {
 			server.start();
 
 			final GreenMailUser user = server.setUser(getPositiveEmailUserWhichIsAOcUser().getEmail(),
-					getPositiveEmailUserWhichIsAOcUser().getUsername(), getPositiveEmailUserWhichIsAOcUser().getPassword());
+					getPositiveEmailUserWhichIsAOcUser().getUsername(), getPositiveEmailUserWhichIsAOcUser()
+							.getPassword());
 
 			final GreenMailUser user2 = server.setUser(getPositiveEmailUserWhichIsNoOcUser().getEmail(),
-					getPositiveEmailUserWhichIsNoOcUser().getUsername(), getPositiveEmailUserWhichIsNoOcUser().getPassword());
+					getPositiveEmailUserWhichIsNoOcUser().getUsername(), getPositiveEmailUserWhichIsNoOcUser()
+							.getPassword());
 
 			for (int i = 0; i < pNumberOfMessages; i++) {
 				final MimeMessage msg = getMockMessage(Integer.toString(i), getPositiveEmailUserWhichIsAOcUser());
