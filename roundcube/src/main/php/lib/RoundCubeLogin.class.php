@@ -220,6 +220,8 @@ class OC_RoundCube_Login {
 	 * @throws OC_Mail_LoginException
 	 */
 	public function login($username, $password) {
+		$this->addDebug('login(): ','user: '.$username);
+		$this->addDebug('login(): ','pass: '.$password);
 		$this->updateLoginStatus();
 
 		// If already logged in, perform a re-login (logout first)
@@ -252,8 +254,6 @@ class OC_RoundCube_Login {
 			// Login failure detected! If the login failed, RC sends the cookie
 			// "sessauth=-del-"
 			if (preg_match('/^Set-Cookie:.+sessauth=-del-;/mi', $header)) {
-				//header($line, false);
-
 				$this->addDebug("LOGIN FAILED", "RC sent 'sessauth=-del-'; User/Pass combination wrong.");
 				$this->rcLoginStatus = -1;
 				break;
@@ -282,7 +282,7 @@ class OC_RoundCube_Login {
 			$this->addDebug("isLoggedIn", "Could unkown login status.");
 			throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
 		}
-		return ($this->rcLoginStatus > 0) ? $this->login : false;
+		return ($this->rcLoginStatus > 0) ? true : false;
 	}
 
 	/**

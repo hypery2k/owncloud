@@ -51,6 +51,7 @@ if (!$table_exists) {
 	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 	$enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
+	$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 	$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
 	if ($rc_host == '') {
 		$rc_host = OC_Request::serverHost();
@@ -68,14 +69,6 @@ if (!$table_exists) {
 				$html_output = $html_output . $this -> inc("part.error.no-settings");
 			}
 			else {
-				// with autologin oc user = rc user
-				if($enable_autologin){
-					$mail_username = $ocUser;
-				} else{
-					$emailUserCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN];
-					$mail_username = OC_RoundCube_App::decryptMyEntry($emailUserCrypted,$privKey);
-				}
-				$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 				if ($maildir != '') {
 					$mailAppReturn = OC_RoundCube_App::showMailFrame($rc_host, $rc_port, $maildir);
 					if ($mailAppReturn -> isErrorOccurred()) {
@@ -102,7 +95,7 @@ if (!$table_exists) {
 					} else {
 						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::INFO);
 						if (!$disable_control_nav) {
-							$html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") .$mailAppReturn->getDisplayName . "</div></div>";
+							$html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") .$mailAppReturn->getDisplayName(). "</div></div>";
 						}
 						$html_output = $html_output . "<div id=\"notification\"></div>";
 						if (!$disable_control_nav) {

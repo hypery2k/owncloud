@@ -52,20 +52,24 @@ class OC_RoundCube_AuthHelper {
 				$rc_host = OC_Request::serverHost();
 			}
 			$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
+				$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
 
 			$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
 			if ($enable_auto_login) {
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting auto login' . $e,
+				OCP\Util::DEBUG);
 				// SSO attempt
 				$mail_username = $username;
 				$mail_password = $password;
 			} else {
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting manual login' . $e,
+				OCP\Util::DEBUG);
 				// Fetch credentials from data-base
 				$mail_userdata_entries = OC_RoundCube_App::checkLoginData($username);
 				// TODO create dropdown list
 				$mail_userdata = $mail_userdata_entries[0];
 
-				$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
 
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
@@ -75,8 +79,7 @@ class OC_RoundCube_AuthHelper {
 			$pubKey =  OC_RoundCube_App::getPublicKey($username);
 			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($mail_username, $pubKey);
 			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($mail_password, $pubKey);
-			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN] = $emailUserCrypted;
-			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD] = $emailPasswordCrypted;
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
 
 			// login
 			OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
@@ -97,6 +100,7 @@ class OC_RoundCube_AuthHelper {
 	public static function logout($params) {
 		try {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Preparing logout of user from roundcube.', OCP\Util::DEBUG);
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = '';
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 			$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
 			if ($rc_host == '') {

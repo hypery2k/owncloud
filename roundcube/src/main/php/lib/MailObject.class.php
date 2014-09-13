@@ -48,7 +48,7 @@ class OC_Mail_Object {
     $this -> errorOccurred = false;
     $this -> errorDetails = '';
     $this -> htmlOutput = '';
-    $this -> $displayName = '';
+    $this -> displayName = '';
   }
 
   /**
@@ -78,7 +78,7 @@ class OC_Mail_Object {
    * return display name
    */
   public function getDisplayName() {
-    return $this -> $displayName;
+    return $this -> displayName;
   }
 
   /**
@@ -86,7 +86,7 @@ class OC_Mail_Object {
    * @param the name to set $name
    */
   public function setDisplayName($name) {
-    $this -> $displayName = $name;
+    $this -> displayName = $name;
   }
 
   /**

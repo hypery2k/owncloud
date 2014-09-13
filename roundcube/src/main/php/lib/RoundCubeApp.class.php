@@ -29,10 +29,6 @@ class OC_RoundCube_App {
 
 	const SESSION_ATTR_RCPRIVKEY = 'OC\\ROUNDCUBE\\privateKey';
 
-	const SESSION_ATTR_RCLOGIN = 'OC\\ROUNDCUBE\\login';
-
-	const SESSION_ATTR_RCPASSWORD = 'OC\\ROUNDCUBE\\password';
-
 	public $mailData = '';
 
 	/**
@@ -120,14 +116,14 @@ class OC_RoundCube_App {
 	 * @param passphrase to use $passphrase
 	 * @return private key|boolean
 	 */
-	public static function getPrivateKey($user, $passphrase = false)
+	public static function getPrivateKey($user, $passphrase)
 	{
 		if (isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY])) {
 			return $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
 		} else {
 			$privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', $passphrase);
 			// need to create key pair
-			if ($privKey === false && $passphrase != false) {
+			if ($privKey === false) {
 				$result = self::generateKeyPair($user, $passphrase);
 				$privKey = $result['privateKey'];
 			}
@@ -261,13 +257,16 @@ class OC_RoundCube_App {
 			return true;
 		} else {
 			// login expired, we are
-			if (isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN])) {
+			if (isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY])) {
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Login seems expired. Trying a new login.', OCP\Util::INFO);
-				$emailUserCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCLOGIN];
-				$emailPasswordCrypted = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPASSWORD];
-				$privKey = self::getPrivateKey($ocUser,false);
-				$rcLogin = self::decryptMyEntry($emailUserCrypted,$privKey);
-				$rcPassword = self::decryptMyEntry($emailPasswordCrypted,$privKey);
+				$privKey = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
+				$mail_userdata_entries = OC_RoundCube_App::checkLoginData($ocUser,1);
+				// TODO create dropdown list
+				$mail_userdata = $mail_userdata_entries[0];
+				$rcLogin = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
+				$rcPassword = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): key is: '.$privKey, OCP\Util::DEBUG);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): user is: '.$rcLogin, OCP\Util::DEBUG);
 				self::login($rcHost, $rcPort, $maildir, $rcLogin, $rcPassword);
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): New login done.', OCP\Util::INFO);
 			} else{
@@ -287,9 +286,15 @@ class OC_RoundCube_App {
 	 *
 	 */
 	public static function showMailFrame($rcHost, $rcPort, $maildir) {
+		$ocUser = OCP\User::getUser();
+		$privKey = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
 		$returnObject = new OC_Mail_Object();
 		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', true);
 		$enableAutologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
+		$mail_userdata_entries = OC_RoundCube_App::checkLoginData($ocUser,1);
+		// TODO create dropdown list
+		$mail_userdata = $mail_userdata_entries[0];
+		$rcLogin = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 		// Create RC login object.
 		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
 		try {
@@ -308,7 +313,7 @@ class OC_RoundCube_App {
 			$disable_header_nav = OCP\Config::getAppValue('roundcube', 'removeHeaderNav', 'false');
 			$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', 'false');
 
-			$returnObject -> setDisplayName($login);
+			$returnObject -> setDisplayName($rcLogin);
 			// create iFrame begin
 			$returnObject -> appendHtmlOutput('<img src="' . $loader_image . '" id="roundcubeLoader">');
 			$returnObject -> appendHtmlOutput('<iframe src="' . $rcl -> getRedirectPath() . '" id="roundcubeFrame"  name="roundcube" width="100%" style="display:none;">  </iframe>');
