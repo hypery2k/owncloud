@@ -52,7 +52,7 @@ class OC_RoundCube_AuthHelper {
 				$rc_host = OC_Request::serverHost();
 			}
 			$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
-				$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
+			$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
 
 			$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 
@@ -75,14 +75,12 @@ class OC_RoundCube_AuthHelper {
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 			}
 
-			// save login data encrypted for later usage
-			$pubKey =  OC_RoundCube_App::getPublicKey($username);
-			$emailUserCrypted = OC_RoundCube_App::cryptMyEntry($mail_username, $pubKey);
-			$emailPasswordCrypted = OC_RoundCube_App::cryptMyEntry($mail_password, $pubKey);
+			// save private key for later usage
 			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
-
 			// login
+			self::logout($params);
 			OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
+			OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
 			return true;
 		} catch (Exception $e) {
 			// We got an exception == table not found
@@ -153,7 +151,7 @@ class OC_RoundCube_AuthHelper {
 		$password = $params['password'];
 
 		// Try to fetch from session
-		$oldPrivKey = OC_RoundCube_App::getPrivateKey($username, false);
+		$oldPrivKey = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
 		// Take the chance to alter the priv/pubkey pair
 		OC_RoundCube_App::generateKeyPair($username, $password);
 		$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
@@ -164,15 +162,9 @@ class OC_RoundCube_AuthHelper {
 			foreach ($mail_userdata_entries as $mail_userdata) {
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $oldPrivKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $oldPrivKey);
-
-				$myID = $mail_userdata['id'];
-				$mail_username = OC_RoundCube_App::cryptMyEntry($mail_username, $pubKey);
-				$mail_password = OC_RoundCube_App::cryptMyEntry($mail_password, $pubKey);
-
-				$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE id = ?");
+				OC_RoundCube_App::cryptEmailIdentity($username, $mail_username, $mail_password);
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->changePasswordListener():' . 'Updated mail password data due to password changed for user ' . $username,
 				OCP\Util::DEBUG);
-				$result = $stmt -> execute(array($mail_username, $mail_password, $myID));
 			}
 		} else {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->changePasswordListener():' . 'No private key for ' . $username,
