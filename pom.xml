@@ -117,7 +117,6 @@
 		<thucydides.version>0.9.269</thucydides.version>
 		<greenmail.version>1.3.1b</greenmail.version>
 		<javax-mail.version>1.5.0</javax-mail.version>
-
 		<hamcrest-library.version>1.1</hamcrest-library.version>
 		<webdriver.driver>firefox</webdriver.driver>
 
@@ -140,51 +139,13 @@
 		<github-site-maven-plugin.version>0.9</github-site-maven-plugin.version>
 		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
 
-
 	</properties>
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>central</id>
-			<name>Maven Repository</name>
-			<url>http://repo1.maven.org/maven2/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-		<pluginRepository>
-			<id>release-codename-php</id>
-			<name>PHP-Maven 2 Release Repository</name>
-			<url>http://deploy.codename-php.de</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-
-		<pluginRepository>
-			<id>bbe-releases</id>
-			<name>Mavento Release Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/releases/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-		<pluginRepository>
-			<id>bbe-snapshots</id>
-			<name>Mavento Snapshot Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-
-		<pluginRepository>
 			<id>mare-nexus</id>
 			<name>Own Nexus Repository</name>
-			<url>https://martinreinhardt-online.de/nexus/content/repositories/public/</url>
+			<url>https://martinreinhardt-online.de/nexus/content/groups/owncloud/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -193,9 +154,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
 	<repositories>
-
 		<repository>
 			<id>mare-nexus</id>
 			<name>Own Nexus Repository</name>
@@ -204,61 +163,17 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
-		<repository>
-			<id>central</id>
-			<name>Maven Repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>bbe-releases</id>
-			<name>Mavento Release Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/releases/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>bbe-snapshots</id>
-			<name>Mavento Snapshot Repository</name>
-			<url>http://maven.bbe-consulting.de/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-
-		<!--<repository> <id>release-repo1.php-maven.org</id> <name>PHP-Maven 2 Release Repository</name> <url>http://repos.php-maven.org/releases</url> 
-			<releases> <enabled>true</enabled> </releases> </repository> -->
-
-		<repository>
-			<id>release-codename-php</id>
-			<name>PHP-Maven 2 Release Repository</name>
-			<url>http://deploy.codename-php.de</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
 	</repositories>
 
 	<distributionManagement>
-		<!-- <site> <id>${site.deploy.id}</id> <name>Deployment through GitHub's site deployment plugin</name> <url>${site.deploy.url}</url> 
+		<!-- <site> 
+		<id>${site.deploy.id}</id> <name>Deployment through GitHub's site deployment plugin</name> <url>${site.deploy.url}</url> 
 			</site> -->
 		<site>
 			<id>${project.artifactId}-site</id>
 			<url>https://martinreinhardt-online.de/dev/docs/maven/owncloud-apps/${project.baseUri}
 			</url>
 		</site>
-		<!-- Publish the versioned releases here -->
-		<repository>
-			<id>mare-nexus</id>
-			<name>Own Nexus Repository</name>
-			<url>dav:https://martinreinhardt-online.de/nexus/content/repositories/public/</url>
-		</repository>
 
 		<!-- Publish the versioned releases here -->
 		<snapshotRepository>
