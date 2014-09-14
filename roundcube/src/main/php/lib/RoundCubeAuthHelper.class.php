@@ -48,14 +48,12 @@ class OC_RoundCube_AuthHelper {
 
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 			$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+			$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
+			$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 			if ($rc_host == '') {
 				$rc_host = OC_Request::serverHost();
 			}
-			$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
 			$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
-
-			$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
-
 			if ($enable_auto_login) {
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting auto login' . $e,
 				OCP\Util::DEBUG);
@@ -69,14 +67,12 @@ class OC_RoundCube_AuthHelper {
 				$mail_userdata_entries = OC_RoundCube_App::checkLoginData($username);
 				// TODO create dropdown list
 				$mail_userdata = $mail_userdata_entries[0];
-
-
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 			}
-
 			// save private key for later usage
 			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Saved private key: ' . $privKey, OCP\Util::DEBUG);
 			// login
 			self::logout($params);
 			OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
@@ -84,8 +80,7 @@ class OC_RoundCube_AuthHelper {
 			return true;
 		} catch (Exception $e) {
 			// We got an exception == table not found
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' . $e,
-			OCP\Util::DEBUG);
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' . $e, OCP\Util::ERROR);
 			return false;
 		}
 	}

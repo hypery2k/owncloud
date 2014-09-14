@@ -118,19 +118,15 @@ class OC_RoundCube_App {
 	 */
 	public static function getPrivateKey($user, $passphrase)
 	{
-		if (isset($_SESSION[self::SESSION_ATTR_RCPRIVKEY])) {
-			return $_SESSION[self::SESSION_ATTR_RCPRIVKEY];
-		} else {
-			$privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', $passphrase);
-			// need to create key pair
-			if ($privKey === false) {
-				$result = self::generateKeyPair($user, $passphrase);
-				$privKey = $result['privateKey'];
-			}
-			// save key attribute in session
-			$_SESSION[self::SESSION_ATTR_RCPRIVKEY] = $privKey;
-			return $privKey;
+		$privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', $passphrase);
+		// need to create key pair
+		if ($privKey === false) {
+			$result = self::generateKeyPair($user, $passphrase);
+			$privKey = $result['privateKey'];
 		}
+		// save key attribute in session
+		$_SESSION[self::SESSION_ATTR_RCPRIVKEY] = $privKey;
+		return $privKey;
 	}
 
 	/**
