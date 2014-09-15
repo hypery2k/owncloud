@@ -107,7 +107,7 @@
 		<slf4j.version>1.6.1</slf4j.version>
 
 		<!-- Web properties -->
-		<maven-php.version>2.1.0</maven-php.version>
+		<maven-php.version>2.0.20-SNAPSHOT</maven-php.version>
 		<maven-jstools-plugin.version>0.6</maven-jstools-plugin.version>
 		<frontend-maven-plugin.version>0.0.15</frontend-maven-plugin.version>
 
@@ -166,8 +166,7 @@
 	</repositories>
 
 	<distributionManagement>
-		<!-- <site> 
-		<id>${site.deploy.id}</id> <name>Deployment through GitHub's site deployment plugin</name> <url>${site.deploy.url}</url> 
+		<!-- <site> <id>${site.deploy.id}</id> <name>Deployment through GitHub's site deployment plugin</name> <url>${site.deploy.url}</url> 
 			</site> -->
 		<site>
 			<id>${project.artifactId}-site</id>
