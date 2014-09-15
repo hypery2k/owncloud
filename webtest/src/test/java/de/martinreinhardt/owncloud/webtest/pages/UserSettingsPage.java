@@ -12,6 +12,7 @@ import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.findby.FindBy;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -65,6 +66,7 @@ public class UserSettingsPage extends AbstractPage {
 
 	public boolean save_roundcube_settings() {
 		click(rcSaveSettings);
+		waitForRenderedElementsToBePresent(By.id(RC_ID_STATUS_MSG));
 		return rcStatusMsg.isDisplayed();
 	}
 
