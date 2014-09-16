@@ -1,6 +1,6 @@
 {
   "name": "oc_revealjs",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "dependencies": {},
   "repository": "git://github.com/hypery2k/owncloud",
   "devDependencies": {
