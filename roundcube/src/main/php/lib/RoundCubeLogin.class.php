@@ -493,12 +493,14 @@ class OC_RoundCube_Login {
 		$response = false;
 		try {
 			$this -> urlResource = fopen($pURL, 'rb', false, $pContext);
-			if($this -> urlResource){
+			if($http_response_header && $this -> urlResource){
 				$response = new Response($http_response_header,stream_get_contents($this -> urlResource));
+			} else {
+				$this -> addDebug("openUrlConnection", "URL (url:".$pURL.") open failed: ", $e);
 			}
 		}
 		catch(Exception $e){
-			$this -> addDebug("openUrlConnection", "URL (url:".$pURL." open failed: ", $e);
+			$this -> addError("openUrlConnection", "URL (url:".$pURL.") open failed.");
 		}
 		return $response;
 	}
@@ -520,6 +522,18 @@ class OC_RoundCube_Login {
 	{
 		foreach ($this -> authHeaders as $header) {
 			header($header, false /* replace or not??? */);
+		}
+	}
+
+	/**
+	 * Print a error message.
+	 *
+	 * @param string Short action message
+	 * @param string Output data
+	 */
+	private function addError($action, $data) {
+		if ($this -> debugEnabled) {
+			OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . $action . ': \n ' . $data, OCP\Util::ERROR);
 		}
 	}
 

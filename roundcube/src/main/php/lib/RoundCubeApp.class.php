@@ -295,7 +295,7 @@ class OC_RoundCube_App {
 		$rcPassword = self::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 
 		try {
-			$loggedIn = self::login($rcHost, $rcPort, $maildir, $pLogin, $rcPassword);
+			$loggedIn = self::login($rcHost, $rcPort, $maildir, $rcLogin, $rcPassword);
 			if (!$loggedIn) {
 				// If the login fails, display an error message in the logs
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->showMailFrame(): Not logged in.', OCP\Util::ERROR);
