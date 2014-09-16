@@ -5,6 +5,7 @@ In this repo you'll find apps and enhancements for owncloud.
 
 [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/)
 
+
 Feel free to donate
 
 <a href='http://www.pledgie.com/campaigns/23447'><img alt='Click here to lend your support to: Owncloud Apps and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/23447.png?skin_name=chrome' border='0' /></a>
