@@ -16,7 +16,7 @@ require_once("lib/MailLoginException.class.php");
  * @author mreinhardt
  *
 */
-class LoginTest extends PHPUnit_Framework_TestCase {
+class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase {
 
 
 
@@ -30,11 +30,11 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$rcLogin = new OC_RoundCube_Login('localhost','443','mail');
 		try {
 			$rcLogin -> login("user","password");
+			$this->assertFalse($rcLogin -> isLoggedIn(),'Should not be logged in');
 		}
 		catch (OC_Mail_NetworkingException $expected) {
 			return;
 		}
-
 		$this->fail('An expected exception has not been raised.');
 	}
 
@@ -44,7 +44,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData') ,
-				array('localhost','443','mail')
+				array('localhost','443','mail',true)
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
@@ -54,13 +54,12 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		->will($this->returnValue($responseObj));
 		try {
 			$mockedRcLogin -> login("user","password");
+			$this->assertFalse($mockedRcLogin -> isLoggedIn(),'Should not be logged in');
 		}
 		catch (OC_Mail_NetworkingException $expected) {
 			return;
 		}
-
 		$this->fail('An expected exception has not been raised.');
-
 	}
 
 	public function testUnkownLoginState1(){
@@ -69,7 +68,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
-				array('localhost','443','mail')
+				array('localhost','443','mail',true)
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
@@ -79,11 +78,12 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		->will($this->returnValue($responseObj));
 		try {
 			$mockedRcLogin -> login("user","password");
+			$this->assertFalse($mockedRcLogin -> isLoggedIn(),'Should not be logged in');
 		}
 		catch (OC_Mail_LoginException $expected) {
 			return;
 		}
-
+		$this->fail('Should fail with unkown login state.');
 	}
 
 	/**
@@ -95,8 +95,11 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$responseObj= new Response($header,$content);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
 				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
-				array('localhost','443','mail')
+				array('localhost','443','mail',true)
 		);
+		$mockedRcLogin->expects($this->any())
+		->method('isLoggedIn')
+		->will($this->returnSelf());
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
 		->will($this->returnValue($responseObj));
@@ -105,40 +108,22 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		->will($this->returnValue($responseObj));
 		try {
 			$mockedRcLogin -> login("user","password");
+			$this->assertFalse($mockedRcLogin -> isLoggedIn(),'Should not be logged in');
 		}
 		catch (OC_Mail_LoginException $expected) {
 			return;
 		}
-
+		$this->fail('Should fail with unkown login state.');
 	}
 
 	public function testSuccessfullLogin(){
 		$http_response_header=array('HTTP/1.1 200 OK',
-				'Location: .\/?_task=mail',
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-		'path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
+				'Location: .\/?_task=mail','path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
 		$mockedResponse=' <div id="message"';
 		$responseObj= new Response($http_response_header,$mockedResponse);
 		$mockedRcLogin = $this->getMock('OC_RoundCube_Login',
-				array('openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
-				array('localhost','443','mail')
+				array('isLoggedIn','openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
+				array('localhost','443','mail',true)
 		);
 		$mockedRcLogin->expects($this->any())
 		->method('openUrlConnection')
@@ -146,7 +131,10 @@ class LoginTest extends PHPUnit_Framework_TestCase {
 		$mockedRcLogin->expects($this->any())
 		->method('closeUrlConnection')
 		->will($this->returnValue($responseObj));
-		$mockedRcLogin -> login("user","password");
-
+		$mockedRcLogin->expects($this->any())
+		->method('isLoggedIn')
+		->will($this->returnValue(true));
+		$loggedIn=$mockedRcLogin -> login("user","password");
+		$this->assertTrue($loggedIn,'Should be logged in');
 	}
 }

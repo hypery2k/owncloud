@@ -79,7 +79,9 @@ class Util{
 
 	const DEBUG = 1;
 
-	public static function writeLog($pComponent, $logOuput,$loglevel) {
+	const ERROR = 2;
+
+	public static function writeLog($pComponent, $logOuput, $loglevel) {
 		echo $pComponent.': '.$logOuput;
 		echo "\n";
 	}

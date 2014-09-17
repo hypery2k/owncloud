@@ -131,14 +131,14 @@ class OC_RoundCube_Login {
 	 *
 	 * @var int
 	 */
-	private $rcLoginStatus;
+	private $rcLoginStatus = -1;
 
 	/**
 	 * Save the number of logins
 	 *
 	 * @var int
 	 */
-	private $rcLoginCount;
+	private $rcLoginCount = 0;
 
 	/**
 	 * Roundcube 0.5.1 adds a request token for 'security'. This variable
