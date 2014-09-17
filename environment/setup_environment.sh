@@ -109,10 +109,14 @@ DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
 case ${OC_VERSION} in
   OC_LATEST)        
     echo "  ==> Preparing download of latest development master" 
-    wget https://download.owncloud.org/community/daily/owncloud-daily-master.tar.bz2 --no-check-certificate 
-    bzip2 -cd owncloud-daily-master.tar.bz2 | tar xvf -
-    cp -rp owncloud/*  ${DIR_OC_CUR}  
-    cp -rp owncloud_releases/${OC_VERSION}/config/* ${DIR_OC_CUR}/config   
+    wget https://github.com/owncloud/core/archive/master.zip --no-check-certificate 
+    unzip master.zip
+    DIR_TMP_WORK_CUR=${PWD}
+    cp -rp ${DIR_TMP_WORK_CUR}/core-master/*  ${DIR_OC_CUR}  
+    cd ${DIR_OC_CUR} && chmod +x build/*.sh
+    ./prepareTests.sh -d ${DB_TYPE} -n ${DB_NAME} -u ${DB_USER} -p ${DB_PASS} -p password
+    cp -rp ${DIR_TMP_WORK_CUR}/owncloud_releases/${OC_VERSION}/config/* ${DIR_OC_CUR}/config   
+    cd ${DIR_TMP_WORK_CUR}
     ;;  
   *)  
   	mkdir -p ${DIR_OC_CUR}
@@ -140,7 +144,6 @@ echo "  ==> Directory listing for roundcube:"
 ls -lisah ${DIR_RC_CUR}*
 
 # prepare roundcube app
-# TODO testdata in db
 
 cd ${DIR_OC_DEV}
 echo "  ==> copy app folder"
