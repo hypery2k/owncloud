@@ -55,14 +55,12 @@ class OC_RoundCube_AuthHelper {
 			}
 			$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
 			if ($enable_auto_login) {
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting auto login' . $e,
-				OCP\Util::DEBUG);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting auto login', OCP\Util::DEBUG);
 				// SSO attempt
 				$mail_username = $username;
 				$mail_password = $password;
 			} else {
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting manual login' . $e,
-				OCP\Util::DEBUG);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting manual login', OCP\Util::DEBUG);
 				// Fetch credentials from data-base
 				$mail_userdata_entries = OC_RoundCube_App::checkLoginData($username);
 				// TODO create dropdown list
@@ -75,9 +73,12 @@ class OC_RoundCube_AuthHelper {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Saved private key: ' . $privKey, OCP\Util::DEBUG);
 			// login
 			self::logout($params);
-			OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
-			OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
-			return true;
+			if(OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password)){
+				OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception $e) {
 			// We got an exception == table not found
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' . $e, OCP\Util::ERROR);

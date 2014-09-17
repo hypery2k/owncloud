@@ -210,8 +210,7 @@ class OC_RoundCube_App {
 	 * @param login to be used $pLogin
 	 * @param password to be used $pPassword
 	 */
-	public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword)
-	{
+	public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword) {
 		// Create RC login object.
 		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
 		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
