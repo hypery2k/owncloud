@@ -28,5 +28,11 @@ class OC_App{
 	}
 }
 
+class OC_Request {
+	public static function serverHost(){
+		return 'localhost';
+	}
+}
+
 function p($print){
 }

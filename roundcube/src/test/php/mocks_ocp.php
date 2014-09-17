@@ -36,6 +36,10 @@ class Config {
 			return Config::$APPVALUE[$key];
 		}
 	}
+	
+	public static function getUserValue( $app, $key, $default = null ) {
+		return $key;
+	}
 }
 
 class User{
@@ -80,6 +84,8 @@ class Util{
 	const DEBUG = 1;
 
 	const ERROR = 2;
+
+	const INFO = 3;
 
 	public static function writeLog($pComponent, $logOuput, $loglevel) {
 		echo $pComponent.': '.$logOuput;
