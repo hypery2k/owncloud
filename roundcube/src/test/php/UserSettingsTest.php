@@ -3,7 +3,7 @@
 require_once 'mocks_oc.php';
 require_once 'mocks_ocp.php';
 require_once 'mocks_db.php';
-require_once 'mocks_app.php';
+require_once 'mocks_RoundCubeApp.php';
 
 /**
  * Simple Unit test which checks the PHP syntax of all used files in the app
@@ -37,8 +37,7 @@ class UserSettingsOC7Test extends PHPUnit_Framework_TestCase {
 		$_POST=array('appname'  => 'roundcube');
 		$_POST=array('rc_mail_username'  => 'user');
 		$_POST=array('rc_mail_password'  => 'password');
-		OC_RoundCube_App::$CRYPTEMAIL=true;
-		//require_once("ajax/userSettings.php");
+		require_once("ajax/userSettings.php");
 
 	}
 }

@@ -1,8 +1,5 @@
 <?php
 
-//namespace OCA\roundcube;
-
-//OC_App::loadApp('roundcube');
 require_once 'mocks_oc.php';
 require_once 'mocks_ocp.php';
 require_once 'mocks_RoundCubeApp.php';

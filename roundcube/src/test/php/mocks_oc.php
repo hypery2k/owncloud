@@ -28,6 +28,13 @@ class OC_App{
 	}
 }
 
+class OC_JSON{
+
+	public static function error($data) {
+	}
+
+}
+
 class OC_Request {
 	public static function serverHost(){
 		return 'localhost';
