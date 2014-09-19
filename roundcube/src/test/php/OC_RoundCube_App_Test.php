@@ -10,7 +10,6 @@ require_once("lib/RoundCubeLogin.class.php");
 require_once("lib/RoundCubeApp.class.php");
 require_once("lib/MailNetworkingException.class.php");
 require_once("lib/MailLoginException.class.php");
-
 /**
  * Simple Unit test which checks the PHP syntax of all used files in the app
  * @author mreinhardt
@@ -48,6 +47,42 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 		$this -> mockedRcLogin->expects($this -> any()) -> method('isLoggedIn') -> will($this->returnValue(true));
 		$loggedIn=$this -> mockedRcLogin -> login("user","password");
 		$this->assertTrue($loggedIn,'Should be logged in');
+	}
+
+	public function testKeyGeneration(){
+		// reset
+		OCP\Config::$USERVALUES = array();
+
+		$result = OC_RoundCube_App::generateKeyPair('user','pass');
+		$privateKey = $result['privateKey'];
+		$publicKey = $result['publicKey'];
+		$this->assertEquals(get_resource_type($privateKey),'OpenSSL key');
+		$this->assertNotNull($privateKey,'Private key should not be empty.');
+		$this->assertNotNull($publicKey,'Public key should not be empty.');
+		$readPrivateKey = OC_RoundCube_App::getPrivateKey('user','pass');
+		$readPublicKey = OC_RoundCube_App::getPublicKey('user');
+		$this->assertEquals($publicKey,$readPublicKey);
+	}
+
+	public function testCrypt(){
+		// setup
+		$testUser = 'testUser';
+		// reset
+		OCP\Config::$USERVALUES = array();
+
+		$result = OC_RoundCube_App::generateKeyPair($testUser,'Passw0rd!');
+		$privateKey = $result['privateKey'];
+		$publicKey = $result['publicKey'];
+		$this->assertEquals(get_resource_type($privateKey),'OpenSSL key');
+		$this->assertNotNull($privateKey,'Private key should not be empty.');
+		$this->assertNotNull($publicKey,'Public key should not be empty.');
+		$encryptedMailData=OC_RoundCube_App::cryptEmailIdentity($testUser,$testUser,'Passw0rd!',false);
+		//$this->assertTrue($encryptedMailData,'$encryptedMailData');
+		$mail_user = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_user'],$privateKey);
+		$mail_pass = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_password'],$privateKey);
+		$this->assertTrue($mail_user,'$mail_user');
+		$this->assertEquals($mail_user,$testUser);
+		$this->assertEquals($mail_pass,'Passw0rd!');
 	}
 
 	public function testAppUnsuccessfullLogin(){

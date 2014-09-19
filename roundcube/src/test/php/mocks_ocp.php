@@ -28,18 +28,26 @@ class DB{
 
 class Config {
 
-	public static $APPVALUE;
+	public static $APPVALUES;
+
+	public static $USERVALUES = array();
 	public static function getAppValue( $app, $key, $default = null ) {
 		if($default){
 			return $default;
 		} else{
-			return Config::$APPVALUE[$key];
+			return Config::$APPVALUES[$key];
 		}
 	}
-	
-	public static function getUserValue( $app, $key, $default = null ) {
-		return $key;
+
+	public static function getUserValue( $user, $app, $key, $default = null ) {
+		return Config::$USERVALUES[$key];
 	}
+
+	public static function setUserValue( $user, $app, $key, $value ) {
+		Config::$USERVALUES = array_merge(Config::$USERVALUES,array($key => $value));
+	}
+
+
 }
 
 class User{
@@ -56,13 +64,13 @@ class User{
 
 class JSON{
 	public static function checkLoggedIn() {
-		
+
 	}
 	public static function checkAppEnabled($app) {
-		
+
 	}
 	public static function callCheck() {
-		
+
 	}
 }
 
@@ -76,8 +84,16 @@ class BackgroundJob{
 class Query {
 
 	public function execute(){
-		//throw new \Exception();
+		return new Result();
 	}
+}
+
+class Result {
+
+	public function fetchAll(){
+		return false;
+	}
+	
 }
 class Util{
 
@@ -105,7 +121,7 @@ class Util{
 
 	public static function linkTo( $app, $file, $args = array() ) {
 	}
-	
+
 	public static function imagePath( $app, $image ) {
 	}
 
@@ -114,10 +130,10 @@ class Util{
 class Template{
 
 	public static function assign( $param, $value ) {
-	
+
 	}
-	
+
 	public static function fetchPage( $param, $value ) {
-	
+
 	}
 }

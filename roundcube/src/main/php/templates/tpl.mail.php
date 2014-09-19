@@ -45,8 +45,6 @@ if (!$table_exists) {
 	// multiple accounts, a re-login with other credentials than the
 	// default ID could be provided.
 	//
-	$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
-	$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 
 	$disable_control_nav = OCP\Config::getAppValue('roundcube', 'removeControlNav', false);
 	$enable_autologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
@@ -63,8 +61,7 @@ if (!$table_exists) {
 	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::INFO);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
-			OCP\Util::writeLog('roundcube', 'Used mail_username: '.$mail_username, OCP\Util::DEBUG);
-			if (!$enable_autologin && ( $mail_username == '' || $mail_password == '')) {
+			if (!$enable_autologin && !empty($mail_userdata)) {
 				OCP\Util::writeLog('roundcube', 'No valid user login data found.',OCP\Util::ERROR);
 				$html_output = $html_output . $this -> inc("part.error.no-settings");
 			}

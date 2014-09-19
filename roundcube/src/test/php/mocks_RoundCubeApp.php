@@ -2,7 +2,7 @@
 
 class OC_RoundCube_App {
 
-	const SESSION_ATTR_RCPRIVKEY='sessionKeyRc';
+	const SESSION_ATTR_RCUSER='sessionKeyRc';
 
 	public static $DB_USER;
 

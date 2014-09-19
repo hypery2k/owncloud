@@ -44,10 +44,9 @@ if (!$table_exists) {
 		$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 		if(!$enable_auto_login){
 		    $username = OCP\User::getUser();
-		    $privKey = OC_RoundCube_App::getPrivateKey($username, false);
 		    foreach($mail_userdata_entries as $mail_userdata) {
-		        $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
-		        $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
+		        $mail_username = $_SESSION[self::SESSION_ATTR_RCUSER];
+		        $mail_password = '*********';
 		        // TODO use template and add button for adding entries
 		        ?>
 				<input type="text" id="rc_mail_username" name="rc_mail_username"

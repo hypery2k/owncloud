@@ -27,7 +27,7 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAuthHelperSuccessAutoLogin(){
-		OCP\Config::$APPVALUE = array(
+		OCP\Config::$APPVALUES = array(
 		'autoLogin'	=> true,
 		'maildir' 	=> 'mail',
 		'rcHost'	=> 'localhost',
@@ -43,7 +43,7 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAuthHelperSuccessManualLogin(){
-		OCP\Config::$APPVALUE = array(
+		OCP\Config::$APPVALUES = array(
 		'autoLogin'	=> true,
 		'maildir' 	=> 'mail',
 		'rcHost'	=> 'localhost',
@@ -59,7 +59,7 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAuthHelperUnsuccessfulAutolLogin(){
-		OCP\Config::$APPVALUE = array(
+		OCP\Config::$APPVALUES = array(
 		'autoLogin'	=> true,
 		'maildir' 	=> 'mail',
 		'rcHost'	=> 'localhost',
@@ -75,7 +75,7 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAuthHelperUnsuccessfullManualLogin(){
-		OCP\Config::$APPVALUE = array(
+		OCP\Config::$APPVALUES = array(
 		'autoLogin'	=> false,
 		'maildir' 	=> 'mail',
 		'rcHost'	=> 'localhost',

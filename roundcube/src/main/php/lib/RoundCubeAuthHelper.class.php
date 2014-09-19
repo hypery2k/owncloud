@@ -68,8 +68,8 @@ class OC_RoundCube_AuthHelper {
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 			}
-			// save private key for later usage
-			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $privKey;
+			// save username for displaying in later usage
+			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER] = $mail_username;
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Saved private key: ' . $privKey, OCP\Util::DEBUG);
 			// login
 			self::logout($params);
@@ -94,7 +94,6 @@ class OC_RoundCube_AuthHelper {
 	public static function logout($params) {
 		try {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Preparing logout of user from roundcube.', OCP\Util::DEBUG);
-			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = '';
 			$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
 			$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
 			if ($rc_host == '') {
@@ -146,8 +145,8 @@ class OC_RoundCube_AuthHelper {
 		$username = $params['uid'];
 		$password = $params['password'];
 
-		// Try to fetch from session
-		$oldPrivKey = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
+		// load old key
+		$oldPrivKey = OC_RoundCube_App::getPrivateKey($username, $password);
 		// Take the chance to alter the priv/pubkey pair
 		OC_RoundCube_App::generateKeyPair($username, $password);
 		$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
