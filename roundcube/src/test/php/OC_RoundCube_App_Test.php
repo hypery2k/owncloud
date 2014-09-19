@@ -77,10 +77,8 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 		$this->assertNotNull($privateKey,'Private key should not be empty.');
 		$this->assertNotNull($publicKey,'Public key should not be empty.');
 		$encryptedMailData=OC_RoundCube_App::cryptEmailIdentity($testUser,$testUser,'Passw0rd!',false);
-		//$this->assertTrue($encryptedMailData,'$encryptedMailData');
 		$mail_user = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_user'],$privateKey);
 		$mail_pass = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_password'],$privateKey);
-		$this->assertTrue($mail_user,'$mail_user');
 		$this->assertEquals($mail_user,$testUser);
 		$this->assertEquals($mail_pass,'Passw0rd!');
 	}
