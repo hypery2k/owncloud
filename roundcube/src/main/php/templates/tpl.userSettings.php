@@ -45,7 +45,7 @@ if (!$table_exists) {
 		if(!$enable_auto_login){
 		    $username = OCP\User::getUser();
 		    foreach($mail_userdata_entries as $mail_userdata) {
-		        $mail_username = $_SESSION[self::SESSION_ATTR_RCUSER];
+		        $mail_username = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER];
 		        $mail_password = '*********';
 		        // TODO use template and add button for adding entries
 		        ?>
