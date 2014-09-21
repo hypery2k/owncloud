@@ -1,4 +1,4 @@
-Some Apps for owncloud
+Apps for owncloud
 ========
 
 In this repo you'll find apps and enhancements for owncloud. 
@@ -45,3 +45,8 @@ For javascript unit test debugging execute:
 ```karma start src/test/webapp/karma.conf.js```
  
 and point your browser to http://localhost:9080/
+
+License
+------------
+
+These OwnCloud apps is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
