@@ -61,14 +61,10 @@ class OC_RoundCube_AuthHelper {
 			} else {
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting manual login', OCP\Util::DEBUG);
 				$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): $privKey: '.$privKey, OCP\Util::DEBUG);
 				// Fetch credentials from data-base
 				$mail_userdata_entries = OC_RoundCube_App::checkLoginData($username);
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): $mail_userdata_entries: '.$mail_userdata_entries, OCP\Util::DEBUG);
 				// TODO create dropdown list
 				$mail_userdata = $mail_userdata_entries[0];
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): mail_user: '.$mail_userdata['mail_user'], OCP\Util::DEBUG);
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): mail_password: '.$mail_userdata['mail_password'], OCP\Util::DEBUG);
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): user: '.$mail_username, OCP\Util::DEBUG);
