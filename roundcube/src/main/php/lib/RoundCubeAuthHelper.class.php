@@ -53,7 +53,6 @@ class OC_RoundCube_AuthHelper {
 			if ($rc_host == '') {
 				$rc_host = OC_Request::serverHost();
 			}
-			$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
 			if ($enable_auto_login) {
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting auto login', OCP\Util::DEBUG);
 				// SSO attempt
@@ -61,16 +60,22 @@ class OC_RoundCube_AuthHelper {
 				$mail_password = $password;
 			} else {
 				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting manual login', OCP\Util::DEBUG);
+				$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): $privKey: '.$privKey, OCP\Util::DEBUG);
 				// Fetch credentials from data-base
 				$mail_userdata_entries = OC_RoundCube_App::checkLoginData($username);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): $mail_userdata_entries: '.$mail_userdata_entries, OCP\Util::DEBUG);
 				// TODO create dropdown list
 				$mail_userdata = $mail_userdata_entries[0];
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): mail_user: '.$mail_userdata['mail_user'], OCP\Util::DEBUG);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): mail_password: '.$mail_userdata['mail_password'], OCP\Util::DEBUG);
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): user: '.$mail_username, OCP\Util::DEBUG);
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): pass: '.$mail_password, OCP\Util::DEBUG);
 			}
 			// save username for displaying in later usage
 			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER] = $mail_username;
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Saved private key: ' . $privKey, OCP\Util::DEBUG);
 			// login
 			self::logout($params);
 			if(OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password)){
@@ -162,8 +167,7 @@ class OC_RoundCube_AuthHelper {
 				OCP\Util::DEBUG);
 			}
 		} else {
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->changePasswordListener():' . 'No private key for ' . $username,
-			OCP\Util::DEBUG);
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->changePasswordListener():' . 'No private key for ' . $username, OCP\Util::DEBUG);
 		}
 	}
 }

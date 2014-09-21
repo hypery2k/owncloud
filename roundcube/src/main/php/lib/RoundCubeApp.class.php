@@ -137,21 +137,24 @@ class OC_RoundCube_App {
 	 * @return boolean|unknown
 	 */
 	public static function cryptMyEntry($entry, $pubKey) {
-		$encrypted=false;
-		if (openssl_public_encrypt($entry, $encrypted, $pubKey) === false) {
+		OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->cryptMyEntry(): Starting encyprtion.' , OCP\Util::DEBUG);
+		if (openssl_public_encrypt($entry, $encryptedData, $pubKey) === false) {
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->cryptMyEntry(): Error during crypting entry' , OCP\Util::ERROR);
 			return false;
 		}
+		OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->cryptMyEntry(): Decryption done with data ', OCP\Util::DEBUG);
+		$encrypted = base64_encode($encryptedData);
 		return $encrypted;
 	}
 
 	/**
 	 * decrypt ssl-encrypted data
-	 * @param data to encrypt $data
+	 * @param data to encrypt $entry
 	 * @param private key $privKey
 	 * @return void|unknown
 	 */
-	public static function decryptMyEntry($data, $privKey) {
-		$decrypted=false;
+	public static function decryptMyEntry($entry, $privKey) {
+		$data = base64_decode($entry);
 		if (openssl_private_decrypt($data, $decrypted, $privKey) === false) {
 			return;
 		}
@@ -167,28 +170,36 @@ class OC_RoundCube_App {
 	 * @param set to false if don't want to persist/read data to db $persist
 	 * @return The IMAP credentials.|unknown
 	 */
-	public static function cryptEmailIdentity($ocUser, $emailUser, $emailPassword,$persist = true){
+	public static function cryptEmailIdentity($ocUser, $emailUser, $emailPassword, $persist = true){
 		OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity(): Updating roundcube profile for '. $ocUser, OCP\Util::DEBUG);
+
 		$pubKey = self::getPublicKey($ocUser);
 
 		if ( $pubKey === false) {
+			OCP\Util::writeLog('roundcube', 'Found no valid public key for user '.$ocUser, OCP\Util::ERROR);
 			return false;
 		}
 		if($persist){
 			$mail_userdata_entries = self::checkLoginData($ocUser);
 			$mail_userdata = $mail_userdata_entries[0];
 			if ($mail_userdata_entries === false) {
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity():  Found no valid mail login data ', OCP\Util::ERROR);
 				return false;
+			} else {
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity():  Found valid mail login data.', OCP\Util::INFO);
 			}
 		}
 		$mail_username = self::cryptMyEntry($emailUser, $pubKey);
 		$mail_password = self::cryptMyEntry($emailPassword, $pubKey);
+
 		if ($mail_username === false || $mail_password === false) {
+			OCP\Util::writeLog('roundcube', 'Encryption error for user '.$ocUser, OCP\Util::ERROR);
 			return false;
 		}
 		if($persist){
 			$stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE oc_user = ?");
 			$result = $stmt -> execute(array($mail_username, $mail_password, $ocUser));
+			OCP\Util::writeLog('roundcube', 'Done updating roundcube login data for user '.$ocUser, OCP\Util::INFO);
 		} else {
 			$result = array('mail_user' => $mail_username, 'mail_password' => $mail_password);
 		}

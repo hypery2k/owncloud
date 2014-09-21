@@ -32,11 +32,13 @@ if (!$table_exists) {
 } else {
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	?>
-	<form id="rc_mail_settings" action="#" method="post">
-		<!-- Prevent CSRF attacks-->
-		<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> 
-		<input type="hidden" name="appname" value="roundcube">
-		<fieldset class="<?php echo $cfgClass; ?>" id="roundcube">
+<form id="rc_mail_settings" action="#"
+	method="post">
+	<!-- Prevent CSRF attacks-->
+	<input type="hidden" name="requesttoken"
+		value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> <input
+		type="hidden" name="appname" value="roundcube">
+	<fieldset class="<?php echo $cfgClass; ?>" id="roundcube">
 		<h2>
 			<?php p($l->t('RoundCube Mailaccount')); ?>
 		</h2>
@@ -45,35 +47,36 @@ if (!$table_exists) {
 		if(!$enable_auto_login){
 		    $username = OCP\User::getUser();
 		    foreach($mail_userdata_entries as $mail_userdata) {
-		        $mail_username = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER];
-		        $mail_password = '*********';
+		        $mail_username = isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER])?$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER]:'';
+		        $mail_password = '';
 		        // TODO use template and add button for adding entries
 		        ?>
-				<input type="text" id="rc_mail_username" name="rc_mail_username"
-					value="<?php echo $mail_username; ?>" placeholder="<?php p($l -> t('Email Login Name')); ?>" /> 
-				<input type="password" id="rc_mail_password" name="rc_mail_password"
-					placeholder="<?php p($l -> t('Email Password')); ?>" data-typetoggle="rc_mail_password_show" /> 
-				<input type="button" value="<?php p($l -> t('Update Email Identity')); ?>" 
-						name="rc_usermail_update"  id="rc_usermail_update" />
-				
-				<div id="rc_usermail_update_message" class="statusmessage">
-					<?php p($l->t('Saving...')); ?>
-				</div>
-				<div id="rc_usermail_success_message" class="successmessage">
-				</div>
-				<div id="rc_usermail_error_message" class="errormessage">
-					<?php p($l -> t('General saving error occurred.')); ?>
-				</div>
-				<div id="rc_usermail_error_empty_message" class="errormessage">
-					<?php p($l -> t('Please fill username and password fields')); ?>
-				</div>
-				<?php
+		<input type="text" id="rc_mail_username" name="rc_mail_username"
+			value="<?php echo $mail_username; ?>"
+			placeholder="<?php p($l -> t('Email Login Name')); ?>" /> <input
+			type="password" id="rc_mail_password" name="rc_mail_password"
+			placeholder="<?php p($l -> t('Email Password')); ?>"
+			data-typetoggle="rc_mail_password_show" /> <input type="button"
+			value="<?php p($l -> t('Update Email Identity')); ?>"
+			name="rc_usermail_update" id="rc_usermail_update" />
+
+		<div id="rc_usermail_update_message" class="statusmessage">
+			<?php p($l->t('Saving...')); ?>
+		</div>
+		<div id="rc_usermail_success_message" class="successmessage"></div>
+		<div id="rc_usermail_error_message" class="errormessage">
+			<?php p($l -> t('General saving error occurred.')); ?>
+		</div>
+		<div id="rc_usermail_error_empty_message" class="errormessage">
+			<?php p($l -> t('Please fill username and password fields')); ?>
+		</div>
+		<?php
 		   }
 		} else {
 		    p($l -> t('Autologin for users activated. OwnCloud user data will be used for login in roundcube'));
 		}
 		?>
-		</fieldset>
-	</form>
-	<?php
+	</fieldset>
+</form>
+<?php
 }
