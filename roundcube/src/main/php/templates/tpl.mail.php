@@ -31,7 +31,7 @@ $table_exists = OC_RoundCube_DB_Util::tableExists();
 
 $html_output = "";
 if (!$table_exists) {
-	OCP\Util::writeLog('roundcube', 'DB table entries not created ...', OCP\Util::INFO);
+	OCP\Util::writeLog('roundcube', 'tpl.mail.php: DB table entries not created ...', OCP\Util::INFO);
 	$html_output = $html_output . $this -> inc("part.error.db");
 } else {
 	$ocUser = OCP\User::getUser();
@@ -56,16 +56,17 @@ if (!$table_exists) {
 	}
 	$rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
 
-	OCP\Util::writeLog('roundcube', 'Opening iframe for RC-host '.$rc_host.' with port '.$rc_port, OCP\Util::DEBUG);
+	OCP\Util::writeLog('roundcube', 'tpl.mail.php: Opening iframe for RC-host '.$rc_host.' with port '.$rc_port, OCP\Util::DEBUG);
 
-	OCP\Util::writeLog('roundcube', 'Preparing pre-check before rendering mail view ', OCP\Util::INFO);
+	OCP\Util::writeLog('roundcube', 'tpl.mail.php: Preparing pre-check before rendering mail view ', OCP\Util::INFO);
 	if ($mail_userdata['id'] != '') {
 		if ($mail_userdata['oc_user'] == OCP\User::getUser()) {
-			if (!$enable_autologin && !empty($mail_userdata)) {
-				OCP\Util::writeLog('roundcube', 'No valid user login data found.',OCP\Util::ERROR);
+			if (!$enable_autologin && empty($mail_userdata)) {
+				OCP\Util::writeLog('roundcube', 'tpl.mail.php: No valid user login data found.', OCP\Util::ERROR);
 				$html_output = $html_output . $this -> inc("part.error.no-settings");
 			}
 			else {
+				OCP\Util::writeLog('roundcube', 'tpl.mail.php: Found valid user login data.', OCP\Util::DEBUG);
 				if ($maildir != '') {
 					$mailAppReturn = OC_RoundCube_App::showMailFrame($rc_host, $rc_port, $maildir);
 					if ($mailAppReturn -> isErrorOccurred()) {
