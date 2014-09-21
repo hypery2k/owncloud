@@ -296,11 +296,11 @@ class OC_RoundCube_App {
 		$returnObject = new OC_Mail_Object();
 		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', true);
 		$enableAutologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
-
 		try {
 			if(!self::refresh($rcHost, $rcPort, $maildir)){
-
-				// If the login fails, display an error message in the logs				throw new OC_Mail_LoginException("Unable to login to roundcube");
+				// If the login fails, display an error message in the logs
+				OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->showMailFrame(): There were login errors', OCP\Util::ERROR);
+				throw new OC_Mail_LoginException("Unable to login to roundcube");
 			}
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->showMailFrame(): Preparing iFrame for roundcube.', OCP\Util::DEBUG);
 			// loader image
