@@ -38,7 +38,6 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 	@WithTag(type = "Feature", value = "login"), 
 })
 //@formatter:on
-@Issues({ "#205", "#209", "#213", "#259", "#263" })
 @RunWith(ThucydidesRunner.class)
 @Concurrent(threads = "1")
 public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
@@ -50,6 +49,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 	private AdminSteps adminSteps;
 
 	@Test
+	@Issues({ "#205", "#209", "#213", "#259", "#263" })
 	public void test_roundcube_mail_without_autologin() throws AddressException, MessagingException, UserException,
 			TestError {
 		runEmailTest();

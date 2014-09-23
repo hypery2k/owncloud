@@ -32,13 +32,13 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 	@WithTag(type = "Feature", value = "login"), 
 })
 //@formatter:on
-@Issues({ "#202" })
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeBasicIT extends AbstractUITest {
 	@Steps
 	public LoggedInUserSteps loggedIn;
 
 	@Test
+	@Issues({ "#202" })
 	public void test_iframe_integration() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
