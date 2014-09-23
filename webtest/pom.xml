@@ -34,6 +34,7 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven-failsafe-plugin.version}</version>
 				<configuration>
+					<threadCount>4</threadCount>
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
