@@ -18,7 +18,7 @@ Feel free to donate
 
 ### In Development
 * [revealjs](revealjs/README.md)
-* 
+
 ### Planned
 * [ldapprofile](ldapprofile/README.md)
 
