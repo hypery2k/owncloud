@@ -67,19 +67,12 @@ class OC_RoundCube_AuthHelper {
 				$mail_userdata = $mail_userdata_entries[0];
 				$mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
 				$mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): user: '.$mail_username, OCP\Util::DEBUG);
-				OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): pass: '.$mail_password, OCP\Util::DEBUG);
 			}
 			// save username for displaying in later usage
 			$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER] = $mail_username;
 			// login
 			self::logout($params);
-			if(OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password)){
-				OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
-				return true;
-			} else {
-				return false;
-			}
+			return OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
 		} catch (Exception $e) {
 			// We got an exception == table not found
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' . $e, OCP\Util::ERROR);
