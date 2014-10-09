@@ -53,7 +53,8 @@ public class AdminSettingsPage extends AbstractPage {
 
 	public void save_roundcube_settings() {
 		click(rcSaveSettings);
-		scrollTo(rcSaveSettings);
+		// scroll down
+		getJavascriptExecutorFacade().executeScript("scroll(0, 250)");
 		element(rcSaveSuccessMessage).waitUntilVisible();
 	}
 }
