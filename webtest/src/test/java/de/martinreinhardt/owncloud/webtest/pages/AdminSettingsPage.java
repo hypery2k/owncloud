@@ -33,6 +33,9 @@ public class AdminSettingsPage extends AbstractPage {
 	@FindBy(id = "rcAdminSubmit")
 	private WebElement rcSaveSettings;
 
+	@FindBy(id = "adminmail_success_message")
+	private WebElement rcSaveSuccessMessage;
+
 	/**
 	 * @param pWebDriver
 	 */
@@ -50,5 +53,6 @@ public class AdminSettingsPage extends AbstractPage {
 
 	public void save_roundcube_settings() {
 		click(rcSaveSettings);
+		element(rcSaveSuccessMessage).waitUntilVisible();
 	}
 }

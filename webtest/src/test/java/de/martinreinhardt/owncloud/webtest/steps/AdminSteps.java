@@ -43,7 +43,6 @@ public class AdminSteps extends PortalUserSteps {
 
 	@Step
 	public void apply_roundcube_settings() {
-		// TODO wait for success
 		onAdminSettingsPage().save_roundcube_settings();
 	}
 
