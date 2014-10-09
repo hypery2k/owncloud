@@ -56,11 +56,14 @@ public class UserSettingsPage extends AbstractPage {
 	}
 
 	public void go_to_roundcube_usersettings() {
+		element(rcSettingsPanel).waitUntilVisible();
 		scrollTo(rcSettingsPanel);
 	}
 
 	public void set_rc_credentials(final String pLogin, final String pPassword) {
+		element(rcUser).waitUntilVisible();
 		input(rcUser, pLogin);
+		element(rcPassword).waitUntilVisible();
 		input(rcPassword, pPassword);
 	}
 
