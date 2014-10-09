@@ -34,7 +34,7 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven-failsafe-plugin.version}</version>
 				<configuration>
-					<threadCount>4</threadCount>
+					<threadCount>8</threadCount>
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
@@ -42,6 +42,7 @@
 					<skip>${skipUiTests}</skip>
 					<systemPropertyVariables>
 						<webdriver.driver>${webdriver.driver}</webdriver.driver>
+						<thucydides.issue.tracker.url>https://github.com/hypery2k/owncloud/issues/{0}</thucydides.issue.tracker.url>
 					</systemPropertyVariables>
 				</configuration>
 				<executions>
