@@ -70,21 +70,25 @@ public class PortalPage extends AbstractPage {
 	}
 
 	public void open_settings_dropdown() {
+		element(settingsDropdownButton).waitUntilVisible();
 		click(settingsDropdownButton);
 	}
 
 	public void go_to_admin_settings() {
 		open_settings_dropdown();
+		element(adminSettingsDropdownButton).waitUntilVisible();
 		click(adminSettingsDropdownButton);
 	}
 
 	public void go_to_user_settings() {
 		open_settings_dropdown();
+		element(userSettingsDropdownButton).waitUntilVisible();
 		click(userSettingsDropdownButton);
 	}
 
 	public void do_logout() {
 		open_settings_dropdown();
+		element(logoutButton).waitUntilVisible();
 		click(logoutButton);
 	}
 }
