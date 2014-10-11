@@ -10,7 +10,7 @@ OCP\App::addNavigationEntry(array("id" => "files_index",
 	"icon" => OCP\Util::imagePath("core", "places/files.svg"),
 	"name" => $l->t("Files")));
 
-OC_Search::registerProvider('OC_Search_Provider_File');
+//OC_Search::registerProvider('OC_Search_Provider_File');
 
 // cache hooks must be connected before all other apps.
 // since 'files' is always loaded first the hooks need to be connected here
