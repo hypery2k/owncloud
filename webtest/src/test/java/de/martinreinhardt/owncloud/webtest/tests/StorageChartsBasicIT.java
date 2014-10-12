@@ -29,8 +29,9 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 //@formatter:off
 @WithTags({ 
 	@WithTag(type = "app", value = "StorageCharts"), 
-	@WithTag(type = "Feature", value = "use high charts"),
-	@WithTag(type = "Feature", value = "display stats"), 
+	@WithTag(type = "feature", value = "use high charts"),
+	@WithTag(type = "feature", value = "display stats"), 
+	@WithTag(type = "testtype", name = "smoke")
 })
 //@formatter:on
 @RunWith(ThucydidesRunner.class)
@@ -42,7 +43,7 @@ public class StorageChartsBasicIT extends AbstractUITest {
 	@Steps
 	public StorageChartsSteps dlSteps;
 
-	@Test
+	@Test	
 	public void view_download_charts() {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");

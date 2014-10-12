@@ -34,8 +34,9 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 //@formatter:off
 @WithTags({ 
 	@WithTag(type = "app", value = "RoundCube"), 
-	@WithTag(type = "Feature", value = "user settings"),
-	@WithTag(type = "Feature", value = "login"), 
+	@WithTag(type = "feature", value = "user settings"),
+	@WithTag(type = "feature", value = "login"), 
+	@WithTag(type = "testtype", name = "smoke")
 })
 //@formatter:on
 @RunWith(ThucydidesRunner.class)

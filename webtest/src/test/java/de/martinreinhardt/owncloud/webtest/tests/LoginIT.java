@@ -8,6 +8,8 @@
 package de.martinreinhardt.owncloud.webtest.tests;
 
 import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
@@ -22,6 +24,9 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
  */
 // @RunWith(ThucydidesParameterizedRunner.class)
 @Story(OwnCloud.Login.class)
+@WithTags({ 
+	@WithTag(type = "testtype", name = "smoke")
+})
 @RunWith(ThucydidesRunner.class)
 // @UseTestDataFrom("src/test/resources/testdata/testdata_LoginTest_trying_Login_iFrame.csv")
 public class LoginIT extends AbstractUITest {
