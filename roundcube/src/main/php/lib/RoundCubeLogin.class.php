@@ -491,12 +491,13 @@ class OC_RoundCube_Login {
 	 */
 	function 	openUrlConnection($pURL, $pContext){
 		$response = false;
+		$this -> addDebug("openUrlConnection", "Opening URL (url:".$pURL.").");
 		try {
 			$this -> urlResource = fopen($pURL, 'rb', false, $pContext);
 			if($http_response_header && $this -> urlResource){
 				$response = new Response($http_response_header,stream_get_contents($this -> urlResource));
 			} else {
-				$this -> addDebug("openUrlConnection", "URL (url:".$pURL.") open failed.");
+				$this -> addError("openUrlConnection", "URL (url:".$pURL.") open failed.");
 			}
 		}
 		catch(Exception $e){
