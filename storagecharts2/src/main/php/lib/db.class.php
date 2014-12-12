@@ -79,7 +79,7 @@ class OC_DLStCharts {
 			$query = OCP\DB::prepare("SELECT stc_id, stc_dayts, oc_uid FROM (SELECT * FROM *PREFIX*storagecharts2 ORDER BY stc_dayts DESC) last GROUP BY oc_uid, stc_id, stc_dayts");
 			$results = $query->execute()->fetchAll();
 		}else{
-			$query = OCP\DB::prepare("SELECT stc_id, MAX(stc_dayts) as stc_dayts FROM *PREFIX*storagecharts2 WHERE oc_uid = ?");
+			$query = OCP\DB::prepare("SELECT stc_id, stc_dayts FROM (	SELECT * FROM oc_storagecharts2 WHERE oc_uid = ? ORDER BY stc_dayts DESC LIMIT 1) firstentry GROUP BY stc_id, stc_dayts"); // SELECT stc_id, MAX(stc_dayts) as stc_dayts FROM *PREFIX*storagecharts2 WHERE oc_uid = ?
 			$results = $query->execute(Array(OCP\User::getUser()))->fetchAll();
 		}
 

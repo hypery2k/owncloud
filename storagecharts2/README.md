@@ -7,4 +7,4 @@ Complete documentation usage in https://github.com/hypery2k/owncloud/wiki/Storag
 
 ### Issues known
 
-HAve some problems with postgresql, currently in wip solution
+Return bad used space if postgres or oracle are used as DB backend, all users are used same space.
