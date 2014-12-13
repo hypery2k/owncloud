@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/OwnCloudApps.iml" filepath="$PROJECT_DIR$/.idea/OwnCloudApps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/owncloud.iml" filepath="$PROJECT_DIR$/.idea/owncloud.iml" />
     </modules>
   </component>
 </project>
