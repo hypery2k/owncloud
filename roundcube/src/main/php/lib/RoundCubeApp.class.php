@@ -310,7 +310,7 @@ class OC_RoundCube_App {
 
 			$returnObject -> setDisplayName($rcLogin);
 			// create iFrame begin
-			$returnObject -> appendHtmlOutput('<img src="' . $loader_image . '" id="roundcubeLoader">');
+			$returnObject -> appendHtmlOutput('<div id="roundcubeLoaderContainer"><img src="' . $loader_image . '" id="roundcubeLoader"></div>');
 			$returnObject -> appendHtmlOutput('<iframe src="' . self::getRedirectPath($rcHost, $rcPort, $maildir) . '" id="roundcubeFrame"  name="roundcube" width="100%" style="display:none;">  </iframe>');
 			$returnObject -> appendHtmlOutput('<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>');
 			$returnObject -> appendHtmlOutput('<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>');

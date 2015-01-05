@@ -61,11 +61,10 @@ Roundcube.iFrameReady = function(selector) {
   }
 
   // slide in roundcube nice with timeout to let iframe load
-  $("#roundcubeLoader").fadeOut(2500, function() {
-    $(window).resize();
-    $('#roundcubeFrame').show();
-    Roundcube.iframe_loaded();
-  });
+  $("#roundcubeLoaderContainer").fadeOut(2500);
+  $(window).resize();
+  $('#roundcubeFrame').show();
+  Roundcube.iframe_loaded();
 }
 
 /**

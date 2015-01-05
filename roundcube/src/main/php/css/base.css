@@ -4,6 +4,14 @@
 #roundcubeFrame {
 	height: 100%;
 }
+#roundcubeLoaderContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #FFF;
+}
 #roundcubeLoader {
 	position: fixed;
 	top: 50%;
