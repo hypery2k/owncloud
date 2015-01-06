@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: oc_testing
 -- ------------------------------------------------------
--- Server version	5.5.37-0ubuntu0.12.04.1-log
+-- Server version	5.5.40-0ubuntu0.14.04.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -355,7 +355,7 @@ CREATE TABLE `session` (
 
 LOCK TABLES `session` WRITE;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
-INSERT INTO `session` VALUES ('lho2uoah08s1mobfd8e9412qm3','2014-06-05 14:15:18','2014-06-05 14:17:37','213.209.99.153','bGFuZ3VhZ2V8czo1OiJkZV9ERSI7dGVtcHxiOjE7c2tpbnxzOjU6ImxhcnJ5Ijt0YXNrfHM6NToibG9naW4iOw==');
+INSERT INTO `session` VALUES ('1','2015-01-06 18:14:55','2015-01-06 18:15:04','144.76.176.16','bGFuZ3VhZ2V8czo1OiJlbl9VUyI7dGVtcHxiOjE7c2tpbnxzOjU6ImxhcnJ5Ijt0YXNrfHM6NToibG9naW4iOw=='),('lho2uoah08s1mobfd8e9412qm3','2014-06-05 14:15:18','2014-06-05 14:17:37','213.209.99.153','bGFuZ3VhZ2V8czo1OiJkZV9ERSI7dGVtcHxiOjE7c2tpbnxzOjU6ImxhcnJ5Ijt0YXNrfHM6NToibG9naW4iOw==');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -430,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-05 14:17:53
+-- Dump completed on 2015-01-06 19:02:13
