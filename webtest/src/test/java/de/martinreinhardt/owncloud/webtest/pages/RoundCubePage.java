@@ -39,7 +39,7 @@ public class RoundCubePage extends PortalPage {
 	@FindBy(id = "rcmloginuser")
 	private WebElement rcLogin;
 
-	@FindBy(css = "#rcmrow1 > td.subject > a")
+	@FindBy(xpath = "(//*[contains(@class,'messagelist')]//td[contains(@class,'subject')]/a)[1]")
 	private WebElement firstEmail;
 
 	@FindBy(id = ROUNDCUBE_LOADER)
