@@ -24,7 +24,7 @@ import org.openqa.selenium.internal.Locatable;
 public class AbstractPage extends PageObject {
 
 	// Logger
-	protected static final Logger LOG = Logger.getLogger(AbstractPage.class);
+	private static final Logger LOG = Logger.getLogger(AbstractPage.class);
 
 	public AbstractPage(final WebDriver pWebDriver) {
 		super(pWebDriver);
