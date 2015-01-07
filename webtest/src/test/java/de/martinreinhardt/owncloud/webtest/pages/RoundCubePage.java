@@ -47,7 +47,7 @@ public class RoundCubePage extends PortalPage {
 	@FindBy(id = "rcmloginuser")
 	private WebElement rcLogin;
 
-	@FindBy(xpath = "(//*[contains(@class,'messagelist')]//td[contains(@class,'subject')]/a)[1]")
+	@FindBy(xpath = "(//*[contains(@class,'messagelist')]//tbody//td[contains(@class,'subject')]/a)[1]")
 	private WebElement firstEmail;
 
 	@FindBy(id = ROUNDCUBE_LOADER)
@@ -67,7 +67,7 @@ public class RoundCubePage extends PortalPage {
 	 */
 	private void wait_for_rc_load() throws TestError {
 		this.load_iFrame(ROUNDCUBE_FRAME);
-		waitFor(500).milliseconds();
+		waitFor(100).milliseconds();
 		try {
 			if (element(newAjaxLoader).isCurrentlyVisible()) {
 				waitFor(50).milliseconds();
