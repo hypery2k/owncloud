@@ -63,17 +63,8 @@ public class RoundCubePage extends PortalPage {
 	 */
 	private void wait_for_rc_load() throws TestError {
 		this.load_iFrame(ROUNDCUBE_FRAME);
+		waitFor(500).milliseconds();
 		try {
-			waitFor(500).milliseconds();
-			if (element(ajaxLoader).isCurrentlyVisible()) {
-				waitFor(50).milliseconds();
-				// wait for loader icon to disappear
-				element(ajaxLoader).waitUntilNotVisible();
-				if (isRcLoginDisplayed()) {
-					throw new TestError("Roundcube Login should not be visible!");
-				}
-				LOG.info("AJAX loader disappeared. Loading complete...");
-			}
 			if (element(newAjaxLoader).isCurrentlyVisible()) {
 				waitFor(50).milliseconds();
 				// wait for loader icon to disappear
@@ -84,6 +75,20 @@ public class RoundCubePage extends PortalPage {
 				LOG.info("AJAX loader disappeared. Loading complete...");
 			}
 		} catch (final NoSuchElementException e) {
+			LOG.info("New AJAX Roundcube loader not found");
+		}
+		try {
+			if (element(ajaxLoader).isCurrentlyVisible()) {
+				waitFor(50).milliseconds();
+				// wait for loader icon to disappear
+				element(ajaxLoader).waitUntilNotVisible();
+				if (isRcLoginDisplayed()) {
+					throw new TestError("Roundcube Login should not be visible!");
+				}
+				LOG.info("AJAX loader disappeared. Loading complete...");
+			}
+		} catch (final NoSuchElementException e) {
+			LOG.info("AJAX Roundcube loader not found");
 		}
 	}
 
