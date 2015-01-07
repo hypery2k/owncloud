@@ -29,6 +29,10 @@ public class RoundCubePage extends PortalPage {
 	 * reference id of loader item
 	 */
 	private static final String ROUNDCUBE_LOADER = "roundcubeLoader";
+	/**
+	 * reference xpath to new loader
+	 */
+	private static final String ROUNDCUBE_LOADER_NEW = "//*[contains(@class,'loading')]";
 
 	@FindBy(id = ROUNDCUBE_FRAME)
 	private WebElement rcFrame;
@@ -45,6 +49,9 @@ public class RoundCubePage extends PortalPage {
 	@FindBy(id = ROUNDCUBE_LOADER)
 	private WebElement ajaxLoader;
 
+	@FindBy(xpath = ROUNDCUBE_LOADER_NEW)
+	private WebElement newAjaxLoader;
+
 	public RoundCubePage(final WebDriver pWebDriver) {
 		super(pWebDriver);
 	}
@@ -59,8 +66,18 @@ public class RoundCubePage extends PortalPage {
 		try {
 			waitFor(500).milliseconds();
 			if (element(ajaxLoader).isCurrentlyVisible()) {
+				waitFor(50).milliseconds();
 				// wait for loader icon to disappear
 				element(ajaxLoader).waitUntilNotVisible();
+				if (isRcLoginDisplayed()) {
+					throw new TestError("Roundcube Login should not be visible!");
+				}
+				LOG.info("AJAX loader disappeared. Loading complete...");
+			}
+			if (element(newAjaxLoader).isCurrentlyVisible()) {
+				waitFor(50).milliseconds();
+				// wait for loader icon to disappear
+				element(newAjaxLoader).waitUntilNotVisible();
 				if (isRcLoginDisplayed()) {
 					throw new TestError("Roundcube Login should not be visible!");
 				}
