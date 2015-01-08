@@ -44,9 +44,9 @@ For javascript unit test debugging execute:
 and point your browser to http://localhost:9080/
 
 For running the UI tests execute:
+
 ```cd webtest
-   mvn clean verify -Dwebdriver.base.url=http://<PATH_TO_OWNCLOUD_TEST_ENVIRONMENT_WITH_APPS_INSTALLED>
-```
+   mvn clean verify -Dwebdriver.base.url=http://<PATH_TO_OWNCLOUD_TEST_ENVIRONMENT_WITH_APPS_INSTALLED>```
 
 License
 ------------
