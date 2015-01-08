@@ -47,7 +47,7 @@ public class RoundCubePage extends PortalPage {
 	@FindBy(id = "rcmloginuser")
 	private WebElement rcLogin;
 
-	@FindBy(xpath = "(//*[contains(@class,'messagelist')]//tbody//td[contains(@class,'subject')]/a)[1]")
+	@FindBy(xpath = "(//tbody//td[contains(@class,'subject')]/a)[1]")
 	private WebElement firstEmail;
 
 	@FindBy(id = ROUNDCUBE_LOADER)
@@ -67,10 +67,8 @@ public class RoundCubePage extends PortalPage {
 	 */
 	private void wait_for_rc_load() throws TestError {
 		this.load_iFrame(ROUNDCUBE_FRAME);
-		waitFor(500).milliseconds();
 		try {
 			if (element(newAjaxLoader).isCurrentlyVisible()) {
-				waitFor(50).milliseconds();
 				// wait for loader icon to disappear
 				element(newAjaxLoader).waitUntilNotVisible();
 				if (isRcLoginDisplayed()) {
@@ -78,21 +76,20 @@ public class RoundCubePage extends PortalPage {
 				}
 				LOG.info("AJAX loader disappeared. Loading complete...");
 			}
-		} catch (final NoSuchElementException e) {
+		} catch (final NoSuchElementException e1) {
 			LOG.info("New AJAX Roundcube loader not found");
-		}
-		try {
-			if (element(ajaxLoader).isCurrentlyVisible()) {
-				waitFor(50).milliseconds();
-				// wait for loader icon to disappear
-				element(ajaxLoader).waitUntilNotVisible();
-				if (isRcLoginDisplayed()) {
-					throw new TestError("Roundcube Login should not be visible!");
+			try {
+				if (element(ajaxLoader).isCurrentlyVisible()) {
+					// wait for loader icon to disappear
+					element(ajaxLoader).waitUntilNotVisible();
+					if (isRcLoginDisplayed()) {
+						throw new TestError("Roundcube Login should not be visible!");
+					}
+					LOG.info("AJAX loader disappeared. Loading complete...");
 				}
-				LOG.info("AJAX loader disappeared. Loading complete...");
+			} catch (final NoSuchElementException e2) {
+				LOG.info("AJAX Roundcube loader not found");
 			}
-		} catch (final NoSuchElementException e) {
-			LOG.info("AJAX Roundcube loader not found");
 		}
 	}
 
