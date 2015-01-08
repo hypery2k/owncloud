@@ -67,7 +67,7 @@ public class RoundCubePage extends PortalPage {
 	 */
 	private void wait_for_rc_load() throws TestError {
 		this.load_iFrame(ROUNDCUBE_FRAME);
-		waitFor(100).milliseconds();
+		waitFor(500).milliseconds();
 		try {
 			if (element(newAjaxLoader).isCurrentlyVisible()) {
 				waitFor(50).milliseconds();

@@ -49,7 +49,6 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 		loggedInuserSteps.go_to_roundcube_view();
 		rcSteps.is_not_showing_errors();
 		rcSteps.message_should_have_a_valid_subject();
-		rcSteps.waitFor(1).minutes();
 		rcSteps.is_not_showing_errors();
 	}
 }
