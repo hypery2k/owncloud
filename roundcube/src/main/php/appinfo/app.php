@@ -36,11 +36,6 @@ OCP\Util::connectHook('OC_User', 'post_setPassword', 'OC_RoundCube_AuthHelper', 
 // set refresh interval in JS namespace
 OCP\Util::connectHook('\OCP\Config', 'js', 'OC_RoundCube_AuthHelper', 'jsLoadHook');
 
-// probably no longer needed, now that we use routes ...
-if (!OCP\Config::getAppValue('roundcube', 'rcNoCronRefresh', false)) {
-	OCP\BackgroundJob::AddRegularTask('OC_RoundCube_AuthHelper', 'refresh');
-}
-
 // Add global JS routines; this one triggers an RC session refresh by
 // periodically calling the refresh-script via js setInterval()
 OCP\Util::addScript('roundcube', 'routes');

@@ -28,7 +28,7 @@ OCP\Util::addStyle('roundcube', 'adminSettings');
 OCP\Util::addScript('roundcube', 'adminSettings');
 
 // fill template
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval', 'rcNoCronRefresh');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
 
 $tmpl = new OCP\Template('roundcube', 'tpl.adminSettings');
 foreach ($params as $param) {
