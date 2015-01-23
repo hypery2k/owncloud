@@ -66,7 +66,7 @@ public class RoundCubePage extends PortalPage {
 	 * @throws TestError
 	 */
 	private void wait_for_rc_load() throws TestError {
-		waitFor(200).milliseconds();
+		waitFor(300).milliseconds();
 		this.load_iFrame(ROUNDCUBE_FRAME);
 		try {
 			if (element(newAjaxLoader).isCurrentlyVisible()) {
@@ -96,10 +96,9 @@ public class RoundCubePage extends PortalPage {
 
 	public String getFirstMessageSubject() throws TestError {
 		wait_for_rc_load();
-		String result = null;
 		load_iFrame(ROUNDCUBE_FRAME);
 		clickOn(firstEmail);
-		result = firstEmail.getText();
+		final String result = firstEmail.getText();
 		back_to_parent_document();
 		return result;
 	}
