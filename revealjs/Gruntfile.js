@@ -18,29 +18,7 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'src/main/webapp',
-      dist: 'www'
-    },
-    watch: {
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
-      },
-      styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
-      },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          'bower_components/{,*/}*'
-        ]
-      }
+      dist: 'target'
     },
     autoprefixer: {
       options: ['last 1 version'],
@@ -109,136 +87,10 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false
-      },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
-        }
-      }
-    },
-    rev: {
-      dist: {
-        files: {
-          src: [
-            '<%= yeoman.dist %>/scripts/{,*/}*.js',
-            '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/styles/fonts/*'
-          ]
-        }
-      }
-    },
-    useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
-      options: {
-        dest: '<%= yeoman.dist %>'
-      }
-    },
-    usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
-      options: {
-        dirs: ['<%= yeoman.dist %>']
-      }
-    },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
-    htmlmin: {
-      dist: {
-        options: {
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html', 'templates/*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
-      }
-    },
-    // Put files not handled in other tasks here
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '.',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '<%= yeoman.app %>/*.{ico,png,txt}',
-            '<%= yeoman.app %>/.htaccess',
-            '<%= yeoman.app %>/images/{,*/}*.{gif,webp}',
-            '<%= yeoman.app %>/styles/fonts/*',
-            '<%= yeoman.app %>/*.js'
-          ]
-        }, {
-          expand: true,
-          dest: '<%= yeoman.dist %>',
-          src: [
-            'config.xml'
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: [
-            'generated/*'
-          ]
-        }]
-      },
-      styles: {
-        expand: true,
-        cwd: '<%= yeoman.app %>/styles',
-        dest: '.tmp/styles/',
-        src: '{,*/}*.css'
-      }
-    },
     concurrent: {
-      server: [
-        'compass:server',
-        'copy:styles'
-      ],
       test: [
         'compass',
         'copy:styles'
-      ],
-      dist: [
-        'compass:dist',
-        'copy:styles',
-        'imagemin',
-        'svgmin',
-        'htmlmin'
       ]
     },
     karma: {
@@ -247,41 +99,10 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
-      }
-    },
-    ngmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>/scripts',
-          src: '*.js',
-          dest: '<%= yeoman.dist %>/scripts'
-        }]
-      }
-    },
-    uglify: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
-      }
-    },
-    plato: {
-      report: {
-        files: {
-          'plato': ['src/scripts/**/*.js', 'test/**/*.js']
-        }
-      }
-    }
   });
 
   grunt.registerTask('test', [
-    'clean:server',
+    'clean',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
