@@ -87,12 +87,6 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
-    concurrent: {
-      test: [
-        'compass',
-        'copy:styles'
-      ]
-    },
     karma: {
       unit: {
         configFile: 'src/test/webapp/karma.conf.js',
@@ -103,7 +97,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean',
-    'concurrent:test',
     'autoprefixer',
     'connect:test',
     'karma'
