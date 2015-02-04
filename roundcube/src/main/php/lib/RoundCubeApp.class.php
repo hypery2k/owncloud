@@ -220,7 +220,7 @@ class OC_RoundCube_App {
 		if ($rcl -> logout()) {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): '. $user.' successfully logged off from roundcube ', OCP\Util::INFO);
 		} else {
-			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): Failed to log-off '.$user.' from roundcube ', OCP\Util::ERROR);
+			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): Failed to log-off '.$user.' from roundcube. If you are using roundcube 1.0.4. Please update to roundcube 1.0.5', OCP\Util::ERROR);
 		}
 	}
 
