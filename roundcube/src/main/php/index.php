@@ -43,8 +43,8 @@ if ($ocVersion < 6) {
   OCP\Util::writeLog('roundcube', 'Running on OwnCloud 5', OCP\Util::DEBUG);
   // add neede JS
   OCP\Util::addScript('', 'jquery-1.7.2.min');
-  // OC 6
   OCP\Util::addScript('roundcube', 'jquery.plugins');
+  // OC 6 or greater
 } else {
   OCP\Util::writeLog('roundcube', 'Running on OwnCloud '.$ocVersion, OCP\Util::DEBUG);
 }
