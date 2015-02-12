@@ -1,0 +1,9 @@
+{ "translations": {
+    "Cancel" : "ביטול",
+    "Share" : "שיתוף",
+    "Shared by" : "שותף על־ידי",
+    "Password" : "סיסמא",
+    "Name" : "שם",
+    "Download" : "הורדה"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

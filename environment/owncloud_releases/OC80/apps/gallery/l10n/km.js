@@ -1,0 +1,16 @@
+OC.L10N.register(
+    "gallery",
+    {
+    "Pictures" : "រូបភាព",
+    "Picture view" : "ទិដ្ឋភាពរូបភាព",
+    "Next" : "បន្ទាប់",
+    "Play" : "លេង",
+    "Pause" : "ផ្អាក",
+    "Previous" : "មុន",
+    "Close" : "បិទ",
+    "Error loading slideshow template" : "មាន​កំហុស​ផ្ទុក​ពុម្ព​បញ្ចាំងស្លាយ",
+    "Share" : "ចែក​រំលែក",
+    "shared by %s" : "បាន​ចែក​រំលែក​ដោយ %s",
+    "File list" : "បញ្ជី​ឯកសារ"
+},
+"nplurals=1; plural=0;");

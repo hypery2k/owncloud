@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What’s New for Users in ownCloud 8 &mdash; ownCloud User Manual 8.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud User Manual 8.0 documentation" href="index.html" />
+    <link rel="next" title="The ownCloud Web Interface" href="webinterface.html" />
+    <link rel="prev" title="ownCloud 8.0 User Documentation" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud User Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ownCloud 8.0 User Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">What&#8217;s New for Users in ownCloud 8</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#desktop-sync-client-shares-from-file-manager-selective-sync">Desktop Sync Client Shares From File Manager, Selective Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#favorites">Favorites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-server-to-server-sharing">Improved Server-to-Server Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-search">Improved Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web-interface-enhancements">Web Interface Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-broker-improves-performance">Download Broker Improves Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files/index.html">Files &amp; Synchronization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pim/index.html">Contacts &amp; Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documents.html">Collaborative Document Editing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">Using the Bookmarks App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userpreferences.html">Setting Your Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_storage/google_drive.html">Configuring External Storage</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="what-s-new-for-users-in-owncloud-8">
+<h1>What&#8217;s New for Users in ownCloud 8<a class="headerlink" href="#what-s-new-for-users-in-owncloud-8" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="desktop-sync-client-shares-from-file-manager-selective-sync">
+<h2>Desktop Sync Client Shares From File Manager, Selective Sync<a class="headerlink" href="#desktop-sync-client-shares-from-file-manager-selective-sync" title="Permalink to this headline">¶</a></h2>
+<p>The Desktop Sync Client now allows you to share files directly from your file
+manager, and has a new graphical selective sync file chooser. See the
+<a class="reference external" href="http://doc.owncloud.org/desktop/1.8/">ownCloud Desktop Client Manual</a> for
+more information.</p>
+</div>
+<div class="section" id="favorites">
+<h2>Favorites<a class="headerlink" href="#favorites" title="Permalink to this headline">¶</a></h2>
+<p>Users can now assign a favorite icon to files and folders. Look for
+improvements in this feature in future ownCloud editions to make finding and
+managing files even easier.</p>
+</div>
+<div class="section" id="improved-server-to-server-sharing">
+<h2>Improved Server-to-Server Sharing<a class="headerlink" href="#improved-server-to-server-sharing" title="Permalink to this headline">¶</a></h2>
+<p>Server-to-Server Sharing, introduced in ownCloud 7, allows you to mount file
+shares from remote ownCloud servers, and create a &#8220;cloud of ownClouds&#8221;. In
+ownCloud 8 the process for creating a new Server-to-Server link is easier and more
+streamlined.</p>
+</div>
+<div class="section" id="improved-search">
+<h2>Improved Search<a class="headerlink" href="#improved-search" title="Permalink to this headline">¶</a></h2>
+<p>The search interface has been streamlined and simplified, with more features
+including enhanced result set reporting and additional search parameters.</p>
+</div>
+<div class="section" id="web-interface-enhancements">
+<h2>Web Interface Enhancements<a class="headerlink" href="#web-interface-enhancements" title="Permalink to this headline">¶</a></h2>
+<p>The ownCloud Web interface has been improved to make it easier for all users to
+access, edit, sync and share their files.</p>
+</div>
+<div class="section" id="download-broker-improves-performance">
+<h2>Download Broker Improves Performance<a class="headerlink" href="#download-broker-improves-performance" title="Permalink to this headline">¶</a></h2>
+<p>When ownCloud delivers universal file access to end users, files from many
+different document sources are aggregated into a single interface and served to
+end users. In some cases, passing all of the files aggregated in this interface
+through a single server, ownCloud, slows down data access. ownCloud now
+supports direct downloads of files from select storage back-ends, reducing the
+load on the ownCloud server without sacrificing control over the files that are
+stored in the various back end systems.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

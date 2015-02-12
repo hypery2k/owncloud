@@ -1,0 +1,8 @@
+{ "translations": {
+    "Restore" : "คืนค่า",
+    "Error" : "ข้อผิดพลาด",
+    "Name" : "ชื่อ",
+    "Deleted" : "ลบแล้ว",
+    "Delete" : "ลบ"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

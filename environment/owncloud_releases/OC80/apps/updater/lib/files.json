@@ -1,0 +1,25 @@
+{
+    "generic": [
+        "config/config.sample.php",
+        "core",
+        "l10n",
+        "lib",
+        "ocs",
+        "search",
+        "settings",
+        ".htaccess",
+        "AUTHORS",
+        "console.php",
+        "COPYING-AGPL",
+        "cron.php",
+        "db_structure.xml",
+        "index.html",
+        "index.php",
+        "indie.json",
+        "occ",
+        "public.php",
+        "remote.php",
+        "status.php",
+        "version.php"
+    ]
+}

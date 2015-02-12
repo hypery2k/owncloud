@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Issues and Troubleshooting &mdash; ownCloud Administrators Manual 8.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 8.0 documentation" href="../index.html" />
+    <link rel="prev" title="Converting Database Type" href="../maintenance/convert_db.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="../contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="../contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">ownCloud Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 8.0 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html#enterprise-8-only">Enterprise 8 Only</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html#owncloud-7-release-notes">ownCloud 7 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html#enterprise-7-only">Enterprise 7 Only</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Issues and Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bugs">Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting-webdav">Troubleshooting WebDAV</a></li>
+</ul>
+</li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="issues-and-troubleshooting">
+<h1>Issues and Troubleshooting<a class="headerlink" href="#issues-and-troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>If you have trouble installing, configuring or maintaining ownCloud, please refer to our community support channels:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://forum.owncloud.org">The ownCloud Forums</a></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The ownCloud forums have a <a class="reference external" href="https://forum.owncloud.org/viewforum.php?f=17">FAQ page</a> where each topic corresponds to
+typical mistakes or frequently occurring issues</p>
+</div>
+<ul class="simple">
+<li><a class="reference external" href="https://mailman.owncloud.org/mailman/listinfo/user">The ownCloud User mailing list</a></li>
+<li>The ownCloud IRC chat channel <tt class="docutils literal"><span class="pre">irc://#owncloud&#64;freenode.net</span></tt> on freenode.net, also
+accessible via <a class="reference external" href="http://webchat.freenode.net/?channels=owncloud">webchat</a></li>
+</ul>
+<p>Please understand that all these channels essentially consist of users like you helping each other out. Consider helping others out where you can, to contribute back for the help you get. This is the only way to keep a community like ownCloud healthy and sustainable!</p>
+<p>If you are using ownCloud in a business or otherwise large scale deployment, note that ownCloud Inc. offers the <a class="reference external" href="https://owncloud.com/lp/community-or-enterprise/">Enterprise Edition</a> with commercial support options.</p>
+<div class="section" id="bugs">
+<h2>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h2>
+<p>If you think you have found a bug in ownCloud, please:</p>
+<ul class="simple">
+<li>Search for a solution (see the options above)</li>
+<li>Double check your configuration</li>
+</ul>
+<p>If you can&#8217;t find a solution, please use our <a class="reference external" href="http://doc.owncloud.org/server/8.0/developer_manual/bugtracker/index.html">bugtracker</a>.</p>
+</div>
+<div class="section" id="troubleshooting-webdav">
+<h2>Troubleshooting WebDAV<a class="headerlink" href="#troubleshooting-webdav" title="Permalink to this headline">¶</a></h2>
+<p>ownCloud uses SabreDAV, and the SabreDAV documentation is comprehensive and
+helpful. See:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://sabre.io/dav/faq/">SabreDAV FAQ</a></li>
+<li><a class="reference external" href="http://sabre.io/dav/webservers">Webservers</a> (Lists lighttpd as not
+recommended)</li>
+<li><a class="reference external" href="http://sabre.io/dav/large-files/">Working with large files</a> (Shows a PHP
+bug in older SabreDAV versions and information for mod_security problems)</li>
+<li><a class="reference external" href="http://sabre.io/dav/0bytes">0 byte files</a> (Reasons for empty files on the
+server)</li>
+<li><a class="reference external" href="http://sabre.io/dav/clients/">Clients</a> (A comprehensive lists of WebDAV
+clients, and possible problems with each one)</li>
+<li><a class="reference external" href="http://sabre.io/dav/clients/finder/">Finder, OS X&#8217;s built-in WebDAV client</a>
+(Describes problems with Finder on various webservers)</li>
+</ul>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

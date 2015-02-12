@@ -1,0 +1,28 @@
+{
+	"vendor": [
+		"jquery/jquery.min.js",
+		"jquery/jquery-migrate.min.js",
+		"jquery-ui/ui/jquery-ui.custom.js",
+		"underscore/underscore.js",
+		"moment/min/moment-with-locales.js",
+		"handlebars/handlebars.js"
+	],
+	"libraries": [
+		"jquery-showpassword.js",
+		"jquery-tipsy.js"
+	],
+	"modules": [
+		"compatibility.js",
+		"jquery.ocdialog.js",
+		"oc-dialogs.js",
+		"js.js",
+		"l10n.js",
+		"share.js",
+		"octemplate.js",
+		"eventsource.js",
+		"config.js",
+		"multiselect.js",
+		"oc-requesttoken.js",
+		"../search/js/search.js"
+	]
+}

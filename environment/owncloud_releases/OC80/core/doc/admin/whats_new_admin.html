@@ -1,0 +1,282 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What’s New for Admins in ownCloud 8 &mdash; ownCloud Administrators Manual 8.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap.js"></script>
+    <link rel="top" title="ownCloud Administrators Manual 8.0 documentation" href="index.html" />
+    <link rel="next" title="Installation" href="installation/index.html" />
+    <link rel="prev" title="ownCloud 8.0 Release Notes" href="release_notes.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($ul, minLevel) {
+    var findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 15 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          console.log(level, $item, 'padding-left', pad + "px");
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    console.log("HERE");
+    findA($ul);
+  };
+
+  $(document).ready(function () {
+    // Add styling, structure to TOC's.
+    $(".dropdown-menu").each(function () {
+      $(this).find("ul").each(function (index, item){
+        var $item = $(item);
+        $item.addClass('unstyled');
+      });
+      $(this).find("li").each(function () {
+        $(this).parent().append(this);
+      });
+    });
+
+    // Patch in level.
+    patchToc($("ul.globaltoc"), 2);
+    patchToc($("ul.localtoc"), 2);
+
+    // Enable dropdown.
+    $('.dropdown-toggle').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  
+
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1><a href="contents.html">ownCloud Administrators Manual</a></h1>
+
+    </div>
+    
+			<div class="row">
+				<div class="span3">
+					<div class="sidebar">
+						<div class="well">
+							<div class="menu-support-container">
+								<ul id="menu-support" class="menu">
+									<ul>
+										<li><a href="contents.html">Overview</a></li>
+									</ul>
+                  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="videos.html">ownCloud Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">ownCloud 8.0 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html#enterprise-8-only">Enterprise 8 Only</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html#owncloud-7-release-notes">ownCloud 7 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html#enterprise-7-only">Enterprise 7 Only</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">What&#8217;s New for Admins in ownCloud 8</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-packaging">New Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#no-more-php-5-3">No More PHP 5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-admin-and-settings-ui">Improved Admin and Settings UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simplified-app-management">Simplified App Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-updater-layout">New Updater Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-powerful-user-management">More Powerful User Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ldap-improvements-including-ldap-user-cleanup">LDAP Improvements, Including LDAP User Cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-and-open-sourced-provisioning-api">Improved and Open-Sourced Provisioning API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#favorites">Favorites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-server-to-server-sharing">Improved Server-to-Server Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-search">Improved Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web-interface-enhancements">Web Interface Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-broker-improves-performance">Download Broker Improves Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance/index.html">Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues/index.html">Issues and Troubleshooting</a></li>
+</ul>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+        
+
+				<div class="span9">
+					<div class="page-content">
+						
+  <div class="section" id="what-s-new-for-admins-in-owncloud-8">
+<h1>What&#8217;s New for Admins in ownCloud 8<a class="headerlink" href="#what-s-new-for-admins-in-owncloud-8" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="new-packaging">
+<h2>New Packaging<a class="headerlink" href="#new-packaging" title="Permalink to this headline">¶</a></h2>
+<p>We are introducing a new packaging system. Instead of two editions, Community
+and Enterprise, we now offer Server to replace the old Community edition, and
+Enterprise Subscription replaces the old Enterprise Edition.</p>
+<p>Server includes core file share and synchronization features plus community
+apps, and is community-supported and free of cost. See <a class="reference external" href="https://owncloud.org/">owncloud.org</a> for current information and links to downloads.</p>
+<p>ownCloud now offers two levels of paid support:</p>
+<ul class="simple">
+<li>ownCloud Standard</li>
+<li>ownCloud Enterprise</li>
+</ul>
+<p>The ownCloud Standard Subscription is for customers who want paid support for
+the core Server, and do not need Enterprise apps. This includes:</p>
+<ul class="simple">
+<li>ownCloud Server</li>
+<li>ownCloud desktop and mobile apps (without the custom branding build service)</li>
+<li>ownCloud open-source apps licensed as AGPL (Share Files,
+Federated Cloud, Versions, Deleted files, LDAP/AD, Antivirus, Encryption,
+External Storage. etc.), 8x5 support hours</li>
+</ul>
+<p>Note: This does not include support for Contacts, Calendar, Tasks, Chat,
+Documents, or any other community-only apps, and it does not include support
+for Enterprise-only apps or services.</p>
+<p>The ownCloud Enterprise Subscription replaces the Enterprise Edition. This
+includes the core Server plus Enterprise apps. The Enterprise Subscription
+includes:</p>
+<ul class="simple">
+<li>ownCloud Standard Subscription</li>
+<li>ownCloud Enterprise apps (Logging modules, SAML, File Firewall, Sharepoint,
+Windows Network Drive, Home Directory Mounts, etc)</li>
+<li>ownBrander for mobile app branding</li>
+<li>ownCloud Commercial License for closed-source customizations</li>
+<li>Up to 24x7 support</li>
+<li>Deployment assistance for the rollout</li>
+</ul>
+<p>New customers, or customers upgrading from the old Enterprise Edition will
+install ownCloud 8 from the existing <tt class="docutils literal"><span class="pre">owncloud-enterprise</span></tt> repository. The
+<tt class="docutils literal"><span class="pre">owncloud-server</span></tt> dependency will be pulled in automatically. Customers using
+the community edition will upgrade via package manager by adding the
+<tt class="docutils literal"><span class="pre">owncloud-enterprise</span> <span class="pre">repository</span></tt>, and installing ownCloud Enterprise Edition
+apps on top of their <tt class="docutils literal"><span class="pre">owncloud-server</span></tt>.</p>
+</div>
+<div class="section" id="no-more-php-5-3">
+<h2>No More PHP 5.3<a class="headerlink" href="#no-more-php-5-3" title="Permalink to this headline">¶</a></h2>
+<p>PHP 5.3 is not supported in ownCloud 8, and PHP 5.4 is required.</p>
+</div>
+<div class="section" id="improved-admin-and-settings-ui">
+<h2>Improved Admin and Settings UI<a class="headerlink" href="#improved-admin-and-settings-ui" title="Permalink to this headline">¶</a></h2>
+<p>The ownCloud Admin and Settings pages have been streamlined and re-organized,
+and include a new sidebar for accessing configuration options more quickly.</p>
+</div>
+<div class="section" id="simplified-app-management">
+<h2>Simplified App Management<a class="headerlink" href="#simplified-app-management" title="Permalink to this headline">¶</a></h2>
+<p>Installing, upgrading, and removing apps is easier, and includes a new
+dependency feature to automatically resolve installation dependendencies.</p>
+</div>
+<div class="section" id="new-updater-layout">
+<h2>New Updater Layout<a class="headerlink" href="#new-updater-layout" title="Permalink to this headline">¶</a></h2>
+<p>The Updater app (Server only) is more intelligent, and detects errors before
+they happen and rolls the update back. Status and error messages are more
+informative.</p>
+</div>
+<div class="section" id="more-powerful-user-management">
+<h2>More Powerful User Management<a class="headerlink" href="#more-powerful-user-management" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the existing filter and text string searchable user management,
+an entirely new set of features has been added to ownCloud. Admins can now edit
+email addresses for system users, sort users, select multiple users at once, and
+rename groups.</p>
+</div>
+<div class="section" id="ldap-improvements-including-ldap-user-cleanup">
+<h2>LDAP Improvements, Including LDAP User Cleanup<a class="headerlink" href="#ldap-improvements-including-ldap-user-cleanup" title="Permalink to this headline">¶</a></h2>
+<p>ownCloud has significantly improved LDAP and AD performance, provided additional
+configuration options and expert modes, and added a new utility for verifying
+and removing users from ownCloud that are no longer active in LDAP or AD.</p>
+</div>
+<div class="section" id="improved-and-open-sourced-provisioning-api">
+<h2>Improved and Open-Sourced Provisioning API<a class="headerlink" href="#improved-and-open-sourced-provisioning-api" title="Permalink to this headline">¶</a></h2>
+<p>Remote management of ownCloud users is enabled with the Provisioning API.
+Previously limited to the Enterprise edition, it is now open source and
+available to the community.</p>
+</div>
+<div class="section" id="favorites">
+<h2>Favorites<a class="headerlink" href="#favorites" title="Permalink to this headline">¶</a></h2>
+<p>Users can now assign a favorite icon to files and folders. Look for
+improvements in this feature in future ownCloud editions to make finding and
+managing files even easier.</p>
+</div>
+<div class="section" id="improved-server-to-server-sharing">
+<h2>Improved Server-to-Server Sharing<a class="headerlink" href="#improved-server-to-server-sharing" title="Permalink to this headline">¶</a></h2>
+<p>Server-to-Server Sharing, introduced in ownCloud 7, allows you to mount file
+shares from remote ownCloud servers, and create a &#8220;cloud of ownClouds&#8221;. In
+ownCloud 8 the process for creating a new Server-to-Server link is easier and more
+streamlined.</p>
+</div>
+<div class="section" id="improved-search">
+<h2>Improved Search<a class="headerlink" href="#improved-search" title="Permalink to this headline">¶</a></h2>
+<p>The search interface has been streamlined and simplified, with more features
+including enhanced result set reporting and additional search parameters.</p>
+</div>
+<div class="section" id="web-interface-enhancements">
+<h2>Web Interface Enhancements<a class="headerlink" href="#web-interface-enhancements" title="Permalink to this headline">¶</a></h2>
+<p>The ownCloud Web interface has been improved to make it easier for all users to
+access, edit, sync and share their files.</p>
+</div>
+<div class="section" id="download-broker-improves-performance">
+<h2>Download Broker Improves Performance<a class="headerlink" href="#download-broker-improves-performance" title="Permalink to this headline">¶</a></h2>
+<p>When ownCloud delivers universal file access to end users, files from many
+different document sources are aggregated into a single interface and served to
+end users. In some cases, passing all of the files aggregated in this interface
+through a single server, ownCloud, slows down data access. ownCloud now
+supports direct downloads of files from select storage back-ends, reducing the
+load on the ownCloud server without sacrificing control over the files that are
+stored in the various back end systems.</p>
+</div>
+</div>
+
+
+					</div>
+				</div>
+			</div>
+    
+  </div>
+</div>
+  </body>
+</html>

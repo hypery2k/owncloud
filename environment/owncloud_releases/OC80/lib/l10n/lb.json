@@ -1,0 +1,23 @@
+{ "translations": {
+    "Help" : "Hëllef",
+    "Personal" : "Perséinlech",
+    "Settings" : "Astellungen",
+    "Users" : "Benotzer",
+    "Admin" : "Admin",
+    "Unknown filetype" : "Onbekannten Fichier Typ",
+    "Invalid image" : "Ongülteg d'Bild",
+    "today" : "haut",
+    "yesterday" : "gëschter",
+    "_%n day ago_::_%n days ago_" : ["",""],
+    "last month" : "Läschte Mount",
+    "_%n month ago_::_%n months ago_" : ["",""],
+    "last year" : "Läscht Joer",
+    "_%n year ago_::_%n years ago_" : ["",""],
+    "_%n hour ago_::_%n hours ago_" : ["",""],
+    "_%n minute ago_::_%n minutes ago_" : ["","%n Minutten hir"],
+    "seconds ago" : "Sekonnen hir",
+    "web services under your control" : "Web-Servicer ënnert denger Kontroll",
+    "Authentication error" : "Authentifikatioun's Fehler",
+    "%s shared »%s« with you" : "Den/D' %s huet »%s« mat dir gedeelt"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
