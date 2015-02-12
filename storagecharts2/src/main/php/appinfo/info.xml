@@ -3,7 +3,7 @@
 	<id>storagecharts2</id>
 	<name>StorageCharts2 Application</name>
 	<licence>AGPL</licence>
-	<author>Xavier Beurois (www.djazz-lab.net) and Martin Reinhardt</author>
+	<author>Martin Reinhardt</author>
 	<require>5.0</require>
 	<version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${env.BUILD_NUMBER}</version>
 
