@@ -31,6 +31,6 @@ OCP\App::addNavigationEntry( array(
 	'id' => 'reveal_index',
 	'order' => 80,
 	'href' => OCP\Util::linkTo( 'revealjs', 'index.php' ),
-	'icon' => OCP\Util::imagePath( 'revealjs', 'impress.png' ),
+	'icon' => OCP\Util::imagePath( 'revealjs', 'presentation.svg' ),
 	'name' => 'RevealJS'
 ));
