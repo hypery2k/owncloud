@@ -12,7 +12,14 @@
 		<br>
 		<input type="text" id="maildir" name="maildir"
 			style="width: 400px;" value="<?php echo $_['maildir']; ?>"
-			onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}" />
+			onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if(lastChar !=='/') {$('#maildir').val($('#maildir').val()+'/');};}" />		
+		<br> 
+		<label for="rcRefreshInterval"
+			title="<?php echo $l->t('This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the session life-time of your RoundCube install (refer to the Roundcube documentation, please).'); ?>">
+			<?php echo $l -> t('Refresh interval for the Roundcube-session in seconds'); ?>
+			<input type="text" id="rcRefreshInterval" name="rcRefreshInterval"
+			value="<?php echo $_['rcRefreshInterval']; ?>">
+		</label> 
 		<br>
 		<br>
 		<h3><?php echo $l -> t('Advanced settings'); ?></h3>
@@ -54,13 +61,7 @@
 		<label for="rcPort"> <?php echo $l -> t('Overwrite roundcube server port (If not specified, ports 80/443 are used for HTTP/S)'); ?>
 		</label> 
 		<input type="text" id="rcPort" name="rcPort"
-			value="<?php echo $_['rcPort']; ?>"> <br> <label
-			for="rcRefreshInterval"
-			title="<?php echo $l->t('This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the session life-time of your RoundCube install (refer to the Roundcube documentation, please).'); ?>">
-			<?php echo $l -> t('Refresh interval for the Roundcube-session in seconds'); ?>
-			<input type="text" id="rcRefreshInterval" name="rcRefreshInterval"
-			value="<?php echo $_['rcRefreshInterval']; ?>">
-		</label> 
+			value="<?php echo $_['rcPort']; ?>">
 		<br>
 		<br>
 		<input id="rcAdminSubmit" type="submit" value="Save" />
