@@ -25,19 +25,35 @@
 OCP\User::checkAdminUser();
 
 OCP\Util::addStyle('roundcube', 'adminSettings');
-OCP\Util::addScript('roundcube', 'adminSettings');
 
 // fill template
 $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
 
-$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings');
+
+// workaround to detect OC version
+$ocVersion = @reset(OCP\Util::getVersion());
+// below OC7
+if ($ocVersion < 7) {
+	OCP\Util::addScript('roundcube', 'adminSettings.oc6');
+	$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings.oc6');
+} else {
+	// OC7.x
+	if ($ocVersion < 8) {
+		OCP\Util::addScript('roundcube', 'adminSettings.oc7');
+		$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings.oc7');
+	} else {
+		OCP\Util::addScript('roundcube', 'adminSettings');
+		$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings');
+	}
+}
+
+
 foreach ($params as $param) {
 	$value = OCP\Config::getAppValue('roundcube', $param, '');
 	$tmpl -> assign($param, $value);
 }
 
 // workaround to detect OC version
-$ocVersion = @reset(OCP\Util::getVersion());
 $tmpl->assign('ocVersion', $ocVersion);
 
 return $tmpl -> fetchPage();
