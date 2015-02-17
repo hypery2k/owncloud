@@ -24,7 +24,7 @@ Roundcube.adminSettingsUI = function() {
           $('#adminmail_success_message').show();
           window.setTimeout(function() {
               $('#adminmail_success_message').hide();
-          }, 10000);
+          }, 1000);
         } else {
           $('#adminmail_error_message').html(data.data.message);
           $('#adminmail_error_message').show();
