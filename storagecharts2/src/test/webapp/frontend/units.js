@@ -14,6 +14,6 @@ describe('view charts', function() {
     option.text = '3';
     select.appendChild(option);
     document.body.appendChild(select);
-    getHistoUsUnitsSelect(2048);
+    StorageCharts2.getHistoUsUnitsSelect(2048);
   });
 });
