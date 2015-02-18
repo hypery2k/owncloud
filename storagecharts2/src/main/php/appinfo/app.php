@@ -29,11 +29,11 @@ OC::$CLASSPATH['OC_DLStCharts'] =  OC_App::getAppPath('storagecharts2') . "/lib/
 OC::$CLASSPATH['OC_DLStChartsLoader'] =  OC_App::getAppPath('storagecharts2') . "/lib/loader.class.php";
 
 OCP\App::addNavigationEntry(array(
-	'id' => 'storagecharts2',
+	'id' => 'storagecharts2_index',
 	'order' => 60,
-	'href' => OCP\Util::linkTo('storagecharts2', 'charts.php'),
+	'href' => OCP\Util::linkTo('storagecharts2', 'index.php'),
 	'icon' => OCP\Util::imagePath('storagecharts2', 'chart.svg'),
-	'name' => $l->t('DL Charts')
+	'name' => $l->t('Storage Charts')
 ));
 
 OCP\App::registerPersonal('storagecharts2','settings');

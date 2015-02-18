@@ -25,8 +25,8 @@
 
 OCP\Util::addStyle('storagecharts2', 'styles');
 OCP\Util::addScript('storagecharts2', 'highcharts.min');
-OCP\Util::addScript('3rdparty','chosen/chosen.jquery.min');
-OCP\Util::addStyle('3rdparty','chosen/chosen');
+OCP\Util::addScript('storagecharts2', 'chosen.jquery.min');
+OCP\Util::addScript('storagecharts2', 'chosen.proto.min');
 OCP\Util::addScript('storagecharts2', 'units.min');
 
 ?>
@@ -37,7 +37,7 @@ OCP\Util::addScript('storagecharts2', 'units.min');
     		axis:'y',handle:'h3',placeholder:'ui-state-highlight',update:function(e,u){
     			$.ajax({
 		        	type:'POST',
-		        	url:OC.linkTo('storagecharts2','ajax/config.php'),
+		        	url:OC.linkTo('storagecharts2','ajax/userSettings.php'),
 		        	dataType:'json',
 		        	data:{o:'set',k:'sc_sort',i:$('#stc_sortable').sortable('toArray')},
 		        	async:true

@@ -24,16 +24,15 @@
 $ocVersion = $_['ocVersion'];
 $cfgClass = $ocVersion >= 7 ? 'section' : 'personalblock';
 ?>
-<form id="storagecharts2" method="POST"
-	action="<?php print(OC_Helper::linkTo('settings','personal.php')); ?>">
-		<!-- Prevent CSRF attacks-->
-		<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> 
-		<input type="hidden" name="appname" value="storagecharts2">
-		<fieldset class="<?php echo $cfgClass; ?>" id="storagecharts2">
+<form id="storagecharts2"  action="#" method="post">
+	<!-- Prevent CSRF attacks-->
+	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> 
+	<input type="hidden" name="appname" value="storagecharts2">
+	
+	<fieldset class="<?php echo $cfgClass; ?>">
 		<h2>Storage Charts 2</h2>
-		<span
-			style="margin-left: 10px; color: #BBB; font-style: italic;"><?php print($l->t('Uncheck charts you do not want to display')); ?>
-		</span>
+		<em><?php print($l->t('Uncheck charts you do not want to display')); ?></em>
+		<br>
 		<?php foreach($_['displays'] as $chart => $is_enable){
 			if(strcmp($chart, 'cpie_rfsus') == 0){
 				$chart_title = 'Current ratio free space / used space';
