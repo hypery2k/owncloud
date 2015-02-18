@@ -13,7 +13,6 @@ $l = new OC_L10N('roundcube');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 	$ocUser = OCP\User::getUser();
-
 	$result = OC_RoundCube_App::cryptEmailIdentity($ocUser, $_POST['rc_mail_username'], $_POST['rc_mail_password'], true);
 
 	if ($result) {
@@ -23,7 +22,7 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 		if ($rc_host == '') {
 			$rc_host = OC_Request::serverHost();
 		}
-		$params= array(
+		$params = array(
 				"uid" => $_POST['rc_mail_username'],
 				"password" => $_POST['rc_mail_password'],
 		);

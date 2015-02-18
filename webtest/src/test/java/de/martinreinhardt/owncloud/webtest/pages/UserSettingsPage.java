@@ -27,7 +27,7 @@ public class UserSettingsPage extends AbstractPage {
 
 	private final static String RC_ID_STATUS_MSG = "rc_usermail_success_message";
 
-	@FindBy(id = "rc_mail_settings")
+	@FindBy(id = "roundcube")
 	private WebElement rcSettingsPanel;
 
 	@FindBy(id = "rc_mail_username")

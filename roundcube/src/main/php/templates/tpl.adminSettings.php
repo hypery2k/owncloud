@@ -1,8 +1,7 @@
 <form id="rcMailAdminPrefs" action="#" method="post">
 	<!-- Prevent CSRF attacks-->
-	<input type="hidden" name="requesttoken"
-		value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> <input
-		type="hidden" name="appname" value="roundcube">
+	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
+	<input type="hidden" name="appname" value="roundcube">
 	<div id="roundcube" class="section">
 		<h2><?php echo $l -> t('RoundCube Settings'); ?></h2>
 		<h3><?php echo $l -> t('Basic settings'); ?></h3>

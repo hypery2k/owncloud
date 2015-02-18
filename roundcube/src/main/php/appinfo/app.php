@@ -44,9 +44,9 @@ OCP\App::registerAdmin('roundcube', 'adminSettings');
 OCP\App::registerPersonal('roundcube', 'userSettings');
 
 OCP\App::addNavigationEntry(array(
-'id' => 'roundcube_index',
-'order' => 10,
-'href' => OCP\Util::linkTo('roundcube', 'index.php'),
-'icon' => OCP\Util::imagePath('roundcube', 'mail.svg'),
-'name' => $l -> t('Webmail')
+	'id' => 'roundcube_index',
+	'order' => 10,
+	'href' => OCP\Util::linkTo('roundcube', 'index.php'),
+	'icon' => OCP\Util::imagePath('roundcube', 'mail.svg'),
+	'name' => $l -> t('Webmail')
 ));

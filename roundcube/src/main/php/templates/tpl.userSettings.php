@@ -32,16 +32,15 @@ if (!$table_exists) {
 } else {
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	?>
-<form id="rc_mail_settings" action="#"
-	method="post">
+<form id="roundcube" action="#"	method="post">
 	<!-- Prevent CSRF attacks-->
-	<input type="hidden" name="requesttoken"
-		value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> <input
-		type="hidden" name="appname" value="roundcube">
-	<fieldset class="<?php echo $cfgClass; ?>" id="roundcube">
-		<h2>
-			<?php p($l->t('RoundCube Mailaccount')); ?>
-		</h2>
+	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken"> 
+	<input type="hidden" name="appname" value="roundcube">
+	
+	<fieldset class="<?php echo $cfgClass; ?>">
+		<h2>RoundCube</h2>		
+		<em><?php p($l->t('RoundCube Mailaccount')); ?></em>
+		<br>
 		<?php	
 		$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 		if(!$enable_auto_login){
@@ -53,13 +52,12 @@ if (!$table_exists) {
 		        ?>
 		<input type="text" id="rc_mail_username" name="rc_mail_username"
 			value="<?php echo $mail_username; ?>"
-			placeholder="<?php p($l -> t('Email Login Name')); ?>" /> <input
-			type="password" id="rc_mail_password" name="rc_mail_password"
+			placeholder="<?php p($l -> t('Email Login Name')); ?>" /> 
+		<input type="password" id="rc_mail_password" name="rc_mail_password"
 			placeholder="<?php p($l -> t('Email Password')); ?>"
-			data-typetoggle="rc_mail_password_show" /> <input type="button"
-			value="<?php p($l -> t('Update Email Identity')); ?>"
-			name="rc_usermail_update" id="rc_usermail_update" />
-
+			data-typetoggle="rc_mail_password_show" /> 
+		<input type="button" id="rc_usermail_update" name="rc_usermail_update"
+			value="<?php p($l -> t('Update Email Identity')); ?>"/>
 		<div id="rc_usermail_update_message" class="statusmessage">
 			<?php p($l->t('Saving...')); ?>
 		</div>
