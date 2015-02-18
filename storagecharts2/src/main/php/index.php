@@ -25,6 +25,12 @@
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('storagecharts2');
 
+OCP\Util::addStyle('storagecharts2', 'styles');
+OCP\Util::addScript('storagecharts2', 'highcharts.min');
+OCP\Util::addScript('storagecharts2', 'chosen.jquery.min');
+OCP\Util::addScript('storagecharts2', 'chosen.proto.min');
+OCP\Util::addScript('storagecharts2', 'storagecharts2');
+
 $tmpl = new OCP\Template('storagecharts2', 'tpl.charts', 'user');
 
 // Get data for all users if admin or just for the current user

@@ -23,47 +23,42 @@
  *
  */
 
-OCP\Util::addStyle('storagecharts2', 'styles');
-OCP\Util::addScript('storagecharts2', 'highcharts.min');
-OCP\Util::addScript('storagecharts2', 'chosen.jquery.min');
-OCP\Util::addScript('storagecharts2', 'chosen.proto.min');
-OCP\Util::addScript('storagecharts2', 'units.min');
 
+foreach($_['sc_sort'] as $sc_sort){
+	if($_['c_disp'][$sc_sort]){
+		// add js for each sorting
+		$scSort=$sc_sort;
+		//$js = $js.'StorageCharts2.render(\"'.OC_DLStChartsLoader::loadChart($sc_sort, $l).'\");';
+	}
+}
+
+if($_['c_disp']['clines_usse']){
+	$huSize = $_['hu_size'];
+	//$js = $js.'StorageCharts2.linesUsseUnitsSelect(\"'.$_['hu_size'].'\");';
+}
+if($_['c_disp']['chisto_us']){
+	$huSizeHus = $_['hu_size_hus'];
+	//$js = $js.'StorageCharts2.histoUsUnitsSelect(\"'.$_['hu_size_hus'].'\");';
+}
 ?>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-    	$('#stc_sortable').sortable({
-    		axis:'y',handle:'h3',placeholder:'ui-state-highlight',update:function(e,u){
-    			$.ajax({
-		        	type:'POST',
-		        	url:OC.linkTo('storagecharts2','ajax/userSettings.php'),
-		        	dataType:'json',
-		        	data:{o:'set',k:'sc_sort',i:$('#stc_sortable').sortable('toArray')},
-		        	async:true
-		        });
-    		}
-    	});
-    	$('#stc_sortable').disableSelection();
-    });
-</script>
-
-<div id="storagecharts2">
+<div id="storagecharts2" data-sc-sort="<?php  print($scSort)?>" data-sc-size="<?php  print($huSize)?>" data-sc-size-hus="<?php  print($huSizeHus)?>">
 	<div class="personalblock topblock titleblock">
 		<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?></span>
 	</div>
 </div>
 <div id="stc_frame">
 	<div id="stc_sortable">
-		<?php foreach($_['sc_sort'] as $sc_sort){
-			if(strcmp($sc_sort, 'cpie_rfsus') == 0){
-				$sc_sort_title = 'Current ratio free space / used space';
-			}elseif(strcmp($sc_sort, 'clines_usse') == 0){
-				$sc_sort_title = 'Daily Used Space Evolution';
-			}else{
-				$sc_sort_title = 'Monthly Used Space Evolution';
-			}
-			if($_['c_disp'][$sc_sort]){ ?>
+	<?php foreach($_['sc_sort'] as $sc_sort){
+		if(strcmp($sc_sort, 'cpie_rfsus') == 0){
+			$sc_sort_title = 'Current ratio free space / used space';
+		}elseif(strcmp($sc_sort, 'clines_usse') == 0){
+			$sc_sort_title = 'Daily Used Space Evolution';
+		}else{
+			$sc_sort_title = 'Monthly Used Space Evolution';
+		}
+		if($_['c_disp'][$sc_sort]){ 
+		?>
 		<div id="<?php print($sc_sort); ?>" class="personalblock">
 			<h3>
 				<img
@@ -71,17 +66,10 @@ OCP\Util::addScript('storagecharts2', 'units.min');
 				<?php print($l->t($sc_sort_title).' '.$l->t('for')); ?>
 				"<?php print(OC_Group::inGroup(OCP\User::getUser(), 'admin')?$l->t('all users'):OCP\User::getDisplayName()); ?>"
 			</h3>
-			<div id="<?php print(substr($sc_sort, 1)); ?>"
-				style="max-width: 100%; height: 400px; margin: 0 auto"></div>
-			<script type="text/javascript">$(document).ready(function(){<?php print(OC_DLStChartsLoader::loadChart($sc_sort, $l)); ?>});</script>
+			<div id="<?php print(substr($sc_sort, 1)); ?>" style="max-width: 100%; height: 400px; margin: 0 auto">
+			</div>
 		</div>
-		<?php }
-		} ?>
+	<?php }
+	} ?>
 	</div>
-	<?php if($_['c_disp']['clines_usse']){
-		print('<script type="text/javascript">$(document).ready(function(){getLinesUsseUnitsSelect('.$_['hu_size'].');});</script>');
-	}
-	if($_['c_disp']['chisto_us']){
-print('<script type="text/javascript">$(document).ready(function(){getHistoUsUnitsSelect(' . $_['hu_size_hus'] . ');});</script>');
-} ?>
 </div>

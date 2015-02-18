@@ -27,11 +27,19 @@ OCP\JSON::checkAppEnabled('storagecharts2');
 $l = new OC_L10N('storagecharts2');
 
 // Update and save the new configuration
-if(is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus'))){
+if(is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus','hu_ratio'))){
 	OC_DLStCharts::setUConfValue($_POST['k'], $_POST['s']);
-	if(strcmp($_POST['k'],'hu_size') == 0){
-		OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('clines_usse', $l)));
-	}else{
-		OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('chisto_us', $l)));
+	switch($_POST['k']){
+		case 'hu_size':
+			OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('chisto_us', $l)));
+			break;
+		case 'hu_size_hus':
+			OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('clines_usse', $l)));
+			break;
 	}
+} else {
+	// default
+	OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('cpie_rfsus', $l)));
 }
+
+
