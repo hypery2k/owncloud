@@ -60,19 +60,9 @@ StorageCharts2.getHistoUsUnitsSelect = function(s) {
 }
 
 /**
- * Fills height and width of window. (more precise than height: 100%; or width: 100%;)
+ * Init storage usage charts
  */
-StorageCharts2.render = function(renderChart) {
-  if (renderChart) {
-    $(document).ready(function() {
-      eval(renderChart);
-    })
-  }
-}
-
-// init sorting
-$(document).ready(function() {
-
+StorageCharts2.init = function() {
   if ($('#clines_usse').size() > 0) {
     // TODO unit selection
     // StorageCharts2.getLinesUsseUnitsSelect($('#storagecharts2').data('sc-size'));
@@ -81,7 +71,7 @@ $(document).ready(function() {
       'k' : 'hu_size'
     }, function(data) {
       if (data.r) {
-	eval(data.r);
+  eval(data.r);
       }
     });
   }
@@ -93,7 +83,7 @@ $(document).ready(function() {
       'k' : 'hu_size_hus'
     }, function(data) {
       if (data.r) {
-	eval(data.r);
+  eval(data.r);
       }
     });
   }
@@ -102,7 +92,7 @@ $(document).ready(function() {
       'k' : 'hu_ratio'
     }, function(data) {
       if (data.r) {
-	eval(data.r);
+  eval(data.r);
       }
     });
   }
@@ -112,17 +102,22 @@ $(document).ready(function() {
     placeholder : 'ui-state-highlight',
     update : function(e, u) {
       $.ajax({
-	type : 'POST',
-	url : OC.linkTo('storagecharts2', 'ajax/userSettings.php'),
-	dataType : 'json',
-	data : {
-	  o : 'set',
-	  k : 'sc_sort',
-	  i : $('#stc_sortable').sortable('toArray')
-	},
-	async : true
+  type : 'POST',
+  url : OC.linkTo('storagecharts2', 'ajax/userSettings.php'),
+  dataType : 'json',
+  data : {
+    o : 'set',
+    k : 'sc_sort',
+    i : $('#stc_sortable').sortable('toArray')
+  },
+  async : true
       });
     }
   });
   $('#stc_sortable').disableSelection();
+}
+
+// init sorting
+$(document).ready(function() {
+  StorageCharts2.init();
 });
