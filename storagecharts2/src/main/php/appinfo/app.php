@@ -33,7 +33,7 @@ OCP\App::addNavigationEntry(array(
 	'order' => 60,
 	'href' => OCP\Util::linkTo('storagecharts2', 'index.php'),
 	'icon' => OCP\Util::imagePath('storagecharts2', 'chart.svg'),
-	'name' => $l->t('Storage Charts')
+	'name' => $l->t('Usage')
 ));
 
 OCP\App::registerPersonal('storagecharts2','settings');
