@@ -15,5 +15,5 @@ package de.martinreinhardt.owncloud.webtest.util;
  */
 public class UITestConstants {
 
-	public static final String DEFAULT_URL = "http://cloud01.martinreinhardt-online.de/oc_testing/mysql/owncloud/";
+	public static final String DEFAULT_URL = "/";
 }
