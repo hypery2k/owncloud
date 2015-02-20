@@ -52,27 +52,6 @@ public class AbstractPage extends PageObject {
 		}
 	}
 
-	/**
-	 * Waits for the ajax status loader to disappear
-	 */
-	public void wait_for_load() {
-		try {
-			waitFor(500).milliseconds();
-			// TODO implement
-			// wait for ui blocker to disappear
-			// if (element(blockUI).isCurrentlyVisible()) {
-			// element(blockUI).waitUntilNotVisible();
-			// LOG.info("UI Blocker disappeared");
-			// }
-			// if (element(ajaxLoader).isCurrentlyVisible()) {
-			// // wait for loader icon to disappear
-			// element(ajaxLoader).waitUntilNotVisible();
-			// LOG.info("AJAX loader disappeared. Loading complete...");
-			// }
-		} catch (final Exception e) {
-		}
-	}
-
 	// Simple Helper Methods
 
 	/**
@@ -96,11 +75,9 @@ public class AbstractPage extends PageObject {
 	 */
 	public void click(final WebElement pElement) {
 		LOG.info("Starting clicking element ");
-		wait_for_load();
 		// scroll to element
 		scrollTo(pElement);
 		element(pElement).click();
-		wait_for_load();
 		LOG.info("Clicking element done.");
 	}
 
@@ -112,7 +89,6 @@ public class AbstractPage extends PageObject {
 	 *            to enter
 	 */
 	public void input(final WebElement pElement, final String keyword) {
-		wait_for_load();
 		try {
 			LOG.info("click element ");
 			element(pElement).click();
@@ -120,7 +96,6 @@ public class AbstractPage extends PageObject {
 		}
 		LOG.info("Typing input of element ");
 		element(pElement).type(keyword);
-		wait_for_load();
 	}
 
 }
