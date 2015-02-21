@@ -11,11 +11,14 @@ OCP\JSON::callCheck();
 
 $l = new OC_L10N('roundcube');
 
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 	foreach ($params as $param) {
 		if (isset($_POST[$param])) {
+			if ($param === 'noSSLverify') {
+				OCP\Config::setAppValue('roundcube', 'noSSLverify', false);
+			}
 			if ($param === 'removeHeaderNav') {
 				OCP\Config::setAppValue('roundcube', 'removeHeaderNav', true);
 			}
