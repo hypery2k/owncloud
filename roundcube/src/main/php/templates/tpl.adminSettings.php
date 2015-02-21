@@ -30,18 +30,25 @@
 			for="removeControlNav"><?php echo $l -> t('Remove information bar on top of page'); ?>
 		</label> 
 		<br>
-		<input type="checkbox" name="removeHeaderNav"
-			id="removeHeaderNav"
-			<?php if ($_['removeHeaderNav']) echo ' checked'; ?>> 
+		<input type="checkbox" name="noSSLverify"
+			id="noSSLverify"
+			<?php if ($_['noSSLverify']) echo ' checked'; ?>> 
 		<label
-			title="<?php echo $l -> t('Removes the buttons for different sections (mail, adressbook, settings) within the RoundCube mail application'); ?>"
-			for="removeHeaderNav"><?php echo $l -> t('Remove RoundCube header navigation menu items'); ?>
+			title="<?php echo $l -> t('Disable SSL verification, e.g. for self-signed certificates'); ?>"
+			for="noSSLverify"><?php echo $l -> t('Disable SSL verification, e.g. for self-signed certificates'); ?>
 		</label> 		
 		<br>
 		<input type="checkbox" name="autoLogin" id="autoLogin"
 		<?php if ($_['autoLogin']) echo ' checked'; ?>> <label
 			title="<?php echo $l -> t('Enable autologin for users, which reuse the login data from OC for RoundCube.'); ?>"
 			for="autoLogin"><?php echo $l -> t('Enable autologin for users'); ?>
+		</label> 
+		<br>
+		<input type="checkbox" name="removeControlNav" id="removeControlNav"
+		<?php if ($_['removeControlNav']) echo ' checked'; ?>>
+		<label
+			title="<?php echo $l -> t('Remove RoundCube control navigation menu items with currently logged in user information'); ?>"
+			for="removeControlNav"><?php echo $l -> t('Remove information bar on top of page'); ?>
 		</label> 
 		<br>
 		<input type="checkbox" name="enableDebug" id="enableDebug"

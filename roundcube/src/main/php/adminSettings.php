@@ -27,7 +27,7 @@ OCP\User::checkAdminUser();
 OCP\Util::addStyle('roundcube', 'adminSettings');
 
 // fill template
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify','enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
 
 
 // workaround to detect OC version

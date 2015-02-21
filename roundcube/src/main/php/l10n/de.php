@@ -14,6 +14,7 @@
 "Remove RoundCube header navigation menu items" => "Navigationsleiste ausblenden",
 "Enable autologin for users, which reuse the login data from OC for RoundCube." => "Autologin für Nutzer aktivieren, um die Nutzerdaten von OC für Roundcube wieder zu nutzen.",
 "Enable autologin for users" => "Autologin für Nutzer aktivieren",
+"Disable SSL verification, e.g. for self-signed certificates" => "SSL-Verifizierung deaktivieren, z.B. für selbst-signierte SSL-Zertificate",
 "Enable debug messages. RC tends to bloat the log-files." => "Aktiviert Debugging. Das führt zu großen Logdateien!",
 "Enable debug logging" => "Aktiviert Debugging für das Logging",
 "Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies" => "Überschreibe roundcube server Hostnamen, wenn es nicht derselber wie Owncloud ist, z.B. (Sub)domänen wie rc.domain.tld. Das funktioniert aber nur innerhalb desselben Servers aufgrund von iFrame-Beschränkungen, siehe HTML/JS same-origin Policy.",

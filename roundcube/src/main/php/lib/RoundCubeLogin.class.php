@@ -175,8 +175,9 @@ class OC_RoundCube_Login {
 	 * @param string Relative webserver path to the RC installation, e.g.
 	 * /roundcube/
 	 * @param bool Enable debugging, - shows the full POST and the response
+	 * @param bool disable SSL certificate verification
 	 */
-	public function __construct($webmailHost, $webmailPort = '', $webmailPath,  $enableDebug = false) {
+	public function __construct($webmailHost, $webmailPort = '', $webmailPath,  $enableDebug = false,  $disableSSLverify = false) {
 		$this -> debugEnabled = $enableDebug;
 
 		$this -> addDebug("pre_construct", "Used Parameters:");

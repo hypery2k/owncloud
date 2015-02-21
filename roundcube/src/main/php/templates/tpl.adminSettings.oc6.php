@@ -43,6 +43,14 @@
             <label title="<?php echo $l->t('Enable debug messages. RC tends to bloat the log-files.'); ?>" for="enableDebug"><?php echo $l->t('Enable debug logging'); ?></label>
           </td>
       </tr></table>
+	  <input type="checkbox" name="noSSLverify"
+			id="noSSLverify"
+			<?php if ($_['noSSLverify']) echo ' checked'; ?>> 
+	  <label
+			title="<?php echo $l -> t('Disable SSL verification, e.g. for self-signed certificates'); ?>"
+			for="noSSLverify"><?php echo $l -> t('Disable SSL verification, e.g. for self-signed certificates'); ?>
+	  </label> 		
+	  <br>
       <label for="rcHost">
         <?php echo $l -> t('Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies'); ?>
       </label>

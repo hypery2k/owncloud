@@ -215,8 +215,9 @@ class OC_RoundCube_App {
 	 * @param roundcube usernam $user
 	 */
 	public static function logout($rcHost, $rcPort, $maildir, $user) {
-		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
-		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
+		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'false');
+		$disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');		
+		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug, $disableSSLverify);
 		if ($rcl -> logout()) {
 			OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): '. $user.' successfully logged off from roundcube ', OCP\Util::INFO);
 		} else {
@@ -235,8 +236,9 @@ class OC_RoundCube_App {
 	 */
 	public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword) {
 		// Create RC login object.
-		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
-		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
+		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'false');
+		$disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');		
+		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug, $disableSSLverify);
 		// Try to login
 		$rcl -> login($pLogin, $pPassword);
 		OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $pLogin, OCP\Util::DEBUG);
@@ -266,8 +268,9 @@ class OC_RoundCube_App {
 	public static function refresh($rcHost, $rcPort, $maildir){
 		$ocUser = OCP\User::getUser();
 		// Create RC login object.
-		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'true');
-		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug);
+		$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'false');
+		$disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');		
+		$rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $enableDebug, $disableSSLverify);
 		// Try to refresh
 		OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
 		if ($rcl -> isLoggedIn()) {
