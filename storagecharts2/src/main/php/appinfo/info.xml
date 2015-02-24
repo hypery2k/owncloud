@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <info>
 	<id>storagecharts2</id>
-	<name>StorageCharts2 Application</name>
+	<name>Storage Charts 2 Application</name>
 	<licence>AGPL</licence>
 	<author>Martin Reinhardt</author>
 	<require>5.0</require>
