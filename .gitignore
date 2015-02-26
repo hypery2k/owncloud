@@ -36,3 +36,5 @@ revealjs/bower_components/*
 storagecharts2/node/*
 storagecharts2/node_modules/*
 storagecharts2/bower_components/*
+
+src/main/docker/app/oc_apps/*

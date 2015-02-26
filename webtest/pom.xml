@@ -34,6 +34,9 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven-failsafe-plugin.version}</version>
 				<configuration>
+                    <systemPropertyVariables>
+                        <oc.app.ip>${docker.app.ipAddress}</oc.app.ip>
+                    </systemPropertyVariables>
 					<threadCount>8</threadCount>
 					<includes>
 						<include>**/*IT.java</include>

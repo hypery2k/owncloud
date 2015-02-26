@@ -16,4 +16,11 @@ package de.martinreinhardt.owncloud.webtest.util;
 public class UITestConstants {
 
 	public static final String DEFAULT_URL = "/";
+
+	public String getOwnCloudUrl() {
+		// read docker host IP
+		final String host = System.getProperty("oc.app.ip") != null ? System.getProperty("oc.app.ip") + "/owncloud/"
+				: "http://127.0.0.1/owncloud/";
+		return host;
+	}
 }

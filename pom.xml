@@ -19,6 +19,22 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>com.alexecollins.docker</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>${docker-maven-plugin.version}</version>
+					<configuration>
+						<host>${DOCKER_HOST}</host>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<!-- set-up port forwarding if you're using boot2docker -->
+							<groupId>com.alexecollins.docker</groupId>
+							<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+							<version>${docker-maven-plugin.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>${build-helper-maven-plugin.version}</version>
@@ -93,9 +109,6 @@
 				</dependencies>
 			</plugin>
 		</plugins>
-
-
-
 	</build>
 
 	<properties>
@@ -124,6 +137,7 @@
 		<webdriver.driver>firefox</webdriver.driver>
 
 		<!-- Maven Plugins -->
+		<docker-maven-plugin.version>2.4.0</docker-maven-plugin.version>
 		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
 		<maven-failsafe-plugin.version>2.12</maven-failsafe-plugin.version>
 		<build-helper-maven-plugin.version>1.9</build-helper-maven-plugin.version>
