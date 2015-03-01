@@ -7,6 +7,7 @@
 	<artifactId>owncloud-parent-pom</artifactId>
 	<name>OwnCloud Apps</name>
 	<packaging>pom</packaging>
+	<version>2.6.0-SNAPSHOT</version>
 
 	<modules>
 		<module>revealjs</module>
@@ -19,11 +20,16 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
 					<groupId>com.alexecollins.docker</groupId>
 					<artifactId>docker-maven-plugin</artifactId>
 					<version>${docker-maven-plugin.version}</version>
 					<configuration>
-						<host>${DOCKER_HOST}</host>
+
 					</configuration>
 					<dependencies>
 						<dependency>
@@ -78,6 +84,30 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectory>${basedir}/../target/docker/app/oc_apps</outputDirectory>
+					<resources>
+						<resource>
+							<directory>target</directory>
+							<includes>
+								<include>*.zip</include>
+							</includes>
+						</resource>
+					</resources>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -155,6 +185,7 @@
 		<maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
 		<github-site-maven-plugin.version>0.9</github-site-maven-plugin.version>
 		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
+		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
 
 		<!-- site plugins -->
 		<commons-lang.version>2.6</commons-lang.version>
@@ -216,6 +247,4 @@
 		<system>GitHub</system>
 		<url>http://github.com/hypery2k/owncloud/issues</url>
 	</issueManagement>
-
-	<version>2.6.0-SNAPSHOT</version>
 </project>
