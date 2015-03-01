@@ -11,6 +11,7 @@ ADD nginx.conf /root/
 ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
+RUN apt-get install wget
 RUN cd /root && wget http://www.webmin.com/jcameron-key.asc && apt-key add jcameron-key.asc
 RUN echo deb http://download.webmin.com/download/repository sarge contrib >> /etc/apt/sources.list 
 RUN http://webmin.mirror.somersettechsolutions.co.uk/repository sarge >> /etc/apt/sources.list 
