@@ -1,6 +1,0 @@
-require ["relational","comparator-i;ascii-numeric"];
-# rule:[redirect]
-if header :value "ge" :comparator "i;ascii-numeric" "X-Spam-score" "14"
-{
-	redirect "test@test.tld";
-}

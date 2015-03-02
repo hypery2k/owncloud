@@ -28,7 +28,7 @@ HOST_URL=""
 
 # set current path as working dir (fallback)
 PWD="`pwd`"
-DIR_OC_DEV=${PWD%/*}
+DIR_OC_DEV=${PWD}
 
 
 while [[ $# > 1 ]]
@@ -98,31 +98,13 @@ echo "  ==> Preparing owncloud setup"
 # clean up first
 rm -r ${DIR_WWW}/${DB_TYPE}/*
 
-DIR_OC_CUR=${DIR_WWW}/${DB_TYPE}/owncloud
-DIR_RC_CUR=${DIR_WWW}/${DB_TYPE}/roundcube
+DIR_OC_CUR=${DIR_WWW}/owncloud
+DIR_RC_CUR=${DIR_WWW}/roundcube
 DIR_OC_APPS=${DIR_OC_CUR}/apps
 DIR_OC_DATA=${DIR_OC_CUR}/data
 DIR_OC_APP_RJ=$DIR_OC_APPS/revealjs
 DIR_OC_APP_RC=$DIR_OC_APPS/roundcube
 DIR_OC_APP_SC=$DIR_OC_APPS/storagecharts2
-
-case ${OC_VERSION} in
-  OC_LATEST)        
-    echo "  ==> Preparing download of latest development master" 
-    wget https://github.com/owncloud/core/archive/master.zip --no-check-certificate 
-    unzip master.zip
-    DIR_TMP_WORK_CUR=${PWD}
-    cp -rp ${DIR_TMP_WORK_CUR}/core-master/*  ${DIR_OC_CUR}  
-    cd ${DIR_OC_CUR} && chmod +x build/*.sh
-    ./prepareTests.sh -d ${DB_TYPE} -n ${DB_NAME} -u ${DB_USER} -p ${DB_PASS} -p password
-    cp -rp ${DIR_TMP_WORK_CUR}/owncloud_releases/${OC_VERSION}/config/* ${DIR_OC_CUR}/config   
-    cd ${DIR_TMP_WORK_CUR}
-    ;;  
-  *)  
-  	mkdir -p ${DIR_OC_CUR}
-  	cp -rp owncloud_releases/${OC_VERSION}/* ${DIR_OC_CUR}
-    ;;
-esac
 
 #create all needed directories
 mkdir -p ${DIR_OC_CUR}
@@ -136,20 +118,76 @@ mkdir -p ${DIR_OC_APP_RC}
 mkdir -p ${DIR_OC_APP_RJ}
 mkdir -p ${DIR_OC_APP_SC}
 
+case ${OC_VERSION} in
+  OC_LATEST)        
+    echo "  ==> Preparing download of latest development master" 
+    wget https://github.com/owncloud/core/archive/master.zip --no-check-certificate 
+    unzip master.zip
+    DIR_TMP_WORK_CUR=${PWD}
+    cp -rp ${DIR_TMP_WORK_CUR}/core-master/*  ${DIR_OC_CUR}  
+    cd ${DIR_OC_CUR} && chmod +x build/*.sh
+    ./prepareTests.sh -d ${DB_TYPE} -n ${DB_NAME} -u ${DB_USER} -p ${DB_PASS} -p password
+    cp -rp ${DIR_TMP_WORK_CUR}/owncloud_releases/${OC_VERSION}/config/* ${DIR_OC_CUR}/config   
+    cd ${DIR_TMP_WORK_CUR}
+    ;; 
+  OC80)    	
+  	wget https://download.owncloud.org/community/owncloud-8.0.0.tar.bz2 -P /tmp/
+  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
+    ;;
+  OC70)  
+  	wget https://download.owncloud.org/community/owncloud-7.0.4.tar.bz2 -P /tmp/
+  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
+    ;; 
+  OC60)    
+  	wget https://download.owncloud.org/community/owncloud-6.0.5.tar.bz2 -P /tmp/
+  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
+    ;;  
+esac
+
+chown -R www-data:www-data ${DIR_OC_CUR}
+cp -rp etc/${OC_VERSION}/* ${DIR_OC_CUR}/
+
 echo "  ==> Directory listing for owncloud:"
 ls -lisah ${DIR_OC_CUR}*
 
-cp -rp roundcube_releases/${RC_VERSION}/* ${DIR_RC_CUR}
+
+case ${RC_VERSION} in
+  RC11)  
+  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.0/roundcubemail-1.1.0-complete.tar.gz/download -P /tmp/
+    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    ;;  
+  RC10)  
+  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.0.5/roundcubemail-1.0.5.tar.gz/download -P /tmp/
+    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    ;;  
+  RC09)  
+  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.9.5/roundcube-framework-0.9.5.tar.gz/download -P /tmp/
+    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    ;;  
+  RC08) 
+  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.8.7/roundcubemail-0.8.7.tar.gz/download -P /tmp/
+    tar -C ${DIR_RC_CUR} -xvzf /tmp/download 
+    ;;  
+  RC07)  
+  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.7.2/roundcubemail-0.7.2.tar.gz/download -P /tmp/
+    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    ;;  
+esac
+
+cp -rp etc/${RC_VERSION}/* ${DIR_RC_CUR}/
+
 echo "  ==> Directory listing for roundcube:"
 ls -lisah ${DIR_RC_CUR}*
+
+
 
 # prepare roundcube app
 
 cd ${DIR_OC_DEV}
 echo "  ==> copy app folder"
-cp -r ${DIR_OC_DEV}/roundcube/target/classes/* ${DIR_OC_APP_RC}
-cp -r ${DIR_OC_DEV}/storagecharts2/target/classes/* ${DIR_OC_APP_SC}
-cp -r ${DIR_OC_DEV}/revealjs/target/classes/* ${DIR_OC_APP_RJ}
+cp -r ${DIR_OC_DEV}/roundcube/* ${DIR_OC_APP_RC}
+cp -r ${DIR_OC_DEV}/storagecharts2/* ${DIR_OC_APP_SC}
+cp -r ${DIR_OC_DEV}/revealjs/* ${DIR_OC_APP_RJ}
 
 echo "  ==> Directory listing for app-folder of roundcube:"
 ls -lisah ${DIR_OC_APP_RC}*
@@ -160,11 +198,9 @@ echo
 
 
 echo "  ==> Setting up config"
-# copy htaccess
-#cp ${DIR_OC_DEV}/environment/owncloud_releases/${OC_VERSION}/.htaccess ${DIR_OC_CUR}/.htaccess
 
-# copy settings template
-cp ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
+# move settings template
+mv ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
 chown -R www-data ${DIR_OC_CUR}/config
 touch ${DIR_OC_DATA}/.ocdata
 
@@ -200,9 +236,9 @@ case ${DB_TYPE} in
 	done
 	echo "  ==> Setting up MySQL DB"  
 	echo "  	owncloud:  "
-    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < ${DIR_OC_DEV}/environment/mysql/${OC_VERSION}/create_db.sql
+    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < /tmp/etc/mysql/${OC_VERSION}/create_db.sql
    	echo "  	roundcube:  "
-    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < ${DIR_OC_DEV}/environment/mysql/${RC_VERSION}/create_db.sql
+    $MYSQL -u${DB_USER} -p${DB_PASS} ${DB_NAME} < /tmp/etc/mysql/${RC_VERSION}/create_db.sql
     ;;
 esac
 
