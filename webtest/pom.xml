@@ -24,6 +24,16 @@
 					<prefix>owncloud_app_testing</prefix>
 					<skip>${docker.skip}</skip>
 				</configuration>
+				<executions>
+					<execution>
+						<id>docker-prepare</id>
+						<goals>
+							<goal>stop</goal>
+							<goal>package</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
