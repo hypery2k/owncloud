@@ -19,7 +19,7 @@ public class UITestConstants {
 
 	public String getOwnCloudUrl() {
 		// read docker host IP
-		final String host = System.getProperty("oc.app.ip") != null ? System.getProperty("oc.app.ip") + "/owncloud/"
+		final String host = System.getProperty("oc.app.ip") != null ? System.getProperty("oc.ip") + "/owncloud/"
 				: "http://127.0.0.1/owncloud/";
 		return host;
 	}
