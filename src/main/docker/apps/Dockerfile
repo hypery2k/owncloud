@@ -21,7 +21,7 @@ RUN java -jar /root/mockimap.jar &
 RUN \
   apt-get clean && \
   apt-get update && \
-  apt-get -f install -y mysql-server unzip php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget      
+  apt-get -f install -y bzip2 mysql-server unzip php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget      
 ADD php.ini /etc/php5/fpm/
 RUN mkdir -p /tmp/oc_apps
 RUN mkdir -p /tmp/etc
