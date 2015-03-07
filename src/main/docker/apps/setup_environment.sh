@@ -117,15 +117,19 @@ case ${OC_VERSION} in
     ;; 
   OC80)    	
   	wget https://download.owncloud.org/community/owncloud-8.0.0.tar.bz2 -P /tmp/
-  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
+  	tar -C /tmp -xvf /tmp/owncloud-8.0.0.tar.bz2
+    cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
     ;;
   OC70)  
   	wget https://download.owncloud.org/community/owncloud-7.0.4.tar.bz2 -P /tmp/
   	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
+  	tar -C /tmp -xvf /tmp/owncloud-7.0.4.tar.bz2
+    cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
     ;; 
   OC60)    
   	wget https://download.owncloud.org/community/owncloud-6.0.5.tar.bz2 -P /tmp/
-  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
+  	tar -C /tmp -xvf /tmp/owncloud-6.0.5.tar.bz2
+    cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
     ;;  
 esac
 

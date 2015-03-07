@@ -13,9 +13,6 @@ ADD nginx.conf /root/
 ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
-# update apt repositories
-RUN apt-get update
-
 # mock imap
 ADD mockimap.jar /root/
 RUN java -jar /root/mockimap.jar &
@@ -26,7 +23,6 @@ RUN \
   apt-get update && \
   apt-get -f install -y mysql-server unzip php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget      
 ADD php.ini /etc/php5/fpm/
-ADD cron.conf /etc/oc-cron.conf
 RUN mkdir -p /tmp/oc_apps
 RUN mkdir -p /tmp/etc
 RUN mkdir -p /tmp/oc_apps/storagecharts2
@@ -39,7 +35,6 @@ ADD etc/ /tmp/etc/
 RUN \
   cd /tmp/oc_apps/ && \
   for z in *.zip; do unzip $z -d /tmp/oc_apps/; done 
-RUN crontab /etc/oc-cron.conf
 
 # prepare mysql
 RUN /tmp/prepareMySQL.sh oc_testing oc_testing password
