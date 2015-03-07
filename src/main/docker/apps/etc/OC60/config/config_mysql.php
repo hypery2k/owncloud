@@ -5,11 +5,10 @@ $CONFIG = array (
   'dbtableprefix' => 'oc6_',
   'dbuser' => 'oc_testing',
   'dbpassword' => 'password',
-  'datadirectory' => '/var/www/oc_testing/mysql/owncloud/data',
-  'trusted_domains' =>
   array (
-    0 => 'cloud01.martinreinhardt-online.de',
+    0 => 'martinreinhardt-online.de',
   ),
+  'datadirectory' => '/var/www/owncloud/data',
   'dbtype' => 'mysql',
   'version' => '6.0.4.1',
   'debug' => 'true',

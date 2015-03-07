@@ -28,7 +28,7 @@ chown -R mysql:mysql /var/lib/mysql
 mkdir -p -m 0755 /run/mysqld
 chown -R mysql:root /run/mysqld
 
-service mysql restart
+/etc/init.d/mysql restart
 
 # create new user / database
 if [ -n "${DB_USER}" -o -n "${DB_NAME}" ]; then
@@ -58,5 +58,3 @@ if [ -n "${DB_USER}" -o -n "${DB_NAME}" ]; then
 		fi
 	fi
 fi
-
-service mysql restart &
