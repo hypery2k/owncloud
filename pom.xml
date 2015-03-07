@@ -20,27 +20,6 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>${maven-resources-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>com.alexecollins.docker</groupId>
-					<artifactId>docker-maven-plugin</artifactId>
-					<version>${docker-maven-plugin.version}</version>
-					<configuration>
-
-					</configuration>
-					<dependencies>
-						<dependency>
-							<!-- set-up port forwarding if you're using boot2docker -->
-							<groupId>com.alexecollins.docker</groupId>
-							<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
-							<version>${docker-maven-plugin.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>${build-helper-maven-plugin.version}</version>
@@ -65,6 +44,28 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.alexecollins.docker</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>${docker-maven-plugin.version}</version>
+					<configuration>
+						<prefix>owncloud_app_testing</prefix>
+						<skip>${docker.skip}</skip>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<!-- set-up port forwarding if you're using boot2docker -->
+							<groupId>com.alexecollins.docker</groupId>
+							<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+							<version>${docker-maven-plugin.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -82,32 +83,21 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>buildnumber-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
+				<groupId>com.alexecollins.docker</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
+						<id>docker-package</id>
 						<goals>
-							<goal>copy-resources</goal>
+							<goal>package</goal>
+							<goal>start</goal>
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<outputDirectory>${basedir}/../target/docker/app/oc_apps</outputDirectory>
-					<resources>
-						<resource>
-							<directory>target</directory>
-							<includes>
-								<include>*.zip</include>
-							</includes>
-						</resource>
-					</resources>
-				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

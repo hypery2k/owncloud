@@ -6,7 +6,7 @@
 #
 # usage -o OC70 -r RC10 -d mysql or --oc_version OC70 --rc_version RC10 --db_type mysql --db_name oc_testing --db_user root --db_password password --workspace /tmp
 
-DIR_WWW=/var/www/oc_testing
+DIR_WWW=/var/www
 
 echo
 echo "=============================================="
@@ -24,11 +24,9 @@ DB_TYPE=""
 DB_USER="oc_testing"
 DB_PASS="password"
 DB_NAME="oc_testing"
-HOST_URL=""
 
-# set current path as working dir (fallback)
-PWD="`pwd`"
-DIR_OC_DEV=${PWD}
+# set working dir with sources
+DIR_OC_DEV="/tmp/oc_apps"
 
 
 while [[ $# > 1 ]]
@@ -37,7 +35,7 @@ do
   shift
   case $key in
     -h|--help)
-      echo "usage $0 -h -o OC50 -r RC07 -d mysql --n oc_testing --i root --p password -u http://localhost -w /tmp or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --db_name oc_testing --db_user root --db_password password  --url http://localhost --workspace /tmp"
+      echo "usage $0 -h -o OC50 -r RC07 -d mysql --n oc_testing --i root --p password or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --db_name oc_testing --db_user root --db_password password"
       exit 0
       ;;
     -o|--oc_version)        
@@ -64,17 +62,9 @@ do
       DB_PASS="$1"
       shift
       ;;
-    -u|--url)        
-      HOST_URL="$1"
-      shift
-      ;;
-    -w|--workspace)        
-      DIR_OC_DEV="$1"
-      shift
-      ;;
     *)
       echo "Unkown option"
-      echo "usage $0 -h -o OC50 -r RC07 -d mysql -u http://localhost -w /tmp or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql --url http://localhost --workspace /tmp"
+      echo "usage $0 -h -o OC50 -r RC07 -d mysql or $0 --help --oc_version OC50 --rc_version RC07 --db_type mysql"
       exit 0
     ;;
   esac
@@ -88,15 +78,11 @@ echo "  Using following settings:"
 echo "     OC_VERSION: ${OC_VERSION}"
 echo "     RC_VERSION: ${RC_VERSION}"
 echo "     DB_TYPE:    ${DB_TYPE}"
-echo "     HOST_URL:   ${HOST_URL}"
 echo
 
 
 # SETUP OWNCLOUD
 echo "  ==> Preparing owncloud setup"
-
-# clean up first
-rm -r ${DIR_WWW}/${DB_TYPE}/*
 
 DIR_OC_CUR=${DIR_WWW}/owncloud
 DIR_RC_CUR=${DIR_WWW}/roundcube
@@ -113,7 +99,6 @@ mkdir -p ${DIR_RC_CUR}/logs
 mkdir -p ${DIR_RC_CUR}/temp
 mkdir -p ${DIR_OC_APPS}
 mkdir -p ${DIR_OC_DATA}
-touch -p ${DIR_OC_DATA}/owncloud.log
 mkdir -p ${DIR_OC_APP_RC}
 mkdir -p ${DIR_OC_APP_RJ}
 mkdir -p ${DIR_OC_APP_SC}
@@ -154,23 +139,28 @@ ls -lisah ${DIR_OC_CUR}*
 case ${RC_VERSION} in
   RC11)  
   	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.0/roundcubemail-1.1.0-complete.tar.gz/download -P /tmp/
-    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    tar -C /tmp -xvzf /tmp/download
+    cp -rp /tmp/roundcubemail-1.1.0/* ${DIR_RC_CUR}
     ;;  
   RC10)  
   	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.0.5/roundcubemail-1.0.5.tar.gz/download -P /tmp/
-    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    tar -C /tmp -xvzf /tmp/download
+    cp -rp /tmp/roundcubemail-1.0.5/* ${DIR_RC_CUR}
     ;;  
   RC09)  
   	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.9.5/roundcube-framework-0.9.5.tar.gz/download -P /tmp/
-    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    tar -C /tmp -xvzf /tmp/download
+    cp -rp /tmp/roundcubemail-0.9.5/* ${DIR_RC_CUR}
     ;;  
   RC08) 
   	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.8.7/roundcubemail-0.8.7.tar.gz/download -P /tmp/
-    tar -C ${DIR_RC_CUR} -xvzf /tmp/download 
+    tar -C /tmp -xvzf /tmp/download
+    cp -rp /tmp/roundcubemail-0.8.7/* ${DIR_RC_CUR}
     ;;  
   RC07)  
   	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.7.2/roundcubemail-0.7.2.tar.gz/download -P /tmp/
-    tar -C ${DIR_RC_CUR} -xvzf /tmp/download
+    tar -C /tmp -xvzf /tmp/download
+    cp -rp /tmp/roundcubemail-0.7.2/* ${DIR_RC_CUR}
     ;;  
 esac
 
@@ -206,7 +196,7 @@ touch ${DIR_OC_DATA}/.ocdata
 
 echo "  ==> Setting up Directory rights"
 chmod -R 777 ${DIR_WWW}
-chown -R www-data ${DIR_WWW}/${DB_TYPE}/
+chown -R www-data ${DIR_WWW}/
 chmod -R 770 ${DIR_OC_DATA}
 chmod -R 770 ${DIR_OC_CUR}/config/
 chmod 770 ${DIR_OC_CUR}/config/
