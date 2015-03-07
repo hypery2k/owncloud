@@ -20,7 +20,9 @@
 				<groupId>com.alexecollins.docker</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
-					<skip>true</skip>
+					<oc.ip>${docker.apps.ipAddress}</oc.ip>
+					<prefix>owncloud_app_testing</prefix>
+					<skip>${docker.skip}</skip>
 				</configuration>
 			</plugin>
 			<plugin>
