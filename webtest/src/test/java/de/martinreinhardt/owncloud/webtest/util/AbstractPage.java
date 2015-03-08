@@ -28,6 +28,11 @@ public class AbstractPage extends PageObject {
 
 	public AbstractPage(final WebDriver pWebDriver) {
 		super(pWebDriver);
+		
+		final String ocUrl = System.getProperty("oc.ip") != null ? System.getProperty("oc.ip") + "/owncloud/"
+				: "http://127.0.0.1/owncloud/";
+		LOG.debug("Using following OwnCloud Root URL: " + ocUrl);
+		pWebDriver.get(ocUrl);
 	}
 
 	/**

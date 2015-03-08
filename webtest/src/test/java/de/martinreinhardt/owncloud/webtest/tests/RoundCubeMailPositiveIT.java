@@ -44,8 +44,9 @@ public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 	@Override
 	public void executeTestStepsFrontend() throws TestError {
 		endUserLogin.enter_login_area();
-		endUserLogin.do_login(getPositiveEmailUserWhichIsAOcUser().getUsername(), getPositiveEmailUserWhichIsAOcUser()
-				.getPassword());
+		endUserLogin.do_login(//@formatter:off
+				getPositiveEmailUserWhichIsAOcUser().getUsername(), 
+				getPositiveEmailUserWhichIsAOcUser().getPassword());//@formatter:on
 		loggedInuserSteps.go_to_roundcube_view();
 		rcSteps.is_not_showing_errors();
 		rcSteps.message_should_have_a_valid_subject();

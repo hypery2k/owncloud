@@ -7,7 +7,6 @@
  */
 package de.martinreinhardt.owncloud.webtest.pages;
 
-import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.findby.FindBy;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 
@@ -16,9 +15,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import de.martinreinhardt.owncloud.webtest.util.UITestConstants;
-
-@DefaultUrl(UITestConstants.DEFAULT_URL)
 public class RoundCubePage extends PortalPage {
 
 	// Logger

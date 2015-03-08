@@ -18,13 +18,15 @@ import com.icegreen.greenmail.util.GreenMail;
 
 import de.martinreinhardt.owncloud.webtest.steps.LoggedInUserSteps;
 import de.martinreinhardt.owncloud.webtest.steps.RoundCubeSteps;
+import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
+import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 import de.martinreinhardt.owncloud.webtest.util.MockedImapServer;
 
 /**
  * @author mreinhardt
  * 
  */
-public abstract class RoundCubeMockedMailIT extends MockedImapServer {
+public abstract class RoundCubeMockedMailIT extends AbstractUITest {
 
 	@Steps
 	protected LoggedInUserSteps loggedInuserSteps;
@@ -36,7 +38,7 @@ public abstract class RoundCubeMockedMailIT extends MockedImapServer {
 
 		GreenMail server = null;
 		try {
-			server = initTestServer(10);
+			server = MockedImapServer.initTestServer(10);
 			executeTestStepsFrontend();
 		} finally {
 			if (server != null) {
@@ -46,6 +48,14 @@ public abstract class RoundCubeMockedMailIT extends MockedImapServer {
 				}
 			}
 		}
+	}
+
+	public static EmailUserDetails getPositiveEmailUserWhichIsAOcUser() {
+		return MockedImapServer.getPositiveEmailUserWhichIsAOcUser();
+	}
+
+	public static EmailUserDetails getPositiveEmailUserWhichIsNoOcUser() {
+		return MockedImapServer.getPositiveEmailUserWhichIsNoOcUser();
 	}
 
 	public abstract void executeTestStepsFrontend() throws TestError;
