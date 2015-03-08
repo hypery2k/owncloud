@@ -30,9 +30,10 @@
 						<id>docker-prepare</id>
 						<goals>
 							<goal>clean</goal>
-							<goal>start</goal>
 							<goal>stop</goal>
+							<goal>start</goal>
 						</goals>
+						<phase>compile</phase>
 					</execution>
 				</executions>
 			</plugin>

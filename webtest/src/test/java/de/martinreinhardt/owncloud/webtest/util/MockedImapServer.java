@@ -20,6 +20,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
+
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.util.GreenMail;
@@ -29,7 +31,10 @@ import com.icegreen.greenmail.util.ServerSetupTest;
  * @author mreinhardt
  * 
  */
-public class MockedImapServer extends AbstractUITest {
+public class MockedImapServer {
+
+	// Logger
+	protected static final Logger LOG = Logger.getLogger(MockedImapServer.class);
 
 	/**
 	 * 
@@ -41,7 +46,7 @@ public class MockedImapServer extends AbstractUITest {
 	 */
 	public static final String TEST_MAIL_SENDER = "sender@roundcube.owncloud.org";
 
-	public MimeMessage getMockMessage(final String pPrefix, final EmailUserDetails pEmailUserDetails)
+	public static MimeMessage getMockMessage(final String pPrefix, final EmailUserDetails pEmailUserDetails)
 			throws AddressException, MessagingException {
 		final MimeMessage msg = new MimeMessage((Session) null);
 		msg.setSubject(TEST_MAIL_SUBJECT + " " + pPrefix + " " + pEmailUserDetails.getUsername());
@@ -53,7 +58,7 @@ public class MockedImapServer extends AbstractUITest {
 		return msg;
 	}
 
-	public EmailUserDetails getPositiveEmailUserWhichIsAOcUser() {
+	public static EmailUserDetails getPositiveEmailUserWhichIsAOcUser() {
 		final EmailUserDetails userDtls = new EmailUserDetails();
 		userDtls.setEmail("positive@roundcube.owncloud.org");
 		userDtls.setUsername("positive@roundcube.owncloud.org");
@@ -61,7 +66,7 @@ public class MockedImapServer extends AbstractUITest {
 		return userDtls;
 	}
 
-	public EmailUserDetails getPositiveEmailUserWhichIsNoOcUser() {
+	public static EmailUserDetails getPositiveEmailUserWhichIsNoOcUser() {
 		final EmailUserDetails userDtls = new EmailUserDetails();
 		userDtls.setEmail("positive2@roundcube.owncloud.org");
 		userDtls.setUsername("positive2@roundcube.owncloud.org");
@@ -69,7 +74,7 @@ public class MockedImapServer extends AbstractUITest {
 		return userDtls;
 	}
 
-	public GreenMail initTestServer(final int pNumberOfMessages) throws AddressException, MessagingException,
+	public static GreenMail initTestServer(final int pNumberOfMessages) throws AddressException, MessagingException,
 			UserException {
 		final Properties props = new Properties();
 		props.put("mail.store.protocol", "imap");
@@ -105,21 +110,25 @@ public class MockedImapServer extends AbstractUITest {
 	public static void main(final String[] args) throws AddressException, MessagingException, UserException {
 		GreenMail server = null;
 		try {
+			final EmailUserDetails userDtls = getPositiveEmailUserWhichIsAOcUser();
+			server = initTestServer(10);
 
-			final MockedImapServer imapMock = new MockedImapServer();
-
-			final EmailUserDetails userDtls = imapMock.getPositiveEmailUserWhichIsAOcUser();
-			server = imapMock.initTestServer(10);
-
-			final Scanner scanner = new Scanner(System.in);
 			System.out.println("Mocked imap is running.");
 			System.out.println("   IMAP Port: 3143");
 			System.out.println("   Email:     " + userDtls.getEmail());
 			System.out.println("   User:      " + userDtls.getUsername());
 			System.out.println("   Password:  " + userDtls.getPassword());
-			System.out.println("press <RETURN> when done");
-			scanner.nextLine();
-			scanner.close();
+			if (args != null && args.length > 0 && args[0].contains("--silent")) {
+				System.out.println("running in silent mode");
+				for (;;) {
+
+				}
+			} else {
+				final Scanner scanner = new Scanner(System.in);
+				System.out.println("press <RETURN> when done");
+				scanner.nextLine();
+				scanner.close();
+			}
 		} finally {
 			if (server != null) {
 				server.stop();

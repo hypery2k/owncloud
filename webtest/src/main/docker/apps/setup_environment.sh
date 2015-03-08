@@ -170,7 +170,7 @@ case ${RC_VERSION} in
     ;;  
 esac
 
-cp -rp etc/${RC_VERSION}/* ${DIR_RC_CUR}/
+cp -rp /tmp/etc/${RC_VERSION}/* ${DIR_RC_CUR}/
 
 echo "  ==> Directory listing for roundcube:"
 ls -lisah ${DIR_RC_CUR}*
@@ -198,7 +198,6 @@ echo "  ==> Setting up config"
 # move settings template
 mv ${DIR_OC_CUR}/config/config_${DB_TYPE}.php ${DIR_OC_CUR}/config/config.php
 chown -R www-data ${DIR_OC_CUR}/config
-touch ${DIR_OC_DATA}/owncloud.log
 touch ${DIR_OC_DATA}/.ocdata
 
 echo "  ==> Setting up Directory rights"

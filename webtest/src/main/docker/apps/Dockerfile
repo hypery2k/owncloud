@@ -15,7 +15,6 @@ RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/i
 
 # mock imap
 ADD mockimap.jar /root/
-RUN java -jar /root/mockimap.jar &
 
 # owncloud
 RUN \
@@ -41,9 +40,12 @@ RUN /tmp/prepareMySQL.sh oc_testing oc_testing password
 
 
 RUN \
-  cd /tmp/oc_apps/ && \
   /tmp/prepare.sh --oc_version ${oc_version} --rc_version ${rc_version} --db_type ${db_type}  && \
   chmod +x /usr/bin/bootstrap.sh
+
+RUN \
+  chmod +x /tmp/prepareNginx.sh && \
+  /tmp/prepareNginx.sh
 
 EXPOSE 80
 EXPOSE 3306
@@ -51,4 +53,11 @@ EXPOSE 3306
 # print versions
 RUN java -version
 
+
+
 ENTRYPOINT ["bootstrap.sh"]
+
+CMD ["java -jar /root/mockimap.jar --silent"]
+CMD ["/etc/init.d/php5-fpm restart"]
+CMD ["/etc/init.d/nginx restart"]
+CMD ["/etc/init.d/mysql restart"]
