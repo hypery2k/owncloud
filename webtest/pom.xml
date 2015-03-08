@@ -21,6 +21,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
 					<oc.ip>${docker.apps.ipAddress}</oc.ip>
+					<cache>false</cache>
 					<prefix>owncloud_app_testing</prefix>
 					<skip>${docker.skip}</skip>
 				</configuration>
@@ -28,9 +29,9 @@
 					<execution>
 						<id>docker-prepare</id>
 						<goals>
-							<goal>stop</goal>
-							<goal>package</goal>
+							<goal>clean</goal>
 							<goal>start</goal>
+							<goal>stop</goal>
 						</goals>
 					</execution>
 				</executions>
