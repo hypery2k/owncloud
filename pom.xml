@@ -53,14 +53,6 @@
 					<groupId>com.alexecollins.docker</groupId>
 					<artifactId>docker-maven-plugin</artifactId>
 					<version>${docker-maven-plugin.version}</version>
-					<dependencies>
-						<dependency>
-							<!-- set-up port forwarding if you're using boot2docker -->
-							<groupId>com.alexecollins.docker</groupId>
-							<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
-							<version>${docker-maven-plugin.version}</version>
-						</dependency>
-					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -113,6 +105,32 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>mac</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.alexecollins.docker</groupId>
+							<artifactId>docker-maven-plugin</artifactId>
+							<version>${docker-maven-plugin.version}</version>
+							<dependencies>
+								<dependency>
+									<!-- set-up port forwarding if you're using boot2docker -->
+									<groupId>com.alexecollins.docker</groupId>
+									<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+									<version>${docker-maven-plugin.version}</version>
+
+								</dependency>
+							</dependencies>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
 
 	<properties>
 
