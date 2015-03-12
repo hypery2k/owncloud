@@ -7,6 +7,7 @@
  */
 package de.martinreinhardt.owncloud.webtest.util;
 
+import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 
 import org.apache.log4j.Logger;
@@ -21,6 +22,8 @@ import org.openqa.selenium.internal.Locatable;
  * @author mreinhardt
  * 
  */
+// default url if  -Dwebdriver.base.url=... is not passed via command line
+@DefaultUrl("http://127.0.0.1:80/owncloud/")
 public class AbstractPage extends PageObject {
 
 	// Logger
@@ -28,11 +31,6 @@ public class AbstractPage extends PageObject {
 
 	public AbstractPage(final WebDriver pWebDriver) {
 		super(pWebDriver);
-		
-		final String ocUrl = System.getProperty("oc.ip") != null ? System.getProperty("oc.ip") + "/owncloud/"
-				: "http://127.0.0.1/owncloud/";
-		LOG.debug("Using following OwnCloud Root URL: " + ocUrl);
-		pWebDriver.get(ocUrl);
 	}
 
 	/**

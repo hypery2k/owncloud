@@ -43,11 +43,10 @@ For javascript unit test debugging execute:
  
 and point your browser to http://localhost:9080/
 
-For running the UI tests execute:
+For running the all tests (needs docker and maven 3.0 to be installed):
 
 ```
-cd webtest
-mvn clean verify -Dwebdriver.base.url=http://<PATH_TO_OWNCLOUD_TEST_ENVIRONMENT_WITH_APPS_INSTALLED>
+mvn30 clean verify -Denv.BUILD_NUMBER=42 -Doc_version=OC80 -Drc_version=RC11 -Ddb_type=mysql  -Dwebdriver.base.url=http://127.0.0.1:49080/owncloud/
 ```
 
 License

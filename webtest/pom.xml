@@ -20,7 +20,6 @@
 				<groupId>com.alexecollins.docker</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
-					<oc.ip>${docker.apps.ipAddress}</oc.ip>
 					<cache>false</cache>
 					<prefix>owncloud_app_testing</prefix>
 					<skip>${docker.skip}</skip>
@@ -56,7 +55,7 @@
 				<version>${maven-failsafe-plugin.version}</version>
 				<configuration>
 					<systemPropertyVariables>
-						<oc.app.ip>${docker.app.ipAddress}</oc.app.ip>
+						<docker.apps.ipAddress>${docker.apps.ipAddress}</docker.apps.ipAddress>
 					</systemPropertyVariables>
 					<threadCount>8</threadCount>
 					<includes>
