@@ -118,18 +118,18 @@ case ${OC_VERSION} in
     cd ${DIR_TMP_WORK_CUR}
     ;; 
   OC80)    	
-  	wget https://download.owncloud.org/community/owncloud-8.0.0.tar.bz2 -P /tmp/
+  	wget  --no-check-certificate https://download.owncloud.org/community/owncloud-8.0.0.tar.bz2 -P /tmp/
   	tar -C /tmp -xvf /tmp/owncloud-8.0.0.tar.bz2
     cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
     ;;
   OC70)  
-  	wget https://download.owncloud.org/community/owncloud-7.0.4.tar.bz2 -P /tmp/
-  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.4.tar.bz2
-  	tar -C /tmp -xvf /tmp/owncloud-7.0.4.tar.bz2
+  	wget  --no-check-certificate https://download.owncloud.org/community/owncloud-7.0.5.tar.bz2 -P /tmp/
+  	tar -C ${DIR_OC_CUR} -xvf /tmp/owncloud-7.0.5.tar.bz2
+  	tar -C /tmp -xvf /tmp/owncloud-7.0.5.tar.bz2
     cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
     ;; 
   OC60)    
-  	wget https://download.owncloud.org/community/owncloud-6.0.5.tar.bz2 -P /tmp/
+  	wget  --no-check-certificate https://download.owncloud.org/community/owncloud-6.0.5.tar.bz2 -P /tmp/
   	tar -C /tmp -xvf /tmp/owncloud-6.0.5.tar.bz2
     cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
     ;;  
@@ -144,27 +144,27 @@ ls -lisah ${DIR_OC_CUR}*
 
 case ${RC_VERSION} in
   RC11)  
-  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.0/roundcubemail-1.1.0-complete.tar.gz/download -P /tmp/
+  	wget  --no-check-certificate http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.0/roundcubemail-1.1.0-complete.tar.gz/download -P /tmp/
     tar -C /tmp -xvzf /tmp/download
     cp -rp /tmp/roundcubemail-1.1.0/* ${DIR_RC_CUR}
     ;;  
   RC10)  
-  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.0.5/roundcubemail-1.0.5.tar.gz/download -P /tmp/
+  	wget  --no-check-certificate http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.0.5/roundcubemail-1.0.5.tar.gz/download -P /tmp/
     tar -C /tmp -xvzf /tmp/download
     cp -rp /tmp/roundcubemail-1.0.5/* ${DIR_RC_CUR}
     ;;  
   RC09)  
-  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.9.5/roundcube-framework-0.9.5.tar.gz/download -P /tmp/
+  	wget  --no-check-certificate http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.9.5/roundcube-framework-0.9.5.tar.gz/download -P /tmp/
     tar -C /tmp -xvzf /tmp/download
     cp -rp /tmp/roundcubemail-0.9.5/* ${DIR_RC_CUR}
     ;;  
   RC08) 
-  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.8.7/roundcubemail-0.8.7.tar.gz/download -P /tmp/
+  	wget  --no-check-certificate http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.8.7/roundcubemail-0.8.7.tar.gz/download -P /tmp/
     tar -C /tmp -xvzf /tmp/download
     cp -rp /tmp/roundcubemail-0.8.7/* ${DIR_RC_CUR}
     ;;  
   RC07)  
-  	wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.7.2/roundcubemail-0.7.2.tar.gz/download -P /tmp/
+  	wget  --no-check-certificate http://sourceforge.net/projects/roundcubemail/files/roundcubemail/0.7.2/roundcubemail-0.7.2.tar.gz/download -P /tmp/
     tar -C /tmp -xvzf /tmp/download
     cp -rp /tmp/roundcubemail-0.7.2/* ${DIR_RC_CUR}
     ;;  

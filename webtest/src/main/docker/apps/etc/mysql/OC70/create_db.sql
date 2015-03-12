@@ -1,9 +1,8 @@
--- OwnCloud 7.0.0 database setup
--- MySQL dump 10.13  Distrib 5.5.38, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.42, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: oc_testing
 -- ------------------------------------------------------
--- Server version	5.5.38-0ubuntu0.12.04.1-log
+-- Server version 5.5.42-1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,6 +14,294 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cache`
+--
+
+DROP TABLE IF EXISTS `cache`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cache` (
+  `user_id` int(10) unsigned NOT NULL,
+  `cache_key` varchar(128) CHARACTER SET ascii NOT NULL,
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `expires` datetime DEFAULT NULL,
+  `data` longtext NOT NULL,
+  KEY `expires_index` (`expires`),
+  KEY `user_cache_index` (`user_id`,`cache_key`),
+  CONSTRAINT `user_id_fk_cache` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cache`
+--
+
+LOCK TABLES `cache` WRITE;
+/*!40000 ALTER TABLE `cache` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cache_index`
+--
+
+DROP TABLE IF EXISTS `cache_index`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cache_index` (
+  `user_id` int(10) unsigned NOT NULL,
+  `mailbox` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `expires` datetime DEFAULT NULL,
+  `valid` tinyint(1) NOT NULL DEFAULT '0',
+  `data` longtext NOT NULL,
+  PRIMARY KEY (`user_id`,`mailbox`),
+  KEY `expires_index` (`expires`),
+  CONSTRAINT `user_id_fk_cache_index` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cache_index`
+--
+
+LOCK TABLES `cache_index` WRITE;
+/*!40000 ALTER TABLE `cache_index` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache_index` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cache_messages`
+--
+
+DROP TABLE IF EXISTS `cache_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cache_messages` (
+  `user_id` int(10) unsigned NOT NULL,
+  `mailbox` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `uid` int(11) unsigned NOT NULL DEFAULT '0',
+  `expires` datetime DEFAULT NULL,
+  `data` longtext NOT NULL,
+  `flags` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`,`mailbox`,`uid`),
+  KEY `expires_index` (`expires`),
+  CONSTRAINT `user_id_fk_cache_messages` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cache_messages`
+--
+
+LOCK TABLES `cache_messages` WRITE;
+/*!40000 ALTER TABLE `cache_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache_messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cache_shared`
+--
+
+DROP TABLE IF EXISTS `cache_shared`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cache_shared` (
+  `cache_key` varchar(255) CHARACTER SET ascii NOT NULL,
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `expires` datetime DEFAULT NULL,
+  `data` longtext NOT NULL,
+  KEY `expires_index` (`expires`),
+  KEY `cache_key_index` (`cache_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cache_shared`
+--
+
+LOCK TABLES `cache_shared` WRITE;
+/*!40000 ALTER TABLE `cache_shared` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache_shared` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cache_thread`
+--
+
+DROP TABLE IF EXISTS `cache_thread`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cache_thread` (
+  `user_id` int(10) unsigned NOT NULL,
+  `mailbox` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `expires` datetime DEFAULT NULL,
+  `data` longtext NOT NULL,
+  PRIMARY KEY (`user_id`,`mailbox`),
+  KEY `expires_index` (`expires`),
+  CONSTRAINT `user_id_fk_cache_thread` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cache_thread`
+--
+
+LOCK TABLES `cache_thread` WRITE;
+/*!40000 ALTER TABLE `cache_thread` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache_thread` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contactgroupmembers`
+--
+
+DROP TABLE IF EXISTS `contactgroupmembers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contactgroupmembers` (
+  `contactgroup_id` int(10) unsigned NOT NULL,
+  `contact_id` int(10) unsigned NOT NULL,
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  PRIMARY KEY (`contactgroup_id`,`contact_id`),
+  KEY `contactgroupmembers_contact_index` (`contact_id`),
+  CONSTRAINT `contactgroup_id_fk_contactgroups` FOREIGN KEY (`contactgroup_id`) REFERENCES `contactgroups` (`contactgroup_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `contact_id_fk_contacts` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`contact_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contactgroupmembers`
+--
+
+LOCK TABLES `contactgroupmembers` WRITE;
+/*!40000 ALTER TABLE `contactgroupmembers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contactgroupmembers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contactgroups`
+--
+
+DROP TABLE IF EXISTS `contactgroups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contactgroups` (
+  `contactgroup_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `changed` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `del` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(128) NOT NULL DEFAULT '',
+  PRIMARY KEY (`contactgroup_id`),
+  KEY `contactgroups_user_index` (`user_id`,`del`),
+  CONSTRAINT `user_id_fk_contactgroups` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contactgroups`
+--
+
+LOCK TABLES `contactgroups` WRITE;
+/*!40000 ALTER TABLE `contactgroups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contactgroups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contacts`
+--
+
+DROP TABLE IF EXISTS `contacts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contacts` (
+  `contact_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `changed` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `del` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(128) NOT NULL DEFAULT '',
+  `email` text NOT NULL,
+  `firstname` varchar(128) NOT NULL DEFAULT '',
+  `surname` varchar(128) NOT NULL DEFAULT '',
+  `vcard` longtext,
+  `words` text,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`contact_id`),
+  KEY `user_contacts_index` (`user_id`,`del`),
+  CONSTRAINT `user_id_fk_contacts` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contacts`
+--
+
+LOCK TABLES `contacts` WRITE;
+/*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dictionary`
+--
+
+DROP TABLE IF EXISTS `dictionary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dictionary` (
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `language` varchar(5) NOT NULL,
+  `data` longtext NOT NULL,
+  UNIQUE KEY `uniqueness` (`user_id`,`language`),
+  CONSTRAINT `user_id_fk_dictionary` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dictionary`
+--
+
+LOCK TABLES `dictionary` WRITE;
+/*!40000 ALTER TABLE `dictionary` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dictionary` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `identities`
+--
+
+DROP TABLE IF EXISTS `identities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `identities` (
+  `identity_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `changed` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `del` tinyint(1) NOT NULL DEFAULT '0',
+  `standard` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(128) NOT NULL,
+  `organization` varchar(128) NOT NULL DEFAULT '',
+  `email` varchar(128) NOT NULL,
+  `reply-to` varchar(128) NOT NULL DEFAULT '',
+  `bcc` varchar(128) NOT NULL DEFAULT '',
+  `signature` text,
+  `html_signature` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`identity_id`),
+  KEY `user_identities_index` (`user_id`,`del`),
+  KEY `email_identities_index` (`email`,`del`),
+  CONSTRAINT `user_id_fk_identities` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `identities`
+--
+
+LOCK TABLES `identities` WRITE;
+/*!40000 ALTER TABLE `identities` DISABLE KEYS */;
+INSERT INTO `identities` VALUES (1,1,'2014-06-05 14:15:08',0,1,'','','positive@roundcube.owncloud.org','','',NULL,0);
+/*!40000 ALTER TABLE `identities` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `oc7_activity`
@@ -108,7 +395,7 @@ CREATE TABLE `oc7_appconfig` (
 
 LOCK TABLES `oc7_appconfig` WRITE;
 /*!40000 ALTER TABLE `oc7_appconfig` DISABLE KEYS */;
-INSERT INTO `oc7_appconfig` VALUES ('activity','enabled','yes'),('activity','installed_version','1.1.23'),('activity','ocsid','166038'),('activity','types','filesystem'),('backgroundjob','lastjob','1'),('bookmarks','enabled','yes'),('bookmarks','installed_version','0.4'),('bookmarks','ocsid','166042'),('bookmarks','types',''),('calendar','enabled','yes'),('calendar','installed_version','0.6.4'),('calendar','ocsid','166043'),('calendar','types',''),('contacts','enabled','yes'),('contacts','installed_version','0.3.0.17'),('contacts','ocsid','166044'),('contacts','types',''),('core','global_cache_gc_lastrun','1407580499'),('core','installedat','1401291989.8355'),('core','lastcron','1407580499'),('core','lastupdateResult','{\"version\":\"7.0.1.1\",\"versionstring\":\"ownCloud 7.0.1\",\"url\":\"http:\\/\\/download.owncloud.org\\/community\\/owncloud-7.0.1.zip\",\"web\":\"http:\\/\\/owncloud.org\\/\"}'),('core','lastupdatedat','1407580494'),('core','public_caldav','calendar/share.php'),('core','public_calendar','calendar/share.php'),('core','public_documents','documents/public.php'),('core','public_files','files_sharing/public.php'),('core','public_gallery','gallery/public.php'),('core','public_webdav','files_sharing/publicwebdav.php'),('core','remote_caldav','calendar/appinfo/remote.php'),('core','remote_calendar','calendar/appinfo/remote.php'),('core','remote_carddav','contacts/appinfo/remote.php'),('core','remote_contacts','contacts/appinfo/remote.php'),('core','remote_core.css','/core/minimizer.php'),('core','remote_core.js','/core/minimizer.php'),('core','remote_files','files/appinfo/remote.php'),('core','remote_filesync','files/appinfo/filesync.php'),('core','remote_webdav','files/appinfo/remote.php'),('documents','enabled','yes'),('documents','installed_version','0.8.2'),('documents','ocsid','166045'),('documents','types',''),('files','backgroundwatcher_previous_file','22'),('files','backgroundwatcher_previous_folder','24'),('files','enabled','yes'),('files','installed_version','1.1.9'),('files','types','filesystem'),('files_pdfviewer','enabled','yes'),('files_pdfviewer','installed_version','0.5'),('files_pdfviewer','ocsid','166049'),('files_pdfviewer','types',''),('files_sharing','enabled','yes'),('files_sharing','installed_version','0.5.3'),('files_sharing','ocsid','166050'),('files_sharing','types','filesystem'),('files_texteditor','enabled','yes'),('files_texteditor','installed_version','0.4'),('files_texteditor','ocsid','166051'),('files_texteditor','types',''),('files_trashbin','enabled','yes'),('files_trashbin','installed_version','0.6.2'),('files_trashbin','ocsid','166052'),('files_trashbin','types','filesystem'),('files_versions','enabled','yes'),('files_versions','installed_version','1.0.5'),('files_versions','ocsid','166053'),('files_versions','types','filesystem'),('files_videoviewer','enabled','yes'),('files_videoviewer','installed_version','0.1.3'),('files_videoviewer','ocsid','166054'),('files_videoviewer','types',''),('firstrunwizard','enabled','no'),('firstrunwizard','installed_version','1.1'),('firstrunwizard','ocsid','166055'),('firstrunwizard','types',''),('gallery','enabled','yes'),('gallery','installed_version','0.5.4'),('gallery','ocsid','166056'),('gallery','types','filesystem'),('revealjs','enabled','yes'),('revealjs','installed_version','2.4.1'),('revealjs','types',''),('roundcube','autoLogin','1'),('roundcube','enabled','yes'),('roundcube','installed_version','2.5.1'),('roundcube','maildir','/roundcube/'),('roundcube','types',''),('search_lucene','enabled','yes'),('search_lucene','installed_version','0.5.3'),('search_lucene','ocsid','166057'),('search_lucene','types','filesystem'),('storagecharts2','enabled','yes'),('storagecharts2','installed_version','2.5.0'),('storagecharts2','types',''),('updater','enabled','yes'),('updater','installed_version','0.4'),('updater','ocsid','166059'),('updater','types','');
+INSERT INTO `oc7_appconfig` VALUES ('activity','enabled','yes'),('activity','installed_version','1.1.23'),('activity','ocsid','166038'),('activity','types','filesystem'),('backgroundjob','lastjob','1'),('bookmarks','enabled','yes'),('bookmarks','installed_version','0.4'),('bookmarks','ocsid','166042'),('bookmarks','types',''),('calendar','enabled','yes'),('calendar','installed_version','0.6.4'),('calendar','ocsid','166043'),('calendar','types',''),('contacts','enabled','yes'),('contacts','installed_version','0.3.0.18'),('contacts','ocsid','166044'),('contacts','types',''),('core','global_cache_gc_lastrun','1426138302'),('core','installedat','1401291989.8355'),('core','lastcron','1426138302'),('core','lastupdateResult','[]'),('core','lastupdatedat','1426138282'),('core','public_caldav','calendar/share.php'),('core','public_calendar','calendar/share.php'),('core','public_documents','documents/public.php'),('core','public_files','files_sharing/public.php'),('core','public_gallery','gallery/public.php'),('core','public_webdav','files_sharing/publicwebdav.php'),('core','remote_caldav','calendar/appinfo/remote.php'),('core','remote_calendar','calendar/appinfo/remote.php'),('core','remote_carddav','contacts/appinfo/remote.php'),('core','remote_contacts','contacts/appinfo/remote.php'),('core','remote_core.css','/core/minimizer.php'),('core','remote_core.js','/core/minimizer.php'),('core','remote_files','files/appinfo/remote.php'),('core','remote_filesync','files/appinfo/filesync.php'),('core','remote_webdav','files/appinfo/remote.php'),('documents','enabled','yes'),('documents','installed_version','0.8.2'),('documents','ocsid','166045'),('documents','types',''),('files','backgroundwatcher_previous_file','22'),('files','backgroundwatcher_previous_folder','24'),('files','enabled','yes'),('files','installed_version','1.1.9'),('files','types','filesystem'),('files_pdfviewer','enabled','yes'),('files_pdfviewer','installed_version','0.5'),('files_pdfviewer','ocsid','166049'),('files_pdfviewer','types',''),('files_sharing','enabled','yes'),('files_sharing','installed_version','0.5.3'),('files_sharing','ocsid','166050'),('files_sharing','types','filesystem'),('files_texteditor','enabled','yes'),('files_texteditor','installed_version','0.4'),('files_texteditor','ocsid','166051'),('files_texteditor','types',''),('files_trashbin','enabled','yes'),('files_trashbin','installed_version','0.6.2'),('files_trashbin','ocsid','166052'),('files_trashbin','types','filesystem'),('files_versions','enabled','yes'),('files_versions','installed_version','1.0.5'),('files_versions','ocsid','166053'),('files_versions','types','filesystem'),('files_videoviewer','enabled','yes'),('files_videoviewer','installed_version','0.1.3'),('files_videoviewer','ocsid','166054'),('files_videoviewer','types',''),('firstrunwizard','enabled','no'),('firstrunwizard','installed_version','1.1'),('firstrunwizard','ocsid','166055'),('firstrunwizard','types',''),('gallery','enabled','yes'),('gallery','installed_version','0.5.4'),('gallery','ocsid','166056'),('gallery','types','filesystem'),('revealjs','enabled','yes'),('revealjs','installed_version','2.4.1'),('revealjs','types',''),('roundcube','autoLogin','1'),('roundcube','enabled','yes'),('roundcube','installed_version','2.5.4'),('roundcube','maildir','/roundcube/'),('roundcube','types',''),('search_lucene','enabled','yes'),('search_lucene','installed_version','0.5.3'),('search_lucene','ocsid','166057'),('search_lucene','types','filesystem'),('storagecharts2','enabled','yes'),('storagecharts2','installed_version','2.6.0.42'),('storagecharts2','types',''),('updater','enabled','yes'),('updater','installed_version','0.4'),('updater','ocsid','166059'),('updater','types','');
 /*!40000 ALTER TABLE `oc7_appconfig` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -632,7 +919,7 @@ CREATE TABLE `oc7_filecache` (
   KEY `fs_storage_mimetype` (`storage`,`mimetype`),
   KEY `fs_storage_mimepart` (`storage`,`mimepart`),
   KEY `fs_storage_size` (`storage`,`size`,`fileid`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -641,7 +928,7 @@ CREATE TABLE `oc7_filecache` (
 
 LOCK TABLES `oc7_filecache` WRITE;
 /*!40000 ALTER TABLE `oc7_filecache` DISABLE KEYS */;
-INSERT INTO `oc7_filecache` VALUES (1,1,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,0,1406722005,1401291998,0,0,'53d8dfd5e64e3',0),(12,2,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,1573838,1407580497,1404375961,0,0,'53e5f95195416',0),(13,2,'files','45b963397aa40d4a0063e0d85e4fe7a1',12,'files',2,1,6040324,1407580497,1407580494,0,0,'53e5f951ab179',31),(14,2,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',13,'photos',2,1,678556,1407580497,1407580494,0,0,'53e5f951e8a06',31),(16,2,'files/documents','2d30f25cef1a92db784bc537e8bf128d',13,'documents',2,1,23383,1407580497,1407580494,0,0,'53e5f951d43e6',31),(17,2,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',13,'ownCloudUserManual.pdf',4,3,1573581,1407580494,1407580494,0,0,'53e5f94e5fc90',27),(18,2,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',16,'example.odt',5,3,23383,1407580494,1407580494,0,0,'53e5f950469d5',27),(20,2,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',14,'paris.jpg',9,8,228761,1407580494,1407580494,0,0,'53e5f950cddda',27),(21,2,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',14,'san francisco.jpg',9,8,216071,1407580494,1407580494,0,0,'53e5f950de044',27),(22,2,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',14,'squirrel.jpg',9,8,233724,1407580494,1407580494,0,0,'53e5f950dfca1',27),(23,4,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,6040581,1406722042,1404376039,0,0,'53d8dffa68513',0),(24,4,'files','45b963397aa40d4a0063e0d85e4fe7a1',23,'files',2,1,6040324,1406722042,1406722039,0,0,'53d8dffa7c8df',31),(25,4,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',24,'photos',2,1,678556,1406722042,1406722039,0,0,'53d8dffab9b8b',31),(26,4,'files/music','1f8cfec283cd675038bb95b599fdc75a',24,'music',2,1,3764804,1406722042,1406722039,0,0,'53d8dffaa5575',31),(27,4,'files/documents','2d30f25cef1a92db784bc537e8bf128d',24,'documents',2,1,23383,1406722042,1406722039,0,0,'53d8dffa90f9c',31),(29,4,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',27,'example.odt',5,3,23383,1406722039,1406722039,0,0,'53d8dff9674a4',27),(30,4,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',26,'projekteva-letitrain.mp3',7,6,3764804,1406722039,1406722039,0,0,'53d8dff9d8236',27),(31,4,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',25,'paris.jpg',9,8,228761,1406722039,1406722039,0,0,'53d8dffa2b3ee',27),(32,4,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',25,'san francisco.jpg',9,8,216071,1406722039,1406722039,0,0,'53d8dffa2b688',27),(33,4,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',25,'squirrel.jpg',9,8,233724,1406722039,1406722039,0,0,'53d8dffa2b8be',27),(34,1,'files','45b963397aa40d4a0063e0d85e4fe7a1',1,'files',2,1,6040324,1406722005,1406722002,0,0,'53d8dfd6374dc',31),(35,1,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',34,'photos',2,1,678556,1406722005,1406722002,0,0,'53d8dfd69f32c',31),(36,1,'files/music','1f8cfec283cd675038bb95b599fdc75a',34,'music',2,1,3764804,1406722005,1406722002,0,0,'53d8dfd68ace9',31),(37,1,'files/documents','2d30f25cef1a92db784bc537e8bf128d',34,'documents',2,1,23383,1406722005,1406722002,0,0,'53d8dfd66c3df',31),(38,1,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',34,'ownCloudUserManual.pdf',4,3,1573581,1406722002,1406722002,0,0,'53d8dfd31c8c8',27),(39,1,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',37,'example.odt',5,3,23383,1406722002,1406722002,0,0,'53d8dfd49f750',27),(40,1,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',36,'projekteva-letitrain.mp3',7,6,3764804,1406722002,1406722002,0,0,'53d8dfd514156',27),(41,1,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',35,'paris.jpg',9,8,228761,1406722002,1406722002,0,0,'53d8dfd58c3b4',27),(42,1,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',35,'san francisco.jpg',9,8,216071,1406722002,1406722002,0,0,'53d8dfd58c632',27),(43,1,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',35,'squirrel.jpg',9,8,233724,1406722002,1406722002,0,0,'53d8dfd58c88f',27),(44,2,'files/music','1f8cfec283cd675038bb95b599fdc75a',13,'music',2,1,3764804,1407580497,1407580494,0,0,'53e5f951bfdc7',31),(45,2,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',44,'projekteva-letitrain.mp3',7,6,3764804,1407580494,1407580494,0,0,'53e5f94fc44dd',27),(46,4,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',24,'ownCloudUserManual.pdf',4,3,1573581,1406722039,1406722039,0,0,'53d8dff7b6ba9',27);
+INSERT INTO `oc7_filecache` VALUES (1,1,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,0,1406722005,1401291998,0,0,'53d8dfd5e64e3',0),(12,2,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,1573838,1407580497,1404375961,0,0,'53e5f95195416',0),(13,2,'files','45b963397aa40d4a0063e0d85e4fe7a1',12,'files',2,1,6040324,1407580497,1407580494,0,0,'53e5f951ab179',31),(14,2,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',13,'photos',2,1,678556,1407580497,1407580494,0,0,'53e5f951e8a06',31),(16,2,'files/documents','2d30f25cef1a92db784bc537e8bf128d',13,'documents',2,1,23383,1407580497,1407580494,0,0,'53e5f951d43e6',31),(17,2,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',13,'ownCloudUserManual.pdf',4,3,1573581,1407580494,1407580494,0,0,'53e5f94e5fc90',27),(18,2,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',16,'example.odt',5,3,23383,1407580494,1407580494,0,0,'53e5f950469d5',27),(20,2,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',14,'paris.jpg',9,8,228761,1407580494,1407580494,0,0,'53e5f950cddda',27),(21,2,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',14,'san francisco.jpg',9,8,216071,1407580494,1407580494,0,0,'53e5f950de044',27),(22,2,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',14,'squirrel.jpg',9,8,233724,1407580494,1407580494,0,0,'53e5f950dfca1',27),(23,4,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,6377900,1426138281,1426138281,0,0,'550124aa2e8c3',31),(24,4,'files','45b963397aa40d4a0063e0d85e4fe7a1',23,'files',2,1,6377900,1426138282,1426138282,0,0,'550124aa30209',31),(34,1,'files','45b963397aa40d4a0063e0d85e4fe7a1',1,'files',2,1,6040324,1406722005,1406722002,0,0,'53d8dfd6374dc',31),(35,1,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',34,'photos',2,1,678556,1406722005,1406722002,0,0,'53d8dfd69f32c',31),(36,1,'files/music','1f8cfec283cd675038bb95b599fdc75a',34,'music',2,1,3764804,1406722005,1406722002,0,0,'53d8dfd68ace9',31),(37,1,'files/documents','2d30f25cef1a92db784bc537e8bf128d',34,'documents',2,1,23383,1406722005,1406722002,0,0,'53d8dfd66c3df',31),(38,1,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',34,'ownCloudUserManual.pdf',4,3,1573581,1406722002,1406722002,0,0,'53d8dfd31c8c8',27),(39,1,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',37,'example.odt',5,3,23383,1406722002,1406722002,0,0,'53d8dfd49f750',27),(40,1,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',36,'projekteva-letitrain.mp3',7,6,3764804,1406722002,1406722002,0,0,'53d8dfd514156',27),(41,1,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',35,'paris.jpg',9,8,228761,1406722002,1406722002,0,0,'53d8dfd58c3b4',27),(42,1,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',35,'san francisco.jpg',9,8,216071,1406722002,1406722002,0,0,'53d8dfd58c632',27),(43,1,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',35,'squirrel.jpg',9,8,233724,1406722002,1406722002,0,0,'53d8dfd58c88f',27),(44,2,'files/music','1f8cfec283cd675038bb95b599fdc75a',13,'music',2,1,3764804,1407580497,1407580494,0,0,'53e5f951bfdc7',31),(45,2,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',44,'projekteva-letitrain.mp3',7,6,3764804,1407580494,1407580494,0,0,'53e5f94fc44dd',27),(47,5,'','d41d8cd98f00b204e9800998ecf8427e',-1,'',2,1,0,1426138282,1426138252,0,0,'550124aa2aee3',31),(48,5,'.ocdata','a840ac417b1f143f29a22c7261756dad',47,'.ocdata',13,3,0,1426138252,1426138252,0,0,'5501248cd518a',27),(49,5,'owncloud.log','9703bd00121351aafcb85ff51784acc5',47,'owncloud.log',13,3,0,1426137960,1426137960,0,0,'5501248cd5a7b',27),(50,4,'cache','0fea6a13c52b4d4725368f24b045ca84',23,'cache',2,1,0,1426138281,1426138281,0,0,'550124aa308d3',31),(60,4,'files/ownCloudUserManual.pdf','c8edba2d1b8eb651c107b43532c34445',24,'ownCloudUserManual.pdf',4,3,1911157,1426138281,1426138281,0,0,'550124aa31c70',27),(61,4,'files/photos','923e51351db3e8726f22ba0fa1c04d5a',24,'photos',2,1,678556,1426138281,1426138281,0,0,'550124aa32988',31),(62,4,'files/photos/squirrel.jpg','e462c24fc17cb1a3fa3bca86d7f89593',61,'squirrel.jpg',9,8,233724,1426138281,1426138281,0,0,'550124aa3573d',27),(63,4,'files/photos/paris.jpg','65154b90b985bff20d4923f224ca1c33',61,'paris.jpg',9,8,228761,1426138281,1426138281,0,0,'550124aa36626',27),(64,4,'files/photos/san francisco.jpg','e86e87a4ecd557753734e1d34fbeecec',61,'san francisco.jpg',9,8,216071,1426138282,1426138282,0,0,'550124aa37074',27),(65,4,'files/documents','2d30f25cef1a92db784bc537e8bf128d',24,'documents',2,1,23383,1426138282,1426138282,0,0,'550124aa33008',31),(66,4,'files/documents/example.odt','f51311bd6910ec7356d79286dcb24dec',65,'example.odt',5,3,23383,1426138282,1426138282,0,0,'550124aa38f13',27),(67,4,'files/music','1f8cfec283cd675038bb95b599fdc75a',24,'music',2,1,3764804,1426138282,1426138282,0,0,'550124aa33f3a',31),(68,4,'files/music/projekteva-letitrain.mp3','da7d05a957a2bbbf0e74b12c1b5fcfee',67,'projekteva-letitrain.mp3',7,6,3764804,1426138282,1426138282,0,0,'550124aa3a82d',27);
 /*!40000 ALTER TABLE `oc7_filecache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -784,7 +1071,7 @@ CREATE TABLE `oc7_jobs` (
   `last_run` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `job_class_index` (`class`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -793,7 +1080,7 @@ CREATE TABLE `oc7_jobs` (
 
 LOCK TABLES `oc7_jobs` WRITE;
 /*!40000 ALTER TABLE `oc7_jobs` DISABLE KEYS */;
-INSERT INTO `oc7_jobs` VALUES (1,'OC\\Cache\\FileGlobalGC','null',1407580499),(2,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"\\\\OC\\\\Files\\\\Cache\\\\BackgroundWatcher\",\"checkNext\"]',1406722209),(3,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"OC_RoundCube_AuthHelper\",\"refresh\"]',1407580487),(4,'OCA\\Activity\\BackgroundJob\\EmailNotification','null',1407580496);
+INSERT INTO `oc7_jobs` VALUES (1,'OC\\Cache\\FileGlobalGC','null',1426138302),(2,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"\\\\OC\\\\Files\\\\Cache\\\\BackgroundWatcher\",\"checkNext\"]',1426135806),(3,'OC\\BackgroundJob\\Legacy\\RegularJob','[\"OC_RoundCube_AuthHelper\",\"refresh\"]',1426135816),(4,'OCA\\Activity\\BackgroundJob\\EmailNotification','null',1426135795),(5,'OCA\\Activity\\BackgroundJob\\ExpireActivities','null',1426138277);
 /*!40000 ALTER TABLE `oc7_jobs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -863,7 +1150,7 @@ CREATE TABLE `oc7_mimetypes` (
   `mimetype` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mimetype_id_index` (`mimetype`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -872,7 +1159,7 @@ CREATE TABLE `oc7_mimetypes` (
 
 LOCK TABLES `oc7_mimetypes` WRITE;
 /*!40000 ALTER TABLE `oc7_mimetypes` DISABLE KEYS */;
-INSERT INTO `oc7_mimetypes` VALUES (3,'application'),(4,'application/pdf'),(5,'application/vnd.oasis.opendocument.text'),(12,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),(11,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),(10,'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),(6,'audio'),(7,'audio/mpeg'),(1,'httpd'),(2,'httpd/unix-directory'),(8,'image'),(9,'image/jpeg');
+INSERT INTO `oc7_mimetypes` VALUES (3,'application'),(13,'application/octet-stream'),(4,'application/pdf'),(5,'application/vnd.oasis.opendocument.text'),(12,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),(11,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),(10,'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),(6,'audio'),(7,'audio/mpeg'),(1,'httpd'),(2,'httpd/unix-directory'),(8,'image'),(9,'image/jpeg');
 /*!40000 ALTER TABLE `oc7_mimetypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -947,7 +1234,7 @@ CREATE TABLE `oc7_preferences` (
 
 LOCK TABLES `oc7_preferences` WRITE;
 /*!40000 ALTER TABLE `oc7_preferences` DISABLE KEYS */;
-INSERT INTO `oc7_preferences` VALUES ('admin','files','cache_version','5'),('admin','firstrunwizard','show','0'),('admin','login','lastLogin','1406722185'),('admin','roundcube','privateSSLKey','-----BEGIN PRIVATE KEY-----\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANKJDbNcjd8W3M9L\nH5evXh7dyfm8WpcpCFjzM3o+fZnLDOsH2Gw8uLwnjG6MMewHP1qwNYer1gzl0zOn\n9fuip1s/C2XOoocDzJ7XWPjKt+CP4slZ5I4g7z0llqhQfKjGFJcyYYtwaZsX2F3N\n+5ywMQ6O6+hrxmkoJ5aaBYe3IHLRAgMBAAECgYASxGjWPj/fTRht2hJ84QMQ2VBx\n1Jp2sw+tbjB+iyeDGBiUsuRV8au+CgB4skKY+aRqHx8GcwjnqW0EQ8qnnb4xOJdn\nxp2zmlLbFLxusLtdZjJ/8E5F6Hv7PLruYpUr5KOOhuu3j0HCkpX+j4gjtogDa1mR\ni2Um3GfmO2ZYJ0ND4QJBAPhogXYR+A/WiV9GzR/hqZ/5XnUyiLkCMt5o8BVIDS/X\nSse3vHMe1+cE9Gsjdi/zt0FfBOovWApzBWEeflxFzaUCQQDY+D0JteJMdXPgYqZ9\nQsvb2KwQJ/oRKn0k/bslDTxqtLPP90MotEo7DhS+1kFgnPWy0f+YyNX6Q9UsyGG2\n5yC9AkApt3M2XuIn1sGPLJa6Ke2QnhJM4EWxvDrKuxjGmikMxb0bOTH+q0la1Kwv\nae8pMmauJcTvhy/j4Vkf7D0QRfC5AkBK/UlDYOzNFk8tf4shggOpgXK+xsJkSnYk\nYdnbzX5TNw9q0oAQwndhf9Vlu/GurbEx0+juaoOiUu2L49n5+FpVAkEAh9/249ST\nXkWoU7WXvqCn0xtkd7Nus05ssdWM6XO6A+YABGsvWCJxd1+qElG5JwsRU+NhX9sH\n8Ey0sFtw2Qqqww==\n-----END PRIVATE KEY-----\n'),('admin','roundcube','publicSSLKey','-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDSiQ2zXI3fFtzPSx+Xr14e3cn5\nvFqXKQhY8zN6Pn2ZywzrB9hsPLi8J4xujDHsBz9asDWHq9YM5dMzp/X7oqdbPwtl\nzqKHA8ye11j4yrfgj+LJWeSOIO89JZaoUHyoxhSXMmGLcGmbF9hdzfucsDEOjuvo\na8ZpKCeWmgWHtyBy0QIDAQAB\n-----END PUBLIC KEY-----\n'),('false','contacts','contacts_properties_indexed','yes'),('negative@roundcube.owncloud.org','files','cache_version','5'),('negative@roundcube.owncloud.org','login','lastLogin','1407580493'),('negative@roundcube.owncloud.org','roundcube','privateSSLKey','-----BEGIN PRIVATE KEY-----\nMIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMxqXD6lvbD3Yn+0\noUAw7pr9btmK4XZ9UznFq94z+eGZY2sYWHT96sWJdow3CcP+d9aBQHWW3sfilcgE\nFESmz1SIh99x+FrdxU2ByZxnQxVcEGIEFJc4W4suF5Wkjyzwf9GFrQt/zEf38rp/\n54tshFstSTcoklspoZfg0hYF+hMBAgMBAAECgYEAyOtB/9GowWhmyF8in5V48Z5o\ndiqrsWs9gmtoot8znSrHLVyglV1+hOq4OtleH+beo1gno2zHTHDKB+76fP/4h7xT\nXoXBqew9JVEuUU4igzlvhPSh5DygaF5j8ixwi1T9q7PuUdQ5f7LMENR3DCeeCOSs\nzyuVDeaWQB9kDNGeroECQQDqnlQfykX3viBy8x+lC9ro4281RrKngryxKWmex4SH\nMP7u528jEBX7lrKtusk7gVFH6fMciAe9idBwB+KGRkO/AkEA3wtkj3oRqflfG3om\nS3v1ytnIkdxrP5CNYUjobat1RAKknAKBAoYxz0saIcEKTdb4lvJ0JhgWJFnBYJ9L\nk15ZPwJAO2UPqOidI+W280LHPRIuPgztp1AZhDydpj/0pCSgUVU/BJ4ETZ0R45o3\n67FAplbLi+gXCp8JTptn8CSe3R1GowJBAJvoKMipuQMpDrP0NCR7Z5n9lVdvzX/H\nGSwxfFZ8jSGW/10V2vvataKCiqehegRjCazpmQqvt3p9StCxSHCgeJ0CQGezholu\nvwNHgsn2D2ZtYC9a1dZ+k7RGuTumK/1rkC/CxJdHMSE6W1m4kYo8uSdnDqHn0vjc\nhoUJxlfVRcPhzfI=\n-----END PRIVATE KEY-----\n'),('negative@roundcube.owncloud.org','roundcube','publicSSLKey','-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMalw+pb2w92J/tKFAMO6a/W7Z\niuF2fVM5xaveM/nhmWNrGFh0/erFiXaMNwnD/nfWgUB1lt7H4pXIBBREps9UiIff\ncfha3cVNgcmcZ0MVXBBiBBSXOFuLLheVpI8s8H/Rha0Lf8xH9/K6f+eLbIRbLUk3\nKJJbKaGX4NIWBfoTAQIDAQAB\n-----END PUBLIC KEY-----\n'),('positive@roundcube.owncloud.org','contacts','lastgroup','all'),('positive@roundcube.owncloud.org','files','cache_version','5'),('positive@roundcube.owncloud.org','firstrunwizard','show','0'),('negative@roundcube.owncloud.org','firstrunwizard','show','0'),('positive@roundcube.owncloud.org','login','lastLogin','1406722102'),('positive@roundcube.owncloud.org','roundcube','privateSSLKey','-----BEGIN PRIVATE KEY-----\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALXs/ltq2QFHBbTj\nGyq6u/nKEOC//xvifa80HAZGAx7ZnbFMQZE8QipnmZQ7fWReH9Nogs+APA9XVXKT\nNgTymQ2JsUCCAcDUSr9I6l/sl3uDL2Lb6/y6APJ2ITxToAl+XHUXZyOFZcRZEcHB\njnC3SPgGKIO4SSh320arKUETfiUTAgMBAAECgYBWvflJfVia01JVPTPm28JlB4Ok\npebtVMC4mRADrb4vJ3OY5dMdfK3PqjYAB51yDa7/DgXRCkOYzPtg9e/7y/BNRR96\n+zfHaGOrRFjmKz+Pp5HfS4ENO2Lvf7WTMaOYX/H58Jp33sBG8XEk6cSeCfIX1Y9y\nNk06pw2xc78M/uRZAQJBAPDeOaaNf9CPkpKMrnM3mnBqC+xbOBJwA9GBxsCf/ltY\nXZ/frjcWGjlI1Y5Q9k+xSQNoGxis+fUXQzlWqOZZ8OkCQQDBWtNBR+1iR8tBA9Ep\nXlkVpGHWQ58QTEm45hZ7WZ7V2x0VDTjNZHWtjC4s3sYuTy59QIqoRBZ87gVEmIUO\nMgibAkEA1dnXgYIbusXdsnNo5y601Z2xnFWYwPXmzfnUxmzGXb9k0G69tHbRLY72\n2/YR2ctjMb0aYZwiCHJw4tWH+4xbEQJAS1GPA1n6bZNb6KqM+plnCFgtSGK0/otJ\nGH6AeXJSvimJbZ7l5pRghscZYZ8yAe4URPQ0TxGe1PF/GdZz1jDFSwJAQKY0MOR3\nLQ445dtLvJEZwHt8L2K98XbduvOmxSnanuuXKJxaDPGZQzWBMRGGsVjXURbGtZmh\nI05NTCxKA+U9pQ==\n-----END PRIVATE KEY-----\n'),('positive@roundcube.owncloud.org','roundcube','publicSSLKey','-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC17P5batkBRwW04xsqurv5yhDg\nv/8b4n2vNBwGRgMe2Z2xTEGRPEIqZ5mUO31kXh/TaILPgDwPV1VykzYE8pkNibFA\nggHA1Eq/SOpf7Jd7gy9i2+v8ugDydiE8U6AJflx1F2cjhWXEWRHBwY5wt0j4BiiD\nuEkod9tGqylBE34lEwIDAQAB\n-----END PUBLIC KEY-----\n');
+INSERT INTO `oc7_preferences` VALUES ('admin','files','cache_version','5'),('admin','firstrunwizard','show','0'),('admin','login','lastLogin','1406722185'),('admin','roundcube','privateSSLKey','-----BEGIN PRIVATE KEY-----\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANKJDbNcjd8W3M9L\nH5evXh7dyfm8WpcpCFjzM3o+fZnLDOsH2Gw8uLwnjG6MMewHP1qwNYer1gzl0zOn\n9fuip1s/C2XOoocDzJ7XWPjKt+CP4slZ5I4g7z0llqhQfKjGFJcyYYtwaZsX2F3N\n+5ywMQ6O6+hrxmkoJ5aaBYe3IHLRAgMBAAECgYASxGjWPj/fTRht2hJ84QMQ2VBx\n1Jp2sw+tbjB+iyeDGBiUsuRV8au+CgB4skKY+aRqHx8GcwjnqW0EQ8qnnb4xOJdn\nxp2zmlLbFLxusLtdZjJ/8E5F6Hv7PLruYpUr5KOOhuu3j0HCkpX+j4gjtogDa1mR\ni2Um3GfmO2ZYJ0ND4QJBAPhogXYR+A/WiV9GzR/hqZ/5XnUyiLkCMt5o8BVIDS/X\nSse3vHMe1+cE9Gsjdi/zt0FfBOovWApzBWEeflxFzaUCQQDY+D0JteJMdXPgYqZ9\nQsvb2KwQJ/oRKn0k/bslDTxqtLPP90MotEo7DhS+1kFgnPWy0f+YyNX6Q9UsyGG2\n5yC9AkApt3M2XuIn1sGPLJa6Ke2QnhJM4EWxvDrKuxjGmikMxb0bOTH+q0la1Kwv\nae8pMmauJcTvhy/j4Vkf7D0QRfC5AkBK/UlDYOzNFk8tf4shggOpgXK+xsJkSnYk\nYdnbzX5TNw9q0oAQwndhf9Vlu/GurbEx0+juaoOiUu2L49n5+FpVAkEAh9/249ST\nXkWoU7WXvqCn0xtkd7Nus05ssdWM6XO6A+YABGsvWCJxd1+qElG5JwsRU+NhX9sH\n8Ey0sFtw2Qqqww==\n-----END PRIVATE KEY-----\n'),('admin','roundcube','publicSSLKey','-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDSiQ2zXI3fFtzPSx+Xr14e3cn5\nvFqXKQhY8zN6Pn2ZywzrB9hsPLi8J4xujDHsBz9asDWHq9YM5dMzp/X7oqdbPwtl\nzqKHA8ye11j4yrfgj+LJWeSOIO89JZaoUHyoxhSXMmGLcGmbF9hdzfucsDEOjuvo\na8ZpKCeWmgWHtyBy0QIDAQAB\n-----END PUBLIC KEY-----\n'),('false','contacts','contacts_properties_indexed','yes'),('negative@roundcube.owncloud.org','files','cache_version','5'),('negative@roundcube.owncloud.org','firstrunwizard','show','0'),('negative@roundcube.owncloud.org','login','lastLogin','1407580493'),('negative@roundcube.owncloud.org','roundcube','privateSSLKey','-----BEGIN PRIVATE KEY-----\nMIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMxqXD6lvbD3Yn+0\noUAw7pr9btmK4XZ9UznFq94z+eGZY2sYWHT96sWJdow3CcP+d9aBQHWW3sfilcgE\nFESmz1SIh99x+FrdxU2ByZxnQxVcEGIEFJc4W4suF5Wkjyzwf9GFrQt/zEf38rp/\n54tshFstSTcoklspoZfg0hYF+hMBAgMBAAECgYEAyOtB/9GowWhmyF8in5V48Z5o\ndiqrsWs9gmtoot8znSrHLVyglV1+hOq4OtleH+beo1gno2zHTHDKB+76fP/4h7xT\nXoXBqew9JVEuUU4igzlvhPSh5DygaF5j8ixwi1T9q7PuUdQ5f7LMENR3DCeeCOSs\nzyuVDeaWQB9kDNGeroECQQDqnlQfykX3viBy8x+lC9ro4281RrKngryxKWmex4SH\nMP7u528jEBX7lrKtusk7gVFH6fMciAe9idBwB+KGRkO/AkEA3wtkj3oRqflfG3om\nS3v1ytnIkdxrP5CNYUjobat1RAKknAKBAoYxz0saIcEKTdb4lvJ0JhgWJFnBYJ9L\nk15ZPwJAO2UPqOidI+W280LHPRIuPgztp1AZhDydpj/0pCSgUVU/BJ4ETZ0R45o3\n67FAplbLi+gXCp8JTptn8CSe3R1GowJBAJvoKMipuQMpDrP0NCR7Z5n9lVdvzX/H\nGSwxfFZ8jSGW/10V2vvataKCiqehegRjCazpmQqvt3p9StCxSHCgeJ0CQGezholu\nvwNHgsn2D2ZtYC9a1dZ+k7RGuTumK/1rkC/CxJdHMSE6W1m4kYo8uSdnDqHn0vjc\nhoUJxlfVRcPhzfI=\n-----END PRIVATE KEY-----\n'),('negative@roundcube.owncloud.org','roundcube','publicSSLKey','-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMalw+pb2w92J/tKFAMO6a/W7Z\niuF2fVM5xaveM/nhmWNrGFh0/erFiXaMNwnD/nfWgUB1lt7H4pXIBBREps9UiIff\ncfha3cVNgcmcZ0MVXBBiBBSXOFuLLheVpI8s8H/Rha0Lf8xH9/K6f+eLbIRbLUk3\nKJJbKaGX4NIWBfoTAQIDAQAB\n-----END PUBLIC KEY-----\n'),('positive@roundcube.owncloud.org','contacts','lastgroup','all'),('positive@roundcube.owncloud.org','files','cache_version','5'),('positive@roundcube.owncloud.org','firstrunwizard','show','0'),('positive@roundcube.owncloud.org','login','lastLogin','1426138281'),('positive@roundcube.owncloud.org','roundcube','privateSSLKey','-----BEGIN PRIVATE KEY-----\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALXs/ltq2QFHBbTj\nGyq6u/nKEOC//xvifa80HAZGAx7ZnbFMQZE8QipnmZQ7fWReH9Nogs+APA9XVXKT\nNgTymQ2JsUCCAcDUSr9I6l/sl3uDL2Lb6/y6APJ2ITxToAl+XHUXZyOFZcRZEcHB\njnC3SPgGKIO4SSh320arKUETfiUTAgMBAAECgYBWvflJfVia01JVPTPm28JlB4Ok\npebtVMC4mRADrb4vJ3OY5dMdfK3PqjYAB51yDa7/DgXRCkOYzPtg9e/7y/BNRR96\n+zfHaGOrRFjmKz+Pp5HfS4ENO2Lvf7WTMaOYX/H58Jp33sBG8XEk6cSeCfIX1Y9y\nNk06pw2xc78M/uRZAQJBAPDeOaaNf9CPkpKMrnM3mnBqC+xbOBJwA9GBxsCf/ltY\nXZ/frjcWGjlI1Y5Q9k+xSQNoGxis+fUXQzlWqOZZ8OkCQQDBWtNBR+1iR8tBA9Ep\nXlkVpGHWQ58QTEm45hZ7WZ7V2x0VDTjNZHWtjC4s3sYuTy59QIqoRBZ87gVEmIUO\nMgibAkEA1dnXgYIbusXdsnNo5y601Z2xnFWYwPXmzfnUxmzGXb9k0G69tHbRLY72\n2/YR2ctjMb0aYZwiCHJw4tWH+4xbEQJAS1GPA1n6bZNb6KqM+plnCFgtSGK0/otJ\nGH6AeXJSvimJbZ7l5pRghscZYZ8yAe4URPQ0TxGe1PF/GdZz1jDFSwJAQKY0MOR3\nLQ445dtLvJEZwHt8L2K98XbduvOmxSnanuuXKJxaDPGZQzWBMRGGsVjXURbGtZmh\nI05NTCxKA+U9pQ==\n-----END PRIVATE KEY-----\n'),('positive@roundcube.owncloud.org','roundcube','publicSSLKey','-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC17P5batkBRwW04xsqurv5yhDg\nv/8b4n2vNBwGRgMe2Z2xTEGRPEIqZ5mUO31kXh/TaILPgDwPV1VykzYE8pkNibFA\nggHA1Eq/SOpf7Jd7gy9i2+v8ugDydiE8U6AJflx1F2cjhWXEWRHBwY5wt0j4BiiD\nuEkod9tGqylBE34lEwIDAQAB\n-----END PUBLIC KEY-----\n');
 /*!40000 ALTER TABLE `oc7_preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1117,7 +1404,7 @@ CREATE TABLE `oc7_storagecharts2` (
   `stc_used` double NOT NULL,
   `stc_total` double NOT NULL,
   PRIMARY KEY (`stc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1126,7 +1413,7 @@ CREATE TABLE `oc7_storagecharts2` (
 
 LOCK TABLES `oc7_storagecharts2` WRITE;
 /*!40000 ALTER TABLE `oc7_storagecharts2` DISABLE KEYS */;
-INSERT INTO `oc7_storagecharts2` VALUES (1,'admin',201407,1404345600,18506249,1657109111305),(2,'admin',201407,1406678400,18640400,1652918066704),(3,'negative@roundcube.owncloud.org',201407,1406678400,18566821,1652918124197),(4,'positive@roundcube.owncloud.org',201407,1406678400,18449214,1652915671870),(5,'negative@roundcube.owncloud.org',201408,1407542400,6124817,1651559183633);
+INSERT INTO `oc7_storagecharts2` VALUES (1,'admin',201407,1404345600,18506249,1657109111305),(2,'admin',201407,1406678400,18640400,1652918066704),(3,'negative@roundcube.owncloud.org',201407,1406678400,18566821,1652918124197),(4,'positive@roundcube.owncloud.org',201407,1406678400,18449214,1652915671870),(5,'negative@roundcube.owncloud.org',201408,1407542400,6124817,1651559183633),(6,'positive@roundcube.owncloud.org',201503,1426118400,6482489,12870085177);
 /*!40000 ALTER TABLE `oc7_storagecharts2` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1167,7 +1454,7 @@ CREATE TABLE `oc7_storages` (
   `numeric_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`numeric_id`),
   UNIQUE KEY `storages_id_index` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1176,7 +1463,7 @@ CREATE TABLE `oc7_storages` (
 
 LOCK TABLES `oc7_storages` WRITE;
 /*!40000 ALTER TABLE `oc7_storages` DISABLE KEYS */;
-INSERT INTO `oc7_storages` VALUES ('home::admin',1),('home::negative@roundcube.owncloud.org',2),('home::positive@roundcube.owncloud.org',4),('local::/var/www/oc_testing/mysql/owncloud/data/',3);
+INSERT INTO `oc7_storages` VALUES ('home::admin',1),('home::negative@roundcube.owncloud.org',2),('home::positive@roundcube.owncloud.org',4),('local::/var/www/oc_testing/mysql/owncloud/data/',3),('local::/var/www/owncloud/data/',5);
 /*!40000 ALTER TABLE `oc7_storages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1260,12 +1547,114 @@ LOCK TABLES `oc7_vcategory_to_object` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'oc_testing'
+-- Table structure for table `searches`
 --
 
+DROP TABLE IF EXISTS `searches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `searches` (
+  `search_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `type` int(3) NOT NULL DEFAULT '0',
+  `name` varchar(128) NOT NULL,
+  `data` text,
+  PRIMARY KEY (`search_id`),
+  UNIQUE KEY `uniqueness` (`user_id`,`type`,`name`),
+  CONSTRAINT `user_id_fk_searches` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'oc_testing'
+-- Dumping data for table `searches`
 --
+
+LOCK TABLES `searches` WRITE;
+/*!40000 ALTER TABLE `searches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `searches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `session`
+--
+
+DROP TABLE IF EXISTS `session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `session` (
+  `sess_id` varchar(128) NOT NULL,
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `changed` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `ip` varchar(40) NOT NULL,
+  `vars` mediumtext NOT NULL,
+  PRIMARY KEY (`sess_id`),
+  KEY `changed_index` (`changed`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `session`
+--
+
+LOCK TABLES `session` WRITE;
+/*!40000 ALTER TABLE `session` DISABLE KEYS */;
+INSERT INTO `session` VALUES ('1','2015-01-06 18:14:55','2015-01-06 18:15:04','144.76.176.16','bGFuZ3VhZ2V8czo1OiJlbl9VUyI7dGVtcHxiOjE7c2tpbnxzOjU6ImxhcnJ5Ijt0YXNrfHM6NToibG9naW4iOw=='),('lho2uoah08s1mobfd8e9412qm3','2014-06-05 14:15:18','2014-06-05 14:17:37','213.209.99.153','bGFuZ3VhZ2V8czo1OiJkZV9ERSI7dGVtcHxiOjE7c2tpbnxzOjU6ImxhcnJ5Ijt0YXNrfHM6NToibG9naW4iOw=='),('nbfgofejdq1kftavljtffu6vp1','2015-03-12 05:31:21','2015-03-12 05:31:21','127.0.0.1','dGVtcHxiOjE7bGFuZ3VhZ2V8czo1OiJlbl9VUyI7dGFza3xzOjU6ImxvZ2luIjs=');
+/*!40000 ALTER TABLE `session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `system`
+--
+
+DROP TABLE IF EXISTS `system`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system` (
+  `name` varchar(64) NOT NULL,
+  `value` mediumtext,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `system`
+--
+
+LOCK TABLES `system` WRITE;
+/*!40000 ALTER TABLE `system` DISABLE KEYS */;
+INSERT INTO `system` VALUES ('roundcube-version','2014042900');
+/*!40000 ALTER TABLE `system` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `mail_host` varchar(128) NOT NULL,
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `last_login` datetime DEFAULT NULL,
+  `language` varchar(5) DEFAULT NULL,
+  `preferences` longtext,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`,`mail_host`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'positive@roundcube.owncloud.org','localhost','2014-06-05 14:15:08','2014-06-05 14:15:08','de_DE',NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1276,5 +1665,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-08-09 12:35:43
-
+-- Dump completed on 2015-03-12  5:32:31
