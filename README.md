@@ -27,27 +27,7 @@ Feel free to donate
 see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
 A Maven-Site is also [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/site/).
 
-Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen
-
-To run all unit tests execute
-
-```mvn clean test```
-
-To run only javascript test go to one module and execute
-
-```grunt test```
-
-For javascript unit test debugging execute:
-
-```karma start src/test/webapp/karma.conf.js```
- 
-and point your browser to http://localhost:9080/
-
-For running the all tests (needs docker and maven 3.0 to be installed):
-
-```
-mvn30 clean verify -Denv.BUILD_NUMBER=42 -Doc_version=OC80 -Drc_version=RC11 -Ddb_type=mysql  -Dwebdriver.base.url=http://127.0.0.1:49080/owncloud/
-```
+Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
 
 License
 ------------
