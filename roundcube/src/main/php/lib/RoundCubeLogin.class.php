@@ -117,6 +117,8 @@ class OC_RoundCube_Login
     /**
      * No idea what this is .
      *
+     *
+     *
      * ..
      */
     private $rcSessionAuth;
@@ -243,7 +245,7 @@ class OC_RoundCube_Login
      * it performs a re-login, i.e. a logout/login-combination to ensure
      * that the specified user is logged in.
      *
-     * If you don't want this, use the isLoggedIn()-function and redirect
+     * If you don't want this, use the isLoggedIn()-function
      * the RC without calling login().
      *
      * @param
@@ -346,17 +348,7 @@ class OC_RoundCube_Login
         }
         $this->sendRequest($this->rcPath, $data);
         // remove cookies
-        // $this->setRcCookies("", "", true);
         return ! $this->isLoggedIn();
-    }
-
-    /**
-     * Simply redirect to the Roundcube application.
-     */
-    public function redirect()
-    {
-        header("Location: {$this -> rcPath}");
-        exit();
     }
 
     /**
@@ -372,14 +364,14 @@ class OC_RoundCube_Login
             return;
         }
         // Send request and maybe receive new session ID
-        $response = $this->sendRequest($this->rcPath);        
+        $response = $this->sendRequest($this->rcPath);
         // Request token (since Roundcube 0.5.1)
         if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
             $this->lastToken = $m[1];
         }
         if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
             $this->lastToken = $m[1];
-        }        
+        }
         // Login form available?
         if (preg_match('/<input.+name="_pass"/mi', $response)) {
             $this->addDebug("updateLoginStatus", "Detected that we're NOT logged in.");
@@ -397,7 +389,6 @@ class OC_RoundCube_Login
                     $this->addDebug("updateLoginStatus", "Unable to determine the login status. Did you change the RC version?");
                     throw new OC_Mail_LoginException("Unable to determine the login status. Unable to continue due to technical problems.");
                 }
-        
         // If no session ID is available now, throw an exception
         if (! $this->rcSessionID) {
             $this->addDebug("NO SESSION ID", "No session ID received. RC version changed?");
@@ -494,13 +485,12 @@ class OC_RoundCube_Login
             
             $this->emitAuthHeaders($authHeaders);
             // refresh cookies
-            // $this->setRcCookies($this->rcSessionID, $this->rcSessionAuth, false);
         }
         return $response;
     }
 
     /**
-     * Set roundcube values to current value
+     * Set roundcube session ID
      *
      * @param
      *            sessionID to use $pSessionID
@@ -509,15 +499,9 @@ class OC_RoundCube_Login
      * @param
      *            set to true if you want to reset the roundcube cookies $pReset
      */
-    private function setRcCookies($pSessionID, $pSessionAuth, $pReset = false)
+    public function setSessionID($pSessionID)
     {
-        $cookieTtl = $pReset ? time() - 8000 : time() + 8000;
-        if ($pSessionID) {
-            setcookie("roundcube_sessid", $pSessionID, $cookieTtl, '/');
-        }
-        if ($pSessionAuth) {
-            setcookie("roundcube_sessauth", $pSessionAuth, $cookieTtl, '/');
-        }
+        $this->rcSessionID = $pSessionID;
     }
 
     /**
@@ -536,11 +520,11 @@ class OC_RoundCube_Login
     function openUrlConnection($pURL, $pMethod, $pData)
     {
         $this->addDebug("openUrlConnection", "url: " . $pURL);
-        $this->addDebug("openUrlConnection", "method: " . $pMethod);        
+        $this->addDebug("openUrlConnection", "method: " . $pMethod);
         $response = false;
         try {
             $curl = curl_init();
-            // set URL            
+            // set URL
             curl_setopt($curl, CURLOPT_URL, $pURL);
             // general settings
             curl_setopt($curl, CURLOPT_HEADER, true);
@@ -554,7 +538,7 @@ class OC_RoundCube_Login
                     $postData = '';
                     foreach ($pData as $key => $value) {
                         $postData .= $key . '=' . $value . '&';
-                    }                    
+                    }
                     rtrim($postData, '&');
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
                     curl_setopt($curl, CURLOPT_TIMEOUT, 60);
@@ -596,7 +580,7 @@ class OC_RoundCube_Login
             
             // run cURL
             $cUrlResponse = curl_exec($curl);
-
+            
             if ($this->traceEnabled) {
                 $this->addDebug("openUrlConnection", "cUrlResponse: " . $cUrlResponse);
             }
