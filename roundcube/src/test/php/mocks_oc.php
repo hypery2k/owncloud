@@ -4,6 +4,8 @@ class OC{
 	 * Associative array for autoloading. classname => filename
 	 */
 	public static $CLASSPATH = array();
+	
+	public static $WEBROOT = '';
 
 }
 

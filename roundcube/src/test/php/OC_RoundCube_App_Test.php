@@ -3,6 +3,8 @@
 //namespace OCA\roundcube;
 
 //OC_App::loadApp('roundcube');
+
+require_once 'PHPUnit/Autoload.php';
 require_once 'mocks_oc.php';
 require_once 'mocks_ocp.php';
 require_once("appinfo/app.php");
@@ -31,12 +33,14 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase {
 		}
 		*/
 	protected function setUp() {
-		$http_response_header=array('HTTP/1.1 200 OK',
-				'Location: .\/?_task=mail','path=\/;Set-Cookie:roundcube_sessauth=Sfd5040c316832a3fd40750ccb1f15f58b47ddd39; roundcube_sessid=a4i22nr34a8nudn1ncagdu8jj4; 50be576f0ca87=4tf3l5l48q86dl6hobc4e9jb33');
+		$http_response_header=array(
+				'location' => '.\/?_task=mail','set-cookie' => 'roundcube_sessauth=-del-; expires=Fri, 20-Mar-2015 19:37:22 GMT; Max-Age=-60; path=/; httponly
+roundcube_sessid=ol359cpg593fjlkahfnhp2te23; path=/; HttpOnly
+roundcube_sessauth=S3087d477dcee945a77d963975451aa11f9852a56; path=/; httponly');
 		$mockedResponse=' <div id="message"';
 		$responseObj= new Response($http_response_header,$mockedResponse);
 		$this -> mockedRcLogin = $this->getMock('OC_RoundCube_Login',
-				array('isLoggedIn','openUrlConnection','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
+				array('isLoggedIn','openUrlConnection','emitAuthHeaders','closeUrlConnection','getConnectionData','getResponseHeader','setRcCookies') ,
 				array('localhost','443','mail',true)
 		);
 		$this -> mockedRcLogin->expects($this->any()) -> method('openUrlConnection') -> will($this -> returnValue($responseObj));
