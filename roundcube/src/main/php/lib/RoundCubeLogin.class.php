@@ -119,6 +119,10 @@ class OC_RoundCube_Login
      *
      *
      *
+     *
+     *
+     *
+     *
      * ..
      */
     private $rcSessionAuth;
@@ -186,15 +190,6 @@ class OC_RoundCube_Login
     private $sslVerifyDisabled;
 
     /**
-     * Keep debug messages on a stack.
-     * To dump it, call
-     * the dumpDebugStack()-function.
-     *
-     * @var array
-     */
-    private $debugStack;
-
-    /**
      * Create a new RoundcubeLogin class.
      *
      * @param
@@ -252,9 +247,10 @@ class OC_RoundCube_Login
      *            string IMAP username
      * @param
      *            string IMAP password (plain text)
-     * @return boolean Returns TRUE if the login was successful, FALSE otherwise
+     * @return string RoundCube session ID, otherwise '1'
      * @throws MailNetworkingxception
      * @throws OC_Mail_LoginException
+     *
      */
     public function login($username, $password)
     {
@@ -305,7 +301,6 @@ class OC_RoundCube_Login
             $this->addDebug("login", "Login status unkown. Neither failure nor success. This maybe the case if no session ID was sent");
             throw new OC_Mail_LoginException("Unable to determine login-status due to technical problems.");
         }
-        
         return $this->isLoggedIn();
     }
 
@@ -434,7 +429,7 @@ class OC_RoundCube_Login
             $response = $responsObj->getContent();
             
             // Check for success. $http_response_header may not be set on failures
-            if ($response === false) {
+            if ($responsObj === false) {
                 $this->addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url " . $url . " on host" . $this->rcHost);
                 throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
             }
@@ -490,21 +485,6 @@ class OC_RoundCube_Login
     }
 
     /**
-     * Set roundcube session ID
-     *
-     * @param
-     *            sessionID to use $pSessionID
-     * @param
-     *            sessionauth to use $pSessionAuth
-     * @param
-     *            set to true if you want to reset the roundcube cookies $pReset
-     */
-    public function setSessionID($pSessionID)
-    {
-        $this->rcSessionID = $pSessionID;
-    }
-
-    /**
      * open url connection
      *
      * @param string $pURL
@@ -528,7 +508,7 @@ class OC_RoundCube_Login
             curl_setopt($curl, CURLOPT_URL, $pURL);
             // general settings
             curl_setopt($curl, CURLOPT_HEADER, true);
-            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             
             if ($pMethod == 'POST') {
@@ -687,11 +667,22 @@ class OC_RoundCube_Login
     }
 
     /**
-     * Dump the debug stack
+     * Get roundcube session ID
      */
-    public function dumpDebugStack()
+    public function getSessionID()
     {
-        OCP\Util::writeLog('roundcube', 'RoundcubeLogin.class.php: ' . print_r($this->debugStack) . ' ', OCP\Util::ERROR);
+        return $this->rcSessionID;
+    }
+
+    /**
+     * Set roundcube session ID
+     *
+     * @param
+     *            sessionID to use $pSessionID
+     */
+    public function setSessionID($pSessionID)
+    {
+        $this->rcSessionID = $pSessionID;
     }
 }
 
