@@ -37,11 +37,7 @@ class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase
 
     public function testUnkownResponse()
     {
-        $header = array(
-            ''
-        );
-        $content = false;
-        $responseObj = new Response($header, $content);
+        $responseObj = false;
         $mockedRcLogin = $this->getMock('OC_RoundCube_Login', array(
             'openUrlConnection',
             'closeUrlConnection',
@@ -50,6 +46,8 @@ class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase
             'localhost',
             '443',
             'mail',
+            true,
+            true,
             true
         ));
         $mockedRcLogin->expects($this->any())
@@ -68,7 +66,6 @@ class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @runInSeparateProcess
      */
     public function testUnkownLoginState1()
     {
@@ -106,7 +103,6 @@ class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase
 
     /**
      * unkown location
-     * @runInSeparateProcess
      */
     public function testUnkownLoginState2()
     {
