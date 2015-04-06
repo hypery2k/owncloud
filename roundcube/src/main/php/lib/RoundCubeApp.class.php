@@ -32,6 +32,7 @@ class OC_RoundCube_App
     const SESSION_ATTR_RCUSER = 'OC\\ROUNDCUBE\\rcUser';
 
     const SESSION_ATTR_RCSESSID = 'OC\\ROUNDCUBE\\rcSessID';
+    const SESSION_ATTR_RCSESSAUTH = 'OC\\ROUNDCUBE\\rcSessAuth';
 
     private $path = '';
 
@@ -269,6 +270,7 @@ class OC_RoundCube_App
         $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
         if ($rcl->logout()) {
             $_SESSION[self::SESSION_ATTR_RCSESSID] = '1';
+            $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = '1';
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): ' . $user . ' successfully logged off from roundcube ', OCP\Util::INFO);
         } else {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): Failed to log-off ' . $user . ' from roundcube. If you are using roundcube 1.0.4. Please update to roundcube 1.0.5', OCP\Util::ERROR);
@@ -301,6 +303,7 @@ class OC_RoundCube_App
         if ($rcl->isLoggedIn()) {
             // save roundcube session ID to Session
             $_SESSION[self::SESSION_ATTR_RCSESSID] = $rcl->getSessionID();
+            $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): ' . $pLogin . ' already logged into roundcube with session ID ' . $rcl->getSessionID(), OCP\Util::DEBUG);
             return true;
         } else {
@@ -308,6 +311,7 @@ class OC_RoundCube_App
             if ($rcl->isLoggedIn()) {
                 // save roundcube session ID to Session
                 $_SESSION[self::SESSION_ATTR_RCSESSID] = $rcl->getSessionID();
+                $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
                 OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): ' . $pLogin . ' successfully logged into roundcube with session ID ' . $rcl->getSessionID(), OCP\Util::DEBUG);
                 return true;
             } else {
@@ -338,6 +342,7 @@ class OC_RoundCube_App
         $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
         // reuse session ID
         $rcl->setSessionID($_SESSION[self::SESSION_ATTR_RCSESSID]);
+        $rcl->setSessionAuth($_SESSION[self::SESSION_ATTR_RCSESSAUTH]);
         // Try to refresh
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
         if ($rcl->isLoggedIn()) {
