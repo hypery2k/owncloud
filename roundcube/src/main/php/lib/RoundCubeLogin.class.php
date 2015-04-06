@@ -437,39 +437,36 @@ class OC_RoundCube_Login
             $authHeaders = array();
             $this->lastHeaderResponse = $responseHdr;
 
-            foreach ($responseHdr as $key => $headers) {
+            foreach ($responseHdr as $key => $header) {
+                // Got session ID!
+                if ($key == 'set-cookie') {
+                    $setCookie = preg_replace('/\s+/', ' ', trim($header));
+                    $this->addDebug("sendRequest", "Got the following Set-Cookie Value: " . $setCookie);
 
-                foreach ($headers as $header) {
-
-                    // Got session ID!
-                    if ($key == 'set-cookie') {
-                        $setCookie = preg_replace('/\s+/', ' ', trim($header));
-                        $this->addDebug("sendRequest", "Got the following Set-Cookie Value: " . $setCookie);
-
-                        // remember header for authentication
-                        if (is_array($header)) {
-                            $authHeaders[0] = preg_replace('|path=([^;]+);|i', 'path=' . \OC::$WEBROOT . '/;', $header);
-                            $this->addDebug("sendRequest", "Got following auth header: " . print_r($authHeaders, true));
-                        }
-                        // got session ID
-                        if (preg_match_all('/^(.*)\s*(roundcube_sessid=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
-                            $this->addDebug("sendRequest", "Got the following session ID: " . $match[3][0]);
-                            $this->rcSessionID = $match[3][0];
-                            $authHeaders[] = 'Set-Cookie: ' . $setCookie;
-                        }
-
-                        // Got sessauth
-                        if (preg_match_all('/^(.*)\s*(roundcube_sessauth=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
-                            $this->addDebug("sendRequest", "Got the following session auth: " . $match[3][0]);
-                            $this->rcSessionAuth = $match[3][0];
-                            $authHeaders[] = 'Set-Cookie: ' . $setCookie;
-                        }
+                    // remember header for authentication
+                    if (is_array($header)) {
+                        $authHeaders[0] = preg_replace('|path=([^;]+);|i', 'path=' . \OC::$WEBROOT . '/;', $header);
+                        $this->addDebug("sendRequest", "Got following auth header: " . print_r($authHeaders, true));
                     }
-                    // Location header
-                    if ($key == 'location') {
-                        $this->rcLocation = $header;
+                    // got session ID
+                    if (preg_match_all('/^(.*)\s*(roundcube_sessid=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
+                        $this->addDebug("sendRequest", "Got the following session ID: " . $match[3][0]);
+                        $this->rcSessionID = $match[3][0];
+                        $authHeaders[] = 'Set-Cookie: ' . $setCookie;
+                    }
+
+                    // Got sessauth
+                    if (preg_match_all('/^(.*)\s*(roundcube_sessauth=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
+                        $this->addDebug("sendRequest", "Got the following session auth: " . $match[3][0]);
+                        $this->rcSessionAuth = $match[3][0];
+                        $authHeaders[] = 'Set-Cookie: ' . $setCookie;
                     }
                 }
+                // Location header
+                if ($key == 'location') {
+                    $this->rcLocation = $header;
+                }
+                
             }
             // Request token (since Roundcube 0.5.1)
             if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
