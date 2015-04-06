@@ -123,6 +123,7 @@ class OC_RoundCube_Login
      *
      *
      *
+     *
      * ..
      */
     private $rcSessionAuth;
@@ -213,7 +214,7 @@ class OC_RoundCube_Login
         $this->addDebug("pre_construct", "webmailPath: " . $webmailPath);
         $this->addDebug("pre_construct", "enableDebug: " . $enableDebug);
         $this->addDebug("pre_construct", "disableSSLverify: " . $disableSSLverify);
-
+        
         $this->debugStack = array();
         $this->rcHost = $webmailHost;
         $this->rcPath = $webmailPath;
@@ -224,7 +225,7 @@ class OC_RoundCube_Login
         $this->sslVerifyDisabled = $disableSSLverify;
         $this->debugEnabled = $enableDebug;
         $this->traceEnabled = $enableVerbose;
-
+        
         $this->addDebug("post_construct", "Created new RoundCubeLogin instance:");
         $this->addDebug("post_construct", "rcHost: " . $this->rcHost);
         $this->addDebug("post_construct", "rcPort: " . $this->rcPort);
@@ -255,12 +256,12 @@ class OC_RoundCube_Login
     public function login($username, $password)
     {
         $this->addDebug("login", "Logging in with " . $username);
-
+        
         // If already logged in, perform a re-login (logout first)
         if ($this->isLoggedIn($this->rcSessionID, $this->rcSessionAuth)) {
             $this->logout();
         }
-
+        
         $login = $username;
         // Try login
         $data = array(
@@ -276,25 +277,26 @@ class OC_RoundCube_Login
             $data["_token"] = $this->lastToken;
         }
         $response = $this->sendRequest($this->rcPath, $data);
-
+        
         $this->rcLoginStatus = 0;
-
+        
         // Login successful! A redirection to ./?_task=... is a success!
         if (preg_match('/.+_task=/mi', $this->rcLocation)) {
             $this->addDebug("login", "Login successfull. RC sent a redirection to ./?_task=..., that means we did it!");
             $this->rcLoginStatus = 1;
         } else
             foreach ($this->lastHeaderResponse as $header) {
-
-                // Login failure detected! If the login failed, RC sends the cookie
-                // "sessauth=-del-"
-                if (preg_match('/.+sessauth=-del-;/mi', $header)) {
-                    $this->addDebug("login", "Login failed. RC sent 'sessauth=-del-'; User/Pass combination wrong.");
-                    $this->rcLoginStatus = - 1;
-                    break;
+                if(is_string($header)) {                   
+                    // Login failure detected! If the login failed, RC sends the cookie
+                    // "sessauth=-del-"
+                    if (preg_match('/.+sessauth=-del-;/mi', $header)) {
+                        $this->addDebug("login", "Login failed. RC sent 'sessauth=-del-'; User/Pass combination wrong.");
+                        $this->rcLoginStatus = - 1;
+                        break;
+                    }
                 }
             }
-
+        
         if ($this->rcLoginStatus == 0) {
             // Unkown, neither failure nor success.
             // This maybe the case if no session ID was sent
@@ -371,12 +373,12 @@ class OC_RoundCube_Login
         if (preg_match('/<input.+name="_pass"/mi', $response)) {
             $this->addDebug("updateLoginStatus", "Detected that we're NOT logged in.");
             $this->rcLoginStatus = - 1;
-        } else
+        } else 
             if (preg_match('/<div.+id="message"/mi', $response)) {
                 $this->addDebug("updateLoginStatus", "Detected that we're logged in.");
                 $this->rcLoginStatus = 1;
                 // Changed html since Roundcube 1.0
-            } else
+            } else 
                 if (preg_match('/<div.+id="messagetoolbar"/mi', $response)) {
                     $this->addDebug("updateLoginStatus", "Detected that we're logged in.");
                     $this->rcLoginStatus = 1;
@@ -427,7 +429,7 @@ class OC_RoundCube_Login
         } else {
             // Read response and set received cookies
             $response = $responsObj->getContent();
-
+            
             // Check for success. $http_response_header may not be set on failures
             if ($responsObj === false) {
                 $this->addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url " . $url . " on host" . $this->rcHost);
@@ -436,13 +438,13 @@ class OC_RoundCube_Login
             $responseHdr = $responsObj->getHeader();
             $authHeaders = array();
             $this->lastHeaderResponse = $responseHdr;
-
+            
             foreach ($responseHdr as $key => $header) {
                 // Got session ID!
                 if ($key == 'set-cookie') {
                     $setCookie = preg_replace('/\s+/', ' ', trim($header));
                     $this->addDebug("sendRequest", "Got the following Set-Cookie Value: " . $setCookie);
-
+                    
                     // remember header for authentication
                     if (is_array($header)) {
                         $authHeaders[0] = preg_replace('|path=([^;]+);|i', 'path=' . \OC::$WEBROOT . '/;', $header);
@@ -454,7 +456,7 @@ class OC_RoundCube_Login
                         $this->rcSessionID = $match[3][0];
                         $authHeaders[] = 'Set-Cookie: ' . $setCookie;
                     }
-
+                    
                     // Got sessauth
                     if (preg_match_all('/^(.*)\s*(roundcube_sessauth=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
                         $this->addDebug("sendRequest", "Got the following session auth: " . $match[3][0]);
@@ -466,7 +468,6 @@ class OC_RoundCube_Login
                 if ($key == 'location') {
                     $this->rcLocation = $header;
                 }
-                
             }
             // Request token (since Roundcube 0.5.1)
             if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
@@ -479,7 +480,7 @@ class OC_RoundCube_Login
             if ($this->lastToken) {
                 $this->addDebug("sendRequest", "Got the following token: " . $this->lastToken);
             }
-
+            
             $this->emitAuthHeaders($authHeaders);
             // refresh cookies
         }
@@ -512,7 +513,7 @@ class OC_RoundCube_Login
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
+            
             if ($pMethod == 'POST') {
                 if ($pData) {
                     curl_setopt($curl, CURLOPT_POST, true);
@@ -532,14 +533,14 @@ class OC_RoundCube_Login
                     $headers[] = 'Content-Length:' . strlen($postData);
                     $headers[] = 'Cache-Control: no-cache';
                     $headers[] = 'Pragma: no-cache';
-
+                    
                     $this->addDebug("openUrlConnection", 'strlen($postData)' . strlen($postData));
                     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
                 }
             } else {
                 curl_setopt($curl, CURLOPT_HTTPGET, true);
             }
-
+            
             $cookie = '';
             if (isset($this->rcSessionID)) {
                 $cookie .= 'roundcube_sessid=' . $this->rcSessionID . ';';
@@ -550,20 +551,20 @@ class OC_RoundCube_Login
             // append cookie values
             $this->addDebug("openUrlConnection", "cookie: " . $cookie);
             curl_setopt($curl, CURLOPT_COOKIE, $cookie);
-
+            
             if ($this->sslVerifyDisabled) {
                 $this->addDebug("openUrlConnection", "Disabling SSL verification.");
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             }
-
+            
             if ($this->traceEnabled) {
                 curl_setopt($curl, CURLOPT_VERBOSE, true);
             }
             curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
-
+            
             // run cURL
             $cUrlResponse = curl_exec($curl);
-
+            
             if ($this->traceEnabled) {
                 $this->addDebug("openUrlConnection", "cUrlResponse: " . $cUrlResponse);
             }
@@ -622,10 +623,12 @@ class OC_RoundCube_Login
                 list ($header, $value) = explode(': ', $headerLine, 2);
                 $header = strtolower($header);
                 if (isset($responseHeaders[$header])) {
-                    //$responseHeaders[$header] .= "\n" . $value;
+                    // $responseHeaders[$header] .= "\n" . $value;
                     $responseHeaders[$header][] = $value;
                 } else {
-                    $responseHeaders[$header] = array($value);
+                    $responseHeaders[$header] = array(
+                        $value
+                    );
                 }
             }
         }
@@ -714,7 +717,7 @@ class OC_RoundCube_Login
  * Simple response wrapper class
  *
  * @author mreinhardt
- *
+ *        
  */
 class Response
 {
