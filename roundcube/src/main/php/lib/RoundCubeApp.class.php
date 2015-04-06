@@ -347,6 +347,7 @@ class OC_RoundCube_App
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
         if ($rcl->isLoggedIn()) {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Successfully refreshed the RC session.', OCP\Util::INFO);
+            $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
             return true;
         } else {
             // login expired, we are
