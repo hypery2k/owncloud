@@ -29,6 +29,7 @@
 class OC_RoundCube_App
 {
 
+    const SESSION_ATTR_RCPRIVKEY= 'OC\\ROUNDCUBE\\privateKey';
     const SESSION_ATTR_RCUSER = 'OC\\ROUNDCUBE\\rcUser';
 
     const SESSION_ATTR_RCSESSID = 'OC\\ROUNDCUBE\\rcSessID';
@@ -151,6 +152,10 @@ class OC_RoundCube_App
         } else {
             $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
         }
+
+        // save private key for later usage
+        $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $uncryptedPrivKey;
+
         return $uncryptedPrivKey;
     }
 

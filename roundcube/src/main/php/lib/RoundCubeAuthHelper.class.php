@@ -139,8 +139,8 @@ class OC_RoundCube_AuthHelper {
 		$username = $params['uid'];
 		$password = $params['password'];
 
-		// load old key
-		$oldPrivKey = OC_RoundCube_App::getPrivateKey($username, $password);
+                // Try to fetch from session
+                $oldPrivKey = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
 		// Take the chance to alter the priv/pubkey pair
 		OC_RoundCube_App::generateKeyPair($username, $password);
 		$privKey = OC_RoundCube_App::getPrivateKey($username, $password);
