@@ -254,7 +254,7 @@ class OC_RoundCube_Login
      */
     public function login($username, $password)
     {
-        $this->addDebug("login", "Logging in with " . $username . ':' . $password);
+        $this->addDebug("login", "Logging in with " . $username);
 
         // If already logged in, perform a re-login (logout first)
         if ($this->isLoggedIn($this->rcSessionID, $this->rcSessionAuth)) {
@@ -420,9 +420,6 @@ class OC_RoundCube_Login
             $url .= $this->rcHost . $sep . $path;
         }
         $this->addDebug('sendRequest', 'Trying to connect via "' . $method . '" to URL "' . $url . '" on host"' . $this->rcHost . '"');
-        if ($postData) {
-          $this->addDebug('sendRequest', 'Post-Data: ' . print_r($postData, true));
-        }
         $responsObj = $this->openUrlConnection($url, $method, $postData);
         if (! $responsObj) {
             $this->addDebug("sendRequest", "Network connection failed. Please check your path for roundcube with url " . $url . " on host" . $this->rcHost);
