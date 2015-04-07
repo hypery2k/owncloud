@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud roundcube 5.0.0\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2015-04-07 03:54+0200\n"
+"PO-Revision-Date: 2015-04-07 04:06+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.7.5\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#: ajax/adminSettings.php:51
+#, php-format
+msgid "Refresh interval '%s' is not a number."
+msgstr "Période de rafraîchissement '% s' ne est pas un numéro."
+
+#: ajax/adminSettings.php:81 ajax/userSettings.php:39
+msgid "Not submitted for us."
+msgstr "Non soumis pour nous."
+
+#: ajax/adminSettings.php:85
+msgid "Application settings successfully stored."
+msgstr "Sauvegarde des paramètres réussi"
+
+#: ajax/userSettings.php:35
+msgid "Unable to store email credentials in the data-base."
+msgstr "Impossible de stocker email pouvoirs dans la base."
+
+#: ajax/userSettings.php:43
+msgid ""
+"Email-user credentials successfully stored. Please login again to OwnCloud "
+"for applying the new settings."
+msgstr ""
+"Email pouvoirs utilisateur stockées avec succès. Se il vous plaît vous "
+"connecter à nouveau à OwnCloud pour appliquer les nouveaux paramètres."
+
+#: appinfo/app.php:51
+msgid "Webmail"
+msgstr "Webmail"
+
+#: templates/part.error.autologin.php:2
+msgid "Auto-Login is not working. Please contact you're administrator"
+msgstr ""
+"Auto-Login ne fonctionne pas. Se il vous plaît communiquer avec vous êtes la "
+"administrateur"
+
+#: templates/part.error.db.php:3
+msgid "Database error"
+msgstr "Erreur de base de données"
+
+#: templates/part.error.db.php:6
+msgid "Please follow the wiki page to setup the database manually:"
+msgstr ""
+"Se il vous plaît suivre la page wiki pour configurer manuellement la base de "
+"données:"
+
+#: templates/part.error.error-settings.php:3
+msgid "You have errors in your settings"
+msgstr "Il y a une erreur dans les paramètres"
+
+#: templates/part.error.error-settings.php:6
+msgid "You can manage your admin settings here:"
+msgstr "Vous pouvez gèrer vos paramètres administrateur, ici:"
+
+#: templates/part.error.error-settings.php:9
+#: templates/part.error.no-settings.php:9
+#: templates/part.error.wrong-auth.php:5
+msgid "Settings"
+msgstr "paramètres"
+
+#: templates/part.error.no-settings.php:3
+msgid "You don't have any email account configured yet."
+msgstr "Vous n'avez pas encore de compte mail configuré."
+
+#: templates/part.error.no-settings.php:6
+#: templates/part.error.wrong-auth.php:4
+msgid "You can manage your email accounts here:"
+msgstr "Vous pouvez gèrer votre compte mail ici:"
+
+#: templates/part.error.wrong-auth.php:2
+msgid ""
+"You don't have any email account configured correctly yet. Please check you "
+"username and password."
+msgstr ""
+"Vous n'avez pas de compte mail configuré. Veuillez vérifier votre nom "
+"d'utilisateur et mot de passe."
+
+#: templates/tpl.adminSettings.oc6.php:7 templates/tpl.adminSettings.oc7.php:7
+#: templates/tpl.adminSettings.php:6
+msgid "RoundCube Settings"
+msgstr "RoundCube paramètres"
+
+#: templates/tpl.adminSettings.oc6.php:10
+#: templates/tpl.adminSettings.oc7.php:10 templates/tpl.adminSettings.php:7
+msgid "Basic settings"
+msgstr "réglages de base"
+
+#: templates/tpl.adminSettings.oc6.php:11
+#: templates/tpl.adminSettings.oc7.php:11 templates/tpl.adminSettings.php:24
+msgid "Advanced settings"
+msgstr "Paramètre avancé"
+
+#: templates/tpl.adminSettings.oc6.php:17
+#: templates/tpl.adminSettings.oc7.php:17 templates/tpl.adminSettings.php:9
+msgid ""
+"Absolute path to roundcube installation, e.g. If you have http://example.com/"
+"roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, "
+"just absolute paths to the same domain owncloud is running."
+msgstr ""
+"Le chemin absolu d'installation de Rouncube, e.g pour https://owncloud.com/"
+"roundcube entrer /roundcube/. Noter que le sous-domaine ou URL ne "
+"fonctionneront pas, seul le chemin absolute du même domaine que Ownloud "
+"fonctionnera."
+
+#: templates/tpl.adminSettings.oc6.php:29
+#: templates/tpl.adminSettings.oc7.php:29 templates/tpl.adminSettings.php:29
+#: templates/tpl.adminSettings.php:50
+msgid ""
+"Remove RoundCube control navigation menu items with currently logged in user "
+"information"
+msgstr ""
+"Retirer Roundcube éléments de menu de navigation de contrôle avec "
+"actuellement connecté informations utilisateur"
+
+#: templates/tpl.adminSettings.oc6.php:29
+#: templates/tpl.adminSettings.oc7.php:29 templates/tpl.adminSettings.php:30
+#: templates/tpl.adminSettings.php:51
+msgid "Remove information bar on top of page"
+msgstr "Retirer barre d'informations en haut de la page"
+
+#: templates/tpl.adminSettings.oc6.php:33
+#: templates/tpl.adminSettings.oc7.php:33
+msgid ""
+"Removes the buttons for different sections (mail, adressbook, settings) "
+"within the RoundCube mail application"
+msgstr ""
+"Cacher les boutons des sections (mail, agenda, paramètres) de l'application "
+"mail de Roundcube"
+
+#: templates/tpl.adminSettings.oc6.php:33
+#: templates/tpl.adminSettings.oc7.php:33
+msgid "Remove RoundCube header navigation menu items"
+msgstr "Retirer Roundcube tête navigation éléments de menu"
+
+#: templates/tpl.adminSettings.oc6.php:39
+#: templates/tpl.adminSettings.oc7.php:39 templates/tpl.adminSettings.php:43
+msgid ""
+"Enable autologin for users, which reuse the login data from OC for RoundCube."
+msgstr ""
+"Activer l'auto-authentification pour les utilisateur, qui re-utilisera les "
+"données du compte RounCube d'Owncloud."
+
+#: templates/tpl.adminSettings.oc6.php:39
+#: templates/tpl.adminSettings.oc7.php:39 templates/tpl.adminSettings.php:44
+msgid "Enable autologin for users"
+msgstr "Activer l'auto-authentification pour les utilisateur"
+
+#: templates/tpl.adminSettings.oc6.php:43
+#: templates/tpl.adminSettings.oc7.php:43 templates/tpl.adminSettings.php:57
+msgid "Enable debug messages. RC tends to bloat the log-files."
+msgstr ""
+"Active les message de debug. Attention, à la taille des fichiers de log."
+
+#: templates/tpl.adminSettings.oc6.php:43
+#: templates/tpl.adminSettings.oc7.php:43 templates/tpl.adminSettings.php:58
+msgid "Enable debug logging"
+msgstr "Active mode debug"
+
+#: templates/tpl.adminSettings.oc6.php:50
+#: templates/tpl.adminSettings.oc6.php:51
+#: templates/tpl.adminSettings.oc7.php:50
+#: templates/tpl.adminSettings.oc7.php:51 templates/tpl.adminSettings.php:37
+#: templates/tpl.adminSettings.php:38
+msgid "Disable SSL verification, e.g. for self-signed certificates"
+msgstr ""
+"Désactiver la vérification de SSL, par exemple pour les certificats auto-"
+"signés"
+
+#: templates/tpl.adminSettings.oc6.php:55
+#: templates/tpl.adminSettings.oc7.php:55 templates/tpl.adminSettings.php:62
+msgid ""
+"Overwrite roundcube server hostname if not the same as owncloud, e.g. for "
+"(sub)domains which resides on the same server, e.g rc.domain.tld But keep in "
+"mind that due to iFrame security constraints it will be only working on the "
+"same server, see HTML/JS same-origin policies"
+msgstr ""
+"Ecraser nom du serveur roundcube si ce ne est le même que owncloud, par "
+"exemple pour les (sous-) domaines qui réside sur le même serveur, par "
+"exemple rc.domain.tld Mais gardez à l'esprit que, en raison des contraintes "
+"de sécurité iFrame il sera travaillant uniquement sur le même serveur, "
+"voir / JS politiques de même origine HTML"
+
+#: templates/tpl.adminSettings.oc6.php:60
+#: templates/tpl.adminSettings.oc7.php:60 templates/tpl.adminSettings.php:67
+msgid ""
+"Overwrite roundcube server port (If not specified, ports 80/443 are used for "
+"HTTP/S)"
+msgstr ""
+"Ecraser port du serveur roundcube (Si non spécifié, les ports 80/443 sont "
+"utilisés pour HTTP/S)"
+
+#: templates/tpl.adminSettings.oc6.php:64
+#: templates/tpl.adminSettings.oc7.php:64 templates/tpl.adminSettings.php:17
+msgid ""
+"This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the "
+"session life-time of your RoundCube install (refer to the Roundcube "
+"documentation, please)."
+msgstr ""
+"Cela devrait être réglé à peu (par exemple 60 secondes, vous qui voyez) "
+"moins de la moitié de la session durée de vie de votre RoundCube installer "
+"(reportez-vous à la documentation Roundcube, se il vous plaît)."
+
+#: templates/tpl.adminSettings.oc6.php:65
+#: templates/tpl.adminSettings.oc7.php:65 templates/tpl.adminSettings.php:18
+msgid "Refresh interval for the Roundcube-session in seconds"
+msgstr ""
+"L'intervalle de rafraîchissement pour le Roundcube de session en secondes"
+
+#: templates/tpl.adminSettings.oc6.php:71
+#: templates/tpl.adminSettings.oc7.php:71 templates/tpl.adminSettings.php:75
+#: templates/tpl.userSettings.php:62
+msgid "Saving..."
+msgstr "Sauvegarde en cours ..."
+
+#: templates/tpl.mail.php:96
+msgid "Logged in as "
+msgstr "Connecté en tant que "
+
+#: templates/tpl.userSettings.php:42
+msgid "RoundCube Mailaccount"
+msgstr "RoundCube mailaccount"
+
+#: templates/tpl.userSettings.php:55
+msgid "Email Login Name"
+msgstr "Email Nom de connexion"
+
+#: templates/tpl.userSettings.php:57
+msgid "Email Password"
+msgstr "courriel Mot de passe"
+
+#: templates/tpl.userSettings.php:60
+msgid "Update Email Identity"
+msgstr "Mise à jour Email Identité"
+
+#: templates/tpl.userSettings.php:66
+msgid "General saving error occurred."
+msgstr "Erreur générale de l'économie se est produite."
+
+#: templates/tpl.userSettings.php:69
+msgid "Please fill username and password fields"
+msgstr "Se il vous plaît remplir les champs username et password"
+
+#: templates/tpl.userSettings.php:74
+msgid ""
+"Autologin for users activated. OwnCloud user data will be used for login in "
+"roundcube"
+msgstr ""
+"Autologin activée pour les utilisateurs. Données utilisateur Owncloud seront "
+"utilisés pour la connexion au roundcube"
