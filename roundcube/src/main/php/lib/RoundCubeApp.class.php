@@ -357,7 +357,7 @@ class OC_RoundCube_App
         } else {
             // login expired, we are
             // TODO add new exception here for relogin
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Failed to refresh the RC session.', OCP\Util::ERROR);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Failed to refresh the RC session.', OCP\Util::INFO);
             return false;
         }
     }
