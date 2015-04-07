@@ -15,6 +15,7 @@ import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -62,7 +63,11 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
 		loggedInuserSteps.go_to_adminsettings_view();
-		adminSteps.go_to_roundcube_advancedsettings();
+		final String ocVersion = System.getProperty("oc_version");
+		// only pre OwnCloud 8 has advanced settings tab
+		if(!StringUtils.startsWith(ocVersion,"OC80")){
+			adminSteps.go_to_roundcube_advancedsettings();
+		}
 		adminSteps.toggle_roundcube_autologin();
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
