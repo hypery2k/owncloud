@@ -29,10 +29,12 @@
 class OC_RoundCube_App
 {
 
-    const SESSION_ATTR_RCPRIVKEY= 'OC\\ROUNDCUBE\\privateKey';
+    const SESSION_ATTR_RCPRIVKEY = 'OC\\ROUNDCUBE\\privateKey';
+
     const SESSION_ATTR_RCUSER = 'OC\\ROUNDCUBE\\rcUser';
 
     const SESSION_ATTR_RCSESSID = 'OC\\ROUNDCUBE\\rcSessID';
+
     const SESSION_ATTR_RCSESSAUTH = 'OC\\ROUNDCUBE\\rcSessAuth';
 
     private $path = '';
@@ -152,10 +154,10 @@ class OC_RoundCube_App
         } else {
             $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
         }
-
+        
         // save private key for later usage
         $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $uncryptedPrivKey;
-
+        
         return $uncryptedPrivKey;
     }
 
@@ -213,12 +215,12 @@ class OC_RoundCube_App
      */
     public static function cryptEmailIdentity($ocUser, $emailUser, $emailPassword, $persist = true)
     {
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity(): Updating roundcube profile for ' . $ocUser, OCP\Util::DEBUG);
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity(): Updating roundcube profile for ' . $ocUser . ' (mail user: ' . $emailUser . ')', OCP\Util::DEBUG);
         
         $pubKey = self::getPublicKey($ocUser);
         
         if ($pubKey === false) {
-            OCP\Util::writeLog('roundcube', 'Found no valid public key for user ' . $ocUser, OCP\Util::ERROR);
+            OCP\Util::writeLog('roundcube', 'Found no valid public key for user ' . $ocUser . ' (mail user: ' . $emailUser . ')', OCP\Util::ERROR);
             return false;
         }
         if ($persist) {
@@ -228,7 +230,7 @@ class OC_RoundCube_App
                 OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity():  Found no valid mail login data ', OCP\Util::ERROR);
                 return false;
             } else {
-                OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity():  Found valid mail login data.', OCP\Util::INFO);
+                OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptEmailIdentity():  Found valid mail login data for user ' . $ocUser . ' (mail user: ' . $emailUser . ')', OCP\Util::INFO);
             }
         }
         $mail_username = self::cryptMyEntry($emailUser, $pubKey);
@@ -245,7 +247,7 @@ class OC_RoundCube_App
                 $mail_password,
                 $ocUser
             ));
-            OCP\Util::writeLog('roundcube', 'Done updating roundcube login data for user ' . $ocUser, OCP\Util::INFO);
+            OCP\Util::writeLog('roundcube', 'Done updating roundcube login data for user ' . $ocUser . ' (mail user: ' . $emailUser . ')' . $ocUser, OCP\Util::INFO);
         } else {
             $result = array(
                 'mail_user' => $mail_username,

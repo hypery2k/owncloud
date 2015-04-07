@@ -12,33 +12,46 @@ OCP\JSON::callCheck();
 $l = new OC_L10N('roundcube');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
-	$ocUser = OCP\User::getUser();
-	$result = OC_RoundCube_App::cryptEmailIdentity($ocUser, $_POST['rc_mail_username'], $_POST['rc_mail_password'], true);
-
-	if ($result) {
-		// update login credentials
-		$maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-		$rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
-		if ($rc_host == '') {
-			$rc_host = OC_Request::serverHost();
-		}
-		$params = array(
-				"uid" => $_POST['rc_mail_username'],
-				"password" => $_POST['rc_mail_password'],
-		);
-		// first logout
-		// then login again
-		OC_RoundCube_AuthHelper::logout($params);
-		// then login again
-		OC_RoundCube_AuthHelper::login($params);
-	} else {
-		OC_JSON::error(array("data" => array( "message" => $l->t("Unable to store email credentials in the data-base.") )));
-		return false;
-	}
+    $ocUser = OCP\User::getUser();
+    $result = OC_RoundCube_App::cryptEmailIdentity($ocUser, $_POST['rc_mail_username'], $_POST['rc_mail_password'], true);
+    
+    OCP\Util::writeLog('roundcube', 'ajax/userSettings.php: Starting saving new users for ' . $ocUser . ' as roundcube user ' . $_POST['rc_mail_username'], OCP\Util::DEBUG);
+    
+    if ($result) {
+        // update login credentials
+        $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
+        $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+        if ($rc_host == '') {
+            $rc_host = OC_Request::serverHost();
+        }
+        $params = array(
+            "uid" => $_POST['rc_mail_username'],
+            "password" => $_POST['rc_mail_password']
+        );
+        // first logout
+        OC_RoundCube_AuthHelper::logout();
+        // then login again
+        OC_RoundCube_AuthHelper::login($params);
+    } else {
+        OC_JSON::error(array(
+            "data" => array(
+                "message" => $l->t("Unable to store email credentials in the data-base.")
+            )
+        ));
+        return false;
+    }
 } else {
-	OC_JSON::error(array("data" => array( "message" => $l->t("Not submitted for us.") )));
-	return false;
+    OC_JSON::error(array(
+        "data" => array(
+            "message" => $l->t("Not submitted for us.")
+        )
+    ));
+    return false;
 }
 
-OCP\JSON::success(array('data' => array( 'message' => $l->t('Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings.') )));
+OCP\JSON::success(array(
+    'data' => array(
+        'message' => $l->t('Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings.')
+    )
+));
 return true;
