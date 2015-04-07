@@ -145,10 +145,12 @@ class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase
     public function testSuccessfullLogin()
     {
         $http_response_header = array(
-            'location' => '\/?_task=mail',
-            'set-cookie' => 'roundcube_sessauth=-del-; expires=Fri, 20-Mar-2015 19:37:22 GMT; Max-Age=-60; path=/; httponly
+            array(
+                'location' => '\/?_task=mail',
+                'set-cookie' => 'roundcube_sessauth=-del-; expires=Fri, 20-Mar-2015 19:37:22 GMT; Max-Age=-60; path=/; httponly
 roundcube_sessid=ol359cpg593fjlkahfnhp2te23; path=/; HttpOnly
 roundcube_sessauth=S3087d477dcee945a77d963975451aa11f9852a56; path=/; httponly'
+            )
         );
         $mockedResponse = ' <div id="message"';
         $responseObj = new Response($http_response_header, $mockedResponse);
@@ -162,7 +164,7 @@ roundcube_sessauth=S3087d477dcee945a77d963975451aa11f9852a56; path=/; httponly'
             'setRcCookies'
         ), array(
             'localhost',
-            '443',
+            '4443',
             'mail',
             true
         ));
