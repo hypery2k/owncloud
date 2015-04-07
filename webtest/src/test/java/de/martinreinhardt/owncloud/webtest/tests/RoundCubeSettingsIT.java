@@ -15,7 +15,6 @@ import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -32,27 +31,27 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
  * @author mreinhardt
  */
 @Story(RoundCube.ManualLogin.class)
-//@formatter:off
-@WithTags({ 
-	@WithTag(type = "app", value = "RoundCube"), 
-	@WithTag(type = "feature", value = "user settings"),
-	@WithTag(type = "feature", value = "login"), 
-	@WithTag(type = "testtype", name = "smoke")
-})
-//@formatter:on
+// @formatter:off
+@WithTags({ @WithTag(type = "app", value = "RoundCube"),
+		@WithTag(type = "feature", value = "user settings"),
+		@WithTag(type = "feature", value = "login"),
+		@WithTag(type = "testtype", name = "smoke") })
+// @formatter:on
 @RunWith(ThucydidesRunner.class)
 @Concurrent(threads = "1")
 public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 
 	// Logger
-	protected static final Logger LOG = Logger.getLogger(RoundCubeSettingsIT.class);
+	protected static final Logger LOG = Logger
+			.getLogger(RoundCubeSettingsIT.class);
 
 	@Steps
 	private AdminSteps adminSteps;
 
 	@Test
 	@Issues({ "#205", "#209", "#213", "#259", "#263" })
-	public void test_roundcube_mail_without_autologin() throws AddressException, MessagingException, UserException,
+	public void test_roundcube_mail_without_autologin()
+			throws AddressException, MessagingException, UserException,
 			TestError {
 		runEmailTest();
 	}
@@ -63,11 +62,7 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		endUserLogin.enter_login_area();
 		endUserLogin.do_login("admin", "password");
 		loggedInuserSteps.go_to_adminsettings_view();
-		final String ocVersion = System.getProperty("oc_version");
-		// only pre OwnCloud 8 has advanced settings tab
-		if(!StringUtils.startsWith(ocVersion,"OC80")){
-			adminSteps.go_to_roundcube_advancedsettings();
-		}
+		adminSteps.go_to_roundcube_advancedsettings();
 		adminSteps.toggle_roundcube_autologin();
 		adminSteps.apply_roundcube_settings();
 		loggedInuserSteps.logout();
@@ -82,7 +77,8 @@ public class RoundCubeSettingsIT extends RoundCubeMockedMailIT {
 		endUserLogin.do_login(ocLogin.getUsername(), ocLogin.getPassword());
 		try {
 			loggedInuserSteps.go_to_user_settings();
-			loggedInuserSteps.update_roundcube_login_and_save(rcLogin.getUsername(), rcLogin.getPassword());
+			loggedInuserSteps.update_roundcube_login_and_save(
+					rcLogin.getUsername(), rcLogin.getPassword());
 			loggedInuserSteps.logout();
 			endUserLogin.do_login(ocLogin.getUsername(), ocLogin.getPassword());
 			loggedInuserSteps.go_to_roundcube_view();

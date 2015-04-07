@@ -7,6 +7,8 @@
  */
 package de.martinreinhardt.owncloud.webtest.steps;
 
+import org.apache.commons.lang3.StringUtils;
+
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import de.martinreinhardt.owncloud.webtest.pages.AdminSettingsPage;
@@ -33,7 +35,11 @@ public class AdminSteps extends PortalUserSteps {
 
 	@Step
 	public void go_to_roundcube_advancedsettings() {
-		onAdminSettingsPage().go_to_roundcube_advancedsettings();
+		final String ocVersion = System.getProperty("oc_version");
+		// only pre OwnCloud 8 has advanced settings tab
+		if (!StringUtils.startsWith(ocVersion, "OC80")) {
+			onAdminSettingsPage().go_to_roundcube_advancedsettings();
+		}
 	}
 
 	@Step

@@ -12,6 +12,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
 
 import de.martinreinhardt.owncloud.webtest.pages.PortalPage;
 import de.martinreinhardt.owncloud.webtest.pages.UserSettingsPage;
@@ -71,6 +72,7 @@ public class LoggedInUserSteps extends PortalUserSteps {
 	public void update_roundcube_login_and_save(final String pLogin, final String pPassword) {
 		onUserSettingsPage().set_rc_credentials(pLogin, pPassword);
 		assertThat("No status message is displayed", onUserSettingsPage().save_roundcube_settings());
+        ((JavascriptExecutor)getDriver()).executeScript("window.scrollTo(0, 100);");
 		assertThat("No errors are displayed", !onUserSettingsPage().error_displayed());
 	}
 
