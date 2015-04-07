@@ -285,8 +285,14 @@ class OC_RoundCube_Login
             $this->addDebug("login", "Login successfull. RC sent a redirection to ./?_task=..., that means we did it!");
             $this->rcLoginStatus = 1;
         } else
-            foreach ($this->lastHeaderResponse as $header) {
-                if(is_string($header)) {                   
+            foreach ($this->lastHeaderResponse as $headers) {
+
+                if (!is_array($headers)) {
+                    // Don't know why this should be the case ...
+                    continue;
+                }
+                
+                foreach ($headers as $header) {
                     // Login failure detected! If the login failed, RC sends the cookie
                     // "sessauth=-del-"
                     if (preg_match('/.+sessauth=-del-;/mi', $header)) {
@@ -439,34 +445,37 @@ class OC_RoundCube_Login
             $authHeaders = array();
             $this->lastHeaderResponse = $responseHdr;
             
-            foreach ($responseHdr as $key => $header) {
-                // Got session ID!
-                if ($key == 'set-cookie') {
-                    $setCookie = preg_replace('/\s+/', ' ', trim($header));
-                    $this->addDebug("sendRequest", "Got the following Set-Cookie Value: " . $setCookie);
-                    
-                    // remember header for authentication
-                    if (is_array($header)) {
-                        $authHeaders[0] = preg_replace('|path=([^;]+);|i', 'path=' . \OC::$WEBROOT . '/;', $header);
-                        $this->addDebug("sendRequest", "Got following auth header: " . print_r($authHeaders, true));
-                    }
-                    // got session ID
-                    if (preg_match_all('/^(.*)\s*(roundcube_sessid=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
-                        $this->addDebug("sendRequest", "Got the following session ID: " . $match[3][0]);
-                        $this->rcSessionID = $match[3][0];
-                        $authHeaders[] = 'Set-Cookie: ' . $setCookie;
-                    }
-                    
-                    // Got sessauth
-                    if (preg_match_all('/^(.*)\s*(roundcube_sessauth=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
-                        $this->addDebug("sendRequest", "Got the following session auth: " . $match[3][0]);
-                        $this->rcSessionAuth = $match[3][0];
-                        $authHeaders[] = 'Set-Cookie: ' . $setCookie;
-                    }
+            foreach ($responseHdr as $key => $headers) {
+
+                if (!is_array($headers)) {
+                    // Don't know why this should be the case ...
+                    continue;
                 }
-                // Location header
-                if ($key == 'location') {
-                    $this->rcLocation = $header;
+                
+                foreach ($headers as $header) {
+                    // Got session ID!
+                    if ($key == 'set-cookie') {
+                        $setCookie = preg_replace('/\s+/', ' ', trim($header));
+                        $this->addDebug("sendRequest", "Got the following Set-Cookie Value: " . $setCookie);
+                    
+                        // got session ID
+                        if (preg_match_all('/^(.*)\s*(roundcube_sessid=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
+                            $this->addDebug("sendRequest", "Got the following session ID: " . $match[3][0]);
+                            $this->rcSessionID = $match[3][0];
+                            $authHeaders[] = 'Set-Cookie: ' . $setCookie;
+                        }
+                        
+                        // Got sessauth
+                        if (preg_match_all('/^(.*)\s*(roundcube_sessauth=([^;]+);)(.*)\s*/i', $setCookie, $match)) {
+                            $this->addDebug("sendRequest", "Got the following session auth: " . $match[3][0]);
+                            $this->rcSessionAuth = $match[3][0];
+                            $authHeaders[] = 'Set-Cookie: ' . $setCookie;
+                        }
+                    }
+                    // Location header
+                    if ($key == 'location') {
+                        $this->rcLocation = $header;
+                    }
                 }
             }
             // Request token (since Roundcube 0.5.1)
