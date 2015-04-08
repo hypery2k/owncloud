@@ -43,21 +43,21 @@ class OC_RoundCube_App
      * @brief write basic information for the user in the app configu
      *
      * @param
-     *            user object $meUser
+     *            oc username $ocUser
      * @return s true/false
      *        
      *         This function creates a simple personal entry for each user to distinguish them later
      *        
      *         It also chekcs the login data
      */
-    public static function writeBasicData($meUser)
+    public static function writeBasicData($ocUser)
     {
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->writeBasicData(): Writing basic data for ' . $meUser, OCP\Util::DEBUG);
         $stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
         $result = $stmt->execute(array(
-            $meUser
+            $ocUser
         ));
-        return self::checkLoginData($meUser, 1);
+        return self::checkLoginData($ocUser, 1);
     }
 
     /**
@@ -447,5 +447,60 @@ class OC_RoundCube_App
             $path = $protocol . rtrim($pRcHost, "/") . "/" . ltrim($pRcPath, "/");
         }
         return $path;
+    }
+
+    public static function saveUserSettings($appName, $ocUser, $rcUser, $rcPassword)
+    {
+        $l = new OC_L10N('roundcube');
+        
+        if (isset($appName) && $appName == "roundcube") {
+            $result = self::cryptEmailIdentity($ocUser, $rcUser, $rcPassword, true);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Starting saving new users data for ' . $ocUser . ' as roundcube user ' . $rcUser, OCP\Util::DEBUG);
+            
+            if ($result) {
+                // update login credentials
+                $rcMaildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
+                $rcHost = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+                $rcPort = OCP\Config::getAppValue('roundcube', 'rcPort', '');
+                if ($rcHost == '') {
+                    $rcHost = OC_Request::serverHost();
+                }
+                // login again
+                if (self::login($rcHost, $rcPort, $rcMaildir, $rcUser, $rcPassword)) {
+                    return true;
+                } else {
+                    OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Login errors', OCP\Util::DEBUG);
+                    OC_JSON::error(array(
+                        "data" => array(
+                            "message" => $l->t("Unable to login into roundcube. There are login errors.")
+                        )
+                    ));
+                    return false;
+                }
+            } else {
+                OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Unable to save email credentials.', OCP\Util::DEBUG);
+                OC_JSON::error(array(
+                    "data" => array(
+                        "message" => $l->t("Unable to store email credentials in the data-base.")
+                    )
+                ));
+                return false;
+            }
+        } else {
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Not for roundcube app.', OCP\Util::DEBUG);
+            OC_JSON::error(array(
+                "data" => array(
+                    "message" => $l->t("Not submitted for us.")
+                )
+            ));
+            return false;
+        }
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Saved user settings successfull.', OCP\Util::DEBUG);
+        OCP\JSON::success(array(
+            'data' => array(
+                'message' => $l->t('Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings.')
+            )
+        ));
+        return true;
     }
 }

@@ -14,7 +14,7 @@ require_once ("lib/MailLoginException.class.php");
 
 /**
  * Simple Unit test which checks the PHP syntax of all used files in the app
- * 
+ *
  * @author mreinhardt
  *        
  *        
@@ -26,7 +26,7 @@ class OC_RoundCube_App_Test extends PHPUnit_Framework_TestCase
 
     /**
      * Start http server instance in background.
-     * 
+     *
      * @return Mock_Http_Server public function start()
      *         {
      *         shell_exec('cd '.$this->getBinDir().';nohup ./httpd -p '.$this->getPort().' -w '.$this->getWebDir().' -P '.$this->getPidFile().' > /dev/null 2>&1 < /dev/null &');
@@ -111,6 +111,24 @@ roundcube_sessauth=S3087d477dcee945a77d963975451aa11f9852a56; path=/; httponly'
         $mail_pass = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_password'], $privateKey);
         $this->assertEquals($mail_user, $testUser);
         $this->assertEquals($mail_pass, 'Passw0rd!');
+    }
+
+    public function testSaveManualLoginDataWithErrors()
+    {
+        $appName = "bla";
+        $ocUser = "user";
+        $rcUser = "rcUser";
+        $rcPassword = "password";
+        $this->assertFalse(OC_RoundCube_App::saveUserSettings($appName, $ocUser, $rcUser, $rcPassword), 'Should not save settings');
+    }
+
+    public function testSaveManualLoginDataWithCryptErrors()
+    {
+        $appName = "roundcube";
+        $ocUser = "user";
+        $rcUser = "rcUser";
+        $rcPassword = "password";
+        $this->assertFalse(OC_RoundCube_App::saveUserSettings($appName, $ocUser, $rcUser, $rcPassword), 'Should snot ave settings');
     }
 
     public function testAppUnsuccessfullLogin()

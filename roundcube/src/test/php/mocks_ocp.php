@@ -63,6 +63,15 @@ class User{
 }
 
 class JSON{
+    
+    public static function error($data){
+        
+    }
+    
+    public static function success($data){
+        
+    }
+    
 	public static function checkLoggedIn() {
 
 	}

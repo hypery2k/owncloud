@@ -44,7 +44,6 @@ if (!$table_exists) {
 		<?php	
 		$enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
 		if(!$enable_auto_login){
-		    $username = OCP\User::getUser();
 		    foreach($mail_userdata_entries as $mail_userdata) {
 		        $mail_username = isset($_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER])?$_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER]:'';
 		        $mail_password = '';

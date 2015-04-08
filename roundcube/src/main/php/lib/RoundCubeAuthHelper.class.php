@@ -53,7 +53,7 @@ class OC_RoundCube_AuthHelper
             $password = $params['password'];
             
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Preparing login of roundcube user "' . $username . '"', OCP\Util::DEBUG);
-            
+
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
             $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
             $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
