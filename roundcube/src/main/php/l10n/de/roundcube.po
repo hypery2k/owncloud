@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ownCloud roundcube 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2015-04-06 21:08+0200\n"
-"PO-Revision-Date: 2015-04-07 03:56+0100\n"
+"PO-Revision-Date: 2015-04-09 18:38+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -228,7 +228,7 @@ msgstr "Speichere..."
 
 #: templates/tpl.mail.php:96
 msgid "Logged in as "
-msgstr "Angemeldet als"
+msgstr "Angemeldet als "
 
 #: templates/tpl.userSettings.php:42
 msgid "RoundCube Mailaccount"
