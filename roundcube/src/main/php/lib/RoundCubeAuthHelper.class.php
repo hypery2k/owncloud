@@ -53,7 +53,7 @@ class OC_RoundCube_AuthHelper
             $password = $params['password'];
             
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Preparing login of roundcube user "' . $username . '"', OCP\Util::DEBUG);
-
+            
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
             $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
             $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
@@ -74,12 +74,12 @@ class OC_RoundCube_AuthHelper
                 // TODO create dropdown list
                 $mail_userdata = $mail_userdata_entries[0];
                 $mail_username = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_user'], $privKey);
+                OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Used roundcube user: ' . $mail_username, OCP\Util::DEBUG);
                 $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
             }
             // save username for displaying in later usage
             $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER] = $mail_username;
             // login
-            self::logout($params);
             return OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
         } catch (Exception $e) {
             // We got an exception == table not found

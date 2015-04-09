@@ -35,6 +35,7 @@ Roundcube.userSettingsUI = function() {
         } else {
           console.error("Couldn't update roundcube settings.");
           $('#rc_usermail_update_message').hide();
+          $('#rc_usermail_error_message').html(data.data.message);
           $('#rc_usermail_error_message').show();
         }
       }, 'json');

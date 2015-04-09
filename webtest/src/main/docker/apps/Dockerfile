@@ -46,6 +46,15 @@ RUN /tmp/prepare.sh --oc_version ${oc_version} --rc_version ${rc_version} --db_t
 
 RUN /tmp/prepareNginx.sh
 
+
+# setup phpmyadmin
+RUN \
+  /tmp/prepareMySQL.sh phpmyadmin oc_testing password && \
+  apt-get install phpmyadmin --yes --force-yes && \
+  cp /tmp/etc/phpmyadmin.conf /etc/phpmyadmin/config-db.php
+RUN \
+  ln -s /usr/share/phpmyadmin /var/www/phpmyadmin
+
 EXPOSE 49080
 
 # print versions

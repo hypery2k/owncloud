@@ -85,7 +85,7 @@ roundcube_sessauth=S3087d477dcee945a77d963975451aa11f9852a56; path=/; httponly'
         $result = OC_RoundCube_App::generateKeyPair('user', 'pass');
         $privateKey = $result['privateKey'];
         $publicKey = $result['publicKey'];
-        $this->assertEquals(get_resource_type($privateKey), 'OpenSSL key');
+        //$this->assertEquals(get_resource_type($privateKey), 'OpenSSL key');
         $this->assertNotNull($privateKey, 'Private key should not be empty.');
         $this->assertNotNull($publicKey, 'Public key should not be empty.');
         $readPrivateKey = OC_RoundCube_App::getPrivateKey('user', 'pass');
@@ -96,29 +96,32 @@ roundcube_sessauth=S3087d477dcee945a77d963975451aa11f9852a56; path=/; httponly'
     public function testCrypt()
     {
         // setup
-        $testUser = 'testUser';
+        $testOcUser = 'testUser1';
+        $testRcUser = 'testUser2';
         // reset
         OCP\Config::$USERVALUES = array();
-        
-        $result = OC_RoundCube_App::generateKeyPair($testUser, 'Passw0rd!');
-        $privateKey = $result['privateKey'];
-        $publicKey = $result['publicKey'];
-        $this->assertEquals(get_resource_type($privateKey), 'OpenSSL key');
+
+        $result = OC_RoundCube_App::generateKeyPair($testOcUser, 'Passw0rd!');
+        $privateKey = OC_RoundCube_App::getPrivateKey($testOcUser, 'Passw0rd!');
         $this->assertNotNull($privateKey, 'Private key should not be empty.');
-        $this->assertNotNull($publicKey, 'Public key should not be empty.');
-        $encryptedMailData = OC_RoundCube_App::cryptEmailIdentity($testUser, $testUser, 'Passw0rd!', false);
+        $encryptedMailData = OC_RoundCube_App::cryptEmailIdentity($testOcUser, $testRcUser, 'Passw0rd!', false);
         $mail_user = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_user'], $privateKey);
         $mail_pass = OC_RoundCube_App::decryptMyEntry($encryptedMailData['mail_password'], $privateKey);
-        $this->assertEquals($mail_user, $testUser);
+        $this->assertEquals($mail_user, $testRcUser);
         $this->assertEquals($mail_pass, 'Passw0rd!');
     }
 
     public function testSaveManualLoginDataWithErrors()
     {
+        // reset
+        OCP\Config::$USERVALUES = array();
+        
         $appName = "bla";
         $ocUser = "user";
+        $ocPassword = "user";
         $rcUser = "rcUser";
         $rcPassword = "password";
+        $result = OC_RoundCube_App::generateKeyPair($ocUser, $ocPassword);
         $this->assertFalse(OC_RoundCube_App::saveUserSettings($appName, $ocUser, $rcUser, $rcPassword), 'Should not save settings');
     }
 

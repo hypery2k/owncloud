@@ -54,7 +54,7 @@ if [ -n "${DB_USER}" -o -n "${DB_NAME}" ]; then
 			echo "Creating user ${DB_USER}..."
 			echo "Granting access to database \"$DB_USER\" for user \"${DB_USER}\"..."
 			mysql --defaults-file=/etc/mysql/debian.cnf \
-				-e "GRANT ALL PRIVILEGES ON \`$DB_USER\`.* TO '${DB_USER}' IDENTIFIED BY '${DB_PASS}';"
+				-e "GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '${DB_USER}' IDENTIFIED BY '${DB_PASS}' WITH GRANT OPTION;"
 		fi
 	fi
 fi

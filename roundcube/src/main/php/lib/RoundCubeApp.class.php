@@ -52,7 +52,7 @@ class OC_RoundCube_App
      */
     public static function writeBasicData($ocUser)
     {
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->writeBasicData(): Writing basic data for ' . $meUser, OCP\Util::DEBUG);
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->writeBasicData(): Writing basic data for ' . $ocUser, OCP\Util::DEBUG);
         $stmt = OCP\DB::prepare("INSERT INTO *PREFIX*roundcube (oc_user) VALUES (?)");
         $result = $stmt->execute(array(
             $ocUser
@@ -73,17 +73,17 @@ class OC_RoundCube_App
      */
     public static function checkLoginData($ocUser, $written = 0)
     {
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->checkLoginData(): Checking login data for ' . $ocUser, OCP\Util::DEBUG);
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->checkLoginData(): Checking login data for oc user ' . $ocUser, OCP\Util::DEBUG);
         $stmt = OCP\DB::prepare('SELECT * FROM *PREFIX*roundcube WHERE oc_user=?');
         $result = $stmt->execute(array(
             $ocUser
         ));
         $mailEntries = $result->fetchAll();
         if (count($mailEntries) > 0) {
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->checkLoginData(): Found login data for ' . $ocUser, OCP\Util::DEBUG);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->checkLoginData(): Found login data for oc user ' . $ocUser, OCP\Util::DEBUG);
             return $mailEntries;
         } elseif ($written == 0) {
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->checkLoginData(): Did not found login data for ' . $ocUser, OCP\Util::DEBUG);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->checkLoginData(): Did not found login data for oc user ' . $ocUser, OCP\Util::DEBUG);
             return self::writeBasicData($ocUser);
         }
     }
@@ -103,7 +103,7 @@ class OC_RoundCube_App
         /* Create the private and public key */
         $res = openssl_pkey_new();
         /* Extract the private key from $res to $privKey */
-        if (! openssl_pkey_export($res, $privKey, $passphrase)) {
+        if (! openssl_pkey_export($res, $privateKey, $passphrase)) {
             return false;
         }
         /* Extract the public key from $res to $pubKey */
@@ -111,16 +111,15 @@ class OC_RoundCube_App
         if ($pubKey === false) {
             return false;
         }
-        $pubKey = $pubKey['key'];
+        $publicKey = $pubKey['key'];
         // We now store the public key unencrypted in the user preferences.
         // The private key already is encrypted with the user's password,
         // so there is no need to encrypt it again.
-        \OCP\Config::setUserValue($user, 'roundcube', 'publicSSLKey', $pubKey);
-        \OCP\Config::setUserValue($user, 'roundcube', 'privateSSLKey', $privKey);
-        $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
+        \OCP\Config::setUserValue($user, 'roundcube', 'publicSSLKey', $publicKey);
+        \OCP\Config::setUserValue($user, 'roundcube', 'privateSSLKey', $privateKey);
         return array(
-            'privateKey' => $uncryptedPrivKey,
-            'publicKey' => $pubKey
+            'privateKey' => $privateKey,
+            'publicKey' => $publicKey
         );
     }
 
@@ -140,24 +139,25 @@ class OC_RoundCube_App
      * Get private key for user
      *
      * @param user $user            
-     * @param
-     *            passphrase to use $passphrase
+     * @param password $passphrase            
      * @return private key|boolean
      */
     public static function getPrivateKey($user, $passphrase)
     {
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Starting reading private key for oc user: ' . $user, OCP\Util::DEBUG);
         $privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', false);
         // need to create key pair
         if ($privKey === false) {
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Generating new private key.', OCP\Util::INFO);
             $result = self::generateKeyPair($user, $passphrase);
-            $uncryptedPrivKey = $result['privateKey'];
+            $uncryptedPrivKey = openssl_get_privatekey($result['privateKey'], $passphrase);
         } else {
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Using existing private key.', OCP\Util::INFO);
             $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
         }
-        
         // save private key for later usage
         $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $uncryptedPrivKey;
-        
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Finished with reading private key.', OCP\Util::DEBUG);
         return $uncryptedPrivKey;
     }
 
@@ -172,12 +172,12 @@ class OC_RoundCube_App
      */
     public static function cryptMyEntry($entry, $pubKey)
     {
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->cryptMyEntry(): Starting encyprtion.', OCP\Util::DEBUG);
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptMyEntry(): Starting encryption.', OCP\Util::DEBUG);
         if (openssl_public_encrypt($entry, $encryptedData, $pubKey) === false) {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->cryptMyEntry(): Error during crypting entry', OCP\Util::ERROR);
             return false;
         }
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->cryptMyEntry(): Decryption done with data ', OCP\Util::DEBUG);
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->cryptMyEntry(): Encryption done with data ', OCP\Util::DEBUG);
         $encrypted = base64_encode($encryptedData);
         return $encrypted;
     }
@@ -193,10 +193,13 @@ class OC_RoundCube_App
      */
     public static function decryptMyEntry($entry, $privKey)
     {
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->decryptMyEntry(): Starting decryption.', OCP\Util::DEBUG);
         $data = base64_decode($entry);
         if (openssl_private_decrypt($data, $decrypted, $privKey) === false) {
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->decryptMyEntry(): Decryption finishe with errors.', OCP\Util::ERROR);
             return;
         }
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->decryptMyEntry(): Decryption finished successfull.', OCP\Util::DEBUG);
         return $decrypted;
     }
 
@@ -204,11 +207,9 @@ class OC_RoundCube_App
      * Use the pulic key of the respective user to encrypt the given
      * email identity and store it in the data-base.
      *
-     * @param
-     *            The OwnCloud user id $ocUser
-     * @param
-     *            The IMAP account Id $emailUser
-     * @param unknown $emailPassword            
+     * @param owncloud $ocUser            
+     * @param roundcube $emailUser            
+     * @param roundcube $emailPassword            
      * @param
      *            set to false if don't want to persist/read data to db $persist
      * @return The IMAP credentials.|unknown
@@ -223,6 +224,7 @@ class OC_RoundCube_App
             OCP\Util::writeLog('roundcube', 'Found no valid public key for user ' . $ocUser . ' (mail user: ' . $emailUser . ')', OCP\Util::ERROR);
             return false;
         }
+        OCP\Util::writeLog('roundcube', 'Found  valid public key for user ' . $ocUser . ': ' . $pubKey . ')', OCP\Util::DEBUG);
         if ($persist) {
             $mail_userdata_entries = self::checkLoginData($ocUser);
             $mail_userdata = $mail_userdata_entries[0];
@@ -241,6 +243,7 @@ class OC_RoundCube_App
             return false;
         }
         if ($persist) {
+            OCP\Util::writeLog('roundcube', 'Updating roundcube user data (' . $emailUser . ')for oc user ' . $ocUser, OCP\Util::INFO);
             $stmt = OCP\DB::prepare("UPDATE *PREFIX*roundcube SET mail_user = ?, mail_password = ? WHERE oc_user = ?");
             $result = $stmt->execute(array(
                 $mail_username,
@@ -348,8 +351,12 @@ class OC_RoundCube_App
         $disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');
         $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
         // reuse session ID
-        $rcl->setSessionID($_SESSION[self::SESSION_ATTR_RCSESSID]);
-        $rcl->setSessionAuth($_SESSION[self::SESSION_ATTR_RCSESSAUTH]);
+        if (array_key_exists(self::SESSION_ATTR_RCSESSID, $_SESSION)) {
+            $rcl->setSessionID($_SESSION[self::SESSION_ATTR_RCSESSID]);
+        }
+        if (array_key_exists(self::SESSION_ATTR_RCSESSID, $_SESSION)) {
+            $rcl->setSessionAuth($_SESSION[self::SESSION_ATTR_RCSESSAUTH]);
+        }
         // Try to refresh
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
         if ($rcl->isLoggedIn()) {
@@ -467,6 +474,12 @@ class OC_RoundCube_App
                 }
                 // login again
                 if (self::login($rcHost, $rcPort, $rcMaildir, $rcUser, $rcPassword)) {
+                    OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Saved user settings successfull.', OCP\Util::DEBUG);
+                    OCP\JSON::success(array(
+                        'data' => array(
+                            'message' => $l->t('Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings.')
+                        )
+                    ));
                     return true;
                 } else {
                     OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Login errors', OCP\Util::DEBUG);
@@ -495,12 +508,5 @@ class OC_RoundCube_App
             ));
             return false;
         }
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Saved user settings successfull.', OCP\Util::DEBUG);
-        OCP\JSON::success(array(
-            'data' => array(
-                'message' => $l->t('Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings.')
-            )
-        ));
-        return true;
     }
 }
