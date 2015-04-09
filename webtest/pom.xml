@@ -28,8 +28,9 @@
 					<execution>
 						<id>docker-prepare</id>
 						<goals>
-							<goal>clean</goal>
 							<goal>stop</goal>
+							<goal>clean</goal>
+							<goal>package</goal>
 							<goal>start</goal>
 						</goals>
 						<phase>compile</phase>
