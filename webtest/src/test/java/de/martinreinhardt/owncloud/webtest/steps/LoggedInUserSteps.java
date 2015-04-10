@@ -9,6 +9,7 @@ package de.martinreinhardt.owncloud.webtest.steps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.StepGroup;
 import net.thucydides.core.pages.Pages;
 
 import org.apache.log4j.Logger;
@@ -67,13 +68,23 @@ public class LoggedInUserSteps extends PortalUserSteps {
 		onPortalPage().go_to_user_settings();
 		LOG.info("Done going to user settings page");
 	}
-
+	
 	@Step
-	public void update_roundcube_login_and_save(final String pLogin, final String pPassword) {
+	public void update_roundcube_login(final String pLogin, final String pPassword) {
 		onUserSettingsPage().set_rc_credentials(pLogin, pPassword);
 		assertThat("No status message is displayed", onUserSettingsPage().save_roundcube_settings());
-        ((JavascriptExecutor)getDriver()).executeScript("window.scrollTo(0, 100);");
+	}
+	
+	@Step
+	public void save_roundcube_login_details() {
+        ((JavascriptExecutor)getDriver()).executeScript("window.scrollTo(0, 200);");
 		assertThat("No errors are displayed", !onUserSettingsPage().error_displayed());
+	}
+
+	@StepGroup
+	public void update_roundcube_login_and_save(final String pLogin, final String pPassword) {
+		update_roundcube_login(pLogin, pPassword);
+		save_roundcube_login_details();
 	}
 
 	@Step
