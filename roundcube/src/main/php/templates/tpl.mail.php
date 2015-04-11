@@ -93,7 +93,7 @@ if (!$table_exists) {
 					} else {
 						OCP\Util::writeLog('roundcube', 'Rendering roundcube iframe view', OCP\Util::INFO);
 						if (!$disable_control_nav) {
-							$html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") .$mailAppReturn->getDisplayName(). "</div></div>";
+							$html_output = $html_output . "<div class=\"mail-controls\" id=\"mail-control-bar\"><div style=\"position: absolute;right: 13.5em;top: 0em;margin-top: 0.3em;\">" . $l -> t("Logged in as ") ."&nbsp;".$mailAppReturn->getDisplayName(). "</div></div>";
 						}
 						$html_output = $html_output . "<div id=\"notification\"></div>";
 						if (!$disable_control_nav) {
