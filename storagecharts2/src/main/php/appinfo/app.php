@@ -20,40 +20,41 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 OCP\App::checkAppEnabled('storagecharts2');
 
 $l = new OC_L10N('storagecharts2');
 
-OC::$CLASSPATH['OC_DLStCharts'] =  OC_App::getAppPath('storagecharts2') . "/lib/db.class.php";
-OC::$CLASSPATH['OC_DLStChartsLoader'] =  OC_App::getAppPath('storagecharts2') . "/lib/loader.class.php";
+OC::$CLASSPATH['OC_DLStCharts'] = OC_App::getAppPath('storagecharts2') . "/lib/db.class.php";
+OC::$CLASSPATH['OC_DLStChartsLoader'] = OC_App::getAppPath('storagecharts2') . "/lib/loader.class.php";
 
 OCP\App::addNavigationEntry(array(
-	'id' => 'storagecharts2_index',
-	'order' => 60,
-	'href' => OCP\Util::linkTo('storagecharts2', 'index.php'),
-	'icon' => OCP\Util::imagePath('storagecharts2', 'chart.svg'),
-	'name' => $l->t('Usage')
+    'id' => 'storagecharts2_index',
+    'order' => 60,
+    'href' => OCP\Util::linkTo('storagecharts2', 'index.php'),
+    'icon' => OCP\Util::imagePath('storagecharts2', 'chart.svg'),
+    'name' => $l->t('Usage')
 ));
 
-OCP\App::registerPersonal('storagecharts2','settings');
+OCP\App::registerPersonal('storagecharts2', 'settings');
 
 // Get storage value for logged in user
 $data_dir = OCP\Config::getSystemValue('datadirectory', '');
-if(OCP\User::getUser() && strlen($data_dir) != 0){
-	$fs = OCP\Files::getStorage('files');
-
-	// workaround to detect OC version
-	// OC 5
-	if (6 > @reset(OCP\Util::getVersion())) {
-		OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud 5', OCP\Util::DEBUG);
-		$used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
-		// OC 6
-	} else {
-		$datadir = OC_Config::getValue('datadirectory');
-		OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud 6', OCP\Util::DEBUG);
-		$used = OC_DLStCharts::getTotalDataSize($datadir);
-	}
-	$total = OC_DLStCharts::getTotalDataSize($data_dir) + $fs->free_space();
-	OC_DLStCharts::update($used, $total);
+if (OCP\User::getUser() && strlen($data_dir) != 0) {
+    $fs = OCP\Files::getStorage('files');
+    
+    // workaround to detect OC version
+    $ocVersion = @reset(OCP\Util::getVersion());
+    
+    // OC 5
+    if ($ocVersion < 6) {
+        OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud 5', OCP\Util::DEBUG);
+        $used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
+        // OC 6 or greater
+    } else {
+        $datadir = OC_Config::getValue('datadirectory');        
+        OCP\Util::writeLog('roundcube', 'Running on OwnCloud ' . $ocVersion, OCP\Util::DEBUG);
+        $used = OC_DLStCharts::getTotalDataSize($datadir);
+    }
+    $total = OC_DLStCharts::getTotalDataSize($data_dir) + $fs->free_space();
+    OC_DLStCharts::update($used, $total);
 }
