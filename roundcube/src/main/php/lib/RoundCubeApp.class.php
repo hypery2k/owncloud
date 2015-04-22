@@ -147,9 +147,6 @@ class OC_RoundCube_App
     {
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Starting reading private key for oc user: ' . $user, OCP\Util::DEBUG);
         $privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', false);
-        $privKey = str_replace("<br>", '\n', $privKey);
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): ' . $privKey, OCP\Util::DEBUG);
-        // replace new line
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): ' . $privKey, OCP\Util::DEBUG);
         // need to create key pair
         if ($privKey === false) {
@@ -157,6 +154,9 @@ class OC_RoundCube_App
             $result = self::generateKeyPair($user, $passphrase);
             $uncryptedPrivKey = openssl_get_privatekey($result['privateKey'], $passphrase);
         } else {
+            $privKey = str_replace("<br>", '\n', $privKey);
+            // replace new line
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): ' . $privKey, OCP\Util::DEBUG);
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Using existing private key.', OCP\Util::INFO);
             $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
         }
