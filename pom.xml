@@ -7,7 +7,7 @@
 	<artifactId>owncloud-parent-pom</artifactId>
 	<name>OwnCloud Apps</name>
 	<packaging>pom</packaging>
-	<version>2.6.0-SNAPSHOT</version>
+	<version>2.6.1-SNAPSHOT</version>
 
 	<modules>
 		<module>revealjs</module>
@@ -210,8 +210,8 @@
 	</repositories>
 
 	<distributionManagement>
-		<!-- <site> <id>${site.deploy.id}</id> <name>Deployment through GitHub's site deployment plugin</name> <url>${site.deploy.url}</url> 
-			</site> -->
+		<!-- <site> <id>${site.deploy.id}</id> <name>Deployment through GitHub's 
+			site deployment plugin</name> <url>${site.deploy.url}</url> </site> -->
 		<site>
 			<id>${project.artifactId}-site</id>
 			<url>https://martinreinhardt-online.de/dev/docs/maven/owncloud-apps/${project.baseUri}

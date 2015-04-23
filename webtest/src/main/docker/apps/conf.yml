@@ -2,9 +2,9 @@
 packaging:
   # files to add to the build, usually used with ADD in the Dockerfile
   add:
-    - ../roundcube/target/roundcube_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${env.BUILD_NUMBER}.zip
-    - ../storagecharts2/target/storagecharts2_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${env.BUILD_NUMBER}.zip
-    - ../revealjs/target/revealjs_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${env.BUILD_NUMBER}.zip
+    - ../roundcube/target/roundcube_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}_build${env.BUILD_NUMBER}.zip
+    - ../storagecharts2/target/storagecharts2_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}_build${env.BUILD_NUMBER}.zip
+    - ../revealjs/target/revealjs_v${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}_build${env.BUILD_NUMBER}.zip
 # optional list of port to expose on the host
 ports:
   - 49080
