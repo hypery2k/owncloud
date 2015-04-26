@@ -1,9 +1,8 @@
 Apps for owncloud
 ========
+ [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/) [![Join the chat at https://gitter.im/hypery2k/owncloud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hypery2k/owncloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Bountysource](https://www.bountysource.com/badge/team?team_id=59276&style=bounties_posted)](https://www.bountysource.com/teams/hypery2k-owncloud/bounties?utm_source=owncloud&utm_medium=shield&utm_campaign=bounties_posted)
 
-[![Join the chat at https://gitter.im/hypery2k/owncloud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hypery2k/owncloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-In this repo you'll find apps and enhancements for owncloud. [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/)
+In this repo you'll find apps and enhancements for owncloud.
 
 
 Feel free to donate
