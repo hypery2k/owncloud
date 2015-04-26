@@ -122,7 +122,6 @@
 									<groupId>com.alexecollins.docker</groupId>
 									<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
 									<version>${docker-maven-plugin.version}</version>
-
 								</dependency>
 							</dependencies>
 						</plugin>
@@ -158,7 +157,7 @@
 		<webdriver.driver>firefox</webdriver.driver>
 
 		<!-- Maven Plugins -->
-		<docker-maven-plugin.version>2.4.0</docker-maven-plugin.version>
+		<docker-maven-plugin.version>2.5.0</docker-maven-plugin.version>
 		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
 		<maven-failsafe-plugin.version>2.12</maven-failsafe-plugin.version>
 		<build-helper-maven-plugin.version>1.9</build-helper-maven-plugin.version>

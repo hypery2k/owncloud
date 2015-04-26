@@ -20,9 +20,12 @@
 				<groupId>com.alexecollins.docker</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
-					<cache>false</cache>
 					<prefix>owncloud_app_testing</prefix>
 					<skip>${docker.skip}</skip>
+					<!-- (optional) remove images created by Dockerfile (default true) -->
+					<removeIntermediateImages>true</removeIntermediateImages>        <!-- (optional) do/do not cache images (default false), disable to get the 
+						freshest images -->
+					<cache>false</cache>
 				</configuration>
 				<executions>
 					<execution>
