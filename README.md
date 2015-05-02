@@ -1,7 +1,7 @@
 # Apps for owncloud
 
 [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_smoke_tests)](https://martinreinhardt-online.de/jenkins/view/BMP_OwnCloud/job/OwnCloud_smoke_tests/)
- [![Join the chat at https://gitter.im/hypery2k/owncloud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hypery2k/owncloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Bountysource](https://www.bountysource.com/badge/team?team_id=59276&style=bounties_posted)](https://www.bountysource.com/teams/hypery2k-owncloud/bounties?utm_source=owncloud&utm_medium=shield&utm_campaign=bounties_posted)[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=mreinhardt&url=https://github.com/hypery2k/galenframework-cli&title=badges&language=&tags=github&category=software)
+ [![Join the chat at https://gitter.im/hypery2k/owncloud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hypery2k/owncloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Bountysource](https://www.bountysource.com/badge/team?team_id=59276&style=bounties_posted)](https://www.bountysource.com/teams/hypery2k-owncloud/bounties?utm_source=owncloud&utm_medium=shield&utm_campaign=bounties_posted) [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=mreinhardt&url=https://github.com/hypery2k/owncloud&title=badges&language=&tags=github&category=software)
 
 > In this repo you'll find apps and enhancements for owncloud.
 
