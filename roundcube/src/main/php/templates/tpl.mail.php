@@ -35,7 +35,6 @@ if (!$table_exists) {
 	$html_output = $html_output . $this -> inc("part.error.db");
 } else {
 	$ocUser = OCP\User::getUser();
-	$privKey = OC_RoundCube_App::getPrivateKey($ocUser,false);
 	$mail_userdata_entries = OC_RoundCube_App::checkLoginData(OCP\User::getUser());
 	// TODO create dropdown list
 	$mail_userdata = $mail_userdata_entries[0];
