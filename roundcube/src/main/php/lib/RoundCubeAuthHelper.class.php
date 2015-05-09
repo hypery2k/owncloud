@@ -78,7 +78,7 @@ class OC_RoundCube_AuthHelper
                 $mail_password = OC_RoundCube_App::decryptMyEntry($mail_userdata['mail_password'], $privKey);
             }
             // save username for displaying in later usage
-            $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCUSER] = $mail_username;
+            OC_RoundCube_App::setSessionVariable(OC_RoundCube_App::SESSION_ATTR_RCUSER, $mail_username);
             // login
             return OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
         } catch (Exception $e) {
@@ -151,7 +151,7 @@ class OC_RoundCube_AuthHelper
         $password = $params['password'];
         
         // Try to fetch from session
-        $oldPrivKey = $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY];
+        $oldPrivKey = OC_RoundCube_App::getSessionVariable(OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY);
         // Take the chance to alter the priv/pubkey pair
         OC_RoundCube_App::generateKeyPair($username, $password);
         $privKey = OC_RoundCube_App::getPrivateKey($username, $password);

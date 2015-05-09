@@ -40,6 +40,49 @@ class OC_RoundCube_App
     private $path = '';
 
     /**
+     * Write to the PHP session
+     *
+     * @param
+     *            Session Key $key
+     * @param
+     *            Value for the variable $value
+     */
+    public static function setSessionVariable($key, $value)
+    {
+        if (isset(\OC::$session)) {
+            $session = \OC::$session;
+            $session->set($key, $value);
+        } else if (isset(\OC::$server)) {
+            $session = \OC::$server->getSession();
+            $session->set($key, $value);
+        } else {
+            $_SESSION[$key] = $value;
+        }
+    }
+
+    /**
+     * Read from the PHP session
+     *
+     * @param
+     *            Session Key $key
+     *
+     * @return Value of the session variable
+     */
+    public static function getSessionVariable($key)
+    {
+        if (isset(\OC::$session)) {
+            $session = \OC::$session;
+            return $session->get($key);
+        } else if (isset(\OC::$server)) {
+            $session = \OC::$server->getSession();
+            return $session->get($key);
+        } else {
+            return isset($_SESSION[$key]) ? $_SESSION[$key] : false;
+        }
+    }
+    
+
+    /**
      * @brief write basic information for the user in the app configu
      *
      * @param
@@ -111,17 +154,16 @@ class OC_RoundCube_App
         if ($pubKey === false) {
             return false;
         }
-        // convert key to hex
-        $publicKey = bin2hex($pubKey['key']);
-        $privateKey = bin2hex($privKey);
+        $pubKey = $pubKey['key'];
         // We now store the public key unencrypted in the user preferences.
         // The private key already is encrypted with the user's password,
         // so there is no need to encrypt it again.
-        \OCP\Config::setUserValue($user, 'roundcube', 'publicSSLKey', $publicKey);
-        \OCP\Config::setUserValue($user, 'roundcube', 'privateSSLKey', $privateKey);
+        \OCP\Config::setUserValue($user, 'roundcube', 'publicSSLKey', $pubKey);
+        \OCP\Config::setUserValue($user, 'roundcube', 'privateSSLKey', $privKey);
+        $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
         return array(
-            'publicKey' => $pubKey['key'],
-            'privateKey' => $privKey
+            'privateKey' => $uncryptedPrivKey, // this is actually a resource
+            'publicKey' => $pubKey
         );
     }
 
@@ -134,7 +176,6 @@ class OC_RoundCube_App
     public static function getPublicKey($user)
     {
         $pubKey = \OCP\Config::getUserValue($user, 'roundcube', 'publicSSLKey', false);
-        $publicKey = hex2bin($pubKey);
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPublicKey(): ' . $publicKey, OCP\Util::DEBUG);
         return $publicKey;
     }
@@ -148,24 +189,20 @@ class OC_RoundCube_App
      */
     public static function getPrivateKey($user, $passphrase)
     {
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Starting reading private key for oc user: ' . $user, OCP\Util::DEBUG);
         $privKey = \OCP\Config::getUserValue($user, 'roundcube', 'privateSSLKey', false);
-        $privateKey = ''.str_replace("\n",'\n', hex2bin($privKey));
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): ' . $privateKey, OCP\Util::DEBUG);
         // need to create key pair
         if ($privKey === false) {
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Generating new private key.', OCP\Util::INFO);
             $result = self::generateKeyPair($user, $passphrase);
-            $uncryptedPrivKey = openssl_get_privatekey($result['privateKey'], $passphrase);
+            $uncryptedPrivKey = $result['privateKey'];
         } else {
-            // replace new line
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Using existing private key.', OCP\Util::INFO);
-            $uncryptedPrivKey = openssl_get_privatekey($privateKey, $passphrase);
+            $uncryptedPrivKey = openssl_get_privatekey($privKey, $passphrase);
         }
-        // save private key for later usage
-        $_SESSION[OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY] = $uncryptedPrivKey;
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): Finished with reading private key.', OCP\Util::DEBUG);
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPrivateKey(): ' . $uncryptedPrivKey, OCP\Util::DEBUG);
+
+        // save private key for later usage, need to export in order
+        // to convert from a resource to real data.
+        openssl_pkey_export($uncryptedPrivKey, $exportedPrivKey);
+        self::setSessionVariable(OC_RoundCube_App::SESSION_ATTR_RCPRIVKEY, $exportedPrivKey);
+
         return $uncryptedPrivKey;
     }
 
@@ -291,8 +328,8 @@ class OC_RoundCube_App
         } else {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): Failed to log-off ' . $user . ' from roundcube. If you are using roundcube 1.0.4. Please update to roundcube 1.0.5', OCP\Util::ERROR);
         }
-        $_SESSION[self::SESSION_ATTR_RCSESSID] = '1';
-        $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = '1';
+        self::setSessionVariable(self::SESSION_ATTR_RCSESSID, '1');
+        self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, '1');
     }
 
     /**
@@ -319,17 +356,17 @@ class OC_RoundCube_App
         $rcl->login($pLogin, $pPassword);
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $pLogin, OCP\Util::DEBUG);
         if ($rcl->isLoggedIn()) {
-            // save roundcube session ID to Session
-            $_SESSION[self::SESSION_ATTR_RCSESSID] = $rcl->getSessionID();
-            $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
+          // save roundcube session ID to Session
+            self::setSessionVariable(self::SESSION_ATTR_RCSESSID, $rcl->getSessionID());
+            self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): ' . $pLogin . ' already logged into roundcube with session ID ' . $rcl->getSessionID(), OCP\Util::DEBUG);
             return true;
         } else {
             $rcl->login($pLogin, $pPassword);
             if ($rcl->isLoggedIn()) {
                 // save roundcube session ID to Session
-                $_SESSION[self::SESSION_ATTR_RCSESSID] = $rcl->getSessionID();
-                $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
+                self::setSessionVariable(self::SESSION_ATTR_RCSESSID, $rcl->getSessionID());
+                self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
                 OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): ' . $pLogin . ' successfully logged into roundcube with session ID ' . $rcl->getSessionID(), OCP\Util::DEBUG);
                 return true;
             } else {
@@ -359,23 +396,25 @@ class OC_RoundCube_App
         $disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');
         $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
         // reuse session ID
-        if (array_key_exists(self::SESSION_ATTR_RCSESSID, $_SESSION)) {
-            $rcl->setSessionID($_SESSION[self::SESSION_ATTR_RCSESSID]);
+        $sessId = self::getSessionVariable(self::SESSION_ATTR_RCSESSID);
+        if ($sessId !== false) {
+            $rcl->setSessionID($sessId);
         }
-        if (array_key_exists(self::SESSION_ATTR_RCSESSID, $_SESSION)) {
-            $rcl->setSessionAuth($_SESSION[self::SESSION_ATTR_RCSESSAUTH]);
+        $sessAuth = self::getSessionVariable(self::SESSION_ATTR_RCSESSAUTH);
+        if ($sessAuth !== false) {
+            $rcl->setSessionAuth($sessAuth);
         }
         // Try to refresh
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Trying to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
         if ($rcl->isLoggedIn()) {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Successfully refreshed the RC session.', OCP\Util::INFO);
-            $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
+            self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
             return true;
         } else {
             // login errors, let's try once again
             if ($rcl->isLoggedIn()) {
                 OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->refresh(): Trying again to refresh RoundCube session under ' . $maildir, OCP\Util::DEBUG);
-                $_SESSION[self::SESSION_ATTR_RCSESSAUTH] = $rcl->getSessionAuth();
+                self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
                 return true;
             } else {
                 // TODO add new exception here for relogin
@@ -401,7 +440,7 @@ class OC_RoundCube_App
     public static function showMailFrame($rcHost, $rcPort, $maildir)
     {
         $ocUser = OCP\User::getUser();
-        $rcLogin = $_SESSION[self::SESSION_ATTR_RCUSER];
+        $rcLogin = self::getSessionVariable(self::SESSION_ATTR_RCUSER);
         $returnObject = new OC_Mail_Object();
         $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', true);
         $enableAutologin = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
