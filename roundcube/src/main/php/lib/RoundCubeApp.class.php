@@ -176,8 +176,8 @@ class OC_RoundCube_App
     public static function getPublicKey($user)
     {
         $pubKey = \OCP\Config::getUserValue($user, 'roundcube', 'publicSSLKey', false);
-        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPublicKey(): ' . $publicKey, OCP\Util::DEBUG);
-        return $publicKey;
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->getPublicKey(): ' . $pubKey, OCP\Util::DEBUG);
+        return $pubKey;
     }
 
     /**
