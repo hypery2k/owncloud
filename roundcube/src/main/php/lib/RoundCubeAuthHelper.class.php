@@ -34,6 +34,7 @@ class OC_RoundCube_AuthHelper
      */
     public static function jsLoadHook($params)
     {
+        OCP\App::checkAppEnabled('roundcube');
         $jsAssign = &$params['array'];
         
         $refresh = OCP\Config::getAppValue('roundcube', 'rcRefreshInterval', 240);
@@ -48,6 +49,7 @@ class OC_RoundCube_AuthHelper
      */
     public static function login($params)
     {
+        OCP\App::checkAppEnabled('roundcube');
         try {
             $username = $params['uid'];
             $password = $params['password'];
@@ -95,6 +97,7 @@ class OC_RoundCube_AuthHelper
      */
     public static function logout()
     {
+        OCP\App::checkAppEnabled('roundcube');
         try {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Preparing logout of user from roundcube.', OCP\Util::DEBUG);
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
