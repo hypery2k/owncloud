@@ -42,11 +42,6 @@ if($_['c_disp']['chisto_us']){
 }
 ?>
 
-<div id="storagecharts2" data-sc-sort="<?php  print($scSort)?>" data-sc-size="<?php  print($huSize)?>" data-sc-size-hus="<?php  print($huSizeHus)?>">
-	<div class="personalblock topblock titleblock">
-		<span><?php print($l->t('Drag\'N\'Drop on the chart title to re-order')); ?></span>
-	</div>
-</div>
 <div id="stc_frame">
 	<div id="stc_sortable">
 	<?php foreach($_['sc_sort'] as $sc_sort){
