@@ -45,7 +45,6 @@ $TRANSLATIONS = Array(
 	'Current ratio free space / used space' => 'Proporção atual entre espaço livre / espaço utilizado',
 	'for' => 'para',
 	'Free space' => 'Espaço livre',
-	'Drag\'N\'Drop on the chart title to re-order' => 'Arraste e solte no título do gráfico para reordenar',
 	'Gigabytes (GB)' => 'Gigabytes (GB)',
 	'Kilobytes (KB)' => 'Kilobytes (KB)',
 	'Megabytes (MB)' => 'Megabytes (MB)',
