@@ -574,10 +574,7 @@ class OC_RoundCube_Login
             // run cURL
             $cUrlResponse = curl_exec($curl);
             
-            if ($this->traceEnabled) {
-                $this->addDebug("openUrlConnection", "cUrlResponse: " . $cUrlResponse);
-            }
-            // error handlig
+            // error handling
             $curlErrorNum = curl_errno($curl);
             $curlError = curl_error($curl);
             $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
@@ -591,7 +588,7 @@ class OC_RoundCube_Login
             }
             curl_close($curl);
         } catch (Exception $e) {
-            $this->addError("openUrlConnection", "URL (url:" . $pURL . ") open failed: " . $e);
+            $this->addError("openUrlConnection", "URL (url:" . $pURL . ") open failed.");
         }
         return $response;
     }
