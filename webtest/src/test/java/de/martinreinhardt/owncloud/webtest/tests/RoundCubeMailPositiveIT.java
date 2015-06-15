@@ -28,7 +28,8 @@ import de.martinreinhardt.owncloud.webtest.RoundCube;
  * 
  */
 @Story(RoundCube.ShowMailView.class)
-@WithTag(type = "app", value = "RoundCube")
+@WithTag(type = "app", value = "RoundCube",
+@WithTag(type = "testtype", name = "smoke"))
 @RunWith(ThucydidesRunner.class)
 public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 

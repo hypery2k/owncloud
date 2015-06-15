@@ -34,8 +34,7 @@ import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
 // @formatter:off
 @WithTags({ @WithTag(type = "app", value = "RoundCube"),
 		@WithTag(type = "feature", value = "user settings"),
-		@WithTag(type = "feature", value = "login"),
-		@WithTag(type = "testtype", name = "smoke") })
+		@WithTag(type = "feature", value = "login") })
 // @formatter:on
 @RunWith(ThucydidesRunner.class)
 @Concurrent(threads = "1")
