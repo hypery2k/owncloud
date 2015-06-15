@@ -51,11 +51,12 @@ if (OCP\User::getUser() && strlen($data_dir) != 0) {
         $used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
         // OC 6 or greater
     } else {
-        $datadir = OC_Config::getValue('datadirectory');
-        OCP\Util::writeLog('roundcube', 'Running on OwnCloud ' . $ocVersion, OCP\Util::DEBUG);
+        $datadir = OC_Config::getValue('datadirectory') .'/'.OCP\User::getUser();
+        OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud ' . $ocVersion, OCP\Util::DEBUG);
         $used = OC_DLStCharts::getTotalDataSize($datadir);
     }
     if (method_exists($fs, 'free_space')) {
+        OCP\Util::writeLog('storagecharts2', 'Calculating available space in oc << 8 for client', OCP\Util::DEBUG);
         $total = OC_DLStCharts::getTotalDataSize($data_dir) + $fs->free_space();
         OC_DLStCharts::update($used, $total);
     }
