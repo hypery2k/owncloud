@@ -12,6 +12,7 @@ import javax.mail.internet.AddressException;
 
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 import net.thucydides.junit.runners.ThucydidesRunner;
 
