@@ -98,7 +98,7 @@ class OC_DLStCharts
     public static function getPieFreeUsedSpaceRatio()
     {
         if (OC_Group::inGroup(OCP\User::getUser(), 'admin')) {
-            $query = OCP\DB::prepare("SELECT stc_id, stc_dayts, oc_uid FROM (SELECT * FROM *PREFIX*storagecharts2 ORDER BY oc_uid,stc_dayts DESC) last GROUP BY oc_uid, stc_id, stc_dayts");
+            $query = OCP\DB::prepare("SELECT max(stc_id) as stc_id, max(stc_dayts) as stc_dayts, oc_uid FROM ( SELECT * FROM *PREFIX*storagecharts2 ORDER BY oc_uid,stc_dayts DESC ) last GROUP BY oc_uid");
             $results = $query->execute()->fetchAll();
         } else {
             $query = OCP\DB::prepare("SELECT stc_id, stc_dayts FROM (	SELECT * FROM *PREFIX*storagecharts2 WHERE oc_uid = ? ORDER BY oc_uid,stc_dayts DESC LIMIT 1) firstentry GROUP BY stc_id, stc_dayts"); // SELECT stc_id, MAX(stc_dayts) as stc_dayts FROM *PREFIX*storagecharts2 WHERE oc_uid = ?
