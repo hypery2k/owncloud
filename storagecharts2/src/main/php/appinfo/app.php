@@ -55,6 +55,8 @@ if (OCP\User::getUser() && strlen($data_dir) != 0) {
         OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud ' . $ocVersion, OCP\Util::DEBUG);
         $used = OC_DLStCharts::getTotalDataSize($datadir);
     }
+
+    // omit errors in desktop client ...
     if (method_exists($fs, 'free_space')) {
         OCP\Util::writeLog('storagecharts2', 'Calculating available space in oc << 8 for client', OCP\Util::DEBUG);
         $total = OC_DLStCharts::getTotalDataSize($data_dir) + $fs->free_space();
