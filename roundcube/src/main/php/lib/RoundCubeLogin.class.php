@@ -564,6 +564,7 @@ class OC_RoundCube_Login
             if ($this->sslVerifyDisabled) {
                 $this->addDebug("openUrlConnection", "Disabling SSL verification.");
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             }
             
             if ($this->traceEnabled) {
