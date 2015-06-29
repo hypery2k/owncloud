@@ -38,10 +38,17 @@ License
 
 These OwnCloud apps is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-## Download lasted
+## Downloads
+
+Work under main configurations: oc 7 & rc 1.1.0 or oc 8 & rc 1.2.0, both with mysql or postgres. Other combinations may fail, please see currently opened issues before report someting, we need colaboration support.
+
+### Nightly Builds
+
+Nightly builds are [available here](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
+Please use stable buils below:
+
+### Stable builds:
 
 You'll find the correct version here: https://apps.owncloud.com/content/show.php/roundcube?content=151523
-
 Scroll down and you see this:
-
 ![roundcube_apps_owncloud_com](https://cloud.githubusercontent.com/assets/979121/8286163/59b48e74-1908-11e5-9444-cb472d2b2e5d.png)
