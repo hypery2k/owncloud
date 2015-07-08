@@ -10,11 +10,11 @@ package de.martinreinhardt.owncloud.webtest.tests;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
-import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -33,7 +33,7 @@ import de.martinreinhardt.owncloud.webtest.RoundCube;
 	@WithTag(type = "app", value = "RoundCube"),
     @WithTag(type = "testtype", name = "smoke")
 })
-@RunWith(ThucydidesRunner.class)
+@RunWith(SerenityRunner.class)
 public class RoundCubeMailPositiveIT extends RoundCubeMockedMailIT {
 
 	// Logger

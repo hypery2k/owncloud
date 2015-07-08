@@ -7,9 +7,9 @@
  */
 package de.martinreinhardt.owncloud.webtest.pages;
 
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

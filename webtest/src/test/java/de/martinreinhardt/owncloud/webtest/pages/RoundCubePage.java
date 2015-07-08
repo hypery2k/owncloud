@@ -7,7 +7,8 @@
  */
 package de.martinreinhardt.owncloud.webtest.pages;
 
-import net.thucydides.core.annotations.findby.FindBy;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.reports.adaptors.xunit.model.TestError;
 
 import org.apache.log4j.Logger;

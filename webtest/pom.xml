@@ -91,9 +91,9 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>net.thucydides.maven.plugins</groupId>
-				<artifactId>maven-thucydides-plugin</artifactId>
-				<version>${thucydides.version}</version>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+				<version>${serenity.version}</version>
 				<configuration>
 					<skip>${skipTests}</skip>
 					<argLine>-Xmx1024m</argLine>
@@ -114,9 +114,9 @@
 				<configuration>
 					<reportPlugins>
 						<plugin>
-							<groupId>net.thucydides.maven.plugins</groupId>
-							<artifactId>maven-thucydides-plugin</artifactId>
-							<version>${thucydides.version}</version>
+                            <groupId>net.serenity-bdd.maven.plugins</groupId>
+                            <artifactId>serenity-maven-plugin</artifactId>
+							<version>${serenity.version}</version>
 						</plugin>
 					</reportPlugins>
 					<generateReports>true</generateReports>
@@ -131,9 +131,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>net.thucydides</groupId>
-			<artifactId>thucydides-core</artifactId>
-			<version>${thucydides.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+			<version>${serenity.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.seleniumhq.selenium</groupId>
@@ -152,9 +152,9 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.thucydides</groupId>
-			<artifactId>thucydides-junit</artifactId>
-			<version>${thucydides.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+			<version>${serenity.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

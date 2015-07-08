@@ -7,7 +7,8 @@
  */
 package de.martinreinhardt.owncloud.webtest.pages;
 
-import net.thucydides.core.annotations.findby.FindBy;
+
+import net.serenitybdd.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;

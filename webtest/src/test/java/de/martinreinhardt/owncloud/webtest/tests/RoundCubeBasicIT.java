@@ -7,12 +7,12 @@
  */
 package de.martinreinhardt.owncloud.webtest.tests;
 
+import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Issues;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
-import net.thucydides.junit.runners.ThucydidesRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractUITest;
 	@WithTag(type = "Feature", value = "login"), 
 })
 //@formatter:on
-@RunWith(ThucydidesRunner.class)
+@RunWith(SerenityRunner.class)
 public class RoundCubeBasicIT extends AbstractUITest {
 	@Steps
 	public LoggedInUserSteps loggedIn;
