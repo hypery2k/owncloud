@@ -57,12 +57,9 @@ class OC_RoundCube_AuthHelper
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Preparing login of roundcube user "' . $username . '"', OCP\Util::DEBUG);
             
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-            $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+            $rc_host = self::getServerHost();
             $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
             $enable_auto_login = OCP\Config::getAppValue('roundcube', 'autoLogin', false);
-            if ($rc_host == '') {
-                $rc_host = OC_Request::serverHost();
-            }
             if ($enable_auto_login) {
                 OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Starting auto login', OCP\Util::DEBUG);
                 // SSO attempt
@@ -101,10 +98,7 @@ class OC_RoundCube_AuthHelper
         try {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Preparing logout of user from roundcube.', OCP\Util::DEBUG);
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-            $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
-            if ($rc_host == '') {
-                $rc_host = OC_Request::serverHost();
-            }
+            $rc_host = self::getServerHost();
             $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
             
             OC_RoundCube_App::logout($rc_host, $rc_port, $maildir, OCP\User::getUser());
@@ -127,10 +121,7 @@ class OC_RoundCube_AuthHelper
         try {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->refresh(): Preparing refresh for roundcube', OCP\Util::DEBUG);
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
-            $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
-            if ($rc_host == '') {
-                $rc_host = OC_Request::serverHost();
-            }
+            $rc_host = self::getServerHost();
             $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', '');
             OC_RoundCube_App::refresh($rc_host, $rc_port, $maildir);
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->refresh(): Finished refresh for roundcube', OCP\Util::DEBUG);
@@ -170,6 +161,20 @@ class OC_RoundCube_AuthHelper
             }
         } else {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->changePasswordListener():' . 'No private key for ' . $username, OCP\Util::DEBUG);
+        }
+    }
+
+    public static function getServerHost()
+    {
+        $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
+        if ($rc_host == '') {
+            $ocVersion = @reset(OCP\Util::getVersion());
+            // below OC7
+            if ($ocVersion < 8.1) {
+                $rc_host = OC_Request::serverHost();
+            } else {
+                $rc_host = OCP\IRequest::getServerHost();
+            }
         }
     }
 }
