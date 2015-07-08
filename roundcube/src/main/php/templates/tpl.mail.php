@@ -49,13 +49,7 @@ if (! $table_exists) {
     $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
     $rc_host = OCP\Config::getAppValue('roundcube', 'rcHost', '');
     if ($rc_host == '') {
-        $ocVersion = @reset(OCP\Util::getVersion());
-        // below OC7
-        if ($ocVersion < 8.1) {
-            $rc_host = OC_Request::serverHost();
-        } else {
-            $rc_host = OCP\IRequest::getServerHost();
-        }
+        $rc_host = OCP\Util::getServerHost();
     }
     $rc_port = OCP\Config::getAppValue('roundcube', 'rcPort', null);
     

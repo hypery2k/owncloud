@@ -524,13 +524,7 @@ class OC_RoundCube_App
                 $rcHost = OCP\Config::getAppValue('roundcube', 'rcHost', '');
                 $rcPort = OCP\Config::getAppValue('roundcube', 'rcPort', '');
                 if ($rcHost == '') {
-                    $ocVersion = @reset(OCP\Util::getVersion());
-                    // below OC7
-                    if ($ocVersion < 8.1) {
-                        $rc_host = OC_Request::serverHost();
-                    } else {
-                        $rc_host = OCP\IRequest::getServerHost();
-                    }
+                    $rc_host = OCP\Util::getServerHost();
                 }
                 // login again
                 if (self::login($rcHost, $rcPort, $rcMaildir, $rcUser, $rcPassword)) {
