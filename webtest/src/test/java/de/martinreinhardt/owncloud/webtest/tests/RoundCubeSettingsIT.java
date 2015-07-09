@@ -6,15 +6,6 @@ package de.martinreinhardt.owncloud.webtest.tests;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
-import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Issues;
-import net.thucydides.core.annotations.Steps;
-import net.thucydides.core.annotations.Story;
-import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.WithTags;
-import net.thucydides.core.reports.adaptors.xunit.model.TestError;
-import net.thucydides.junit.annotations.Concurrent;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -26,6 +17,14 @@ import com.icegreen.greenmail.user.UserException;
 import de.martinreinhardt.owncloud.webtest.RoundCube;
 import de.martinreinhardt.owncloud.webtest.steps.AdminSteps;
 import de.martinreinhardt.owncloud.webtest.util.EmailUserDetails;
+import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Issues;
+import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
+import net.thucydides.core.reports.adaptors.xunit.model.TestError;
+import net.thucydides.junit.annotations.Concurrent;
 
 /**
  * @author mreinhardt

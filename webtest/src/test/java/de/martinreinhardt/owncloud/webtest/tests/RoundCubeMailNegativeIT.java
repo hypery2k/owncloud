@@ -42,6 +42,5 @@ public class RoundCubeMailNegativeIT extends RoundCubeMockedMailIT {
 		endUserLogin.do_login("negative@roundcube.owncloud.org", "42");
 		loggedInuserSteps.go_to_roundcube_view();
 		rcSteps.is_showing_errors();
-		rcSteps.waitFor(1).minutes();
 	}
 }

@@ -21,15 +21,20 @@ import de.martinreinhardt.owncloud.webtest.util.AbstractPage;
 @WithTag("Apps")
 public class PortalPage extends AbstractPage {
 
-	// OC7 app menu
-	@FindBy(xpath = "//a[@class='menutoggle']")
+	//  APP MENU
+	
+	@FindBy(xpath = "//a[contains(@class,'menutoggle')]")
 	private WebElement appMenu;
+	
+	// APPS
 
 	@FindBy(xpath = "//*[@data-id='roundcube_index']/a/img")
 	private WebElement roundcubeButton;
 
 	@FindBy(xpath = "//*[@data-id='storagecharts2_index']/a/img")
 	private WebElement storageChartsButton;
+	
+	// SETTINGS MENU
 
 	@FindBy(xpath = "//*[@id='settings']//span")
 	private WebElement settingsDropdownButton;

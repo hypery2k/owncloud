@@ -69,7 +69,7 @@
 					<skip>${skipUiTests}</skip>
 					<systemPropertyVariables>
 						<webdriver.driver>${webdriver.driver}</webdriver.driver>
-						<thucydides.issue.tracker.url>https://github.com/hypery2k/owncloud/issues/{0}</thucydides.issue.tracker.url>
+						<serenity.issue.tracker.url>https://github.com/hypery2k/owncloud/issues/{0}</serenity.issue.tracker.url>
 					</systemPropertyVariables>
 				</configuration>
 				<executions>
@@ -82,15 +82,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<systemPropertyVariables>
-						<thucydides.issue.tracker.url>https://github.com/hypery2k/owncloud/issues/{0}</thucydides.issue.tracker.url>
-					</systemPropertyVariables>
-				</configuration>
-			</plugin>
-			<plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
 				<version>${serenity.version}</version>
@@ -98,9 +89,16 @@
 					<skip>${skipTests}</skip>
 					<argLine>-Xmx1024m</argLine>
 				</configuration>
+                <dependencies>
+                     <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>serenity-core</artifactId>
+                        <version>${serenity.version}</version>
+                    </dependency>
+                </dependencies>
 				<executions>
 					<execution>
-						<id>thucydides-reports</id>
+						<id>serenity-reports</id>
 						<phase>post-integration-test</phase>
 						<goals>
 							<goal>aggregate</goal>
