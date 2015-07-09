@@ -427,7 +427,7 @@ class OC_RoundCube_Login
         } else {
             $url .= $this->rcHost . $sep . $path;
         }
-        $this->addDebug('sendRequest', 'Trying to connect via "' . $method . '" to URL "' . $url . '" on host"' . $this->rcHost . '"');
+        $this->addDebug('sendRequest', 'Trying to connect via "' . $method . '" to URL "' . $url . '" on host "' . $this->rcHost . '"');
         $responsObj = $this->openUrlConnection($url, $method, $postData);
         if (! $responsObj) {
             $this->addDebug("sendRequest", "Network connection failed. Please check your path for roundcube with url " . $url . " on host" . $this->rcHost);

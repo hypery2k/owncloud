@@ -170,5 +170,7 @@ class OC_RoundCube_AuthHelper
         if ($rc_host == '') {
             $rc_host = OCP\Util::getServerHost();
         }
+        OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->getServerHost():' . ' rcHost: ' . $rc_host, OCP\Util::DEBUG);
+        return $rc_host;
     }
 }
