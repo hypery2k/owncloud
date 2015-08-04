@@ -1,1 +1,1 @@
-2.5.4
+${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
