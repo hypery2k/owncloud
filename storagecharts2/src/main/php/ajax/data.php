@@ -27,7 +27,8 @@ OCP\JSON::checkAppEnabled('storagecharts2');
 $l = new OC_L10N('storagecharts2');
 
 // Update and save the new configuration
-if(is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus','hu_ratio'))){
+if (array_key_exists('s',$_POST) && array_key_exists('k',$_POST) && 
+    is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus','hu_ratio'))){
 	OC_DLStCharts::setUConfValue($_POST['k'], $_POST['s']);
 	switch($_POST['k']){
 		case 'hu_size':

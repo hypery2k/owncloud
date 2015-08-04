@@ -71,7 +71,7 @@ StorageCharts2.init = function() {
       'k' : 'hu_size'
     }, function(data) {
       if (data.r) {
-  eval(data.r);
+    	  eval(data.r);
       }
     });
   }
@@ -92,7 +92,7 @@ StorageCharts2.init = function() {
       'k' : 'hu_ratio'
     }, function(data) {
       if (data.r) {
-  eval(data.r);
+    	  eval(data.r);
       }
     });
   }
@@ -101,17 +101,13 @@ StorageCharts2.init = function() {
     handle : 'h3',
     placeholder : 'ui-state-highlight',
     update : function(e, u) {
-      $.ajax({
-  type : 'POST',
-  url : OC.linkTo('storagecharts2', 'ajax/userSettings.php'),
-  dataType : 'json',
-  data : {
-    o : 'set',
-    k : 'sc_sort',
-    i : $('#stc_sortable').sortable('toArray')
-  },
-  async : true
-      });
+    	$.post(OC.filePath('storagecharts2', 'ajax', 'userSettings.php'), {
+		    'o' : 'set',
+		    'k' : 'sc_sort',
+		    'i' : $('#stc_sortable').sortable('toArray')
+    	}, function(data) {
+         console.log('Done');
+        });
     }
   });
   $('#stc_sortable').disableSelection();
