@@ -190,62 +190,6 @@ class OC_DLStCharts
     }
 
     /**
-     * Parse an array and return data in the highCharts format
-     * 
-     * @param $operation operation
-     *            to do
-     * @param $elements elements
-     *            to parse
-     */
-    public static function arrayParser($operation, $elements, $l, $data_sep = ',', $ck = 'hu_size')
-    {
-        $return = "";
-        switch ($operation) {
-            case 'pie':
-                $free = $total = 0;
-                foreach ($elements as $element) {
-                    $element = $element[0];
-                    
-                    $total = $element['stc_total'];
-                    $free += $element['stc_used'];
-                    
-                    $return .= "['" . $element['oc_uid'] . "', " . $element['stc_used'] . "],";
-                }
-                $return .= "['" . $l->t('Free space') . "', " . ($total - $free) . "]";
-                break;
-            case 'histo':
-            case 'line':
-                $conf = self::getUConfValue($ck, Array(
-                    'uc_val' => 3
-                ));
-                $div = 1;
-                switch ($conf['uc_val']) {
-                    case 4:
-                        $div = 1024;
-                    case 3:
-                        $div *= 1024;
-                    case 2:
-                        $div *= 1024;
-                    case 1:
-                        $div *= 1024;
-                }
-                
-                foreach ($elements as $user => $data) {
-                    $return_tmp = '{"name":"' . $user . '","data":[';
-                    foreach ($data as $number) {
-                        $return_tmp .= round($number / $div, 2) . ",";
-                    }
-                    $return_tmp = substr($return_tmp, 0, - 1) . "]}";
-                    
-                    $return .= $return_tmp . $data_sep;
-                }
-                $return = substr($return, 0, - (strlen($data_sep)));
-                break;
-        }
-        return $return;
-    }
-
-    /**
      * Get data by user for Seven Days Line Chart
      * 
      * @param $user the

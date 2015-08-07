@@ -54,7 +54,7 @@ class OC_DLStChartsLoader {
 	 * @return String
 	 */
 	private static function loadPieFreeUsedSpaceRatioChart(){
-		return 'pierfsus=new Highcharts.Chart({chart:{renderTo:\'pie_rfsus\',backgroundColor:\'#F8F8F8\',plotBackgroundColor:\'#F8F8F8\',plotBorderWidth:false,plotShadow:false},title:{text:\'\'},tooltip:{formatter:function(){return \'<b>\'+this.point.name+\'</b>: \'+(Math.round(this.percentage*100)/100)+\' %\';}},plotOptions:{pie:{allowPointSelect:true,cursor:\'pointer\',dataLabels:{enabled:true,color:\'#000000\',connectorColor:\'#000000\',formatter:function(){return\'<b>\'+this.point.name+\'</b>: \'+Math.round(this.percentage)+\' %\';}}}},series:[{type:\'pie\',name:\'Used-Free space ratio\',data:[' . OC_DLStCharts::arrayParser('pie',OC_DLStCharts::getPieFreeUsedSpaceRatio(), self::$l) . ']}],exporting:{enabled:false}});';
+		return 'pierfsus=new Highcharts.Chart({chart:{renderTo:\'pie_rfsus\',backgroundColor:\'#F8F8F8\',plotBackgroundColor:\'#F8F8F8\',plotBorderWidth:false,plotShadow:false},title:{text:\'\'},tooltip:{formatter:function(){return \'<b>\'+this.point.name+\'</b>: \'+(Math.round(this.percentage*100)/100)+\' %\';}},plotOptions:{pie:{allowPointSelect:true,cursor:\'pointer\',dataLabels:{enabled:true,color:\'#000000\',connectorColor:\'#000000\',formatter:function(){return\'<b>\'+this.point.name+\'</b>: \'+Math.round(this.percentage)+\' %\';}}}},series:[{type:\'pie\',name:\'Used-Free space ratio\',data:[' . self::arrayParser('pie',OC_DLStCharts::getPieFreeUsedSpaceRatio(), self::$l) . ']}],exporting:{enabled:false}});';
 	}
 
 	/**
@@ -65,7 +65,7 @@ class OC_DLStChartsLoader {
 		$units = Array('', 'KB', 'MB', 'GB', 'TB');
 		$u = OC_DLStCharts::getUConfValue('hu_size', Array('uc_val' => 3));
 		$u = $units[$u['uc_val']];
-		return 'linesusse=new Highcharts.Chart({chart:{renderTo:\'lines_usse\',backgroundColor:\'#F8F8F8\',plotBackgroundColor:\'#F8F8F8\',type:\'line\'},title:{text:\'\'},subtitle:{text:\''.self::$l->t('Last 7 days').'\',x:-20},xAxis:{categories:["'.date('m/d', mktime(0,0,0,date('m'),date('d')-6)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-5)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-4)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-3)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-2)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-1)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d'))).'"]},yAxis:{title:{text:\''.self::$l->t('Used space').' ('.$u.')\'},plotLines:[{value:0,width:1,color:\'#808080\'}],startOnTick:false,min:0},tooltip:{crosshairs:true,formatter:function(){return \'<b>\'+this.series.name+\'</b><br/>\'+this.x+\': \'+this.y+\' '.$u.'\';}},legend:{layout:\'horizontal\',align:\'center\',verticalAlign:\'top\',x:-25,y:40,borderWidth:0},series:['.OC_DLStCharts::arrayParser('line', OC_DLStCharts::getUsedSpaceOverTime('daily'), self::$l).'],exporting:{enabled:false}});';
+		return 'linesusse=new Highcharts.Chart({chart:{renderTo:\'lines_usse\',backgroundColor:\'#F8F8F8\',plotBackgroundColor:\'#F8F8F8\',type:\'line\'},title:{text:\'\'},subtitle:{text:\''.self::$l->t('Last 7 days').'\',x:-20},xAxis:{categories:["'.date('m/d', mktime(0,0,0,date('m'),date('d')-6)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-5)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-4)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-3)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-2)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d')-1)).'","'.date('m/d', mktime(0,0,0,date('m'),date('d'))).'"]},yAxis:{title:{text:\''.self::$l->t('Used space').' ('.$u.')\'},plotLines:[{value:0,width:1,color:\'#808080\'}],startOnTick:false,min:0},tooltip:{crosshairs:true,formatter:function(){return \'<b>\'+this.series.name+\'</b><br/>\'+this.x+\': \'+this.y+\' '.$u.'\';}},legend:{layout:\'horizontal\',align:\'center\',verticalAlign:\'top\',x:-25,y:40,borderWidth:0},series:['.self::arrayParser('line', OC_DLStCharts::getUsedSpaceOverTime('daily'), self::$l).'],exporting:{enabled:false}});';
 	}
 
 	/**
@@ -79,7 +79,7 @@ class OC_DLStChartsLoader {
 
 		$months = self::getMonths();
 
-		return 'histous=new Highcharts.Chart({chart:{renderTo:\'histo_us\',backgroundColor:\'#F8F8F8\',plotBackgroundColor:\'#F8F8F8\',type:\'column\'},title:{text:\'\'},xAxis:{categories:["'.self::$l->t($months[0]).' '.date('Y',mktime(0,0,0,date('m')-11)).'","'.self::$l->t($months[1]).' '.date('Y',mktime(0,0,0,date('m')-10)).'","'.self::$l->t($months[2]).' '.date('Y',mktime(0,0,0,date('m')-9)).'","'.self::$l->t($months[3]).' '.date('Y',mktime(0,0,0,date('m')-8)).'","'.self::$l->t($months[4]).' '.date('Y',mktime(0,0,0,date('m')-7)).'","'.self::$l->t($months[5]).' '.date('Y',mktime(0,0,0,date('m')-6)).'","'.self::$l->t($months[6]).' '.date('Y',mktime(0,0,0,date('m')-5)).'","'.self::$l->t($months[7]).' '.date('Y',mktime(0,0,0,date('m')-4)).'","'.self::$l->t($months[8]).' '.date('Y',mktime(0,0,0,date('m')-3)).'","'.self::$l->t($months[9]).' '.date('Y',mktime(0,0,0,date('m')-2)).'","'.self::$l->t($months[10]).' '.date('Y',mktime(0,0,0,date('m')-1)).'","'.self::$l->t($months[11]).' '.date('Y',mktime(0,0,0,date('m'))).'"]},yAxis:{min:0,title:{text:\''.self::$l->t('Average used space').' ('.$u.')\'},stackLabels:{enabled:true,style:{fontWeight:\'bold\',color:(Highcharts.theme&&Highcharts.theme.textColor)||\'gray\'},formatter:function(){return(Math.round(this.total*100)/100);}}},legend:{align:\'center\',x:-20,verticalAlign:\'top\',y:20,floating:true,backgroundColor:(Highcharts.theme&&Highcharts.theme.legendBackgroundColorSolid)||\'white\',borderColor:\'#CCC\',borderWidth:1,shadow:false},tooltip:{formatter:function(){return \'<b>\'+this.x+\'</b><br/>\'+this.series.name+\': \'+(Math.round(this.y*100)/100)+\' '.$u.'<br/>\'+\'Total: \'+(Math.round(this.point.stackTotal*100)/100)+\' '.$u.'\';}},plotOptions:{column:{stacking:\'normal\',dataLabels:{enabled:false,color:(Highcharts.theme&&Highcharts.theme.dataLabelsColor)||\'white\'}}},series:['.OC_DLStCharts::arrayParser('histo',OC_DLStCharts::getUsedSpaceOverTime('monthly'),self::$l,',','hu_size_hus').'],exporting:{enabled:false}});';
+		return 'histous=new Highcharts.Chart({chart:{renderTo:\'histo_us\',backgroundColor:\'#F8F8F8\',plotBackgroundColor:\'#F8F8F8\',type:\'column\'},title:{text:\'\'},xAxis:{categories:["'.self::$l->t($months[0]).' '.date('Y',mktime(0,0,0,date('m')-11)).'","'.self::$l->t($months[1]).' '.date('Y',mktime(0,0,0,date('m')-10)).'","'.self::$l->t($months[2]).' '.date('Y',mktime(0,0,0,date('m')-9)).'","'.self::$l->t($months[3]).' '.date('Y',mktime(0,0,0,date('m')-8)).'","'.self::$l->t($months[4]).' '.date('Y',mktime(0,0,0,date('m')-7)).'","'.self::$l->t($months[5]).' '.date('Y',mktime(0,0,0,date('m')-6)).'","'.self::$l->t($months[6]).' '.date('Y',mktime(0,0,0,date('m')-5)).'","'.self::$l->t($months[7]).' '.date('Y',mktime(0,0,0,date('m')-4)).'","'.self::$l->t($months[8]).' '.date('Y',mktime(0,0,0,date('m')-3)).'","'.self::$l->t($months[9]).' '.date('Y',mktime(0,0,0,date('m')-2)).'","'.self::$l->t($months[10]).' '.date('Y',mktime(0,0,0,date('m')-1)).'","'.self::$l->t($months[11]).' '.date('Y',mktime(0,0,0,date('m'))).'"]},yAxis:{min:0,title:{text:\''.self::$l->t('Average used space').' ('.$u.')\'},stackLabels:{enabled:true,style:{fontWeight:\'bold\',color:(Highcharts.theme&&Highcharts.theme.textColor)||\'gray\'},formatter:function(){return(Math.round(this.total*100)/100);}}},legend:{align:\'center\',x:-20,verticalAlign:\'top\',y:20,floating:true,backgroundColor:(Highcharts.theme&&Highcharts.theme.legendBackgroundColorSolid)||\'white\',borderColor:\'#CCC\',borderWidth:1,shadow:false},tooltip:{formatter:function(){return \'<b>\'+this.x+\'</b><br/>\'+this.series.name+\': \'+(Math.round(this.y*100)/100)+\' '.$u.'<br/>\'+\'Total: \'+(Math.round(this.point.stackTotal*100)/100)+\' '.$u.'\';}},plotOptions:{column:{stacking:\'normal\',dataLabels:{enabled:false,color:(Highcharts.theme&&Highcharts.theme.dataLabelsColor)||\'white\'}}},series:['.self::arrayParser('histo',OC_DLStCharts::getUsedSpaceOverTime('monthly'),self::$l,',','hu_size_hus').'],exporting:{enabled:false}});';
 	}
 
 	/**
@@ -98,5 +98,59 @@ class OC_DLStChartsLoader {
 
 		return $tmp;
 	}
+	
+
+
+	/**
+	 * Parse an array and return data in the highCharts format
+	 *
+	 * @param $operation operation
+	 *            to do
+     * @param $elements elements
+     *            to parse
+     */
+	 public static function arrayParser($operation, $elements, $l, $data_sep = ',', $ck = 'hu_size') {
+	     $return = "";
+	     switch ($operation) {
+	         case 'pie':
+	             $free = $total = 0;
+	             foreach ($elements as $element) {
+	                 $element = $element[0];	
+	                 $total = $element['stc_total'];
+	                 $free += $element['stc_used'];
+	
+	                 $return .= "['" . $element['oc_uid'] . "', " . $element['stc_used'] . "],";
+	             }
+	             $return .= "['" . $l->t('Free space') . "', " . ($total - $free) . "]";
+	             break;
+	         case 'histo':
+	         case 'line':
+	             $conf = OC_DLStCharts::getUConfValue($ck, Array('uc_val' => 3));
+	             $div = 1;
+	             switch ($conf['uc_val']) {
+	                 case 4:
+	                     $div = 1024;
+	                 case 3:
+	                     $div *= 1024;
+	                 case 2:
+	                     $div *= 1024;
+	                 case 1:
+	                     $div *= 1024;
+	             }
+	
+	             foreach ($elements as $user => $data) {
+	                 $return_tmp = '{"name":"' . $user . '","displayName":"'.OCP\User::getDisplayName($user).'","data":[';
+	                 foreach ($data as $number) {
+	                     $return_tmp .= round($number / $div, 2) . ",";
+	                 }
+	                 $return_tmp = substr($return_tmp, 0, - 1) . "]}";
+	
+	                 $return .= $return_tmp . $data_sep;
+	             }
+	             $return = substr($return, 0, - (strlen($data_sep)));
+	             break;
+	     }
+	     return $return;
+	 }
 
 }
