@@ -1,6 +1,38 @@
 // declare namespace
 var StorageCharts2 = StorageCharts2 || {};
 
+
+
+StorageCharts2.getUserFromId = function (uid) {
+    if (StorageCharts2.users) {
+        if (StorageCharts2.users[uid]) {
+            return StorageCharts2.users[uid].displayName;
+        } else {
+            return uid;
+        }
+    } else {
+        return uid;
+    }
+}
+
+
+StorageCharts2.evalResponse = function (data) {
+    if (data) {
+        StorageCharts2.users = {};
+        for (var id in data.users) {
+            var userDetails = JSON.parse(data.users[id]);
+            StorageCharts2.users[userDetails.name] = userDetails;
+        }
+        if (data.chart) {
+        	StorageCharts2.runEval(data.chart);
+        }
+    }
+}
+
+StorageCharts2.runEval = function (cmd) {
+	eval(cmd);
+}
+
 // TODO include correct callback
 StorageCharts2.getLinesUsseUnitsSelect = function(s) {
 
@@ -66,13 +98,13 @@ StorageCharts2.init = function() {
   if ($('#clines_usse').size() > 0) {
     // TODO unit selection
     // StorageCharts2.getLinesUsseUnitsSelect($('#storagecharts2').data('sc-size'));
+	  
+	  // load monthly used chart
     $.post(OC.filePath('storagecharts2', 'ajax', 'data.php'), {
       's' : $('#storagecharts2').data('sc-size-hus'),
       'k' : 'hu_size'
-    }, function(data) {
-      if (data.r) {
-    	  eval(data.r);
-      }
+    }, function(response) {
+      StorageCharts2.evalResponse(response.data);       
     });
   }
   if ($('#chisto_us').size() > 0) {
@@ -81,19 +113,15 @@ StorageCharts2.init = function() {
     $.post(OC.filePath('storagecharts2', 'ajax', 'data.php'), {
       's' : $('#storagecharts2').data('sc-size-hus'),
       'k' : 'hu_size_hus'
-    }, function(data) {
-      if (data.r) {
-  eval(data.r);
-      }
+    }, function(response) {
+      StorageCharts2.evalResponse(response.data);       
     });
   }
   if ($('#cpie_rfsus').size() > 0) {
     $.post(OC.filePath('storagecharts2', 'ajax', 'data.php'), {
       'k' : 'hu_ratio'
-    }, function(data) {
-      if (data.r) {
-    	  eval(data.r);
-      }
+    }, function(response) {
+      StorageCharts2.evalResponse(response.data);       
     });
   }
   $('#stc_sortable').sortable({

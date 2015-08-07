@@ -26,21 +26,34 @@ OCP\JSON::checkAppEnabled('storagecharts2');
 
 $l = new OC_L10N('storagecharts2');
 
-// Update and save the new configuration
+// build user list
+$uids = OCP\User::getUsers();
+$users = array();
+foreach ($uids as $user) {
+    array_push($users,'{"name":"' . $user . '","displayName":"'.OCP\User::getDisplayName($user).'"}');
+}
+
 if (array_key_exists('s',$_POST) && array_key_exists('k',$_POST) && 
     is_numeric($_POST['s']) && in_array($_POST['k'], Array('hu_size','hu_size_hus','hu_ratio'))){
+    // Update and save the new configuration
 	OC_DLStCharts::setUConfValue($_POST['k'], $_POST['s']);
 	switch($_POST['k']){
 		case 'hu_size':
-			OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('chisto_us', $l)));
+			OCP\JSON::encodedPrint(Array('data' => Array(
+			'chart' => OC_DLStChartsLoader::loadChart('chisto_us', $l),			
+			'users' => $users)));
 			break;
 		case 'hu_size_hus':
-			OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('clines_usse', $l)));
+			OCP\JSON::encodedPrint(Array('data' => Array(
+			'chart' => OC_DLStChartsLoader::loadChart('clines_usse', $l),			
+			'users' => $users)));
 			break;
 	}
 } else {
 	// default
-	OCP\JSON::encodedPrint(Array('r' => OC_DLStChartsLoader::loadChart('cpie_rfsus', $l)));
+	OCP\JSON::encodedPrint(Array('data' => Array(
+	       'chart' => OC_DLStChartsLoader::loadChart('cpie_rfsus', $l),			
+		   'users' => $users)));
 }
 
 
