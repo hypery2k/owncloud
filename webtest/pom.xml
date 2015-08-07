@@ -88,7 +88,8 @@
 				<configuration>
 					<skip>${skipTests}</skip>
 					<argLine>-Xmx1024m</argLine>
-					<sourceDirectory>./target/site/serenity</sourceDirectory>
+                    <outputDirectory>${basedir}/target/site/serenity/</outputDirectory>
+                    <sourceDirectory>${basedir}/target/site/serenity/</sourceDirectory>
 				</configuration>
                 <dependencies>
                      <dependency>
