@@ -32,10 +32,10 @@
 						<goals>
 							<goal>install-node-and-npm</goal>
 						</goals>
-						<configuration>
-							<nodeVersion>v0.10.18</nodeVersion>
-							<npmVersion>1.3.8</npmVersion>
-						</configuration>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
 					</execution>
 					<execution>
 						<id>npm install</id>
