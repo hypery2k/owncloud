@@ -22,7 +22,6 @@
 */
 
 OCP\JSON::checkLoggedIn();
-OCP\JSON::checkAppEnabled('storagecharts2');
 
 if(in_array($_POST['k'], Array('hu_size','sc_sort','hu_size_hus'))){
 	switch($_POST['o']){

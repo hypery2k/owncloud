@@ -4,7 +4,6 @@
 
 // Check if we are a user
 OCP\User::checkAdminUser();
-OCP\JSON::checkAppEnabled('roundcube');
 
 // CSRF checks
 OCP\JSON::callCheck();

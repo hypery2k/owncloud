@@ -22,7 +22,6 @@
 */
 
 OCP\JSON::checkLoggedIn();
-OCP\JSON::checkAppEnabled('storagecharts2');
 
 $l = new OC_L10N('storagecharts2');
 
