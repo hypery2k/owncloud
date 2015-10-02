@@ -1,6 +1,6 @@
 # App development discontinoued 
 
-> ** I quit the  development of OwnCloud apps Sorry to say, if anybody wants to take over the project, feel free to take over.**
+> **I quit the  development of OwnCloud apps Sorry to say, if anybody wants to take over the project, feel free to take over.**
 
 # Apps for owncloud
 
