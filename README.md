@@ -1,3 +1,7 @@
+# App development discontinoued 
+
+> ** I quit the  development of OwnCloud apps Sorry to say, if anybody wants to take over the project, feel free to take over.**
+
 # Apps for owncloud
 
 [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_smoke_tests)](https://martinreinhardt-online.de/jenkins/view/BMP_OwnCloud/job/OwnCloud_smoke_tests/)
