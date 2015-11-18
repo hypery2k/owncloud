@@ -10,7 +10,7 @@ OCP\JSON::callCheck();
 
 $l = new OC_L10N('roundcube');
 
-$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify', 'enableDebug', 'rcHost', 'rcPort', 'rcRefreshInterval');
+$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify', 'enableDebug', 'rcHost', 'rcPort', 'rcInternalAddress', 'rcRefreshInterval');
 
 if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 	foreach ($params as $param) {
@@ -29,6 +29,19 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 			}
 			if ($param === 'enableDebug') {
 				OCP\Config::setAppValue('roundcube', 'enableDebug', true);
+			}
+			if ($param === 'rcInternalAddress') {
+				if ($_POST[$param] == '' || strpos($_POST[$param], '://') > -1) {
+					OCP\Config::setAppValue('roundcube', 'rcInternalAddress', true);
+				} else {
+					OC_JSON::error(array(
+						"data" => array(
+							"message" => $l->t("Internal address '%s' is not an URL",
+								array($_POST[$param])
+							)
+						)
+					));
+				}
 			}
 			if ($param === 'rcHost') {
 				if ($_POST[$param] == '' || strlen($_POST[$param]) > 3) {

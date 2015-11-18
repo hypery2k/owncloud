@@ -61,6 +61,12 @@
       </label>
       <input type="text" id="rcPort" name="rcPort" value="<?php echo $_['rcPort']; ?>">
       <br>
+      <label for="rcInternalAddress">
+        <?php echo $l -> t('Internal RoundCube address (as seen by the OwnCloud server). Use this if the internal address, to which OwnCloud should connect when talking to RoundCube, does not match the host and port set above.'); ?>
+      </label>
+      <br/>
+      <input type="url" id="rcInternalAddress" name="rcInternalAddress" style="width: 400px;" value="<?php echo $_['rcInternalAddress']; ?>">
+      <br>
       <label for="rcRefreshInterval" title="<?php echo $l->t('This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the session life-time of your RoundCube install (refer to the Roundcube documentation, please).'); ?>">
         <?php echo $l -> t('Refresh interval for the Roundcube-session in seconds'); ?>
         <input type="text" id="rcRefreshInterval" name="rcRefreshInterval" value="<?php echo $_['rcRefreshInterval']; ?>">

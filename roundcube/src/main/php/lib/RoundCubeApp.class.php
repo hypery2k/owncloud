@@ -305,7 +305,31 @@ class OC_RoundCube_App
         }
         return $result;
     }
-
+    
+    public static function makeLoginHandler($rcHost, $rcPort, $maildir, $enableVerbose)
+    {
+    	$enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'false');
+        $disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');
+        
+    	$url = OCP\Config::getAppValue('roundcube', 'rcInternalAddress', '');
+    	// Generate RoundCube server address on-the-fly based on public address
+    	if(!$url) {
+			if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+		        $url = "https://";
+		    } else {
+		        $url = "http://";
+		    }
+		    if (strlen($rcPort) > 0) {
+		        $url .= $rcHost . ":" . $rcPort;
+		    }
+		
+			$sep = $maildir[0] != '/' ? '/' : '';
+        	$url = $url . $sep . $maildir;
+		}
+		
+		return new OC_RoundCube_Login($url, $disableSSLverify, $enableDebug, $enableVerbose);
+    }
+	
     /**
      * Logs the current user out from roundcube
      *
@@ -321,9 +345,7 @@ class OC_RoundCube_App
      */
     public static function logout($rcHost, $rcPort, $maildir, $user)
     {
-        $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'false');
-        $disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');
-        $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
+        $rcl = self::makeLoginHandler($rcHost, $rcPort, $maildir, false);
         if ($rcl->logout()) {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->logout(): ' . $user . ' successfully logged off from roundcube ', OCP\Util::INFO);
         } else {
@@ -350,9 +372,7 @@ class OC_RoundCube_App
     public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword)
     {
         // Create RC login object.
-        $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', false);
-        $disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', false);
-        $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
+        $rcl = self::makeLoginHandler($rcHost, $rcPort, $maildir, false);
         // Try to login
         $rcl->login($pLogin, $pPassword);
         OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->login(): Trying to log into roundcube webinterface under ' . $maildir . ' as user ' . $pLogin, OCP\Util::DEBUG);
@@ -393,9 +413,7 @@ class OC_RoundCube_App
     {
         $ocUser = OCP\User::getUser();
         // Create RC login object.
-        $enableDebug = OCP\Config::getAppValue('roundcube', 'enableDebug', 'false');
-        $disableSSLverify = OCP\Config::getAppValue('roundcube', 'noSSLverify', 'false');
-        $rcl = new OC_RoundCube_Login($rcHost, $rcPort, $maildir, $disableSSLverify, $enableDebug, false);
+        $rcl = self::makeLoginHandler($rcHost, $rcPort, $maildir, false);
         // reuse session ID
         $sessId = self::getSessionVariable(self::SESSION_ATTR_RCSESSID);
         if ($sessId !== false) {

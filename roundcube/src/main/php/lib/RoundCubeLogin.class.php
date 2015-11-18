@@ -75,33 +75,13 @@ class OC_RoundCube_Login
     const FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
     /**
-     * DNS name of the rouncube server
+     * Full address (URL) of RoundCube server
      *
      * Can be set via the first argument in the constructor.
-     * If the URL is www.example.com/roundcube/, set it to "www.example.com".
      *
      * @var string
      */
-    private $rcHost;
-
-    /**
-     * Relative path to the Roundcube base directory on the server.
-     *
-     * Can be set via the secound argument in the constructor.
-     * If the URL is www.example.com/roundcube/, set it to "/roundcube/".
-     *
-     * @var string
-     */
-    private $rcPath;
-
-    /**
-     * Port of the Roundcube the server.
-     *
-     * Can be set via the third argument in the constructor.
-     *
-     * @var string
-     */
-    private $rcPort;
+    private $rcAddress;
 
     /**
      * Roundcube session ID
@@ -194,31 +174,23 @@ class OC_RoundCube_Login
      * Create a new RoundcubeLogin class.
      *
      * @param
-     *            string servr host
-     * @param
-     *            optional port of roundcube server
-     * @param
-     *            string Relative webserver path to the RC installation, e.g.
-     *            /roundcube/
+     *            string server address, including protocol, port number and path
+     *            e.g. http://example.com:81/mail/
      * @param
      *            bool Enable debugging, - shows the full POST and the response
      * @param
      *            bool disable SSL certificate verification
      */
-    public function __construct($webmailHost, $webmailPort = '', $webmailPath, $disableSSLverify = false, $enableDebug = false, $enableVerbose = false)
+    public function __construct($webmailAddress, $disableSSLverify = false, $enableDebug = false, $enableVerbose = false)
     {
         $this->addDebug("__construct", "Creating new RoundCubeLogin instance");
         $this->addDebug("pre_construct", "Used Parameters:");
-        $this->addDebug("pre_construct", "webmailHost: " . $webmailHost);
-        $this->addDebug("pre_construct", "webmailPort: " . $webmailPort);
-        $this->addDebug("pre_construct", "webmailPath: " . $webmailPath);
+        $this->addDebug("pre_construct", "webmailAddress: " . $webmailAddress);
         $this->addDebug("pre_construct", "enableDebug: " . $enableDebug);
         $this->addDebug("pre_construct", "disableSSLverify: " . $disableSSLverify);
         
         $this->debugStack = array();
-        $this->rcHost = $webmailHost;
-        $this->rcPath = $webmailPath;
-        $this->rcPort = $webmailPort;
+        $this->rcAddress = $webmailAddress;
         $this->rcLoginStatus = 0;
         $this->lastHeaderResponse = array();
         $this->rcLocation = false;
@@ -227,9 +199,7 @@ class OC_RoundCube_Login
         $this->traceEnabled = $enableVerbose;
         
         $this->addDebug("post_construct", "Created new RoundCubeLogin instance:");
-        $this->addDebug("post_construct", "rcHost: " . $this->rcHost);
-        $this->addDebug("post_construct", "rcPort: " . $this->rcPort);
-        $this->addDebug("post_construct", "rcPath: " . $this->rcPath);
+        $this->addDebug("post_construct", "rcAddress: " . $this->rcAddress);
         $this->addDebug("pre_construct", "enableDebug: " . $enableDebug);
         $this->addDebug("pre_construct", "disableSSLverify: " . $disableSSLverify);
     }
@@ -276,7 +246,7 @@ class OC_RoundCube_Login
         if ($this->lastToken) {
             $data["_token"] = $this->lastToken;
         }
-        $response = $this->sendRequest($this->rcPath, $data);
+        $response = $this->sendRequest($data);
         
         $this->rcLoginStatus = 0;
         
@@ -349,7 +319,7 @@ class OC_RoundCube_Login
         if ($this->lastToken) {
             $data["_token"] = $this->lastToken;
         }
-        $this->sendRequest($this->rcPath, $data);
+        $this->sendRequest($data);
         // remove cookies
         return ! $this->isLoggedIn();
     }
@@ -367,7 +337,7 @@ class OC_RoundCube_Login
             return;
         }
         // Send request and maybe receive new session ID
-        $response = $this->sendRequest($this->rcPath);
+        $response = $this->sendRequest();
         // Request token (since Roundcube 0.5.1)
         if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
             $this->lastToken = $m[1];
@@ -413,24 +383,14 @@ class OC_RoundCube_Login
      *            string Optional POST data in urlencoded form (param1=value1&...)
      * @return string Returns the complete request response with all headers.
      */
-    private function sendRequest($path, $postData = false)
+    private function sendRequest($postData = false)
     {
         $method = (! $postData) ? "GET" : "POST";
-        if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
-            $url = "https://";
-        } else {
-            $url = "http://";
-        }
-        $sep = $path[0] != '/' ? '/' : '';
-        if (strlen($this->rcPort) > 0) {
-            $url .= $this->rcHost . ":" . $this->rcPort . $sep . $path;
-        } else {
-            $url .= $this->rcHost . $sep . $path;
-        }
-        $this->addDebug('sendRequest', 'Trying to connect via "' . $method . '" to URL "' . $url . '" on host "' . $this->rcHost . '"');
-        $responsObj = $this->openUrlConnection($url, $method, $postData);
+        
+        $this->addDebug('sendRequest', 'Trying to connect via "' . $method . '" to URL "' . $this->rcAddress . '"');
+        $responsObj = $this->openUrlConnection($this->rcAddress, $method, $postData);
         if (! $responsObj) {
-            $this->addDebug("sendRequest", "Network connection failed. Please check your path for roundcube with url " . $url . " on host" . $this->rcHost);
+            $this->addDebug("sendRequest", "Network connection failed. Please check your path for roundcube with url " . $url . " on host" . $this->rcAddress);
             throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
         } else {
             // Read response and set received cookies
@@ -438,7 +398,7 @@ class OC_RoundCube_Login
             
             // Check for success. $http_response_header may not be set on failures
             if ($responsObj === false) {
-                $this->addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url " . $url . " on host" . $this->rcHost);
+                $this->addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url " . $url . " on host" . $this->rcAddress);
                 throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
             }
             $responseHdr = $responsObj->getHeader();

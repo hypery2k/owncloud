@@ -70,6 +70,13 @@
 			value="<?php echo $_['rcPort']; ?>">
 		<br>
 		<br>
+		<label for="rcInternalAddress"> <?php echo $l -> t('Internal RoundCube address (as seen by the OwnCloud server). Use this if the internal address, to which OwnCloud should connect when talking to RoundCube, does not match the host and port set above.'); ?>
+		</label>
+		<br> 
+		<input type="url" id="rcInternalAddress" name="rcInternalAddress" style="width: 400px;"
+			value="<?php echo $_['rcInternalAddress']; ?>">
+		<br>
+		<br>
 		<input id="rcAdminSubmit" type="submit" value="Save" />
 		<div id="adminmail_update_message" class="statusmessage">
 			<?php echo $l->t('Saving...'); ?>
