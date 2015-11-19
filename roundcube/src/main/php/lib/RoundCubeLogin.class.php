@@ -390,15 +390,14 @@ class OC_RoundCube_Login
         $this->addDebug('sendRequest', 'Trying to connect via "' . $method . '" to URL "' . $this->rcAddress . '"');
         $responsObj = $this->openUrlConnection($this->rcAddress, $method, $postData);
         if (! $responsObj) {
-            $this->addDebug("sendRequest", "Network connection failed. Please check your path for roundcube with url " . $url . " on host" . $this->rcAddress);
+            $this->addDebug("sendRequest", "Network connection failed. Please check your path for roundcube with url " . $this->rcAddress);
             throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
         } else {
             // Read response and set received cookies
             $response = $responsObj->getContent();
-            
             // Check for success. $http_response_header may not be set on failures
             if ($responsObj === false) {
-                $this->addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url " . $url . " on host" . $this->rcAddress);
+                $this->addDebug("sendRequest", "Network connection failed while reading. Please check your path for roundcube with url " . $this->rcAddress);
                 throw new OC_Mail_NetworkingException("Unable to determine network-status due to technical problems.");
             }
             $responseHdr = $responsObj->getHeader();
