@@ -319,8 +319,9 @@ class OC_RoundCube_App
 		    } else {
 		        $url = "http://";
 		    }
+		    $url .= $rcHost;
 		    if (strlen($rcPort) > 0) {
-		        $url .= $rcHost . ":" . $rcPort;
+		        $url .= ":" . $rcPort;
 		    }
 		
 			$sep = $maildir[0] != '/' ? '/' : '';
