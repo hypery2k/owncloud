@@ -183,6 +183,8 @@ class OC_RoundCube_Login
      */
     public function __construct($webmailAddress, $disableSSLverify = false, $enableDebug = false, $enableVerbose = false)
     {
+        $this->debugEnabled = $enableDebug;
+
         $this->addDebug("__construct", "Creating new RoundCubeLogin instance");
         $this->addDebug("pre_construct", "Used Parameters:");
         $this->addDebug("pre_construct", "webmailAddress: " . $webmailAddress);
@@ -195,7 +197,6 @@ class OC_RoundCube_Login
         $this->lastHeaderResponse = array();
         $this->rcLocation = false;
         $this->sslVerifyDisabled = $disableSSLverify;
-        $this->debugEnabled = $enableDebug;
         $this->traceEnabled = $enableVerbose;
         
         $this->addDebug("post_construct", "Created new RoundCubeLogin instance:");
