@@ -25,7 +25,7 @@ class OC_RoundCube_Login_Test extends PHPUnit_Framework_TestCase
 
     public function testConnectionError()
     {
-        $rcLogin = new OC_RoundCube_Login('localhost', '4443', 'mail');
+        $rcLogin = new OC_RoundCube_Login('http://localhost:4443/mail');
         try {
             $rcLogin->login("user", "password");
             $this->assertFalse($rcLogin->isLoggedIn(), 'Should not be logged in', true, true, true);
