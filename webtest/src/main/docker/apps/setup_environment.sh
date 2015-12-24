@@ -117,6 +117,11 @@ case ${OC_VERSION} in
     cp -rp ${DIR_TMP_WORK_CUR}/owncloud_releases/${OC_VERSION}/config/* ${DIR_OC_CUR}/config   
     cd ${DIR_TMP_WORK_CUR}
     ;; 
+  OC82)    	
+  	wget  --no-check-certificate https://download.owncloud.org/community/owncloud-8.2.2.tar.bz2 -P /tmp/
+  	tar -C /tmp -xvf /tmp/owncloud-8.2.2.tar.bz2
+    cp -rp /tmp/owncloud/* ${DIR_OC_CUR}
+    ;;
   OC81)    	
   	wget  --no-check-certificate https://download.owncloud.org/community/owncloud-8.1.0.tar.bz2 -P /tmp/
   	tar -C /tmp -xvf /tmp/owncloud-8.1.0.tar.bz2
