@@ -49,6 +49,13 @@ class OC_RoundCube_AuthHelper
      */
     public static function login($params)
     {
+        $via = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        if (preg_match('#(/ocs/v1.php|'.
+                       '/apps/calendar/caldav.php|'.
+                       '/apps/contacts/carddav.php|'.
+                   '/remote.php/webdav)/#', $via)) {
+            return;
+        }
         OCP\App::checkAppEnabled('roundcube');
         try {
             $username = $params['uid'];
@@ -82,7 +89,7 @@ class OC_RoundCube_AuthHelper
             return OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
         } catch (Exception $e) {
             // We got an exception == table not found
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' . $e, OCP\Util::ERROR);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' /* . $e */, OCP\Util::ERROR);
             return false;
         }
     }
@@ -94,6 +101,13 @@ class OC_RoundCube_AuthHelper
      */
     public static function logout()
     {
+        $via = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        if (preg_match('#(/ocs/v1.php|'.
+                       '/apps/calendar/caldav.php|'.
+                       '/apps/contacts/carddav.php|'.
+                   '/remote.php/webdav)/#', $via)) {
+            return;
+        }
         OCP\App::checkAppEnabled('roundcube');
         try {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Preparing logout of user from roundcube.', OCP\Util::DEBUG);
@@ -106,7 +120,7 @@ class OC_RoundCube_AuthHelper
             return true;
         } catch (Exception $e) {
             // We got an exception == table not found
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Logout/Session cleaning causing errors.' . $e, OCP\Util::DEBUG);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Logout/Session cleaning causing errors.' /* . $e */, OCP\Util::DEBUG);
             return false;
         }
     }
@@ -118,6 +132,13 @@ class OC_RoundCube_AuthHelper
      */
     public static function refresh()
     {
+        $via = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        if (preg_match('#(/ocs/v1.php|'.
+                       '/apps/calendar/caldav.php|'.
+                       '/apps/contacts/carddav.php|'.
+                   '/remote.php/webdav)/#', $via)) {
+            return;
+        }
         try {
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->refresh(): Preparing refresh for roundcube', OCP\Util::DEBUG);
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
@@ -128,7 +149,7 @@ class OC_RoundCube_AuthHelper
             return true;
         } catch (Exception $e) {
             // We got an exception during login/refresh
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error during refresh.' . $e, OCP\Util::DEBUG);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php: ' . 'Login error during refresh.' /* . $e */, OCP\Util::DEBUG);
             return false;
         }
     }
