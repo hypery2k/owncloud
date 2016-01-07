@@ -543,7 +543,7 @@ class OC_RoundCube_App
                 $rcHost = OCP\Config::getAppValue('roundcube', 'rcHost', '');
                 $rcPort = OCP\Config::getAppValue('roundcube', 'rcPort', '');
                 if ($rcHost == '') {
-                    $rc_host = OCP\Util::getServerHost();
+                    $rcHost = OCP\Util::getServerHost();
                 }
                 // login again
                 if (self::login($rcHost, $rcPort, $rcMaildir, $rcUser, $rcPassword)) {
