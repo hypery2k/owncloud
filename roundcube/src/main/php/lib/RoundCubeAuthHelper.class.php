@@ -89,7 +89,7 @@ class OC_RoundCube_AuthHelper
             return OC_RoundCube_App::login($rc_host, $rc_port, $maildir, $mail_username, $mail_password);
         } catch (Exception $e) {
             // We got an exception == table not found
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ' /* . $e */, OCP\Util::ERROR);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Login error. ', OCP\Util::ERROR);
             return false;
         }
     }
@@ -120,7 +120,7 @@ class OC_RoundCube_AuthHelper
             return true;
         } catch (Exception $e) {
             // We got an exception == table not found
-            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Logout/Session cleaning causing errors.' /* . $e */, OCP\Util::DEBUG);
+            OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->logout(): Logout/Session cleaning causing errors.', OCP\Util::DEBUG);
             return false;
         }
     }
