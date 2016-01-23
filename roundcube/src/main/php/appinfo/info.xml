@@ -12,6 +12,10 @@
 		The app needs the bookmarks
 		application to be enabled.
 	</description>
+	
+	<dependencies>
+    	<owncloud min-version="5" max-version="8.0"/>
+	</dependencies>
 
 	<documentation>
 		<admin>https://github.com/hypery2k/owncloud/wiki/Installation#roundcube</admin>
