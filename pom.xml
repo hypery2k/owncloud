@@ -163,7 +163,7 @@
 		<!-- testing dependency versions -->
 		<phpunit5.version>3.6.3</phpunit5.version>
 		<junit.version>4.11</junit.version>
-		<serenity.version>1.1.24</serenity.version>
+		<serenity.version>1.1.26</serenity.version>
 		<greenmail.version>1.3.1b</greenmail.version>
 		<javax-mail.version>1.5.0</javax-mail.version>
 		<hamcrest-library.version>1.1</hamcrest-library.version>
