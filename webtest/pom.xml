@@ -23,7 +23,7 @@
 					<prefix>owncloud_app_testing</prefix>
 					<skip>${docker.skip}</skip>
 					<!-- (optional) remove images created by Dockerfile (default true) -->
-					<removeIntermediateImages>true</removeIntermediateImages>        <!-- (optional) do/do not cache images (default false), disable to get the 
+					<removeIntermediateImages>true</removeIntermediateImages>        <!-- (optional) do/do not cache images (default false), disable to get the
 						freshest images -->
 					<cache>false</cache>
 				</configuration>
@@ -82,22 +82,22 @@
 				</executions>
 			</plugin>
 			<plugin>
-                <groupId>net.serenity-bdd.maven.plugins</groupId>
-                <artifactId>serenity-maven-plugin</artifactId>
+        <groupId>net.serenity-bdd.maven.plugins</groupId>
+        <artifactId>serenity-maven-plugin</artifactId>
 				<version>${serenity.version}</version>
 				<configuration>
 					<skip>${skipTests}</skip>
 					<argLine>-Xmx1024m</argLine>
-                    <outputDirectory>${basedir}/target/site/serenity/</outputDirectory>
-                    <sourceDirectory>${basedir}/target/site/serenity/</sourceDirectory>
+          <outputDirectory>${basedir}/target/site/serenity/</outputDirectory>
+          <sourceDirectory>${basedir}/target/site/serenity/</sourceDirectory>
 				</configuration>
-                <dependencies>
-                     <dependency>
-                        <groupId>net.serenity-bdd</groupId>
-                        <artifactId>serenity-core</artifactId>
-                        <version>${serenity.version}</version>
-                    </dependency>
-                </dependencies>
+        <dependencies>
+             <dependency>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-core</artifactId>
+                <version>${serenity.version}</version>
+            </dependency>
+        </dependencies>
 				<executions>
 					<execution>
 						<id>serenity-reports</id>
@@ -114,8 +114,8 @@
 				<configuration>
 					<reportPlugins>
 						<plugin>
-                            <groupId>net.serenity-bdd.maven.plugins</groupId>
-                            <artifactId>serenity-maven-plugin</artifactId>
+              <groupId>net.serenity-bdd.maven.plugins</groupId>
+              <artifactId>serenity-maven-plugin</artifactId>
 							<version>${serenity.version}</version>
 						</plugin>
 					</reportPlugins>
