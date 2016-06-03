@@ -14,7 +14,7 @@
 	</description>
 	
 	<dependencies>
-    	<owncloud min-version="5" max-version="8.0"/>
+    	<owncloud min-version="5"/>
 	</dependencies>
 
 	<documentation>

@@ -22,7 +22,7 @@ Roundcube.userSettingsUI = function() {
     if (password != '' && user != '') {
       $('#rc_usermail_update_message').show();
       // Serialize the data
-      var post = $("#roundcube").serialize();
+      var post = $("form#roundcube").serialize();
       // Ajax foo
       $.post(OC.filePath('roundcube', 'ajax', 'userSettings.php'), post, function(data) {
         if (data.status == 'success') {
