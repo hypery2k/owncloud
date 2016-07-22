@@ -4,8 +4,9 @@
 
 # Apps for owncloud
 
-[![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_smoke_tests)](https://martinreinhardt-online.de/jenkins/view/BMP_OwnCloud/job/OwnCloud_smoke_tests/)
- [![Join the chat at https://gitter.im/hypery2k/owncloud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hypery2k/owncloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Bountysource](https://www.bountysource.com/badge/team?team_id=59276&style=bounties_posted)](https://www.bountysource.com/teams/hypery2k-owncloud/bounties?utm_source=owncloud&utm_medium=shield&utm_campaign=bounties_posted) [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=mreinhardt&url=https://github.com/hypery2k/owncloud&title=badges&language=&tags=github&category=software)
+[![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=owncloud/OwnCloud_smoke_tests)](https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_smoke_tests/)
+ [![Join the chat at https://gitter.im/hypery2k/owncloud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hypery2k/owncloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+ [![Bountysource](https://www.bountysource.com/badge/team?team_id=59276&style=bounties_posted)](https://www.bountysource.com/teams/hypery2k-owncloud/bounties?utm_source=owncloud&utm_medium=shield&utm_campaign=bounties_posted) [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=mreinhardt&url=https://github.com/hypery2k/owncloud&title=badges&language=&tags=github&category=software)
 
 > In this repo you'll find apps and enhancements for owncloud.
 
@@ -14,7 +15,7 @@ Feel free to donate
 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif"/>
 </img></a>
 
-> Nightly build status:  [![Build Status](https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=OwnCloud_nightly)](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/)
+> Nightly build status:  [!https://martinreinhardt-online.de/jenkins/buildStatus/icon?job=owncloud/OwnCloud_nightly!|https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_nightly/]
 
 
 
@@ -33,9 +34,9 @@ Feel free to donate
 ## Development
 
 see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
-A Maven-Site is also [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/site/).
+A Maven-Site is also [available](https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_nightly/site/).
 
-Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
+Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
 
 License
 ------------
@@ -48,7 +49,7 @@ Work under main configurations: oc 7 & rc 1.1.0 or oc 8 & rc 1.2.0, both with my
 
 ### Nightly Builds
 
-Nightly builds are [available here](https://martinreinhardt-online.de/jenkins/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
+Nightly builds are [available here](https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
 Please use stable buils below:
 
 ### Stable builds:
