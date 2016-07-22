@@ -66,6 +66,11 @@
 					<artifactId>docker-maven-plugin</artifactId>
 					<version>${docker-maven-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>${frontend-maven-plugin.version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -156,9 +161,9 @@
 		<!-- Web properties -->
 		<maven-php.version>2.0.20-SNAPSHOT</maven-php.version>
 		<maven-jstools-plugin.version>0.6</maven-jstools-plugin.version>
-		<frontend-maven-plugin.version>0.0.15</frontend-maven-plugin.version>
-		<node.version>v0.12.7</node.version>
-        	<npm.version>1.3.8</npm.version>
+		<frontend-maven-plugin.version>0.0.19</frontend-maven-plugin.version>
+		<node.version>v4.4.7</node.version>
+    <npm.version>3.9.5</npm.version>
 
 		<!-- testing dependency versions -->
 		<phpunit5.version>3.6.3</phpunit5.version>
