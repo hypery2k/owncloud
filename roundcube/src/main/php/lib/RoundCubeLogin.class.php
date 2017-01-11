@@ -340,7 +340,7 @@ class OC_RoundCube_Login
         // Send request and maybe receive new session ID
         $response = $this->sendRequest();
         // Request token (since Roundcube 0.5.1)
-        if (preg_match('/"request_token":"([^"]+)",/mi', $response, $m)) {
+        if (preg_match('/"request_token":"([^"]+)"/mi', $response, $m)) {
             $this->lastToken = $m[1];
         }
         if (preg_match('/<input.+name="_token".+value="([^"]+)"/mi', $response, $m)) {
