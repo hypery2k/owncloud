@@ -37,22 +37,28 @@ OCP\App::addNavigationEntry(array(
 
 OCP\App::registerPersonal('storagecharts2', 'settings');
 
+// workaround to detect OC version
+$ocVersion = @reset(OCP\Util::getVersion());
+    
 // Get storage value for logged in user
-$data_dir = OCP\Config::getSystemValue('datadirectory', '');
+if ($ocVersion < 7) {
+    $data_dir = OCP\Config::getSystemValue('datadirectory', '');
+} else {
+    $config = \OC::$server->getConfig(); 
+    $data_dir = $config->getSystemValue('datadirectory','');
+}
+
 if (OCP\User::getUser() && strlen($data_dir) != 0) {
     $fs = OCP\Files::getStorage('files');
-    
-    // workaround to detect OC version
-    $ocVersion = @reset(OCP\Util::getVersion());
-    
-    // OC 5
-    if ($ocVersion < 6) {
+
+    // OC 5 and maybe 6? TODO revise if oc 6 can use server-getconfig
+    if ($ocVersion < 7) {
         OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud 5', OCP\Util::DEBUG);
         $used = OC_DLStCharts::getTotalDataSize(OC::$CONFIG_DATADIRECTORY);
-        // OC 6 or greater
+    // OC 7 or greater
     } else {
-        $datadir = OC_Config::getValue('datadirectory') .'/'.OCP\User::getUser();
-        OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud ' . $ocVersion, OCP\Util::DEBUG);
+        $datadir = $config->getSystemValue('datadirectory') .'/'.OCP\User::getUser();
+        OCP\Util::writeLog('storagecharts2', 'Running on OwnCloud > 6' . $ocVersion, OCP\Util::DEBUG);
         $used = OC_DLStCharts::getTotalDataSize($datadir);
     }
 
