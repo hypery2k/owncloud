@@ -144,10 +144,27 @@ class OC_RoundCube_App
      */
     public static function generateKeyPair($user, $passphrase)
     {
+        /* Retrieve openssl.cnf default location */
+        $cert_locations = openssl_get_cert_locations();
+        $opensslcnf = $cert_locations["default_default_cert_area"]."/openssl.cnf";
+
+        /* Check if the openssl.cnf file exists */
+        if (! file_exists ( $opensslcnf )) {
+          OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->generateKeyPair(): File '.$opensslcnf.' doesn\'t exist. Setting private_key_bits=2048', OCP\Util::ERROR);
+          /* Set a default private key length (>384) */
+          $config = array( "private_key_bits" => 2048 );
+        }
+	else
+	{
+	   // TODO get private key bits lengh from OC config! if a openssl.cnf file does not property installed ( unix /opt)
+	}
         /* Create the private and public key */
-        $res = openssl_pkey_new();
+        $res = openssl_pkey_new($config);
+        if (! $res) {
+          OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->generateKeyPair(): Creating the private and public key failed', OCP\Util::ERROR);
+        }
         /* Extract the private key from $res to $privKey */
-        if (! openssl_pkey_export($res, $privKey, $passphrase)) {
+        if (! openssl_pkey_export($res, $privKey, $passphrase, $config)) {
             return false;
         }
         /* Extract the public key from $res to $pubKey */
