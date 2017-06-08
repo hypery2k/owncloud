@@ -1,6 +1,6 @@
 # App development discontinoued 
 
-> **I quit the  development of OwnCloud apps Sorry to say, if anybody wants to take over the project, feel free to take over.**
+> **I quit the  development of OwnCloud apps Sorry to say, if anybody wants to take over the project, feel free to take over.** for coding contribution please see the "Development" section of this document.
 
 # Apps for owncloud
 
@@ -33,8 +33,36 @@ Feel free to donate
 
 ## Development
 
-see [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
+See [Wiki](https://github.com/hypery2k/owncloud/wiki/Development-Setup) for details about the setup for development.
 A Maven-Site is also [available](https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_nightly/site/).
+
+Please take in consideration backport to older version of OC and a compatibility layer with nextcloud as new enhancements.
+
+### Contribute coding using interface of github ##
+Submitting improved code fixes and enhancements is easy:
+
+1. Log in to GitHub
+
+2. Fork the Repository
+  * https://github.com/hypery2k/owncloud
+  * Click "Fork" and you'll have your very own copy of the repository plugin source code at http://github.com/{your-username}/owncloud
+
+3. Edit files within your fork.
+  This can be done directly on GitHub.com at http://github.com/{your-username}/owncloud
+
+4. Submit a Pull Request (tell in a issue/pull explicit details about your changes)
+  * Click "Pull Prequest"
+  * Enter a Message details that will go with your commit to be reviewed by others
+  * Click “Send Pull Request”
+
+#### Multiple Pull Requests and Edits ###
+When submitting pull requests, it is extremely helpful to isolate the changes you want included from other unrelated changes you may have made to your fork of plugin repository. The easiest way to accomplish this is to use a different branch for each pull request. The github interface when submit the pull request will ask for that. There are a number of ways to create branches within your fork, but GitHub makes the process very easy:
+
+1. Start by finding the file you want to edit in Typesetter's code repository at https://github.com/hypery2k/owncloud.
+2. Once you have located the file, navigate to the code view and click "Edit". For example, if you want to change the xxxx.php file, the "Edit" button would appear on this page: https://github.com/hypery2k/owncloud/blob/master/xxxx.php
+3. Now, edit the file as you like then click "Propose File Change"
+
+**NOTE** here we use the "xxx" file as example, but this not exist in the plugin repository
 
 Nightly Builds are [available](https://martinreinhardt-online.de/jenkins/job/owncloud/job/OwnCloud_nightly/). See the download last successfull artifacts in the middle of the screen.
 
