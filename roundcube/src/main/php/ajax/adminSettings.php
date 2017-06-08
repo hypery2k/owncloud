@@ -9,13 +9,13 @@ OCP\User::checkAdminUser();
 OCP\JSON::callCheck();
 
 // workaround to detect OC version and compatibility for OC and nextcloud
-$ocVersion = @reset(OCP\Util::getVersion());
+$ocVersion = OCP\Util::getVersion();
 
 
 if ($ocVersion < 9) {
 	$l = new OC_L10N('roundcube');
 } else {
-	$l = OC::$server->getL10N('roundcube')
+	$l = OC::$server->getL10N('roundcube');
 }
 
 $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify', 'enableDebug', 'rcHost', 'rcPort', 'rcInternalAddress', 'rcRefreshInterval');

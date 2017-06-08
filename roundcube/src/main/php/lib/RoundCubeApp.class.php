@@ -40,7 +40,7 @@ class OC_RoundCube_App
     private $path = '';
 
     // workaround to detect OC version and compatibility for OC and nextcloud
-    private $ocVersion = @reset(OCP\Util::getVersion());
+    private $ocVersion = OCP\Util::getVersion;
 
 
     /**
@@ -555,7 +555,7 @@ class OC_RoundCube_App
         if ($ocVersion < 9) {
             $l = new OC_L10N('roundcube');
         } else {
-            $l = OC::$server->getL10N('roundcube')
+            $l = OC::$server->getL10N('roundcube');
         }
 
         if (isset($appName) && $appName == "roundcube") {
