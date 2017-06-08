@@ -8,7 +8,15 @@ OCP\User::checkAdminUser();
 // CSRF checks
 OCP\JSON::callCheck();
 
-$l = new OC_L10N('roundcube');
+// workaround to detect OC version and compatibility for OC and nextcloud
+$ocVersion = @reset(OCP\Util::getVersion());
+
+
+if ($ocVersion < 9) {
+	$l = new OC_L10N('roundcube');
+} else {
+	$l = OC::$server->getL10N('roundcube')
+}
 
 $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify', 'enableDebug', 'rcHost', 'rcPort', 'rcInternalAddress', 'rcRefreshInterval');
 
@@ -56,7 +64,11 @@ if (isset($_POST['appname']) && $_POST['appname'] == "roundcube") {
 			} else if ($param == 'rcRefreshInterval') {
 				$refresh = trim($_POST[$param]);
 				if ($refresh == '') {
-					OC_Appconfig::deleteKey('roundcube', $param);
+					if ($ocVersion < 9) {
+						OC_Appconfig::deleteKey('roundcube', $param);
+					} else {
+						\OCP\Util::connectHook('OC_Appconfig', 'deleteKey', 'roundcube', $param);
+					}
 				} else if (!is_numeric($refresh)) {
 					OC_JSON::error(array(
 					"data" => array(

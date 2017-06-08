@@ -20,7 +20,15 @@
  *
  */
 
-$l = new OC_L10N('roundcube');
+// workaround to detect OC version and compatibility for OC and nextcloud
+$ocVersion = @reset(OCP\Util::getVersion());
+
+if ($ocVersion < 9) {
+	$l = new OC_L10N('roundcube');
+} else {
+	$l = OC::$server->getL10N('roundcube')
+}
+
 OC::$CLASSPATH['OC_Mail_NetworkingException'] = OC_App::getAppPath('roundcube') . '/lib/MailNetworkingException.class.php';
 OC::$CLASSPATH['OC_Mail_LoginException'] = OC_App::getAppPath('roundcube') . '/lib/MailLoginException.class.php';
 OC::$CLASSPATH['OC_Mail_RC_InstallNotFoundException'] = OC_App::getAppPath('roundcube') . '/lib/MailRoundCubeNotFoundException.class.php';

@@ -39,6 +39,10 @@ class OC_RoundCube_App
 
     private $path = '';
 
+    // workaround to detect OC version and compatibility for OC and nextcloud
+    private $ocVersion = @reset(OCP\Util::getVersion());
+
+
     /**
      * Write to the PHP session
      *
@@ -548,8 +552,12 @@ class OC_RoundCube_App
 
     public static function saveUserSettings($appName, $ocUser, $rcUser, $rcPassword)
     {
-        $l = new OC_L10N('roundcube');
-        
+        if ($ocVersion < 9) {
+            $l = new OC_L10N('roundcube');
+        } else {
+            $l = OC::$server->getL10N('roundcube')
+        }
+
         if (isset($appName) && $appName == "roundcube") {
             $result = self::cryptEmailIdentity($ocUser, $rcUser, $rcPassword, true);
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_App.class.php->saveUserSettings(): Starting saving new users data for ' . $ocUser . ' as roundcube user ' . $rcUser, OCP\Util::DEBUG);
