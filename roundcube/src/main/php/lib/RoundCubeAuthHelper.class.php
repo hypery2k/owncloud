@@ -47,7 +47,7 @@ class OC_RoundCube_AuthHelper
      * @param $params userdata            
      * @return true if login was succesfull otherwise false
      */
-    public static function login($params)
+    public static function login($params, $optionalparams = null)
     {
         $via = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
         if (preg_match('#(/ocs/v1.php|'.
@@ -58,9 +58,20 @@ class OC_RoundCube_AuthHelper
         }
         OCP\App::checkAppEnabled('roundcube');
         try {
-            $username = $params['uid'];
-            $password = $params['password'];
-            
+            if (is_array($params) )
+            {
+                $username = $params['uid'];
+                if (array_key_exists('password', $params))
+                    $password = $params['password'];
+                else
+                    $password = $optionalparams;
+            }
+            else
+            {
+                $username = $params;
+                $password = $optionalparams;
+            }
+            // TODO : here are an error when admin change settings.. roundcube logout and then can login..
             OCP\Util::writeLog('roundcube', 'OC_RoundCube_AuthHelper.class.php->login(): Preparing login of roundcube user "' . $username . '"', OCP\Util::DEBUG);
             
             $maildir = OCP\Config::getAppValue('roundcube', 'maildir', '');
