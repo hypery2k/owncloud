@@ -11,8 +11,7 @@ OCP\JSON::callCheck();
 // workaround to detect OC version and compatibility for OC and nextcloud
 $ocVersion = OCP\Util::getVersion();
 
-
-if ($ocVersion < 9) {
+if ($ocVersion[0] < 9) {
 	$l = new OC_L10N('roundcube');
 } else {
 	$l = OC::$server->getL10N('roundcube');

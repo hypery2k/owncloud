@@ -21,12 +21,13 @@
  */
 
 // workaround to detect OC version and compatibility for OC and nextcloud
-$ocVersion = @reset(OCP\Util::getVersion());
 
-if ($ocVersion < 9) {
+$ocVersion = implode('.',OCP\Util::getVersion());
+if (version_compare($ocVersion,'7.9.9','<')) // OC-8.0
+{
 	$l = new OC_L10N('roundcube');
 } else {
-	$l = OC::$server->getL10N('roundcube');
+	$l = OC::$server->getL10N('roundcube'); // public api said since 6 but its not sure. so only for 8+
 }
 
 OC::$CLASSPATH['OC_Mail_NetworkingException'] = OC_App::getAppPath('roundcube') . '/lib/MailNetworkingException.class.php';

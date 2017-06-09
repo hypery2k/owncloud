@@ -571,10 +571,10 @@ class OC_RoundCube_App
 
     public static function saveUserSettings($appName, $ocUser, $rcUser, $rcPassword)
     {
-        if ($ocVersion < 9) {
+        if ($ocVersion[0] < 9) {
             $l = new OC_L10N('roundcube');
         } else {
-            $l = OC::$server->getL10N('roundcube');
+            $l = OC::$server->getL10N('roundcube'); // public api said since 6.0 but i'm not sure due oc developer are a liar
         }
 
         if (isset($appName) && $appName == "roundcube") {

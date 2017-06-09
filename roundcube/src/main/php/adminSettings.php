@@ -31,14 +31,14 @@ $params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', '
 
 
 // workaround to detect OC version
-$ocVersion = @reset(OCP\Util::getVersion());
+$ocVersion = OCP\Util::getVersion();
 // below OC7
-if ($ocVersion < 7) {
+if ($ocVersion[0] < 7) {
 	OCP\Util::addScript('roundcube', 'adminSettings.oc6');
 	$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings.oc6');
 } else {
 	// OC7.x
-	if ($ocVersion < 8) {
+	if ($ocVersion[0] < 8) {
 		OCP\Util::addScript('roundcube', 'adminSettings.oc7');
 		$tmpl = new OCP\Template('roundcube', 'tpl.adminSettings.oc7');
 	} else {
